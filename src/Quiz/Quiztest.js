@@ -8,6 +8,8 @@ import quizwedding from '../Datajson/weddingdata.json';
 import quizfamily from '../Datajson/familydata.json';
 import quizprofile from '../Datajson/profiledata.json';
 
+import styled from "styled-components";
+
 const getQuizbody = () => {
     return quizbody;
 };
@@ -28,7 +30,38 @@ const getQuizprofile = () => {
 };
 
 
-const QuizTest3 = () => {
+
+
+
+const QuizTest = () => {
+
+    const OutWrap = styled.div`
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+`;
+
+    const InsideWrap = styled.div`
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 50px;
+    `;
+
+    const Img = styled.img`
+        width: 567px;
+        height: 790px;
+        margin-right: 50px;
+    `;
+
+
+
+
     const location = useLocation();
     const params = new URLSearchParams(location.search);
     const categoryName = params.get('name');
@@ -86,25 +119,24 @@ const QuizTest3 = () => {
         }
         
     return (
-        <div style={{ width: '100%', height: '100%', position: 'relative', background: 'white', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 50 }}>
+        <OutWrap>
+            <InsideWrap>
                 <ul>
                     {questions[num].options.map((option, index) => (
-                        <img
+                        <Img
                             key={index}
-                            style={{ width: 567, height: 790, marginRight: 50 }}
                             src={option.img}
                             alt={`Option ${index + 1}`}
                             onClick={() => handleAnswer(option)}
                         />
                     ))}
                 </ul>
-            </div>
-        </div>
+            </InsideWrap>
+        </OutWrap>
     
 
 
     );
 };
 
-export default QuizTest3;
+export default QuizTest;

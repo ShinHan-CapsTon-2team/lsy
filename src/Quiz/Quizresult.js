@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import pic1 from '../Images/image 7.png'
 import pic2 from    '../Images/image 8.png'
+import styled from "styled-components";
 
 const Quizresult  = () => {
     const location = useLocation();
@@ -23,18 +24,72 @@ const Quizresult  = () => {
         navigate('/photoup');
     };
 
+    const OutWrap = styled.div`
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+`;
+
+    const InsideWrap = styled.div`
+        text-align: center;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-top: 50px; 
+    `;
+
+    const OneImg = styled.img`
+        width: 398px;
+        height: 492px;
+        opacity: 0.90;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 31px;
+        border: 4px #3A76EF solid;
+        margin-left: ${({ isMargin }) => (isMargin ? '20px' : 0)};
+        margin-right: ${({ isMargin }) => (isMargin ? '20px' : 0)};
+    `;
+
+    const InsideNextWrap = styled.div`
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+    `;
+
+    const TwoImgone = styled.img`
+        width: 347.14px;
+        height: 82px;
+        padding: 25px;
+    `;
+
+    const TwoImgtwo = styled.img`
+        width: 370px;
+        height: 82px;
+        padding: 25px;
+    `;
+    
+    //const Margin = styled.img`
+      //  margin-lef:20px;
+        //margin-right:20px;
+    //`;
+
+
     return (
-        <div style={{ width: '100%', height: '100%', position: 'relative', background: 'white', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-            <div style={{ textAlign: 'center', display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginTop: 50 }}>
-                <img style={{ width: 398, height: 492, opacity: 0.90, boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)', borderRadius: 31, border: '4px #3A76EF solid' }} src="https://via.placeholder.com/378x482" />
-                <img style={{ width: 398, height: 492, opacity: 0.90, boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)', borderRadius: 31, border: '4px #3A76EF solid' ,marginLeft:20,marginRight:20}} src="https://via.placeholder.com/378x482" />
-                <img style={{ width: 398, height: 492, opacity: 0.90, boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)', borderRadius: 31, border: '4px #3A76EF solid' }} src="https://via.placeholder.com/378x482" />
-            </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 20 }}>
-                <img style={{ width: 347.14, height: 82 ,padding:25}} src={pic1} onClick={handleGoHomeClick} />
-                <img style={{ width: 370, height: 82 ,padding:25}} src={pic2} onClick={handleGoUploadClick}/>
-            </div>
-        </div>
+        <OutWrap>
+            <InsideWrap>
+                <OneImg src="https://via.placeholder.com/378x482" />
+                <OneImg src="https://via.placeholder.com/378x482" isMargin />
+                <OneImg src="https://via.placeholder.com/378x482" />
+            </InsideWrap>
+            <InsideNextWrap>
+                <TwoImgone src={pic1} onClick={handleGoHomeClick} />
+                <TwoImgtwo src={pic2} onClick={handleGoUploadClick}/>
+            </InsideNextWrap>
+        </OutWrap>
     );
 };
 
