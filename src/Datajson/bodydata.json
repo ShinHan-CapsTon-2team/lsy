@@ -4,11 +4,11 @@
         "options": [
             {
                 "type":"a",
-                "img":".././Images/image34.png"
+                "img":"image34.png"
             },
             {
                 "type":"b",
-                "img":".././Images/image35.png"
+                "img":"image35.png"
             }
         ]
         },
@@ -17,11 +17,11 @@
             "options": [
                 {
                     "type":"a",
-                    "img":".././Images/image36.png"
+                    "img":"image36.png"
                 },
                 {
                     "type":"b",
-                    "img":".././Images/image37.png"
+                    "img":"image37.png"
                 }
             ]
     },
@@ -31,11 +31,11 @@
         "options": [
             {
                 "type":"a",
-                "img":".././Images/image38.png"
+                "img":"image38.png"
             },
             {
                 "type":"b",
-                "img":".././Images/image39.png"
+                "img":"image39.png"
             }
         ]
     }

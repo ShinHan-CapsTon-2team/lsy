@@ -55,7 +55,7 @@ const QuizTest = () => {
 
     const Img = styled.img`
         width: 567px;
-        height: 790px;
+        height: 670px;
         margin-right: 50px;
     `;
 
@@ -125,7 +125,7 @@ const QuizTest = () => {
                     {questions[num].options.map((option, index) => (
                         <Img
                             key={index}
-                            src={option.img}
+                            src={`${process.env.PUBLIC_URL}/Images/${option.img}`}
                             alt={`Option ${index + 1}`}
                             onClick={() => handleAnswer(option)}
                         />

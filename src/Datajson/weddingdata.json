@@ -4,11 +4,11 @@
         "options": [
             {
                 "type":"a",
-                "img":".././Images/wedding1.png"
+                "img":"wedding1.png"
             },
             {
                 "type":"b",
-                "img":".././Images/wedding2.png"
+                "img":"wedding2.png"
             }
         ]
         },
@@ -17,11 +17,11 @@
             "options": [
                 {
                     "type":"a",
-                    "img":".././Images/wedding3.png"
+                    "img":"wedding3.png"
                 },
                 {
                     "type":"b",
-                    "img":".././Images/wedding4.png"
+                    "img":"wedding4.png"
                 }
             ]
     },
@@ -31,11 +31,11 @@
         "options": [
             {
                 "type":"a",
-                "img":".././Images/wedding5.png"
+                "img":"wedding5.png"
             },
             {
                 "type":"b",
-                "img":".././Images/wedding6.png"
+                "img":"wedding6.png"
             }
         ]
     }

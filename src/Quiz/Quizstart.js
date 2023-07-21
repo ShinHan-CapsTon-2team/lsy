@@ -5,7 +5,6 @@ import selPet from '../Images/image 23.png'
 import selWedding from '../Images/image 24.png'
 import selProfile from '../Images/image 25.png'
 import selFamily from '../Images/image 26.png'
-
 import styled from "styled-components";
 
 import { useNavigate } from 'react-router-dom';
