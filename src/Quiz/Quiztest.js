@@ -50,7 +50,7 @@ const QuizTest = () => {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-top: 50px;
+        margin-top: 25px;
     `;
 
     const Img = styled.img`
