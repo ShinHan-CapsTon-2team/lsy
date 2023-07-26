@@ -9,16 +9,16 @@ import QuizReult from './Quiz/Quizresult'
 import Post from './PostUp/Post'
 import Home from './Home/homepage.js'
 import Reco from './PostUp/recommend.js'
-import Lookup from './Lookup/Look_up.js' // 조회
+import Lookup from './Lookup/Images_Lookup.js' // 조회
 
 function Routing() {
   return (
-      <div classNamer="App">
+      <div className="App">
         <BrowserRouter>
           <Routes>
             <Route path='/' element={<Landing />}/>
 
-            <Route path ='/photoup' element={<Post />}/>
+            <Route path ='/post' element={<Post />}/>
             
             <Route path ='/quizindex' element={<QuizSelIndex />}/>
             <Route path ='/quiztest' element={<QuizSelPhoto />}/>
@@ -27,7 +27,7 @@ function Routing() {
             <Route path ='/quizresult' element={<QuizReult />}/>
 
             <Route path ='/home' element={<Home />}/>
-            <Route path ='/lookup' element={<Lookup/>}/>
+            <Route path ='/lookup/:id' element={<Lookup/>}/>
 
 
           </Routes>
