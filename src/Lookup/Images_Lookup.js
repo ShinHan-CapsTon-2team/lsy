@@ -18,14 +18,15 @@ const Images_Lookup = () => {
     console.log('id:',id);
 
     // API로부터 받아온 데이터를 저장할 상태 변수
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState([]);
+    const [loading, setLoading] = useState(true);
     
     useEffect(() => {
         function getUserList() {
           let reqOption = {
             method: 'get',
             headers: {
-            //   'content-type': 'application/json; charset=utf-8',
+               //'content-type': 'application/json; charset=utf-8',
                 'Accept': 'application/json',
             },
           };
@@ -36,18 +37,18 @@ const Images_Lookup = () => {
                 console.log(data);
                 setUser(data);
                 console.log('설명',data.description)
-                
+                setLoading(false); // 데이터를 가져왔으므로 로딩 상태를 false로 설정
               
             })
             .catch((error) => {
               console.error('Error fetching data:', error);
+              setLoading(false); 
             });
         }
     
         getUserList();
       }, [id]);
 
-      
     /*
     //정보가져오기
     function getUserList () {
@@ -154,10 +155,15 @@ const Images_Lookup = () => {
     }, [idx]);
     
     */
-    if (!user) {
-        return <div>Loading...</div>;
-      }
+    //if (!user) {
+      //  return <div>Loading...</div>;
+      //}
     //console.log('설명',user.description)
+    
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
     
     return (
         
@@ -173,13 +179,16 @@ const Images_Lookup = () => {
                 // 이미지 경로 전처리 및 인코딩
                 //let imageUrl = `../../../post-server/${uu.image_url.replace(/\\/g, '/')}`; //수정 필요 
                 //let encodedImageUrl = encodeURI(imageUrl);
-                const imageUrl = uu.image_url
-                const encodedImageUrl = encodeURIComponent(imageUrl);
-                console.log("url:",encodedImageUrl);
+                //const imageUrl = uu.image_url
+                //const encodedImageUrl = encodeURIComponent(imageUrl);
+                
+                //const imageUrl = decodeURIComponent(uu.image_url); // 이미지 URL 디코딩
+                //console.log("url:",imageUrl);
+                const imageUrl = uu.image_url; // 이미지 URL 사용
+                console.log("url:", imageUrl);
+                
                 return(
-
-                    
-                        <div style={{ display: 'flex',marginRight:40 }}>
+                        <div  key={uu.id} style={{ display: 'flex',marginRight:40 }}>
                             <div style={{ width:1102 }}>
 
                                 <div style={{  height: 'auto', opacity: 0.90, background: 'white', borderRadius: 31, border: '3px #3A76EF solid', padding: '20px', wordWrap: 'break-word'}}>
@@ -187,6 +196,8 @@ const Images_Lookup = () => {
                                         <div style={{ color: 'black', fontSize: 40, fontFamily: 'Inter', fontWeight: '400', paddingLeft: '20px', paddingRight: '20px' }}>{uu.title || 'None'}</div>
                                     </div>
                                 </div>
+
+
             
                                 <div style={{ height: 'auto', opacity: 0.90, background: 'white', borderRadius: 31, border: '3px #3A76EF solid', marginTop: 20, marginBottom: 10, padding: '20px', wordWrap: 'break-word' }}>
                                     {/* 추가된 부분 시작 */}
@@ -199,7 +210,7 @@ const Images_Lookup = () => {
         
                                 <div style={{  height: 'auto', opacity: 0.90, background: 'white', boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)', borderRadius: 31, border: '3px #3A76EF solid',padding: '20px' }}>
                                     <div >
-                                        <img style={{ width: '100%', height: '100%', objectFit: 'cover',marginBottom:30 }} src={encodedImageUrl} alt='이미지' />
+                                        <img style={{ width: '100%', height: '100%', objectFit: 'cover',marginBottom:30 }} src={imageUrl} alt='이미지' />
                                     </div>
                                     <div style={{  borderRadius: 31 }}>
                                         <div style={{ color: 'black', fontSize: 40, fontFamily: 'Inter', fontWeight: '400', paddingLeft: '20px', paddingRight: '20px' }}>{uu.description || 'None'}</div>
