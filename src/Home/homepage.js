@@ -1,35 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+//import React, { useState, useEffect } from 'react';
+//import { Link, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 import logo from '../Images/imagelogo.png';
-import family from '../Images/image 9.png';
+import family from '../Images/image 13.png';
 import pet from '../Images/image 10.png';
-import profile from '../Images/image 11.png';
-import wedding from '../Images/image 12.png';
-import body from '../Images/image 13.png';
-
+import profile from '../Images/image 12.png';
+import wedding from '../Images/image 11.png';
+import body from '../Images/image 9.png';
 import styled from "styled-components";
 
-const Homepage = () => {
-  const [currentPage, setCurrentPage] = useState('');
-
-  const location = useLocation();
-
-  useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    const category = params.get('category');
-    setCurrentPage(category);
-  }, [location.search]);
-
-  const handleCategoryClick = (category) => {
-    const searchParams = new URLSearchParams();
-    searchParams.set('category', category);
-    const search = searchParams.toString();
-    window.location.href = `/?${search}`; // 수정
-  };
-
-
-  const OutWrap = styled.div`
+const OutWrap = styled.div`
       width: 100%;
       height: 100%;
       position: relative;
@@ -85,74 +68,81 @@ const Homepage = () => {
       height: 100%;
       object-fit: cover;
   `;
+
+const Homepage = () => {
+  const navigate = useNavigate();
+
+  const handleGohomeClick = () => {
+    navigate('/home');
+};
+
+  
+  const handleCategorySelect = (category) => {
+    const queryString = new URLSearchParams({ name: category }).toString();
+    navigate(`/home?${queryString}`);
+};
+
+    const handleGridImageClick = (id) => {
+    const queryString = new URLSearchParams({ id }).toString();
+    navigate(`/lookup?${queryString}`);
+};
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  
+  const offset = searchParams.get('offset');
+  const limit = searchParams.get('limit');
+  const [posts, setPosts] = useState([]);
+
+    useEffect(() => {
+    //  fetch(`http://localhost:4000/home?_limit=${limit}&_start=${offset}`, { method : "GET" })
+    //    .then((response) => response.json())
+    //    .then((result) => setPosts(result))
+    //    .catch((error) => console.error('Error fetching image posts:', error));
+
+    fetch(`http://localhost:4000/home?_limit=${limit}&_start=${offset}`, { method: "GET" })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then((result) => setPosts(result))
+    .catch((error) => console.error('Error fetching image posts:', error));
+
+    }, [offset, limit]);
+   
+    const movePage = (pageNumber) => {
+      // 1
+      searchParams.set('offset', (pageNumber - 1) * 10);
+      setSearchParams(searchParams);
+    };
   
 
   return (
     <OutWrap>
       <InsideWrap>
-        <Logo src={logo} alt=''/>
+        <Logo src={logo} alt='' onClick={handleGohomeClick}/>
         <CategoryWrap>
-          <CategoryImg
-              className={`category-image ${currentPage === 'family' ? 'active' : ''}`}
-              src={currentPage === 'family' ? family : family}
-              alt="Family"
-              onClick={() => handleCategoryClick('family')}
-            />
-          <CategoryImg
-            className={`category-image ${currentPage === 'pet' ? 'active' : ''}`}
-            src={currentPage === 'pet' ? pet : pet}
-            alt="Pet"
-            onClick={() => handleCategoryClick('pet')}
-          />
-          <CategoryImg
-            className={`category-image ${currentPage === 'profile' ? 'active' : ''}`}
-            src={currentPage === 'profile' ? profile : profile}
-            alt="Profile"
-            onClick={() => handleCategoryClick('profile')}
-          />
-          <CategoryImg
-            className={`category-image ${currentPage === 'wedding' ? 'active' : ''}`}
-            src={currentPage === 'wedding' ? wedding : wedding}
-            alt="Wedding"
-            onClick={() => handleCategoryClick('wedding')}
-          />
-          <CategoryImg
-            className={`category-image ${currentPage === 'body' ? 'active' : ''}`}
-            src={currentPage === 'body' ? body : body}
-            alt="Body"
-            onClick={() => handleCategoryClick('body')}
-          />
+          <CategoryImg src={family} alt='' onClick={() => handleCategorySelect('family')} />
+        <CategoryImg src={pet} alt='' onClick={() => handleCategorySelect('pet')} /> 
+        <CategoryImg src={profile} alt='' onClick={() => handleCategorySelect('profile')} />
+        <CategoryImg src={wedding} alt='' onClick={() => handleCategorySelect('wedding')} />
+        <CategoryImg src={body} alt='' onClick={() => handleCategorySelect('body')} />
         </CategoryWrap>
+
         <GridWrap>
-          <GridDiv className="Rectangle1"> {/*수정해야함 */}
-            <GridImg src="https://i.namu.wiki/i/aRAQu813Cdn2FJ5Uo3bxqMPqxGnQX7qSHbGsQiiKBbzruZKKKXOjBmVQuietbkSvq54sGhe7RFKa16HqIsLyFQ.webp" alt="Image1" />
+        {posts.map(({ id, imageUrl }) => (
+          <GridDiv key={id} onClick={() => handleGridImageClick(id)}>
+            <GridImg src={imageUrl} alt='' />
           </GridDiv>
-          <GridDiv className="Rectangle2">
-            <GridImg src="https://i.namu.wiki/i/aRAQu813Cdn2FJ5Uo3bxqMPqxGnQX7qSHbGsQiiKBbzruZKKKXOjBmVQuietbkSvq54sGhe7RFKa16HqIsLyFQ.webp" alt="Image2" />
-          </GridDiv>
-          <GridDiv className="Rectangle3">
-            <GridImg src="https://i.namu.wiki/i/aRAQu813Cdn2FJ5Uo3bxqMPqxGnQX7qSHbGsQiiKBbzruZKKKXOjBmVQuietbkSvq54sGhe7RFKa16HqIsLyFQ.webp" alt="Image3" />
-          </GridDiv>
-          <GridDiv className="Rectangle1">
-            <GridImg src="https://i.namu.wiki/i/aRAQu813Cdn2FJ5Uo3bxqMPqxGnQX7qSHbGsQiiKBbzruZKKKXOjBmVQuietbkSvq54sGhe7RFKa16HqIsLyFQ.webp" alt="Image1" />
-          </GridDiv>
-          <GridDiv className="Rectangle2">
-            <GridImg src="https://i.namu.wiki/i/aRAQu813Cdn2FJ5Uo3bxqMPqxGnQX7qSHbGsQiiKBbzruZKKKXOjBmVQuietbkSvq54sGhe7RFKa16HqIsLyFQ.webp" alt="Image2" />
-          </GridDiv>
-          <GridDiv className="Rectangle3">
-            <GridImg src="https://i.namu.wiki/i/aRAQu813Cdn2FJ5Uo3bxqMPqxGnQX7qSHbGsQiiKBbzruZKKKXOjBmVQuietbkSvq54sGhe7RFKa16HqIsLyFQ.webp" alt="Image3" />
-          </GridDiv>
-          <GridDiv className="Rectangle1">
-            <GridImg src="https://i.namu.wiki/i/aRAQu813Cdn2FJ5Uo3bxqMPqxGnQX7qSHbGsQiiKBbzruZKKKXOjBmVQuietbkSvq54sGhe7RFKa16HqIsLyFQ.webp" alt="Image1" />
-          </GridDiv>
-          <GridDiv className="Rectangle2">
-            <GridImg src="https://i.namu.wiki/i/aRAQu813Cdn2FJ5Uo3bxqMPqxGnQX7qSHbGsQiiKBbzruZKKKXOjBmVQuietbkSvq54sGhe7RFKa16HqIsLyFQ.webp" alt="Image2" />
-          </GridDiv>
-          <GridDiv className="Rectangle3">
-            <GridImg src="https://i.namu.wiki/i/aRAQu813Cdn2FJ5Uo3bxqMPqxGnQX7qSHbGsQiiKBbzruZKKKXOjBmVQuietbkSvq54sGhe7RFKa16HqIsLyFQ.webp" alt="Image3" />
-          </GridDiv>
-          {/* Add more rectangles here for the rest of the grid */}
-        </GridWrap>
+        ))}
+      </GridWrap>
+
+      <div>
+        <button onClick={() => movePage(1)}>1</button>
+        <button onClick={() => movePage(2)}>2</button> 
+        <button onClick={() => movePage(3)}>3</button> 
+      </div>
                 
       </InsideWrap>
     </OutWrap>

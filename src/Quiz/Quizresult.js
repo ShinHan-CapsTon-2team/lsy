@@ -21,9 +21,12 @@ const Quizresult  = () => {
 
     // 업로드 이동 수정 
     const handleGoUploadClick = () => {
-        navigate('/photoup');
+        navigate('/post');
     };
 
+
+    /// 퀴즈에 대한 결과 추가해야함 
+    
     const OutWrap = styled.div`
     width: 100%;
     height: 100%;

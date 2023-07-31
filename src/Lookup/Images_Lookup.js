@@ -25,7 +25,8 @@ const Images_Lookup = () => {
           let reqOption = {
             method: 'get',
             headers: {
-              'content-type': 'application/json',
+            //   'content-type': 'application/json; charset=utf-8',
+                'Accept': 'application/json',
             },
           };
     
@@ -161,51 +162,67 @@ const Images_Lookup = () => {
     return (
         
         //설명 있는 버전 
-        <div style={{width: '100%', height: '100%', position: 'relative', background: 'white'}}>
+        <div style={{width: '100%', height: '100%', position: 'relative', background: 'white',marginLeft:40,}}>
         
-            <div style={{ width: 496, height: 239,textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <img style={{width: 496, height: 239, left: 0, top: 0, position: 'absolute'}} src={logo} alt=''  onClick={handleGohomeClick}/>
+            <div style={{ width: 496, height: 239,textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' ,marginBottom:30}}>
+                <img style={{width: 354, height: 239, left: 0, top: 0, position: 'absolute'}} src={logo} alt=''  onClick={handleGohomeClick}/>
             </div>
 
 
-            {user.map((uu)=>(
-                 <div style={{ display: 'flex',marginLeft:20,marginRight:20 }}>
-                 <div style={{ width:'70%' }}>
-                     <div style={{  height: 81, opacity: 0.90, background: 'white', boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)', borderRadius: 31, border: '3px #3A76EF solid', marginBottom: 10, display: 'flex', alignItems: 'center' }}>
-                         <div style={{ color: 'black', fontSize: 40, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word', paddingLeft: '20px' }}>{uu.title}</div>
-                     </div>
- 
-                     <div style={{ height: 'auto', opacity: 0.90, background: 'white', borderRadius: 31, border: '3px #3A76EF solid', marginTop: 20, marginBottom: 10, padding: '20px', wordWrap: 'break-word' }}>
-                         {/* 추가된 부분 시작 */}
-                         <div style={{  borderRadius: 31 }}>
-                             <div style={{ color: 'black', fontSize: 40, fontFamily: 'Inter', fontWeight: '400', paddingLeft: '20px', paddingRight: '20px' }}>{uu.description || '업서'}</div>
-                         </div>
-                         {/* 추가된 부분 끝 */}
-                     </div>
- 
- 
-                     <div style={{  height: 'auto', opacity: 0.90, background: 'white', boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)', borderRadius: 31, border: '3px #3A76EF solid',padding: '20px' }}>
-                         <div >
-                             <img style={{ width: '100%', height: '100%', objectFit: 'cover' }} src="https://i.namu.wiki/i/PhkYXKkeUl1ZRYKl6QkjK7n3VpIU_l1GEFYZ62OKxO3AYq5dk0mMvrEGra0Insektc046eIn7ivQ1hCZKKivnQ.webp" alt='이미지' />
-                         </div>
-                     </div>
-                 </div> 
- 
-                 <div style={{ marginLeft: 20 }}>
-                     <div style={{ width: 491, height: 81, opacity: 0.90, background: 'white', boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)', borderRadius: 31, border: '3px #3A76EF solid', display: 'flex', alignItems: 'center' }}>
-                         <div style={{ color: 'black', fontSize: 40, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word', paddingLeft: '20px' }}>
-                             {uu.name}
-                         </div>
-                     </div>
- 
-                     <div style={{ width: 491, height: 521, opacity: 0.90, background: 'white', boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)', borderRadius: 31, border: '3px #3A76EF solid', marginTop: 20 }}>
-                         <div style={{ width: 317, color: 'black', fontSize: 40, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word', textAlign: 'center', marginTop: 10 }}>
-                             {uu.profile}
-                         </div>
-                     </div>
-                 </div>   
-             </div>
-            )
+            {user.map((uu)=>{
+                // 이미지 경로 전처리 및 인코딩
+                //let imageUrl = `../../../post-server/${uu.image_url.replace(/\\/g, '/')}`; //수정 필요 
+                //let encodedImageUrl = encodeURI(imageUrl);
+                const imageUrl = uu.image_url
+                const encodedImageUrl = encodeURIComponent(imageUrl);
+                console.log("url:",encodedImageUrl);
+                return(
+
+                    
+                        <div style={{ display: 'flex',marginRight:40 }}>
+                            <div style={{ width:1102 }}>
+
+                                <div style={{  height: 'auto', opacity: 0.90, background: 'white', borderRadius: 31, border: '3px #3A76EF solid', padding: '20px', wordWrap: 'break-word'}}>
+                                    <div style={{  borderRadius: 31 }}>
+                                        <div style={{ color: 'black', fontSize: 40, fontFamily: 'Inter', fontWeight: '400', paddingLeft: '20px', paddingRight: '20px' }}>{uu.title || 'None'}</div>
+                                    </div>
+                                </div>
+            
+                                <div style={{ height: 'auto', opacity: 0.90, background: 'white', borderRadius: 31, border: '3px #3A76EF solid', marginTop: 20, marginBottom: 10, padding: '20px', wordWrap: 'break-word' }}>
+                                    {/* 추가된 부분 시작 */}
+                                    <div style={{  borderRadius: 31 }}>
+                                        <div style={{ color: 'black', fontSize: 40, fontFamily: 'Inter', fontWeight: '400', paddingLeft: '20px', paddingRight: '20px' }}>{uu.description || 'None'}</div>
+                                    </div>
+                                    {/* 추가된 부분 끝 */}
+                                </div>
+        
+        
+                                <div style={{  height: 'auto', opacity: 0.90, background: 'white', boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)', borderRadius: 31, border: '3px #3A76EF solid',padding: '20px' }}>
+                                    <div >
+                                        <img style={{ width: '100%', height: '100%', objectFit: 'cover',marginBottom:30 }} src={encodedImageUrl} alt='이미지' />
+                                    </div>
+                                    <div style={{  borderRadius: 31 }}>
+                                        <div style={{ color: 'black', fontSize: 40, fontFamily: 'Inter', fontWeight: '400', paddingLeft: '20px', paddingRight: '20px' }}>{uu.description || 'None'}</div>
+                                    </div>
+                                </div>
+                            </div> 
+        
+                            <div style={{ marginLeft: 20 }}>
+                                <div style={{ width: 491, height: 'auto', opacity: 0.90, background: 'white', borderRadius: 31, border: '3px #3A76EF solid', padding: '20px', wordWrap: 'break-word' }}>
+                                    <div style={{  borderRadius: 31 }}>
+                                        <div style={{ color: 'black', fontSize: 40, fontFamily: 'Inter', fontWeight: '400', paddingLeft: '20px', paddingRight: '20px' }}>{uu.name || 'None'}</div>
+                                    </div>
+                                </div>
+            
+                                <div style={{ width: 491, height: 'auto', opacity: 0.90, background: 'white', padding: '20px', wordWrap: 'break-word', borderRadius: 31, border: '3px #3A76EF solid', marginTop: 20 }}>
+                                    <div style={{  borderRadius: 31 }}>
+                                        <div style={{ color: 'black', fontSize: 40, fontFamily: 'Inter', fontWeight: '400', paddingLeft: '20px', paddingRight: '20px' }}>{uu.profile || 'None'}</div>
+                                    </div>
+                                </div>
+                            </div>   
+                        </div>
+                    )
+                    }
 
             )}
            
