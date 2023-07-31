@@ -1,5 +1,5 @@
-
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; 
 // import logo from '../images/imagelogo.png';
 import upload from '../Images/upload.png';
 import f_file from '../Images/f-file.png';
@@ -38,6 +38,9 @@ function Post() {
     
 };
 
+  
+const Navigate = useNavigate(); // useHistory 훅 호출
+
   const handleSubmit = () => {
     // 사용자가 게시글을 업로드한 시점의 시간
     //const currentTime = new Date().toISOString();
@@ -68,6 +71,7 @@ function Post() {
       .then((response) => response.json())
       .then((data) => {
         console.log('서버 응답:', data);
+        Navigate('/home');
       })
       .catch((error) => {
         console.error('Error:', error);
