@@ -6,8 +6,6 @@ import upload from '../Images/upload.png';
 import f_file from '../Images/f-file.png';
 import c_upload from '../Images/com_upload.png';
 
-// import hol from '../Images/place.png';
-
 
 const SERVER_URL= 'http://localhost:4000/api/post';
 
@@ -74,29 +72,6 @@ function Post() {
         console.error('Error:', error);
       });
   };
-  //   fetch(SERVER_URL, {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify(data),
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       // 서버의 응답 처리
-  //       console.log('서버 응답:', data);
-  //     })
-  //     .catch((error) => {
-  //       console.error('Error:', error);
-  //     });
-  // };
-
-
-
-
-  // const handleImageClick = (image) => {
-  //   setSelectedImage(image);
-  // };
 
   const handleMenuToggle = () => { //메뉴열기/닫기
     setIsMenuOpen(!isMenuOpen);
@@ -130,18 +105,9 @@ function Post() {
       setPreviewImage(null);
     }
   };
-  // const handleImageFileChange = (e) => {
-  //   const image_url = e.target.files[0];
-  //   // 파일 유형 및 크기 체크
-  //   if (image_url && (image_url.type === 'image/jpeg' || image_url.type === 'image/png'||image_url.type === 'image/jpg') && image_url.size <= 30 * 1024 * 1024) {
-  //     setImageFile(image_url);
-  //     setPreviewImage(URL.createObjectURL(image_url)); // 파일 미리보기 이미지 설정
-  //   } else {
-  //     setImageFile(null);
-  //     setPreviewImage(null); // 파일이 유효하지 않을 때 미리보기 이미지 초기화
-  //   }
-  // };
-  const textRef = useRef();
+ 
+
+  const textRef = useRef();  {}
 
   const handleResizeHeight = useCallback(() => {
     const maxHeight = 650;
@@ -161,7 +127,7 @@ function Post() {
 
 
       <div style={{ display: 'flex',marginLeft:20,marginRight:20,flexWrap: 'wrap',height:500}}>
-          <div style={{ width:1272 }}>
+          <div style={{ width:1252 }}>
 
               <div style={{ height: 'auto', opacity: 0.90, background: 'white', borderRadius: 31, border: '3px #3A76EF solid', padding: '20px', wordWrap: 'break-word'}}> 
               {/*input 박스 수정해야함 */}
@@ -190,23 +156,21 @@ function Post() {
               </div>
 
 
-              <div style={{ position:'relative', height:500 , opacity: 0.90, background: 'white', boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)', borderRadius: 31, border: '3px #3A76EF solid',padding: '20px' }}>
+              <div style={{ position:'relative', height:500,textAlign:'center',  opacity: 0.90, background: 'white', boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)', borderRadius: 31, border: '3px #3A76EF solid',padding: '20px',overflow: 'hidden' }}>
                 
-                {!previewImage && (
-                  <img className="upload-img" style={{ width: 100, height: 100, objectFit: 'cover',position:'absolute',top:'50%',left:'50%',transform: 'translate(-50%,-50%)'}} src={upload} alt="upload" />
-                )}
+                  {!previewImage && (
+                    <img className="upload-img" style={{ width: 100, height: 100, position:'absolute',top:'50%',left:'50%',transform: 'translate(-50%,-50%)'}} src={upload} alt="upload" />
+                  )}
 
-                <img style={{ position: 'absolute', bottom: '10px', right: '10px',}}className="f-file" src={f_file} alt="f_file" onClick={() => document.getElementById('fileInput').click()}/>
-                <input //이미지를 사용자로부터 받아온다 
-                  id="fileInput"
-                  type="file"
-                  style={{ display: 'none' }}
-                  accept="image/jpg, image/png ,image/jpeg"
-                  onChange={handleImageFileChange}
-                />
-                {previewImage && <img style={{width:'100%',height:'100%',objectFit: 'cover'}} className="selected-image" src={previewImage} alt="Preview" />}
-
-                  
+                  <img style={{ position: 'absolute', bottom: '10px', right: '10px',}}className="f-file" src={f_file} alt="f_file" onClick={() => document.getElementById('fileInput').click()}/>
+                  <input //이미지를 사용자로부터 받아온다 
+                    id="fileInput"
+                    type="file"
+                    style={{ display: 'none' }}
+                    accept="image/jpg, image/png ,image/jpeg"
+                    onChange={handleImageFileChange}
+                  />
+                  {previewImage && <img style={{width:'100%',height:'100%',objectFit: 'contain'}} className="selected-image" src={previewImage} alt="Preview" />} {/* objectFit 들어가게 */}
                   
               </div>
 
@@ -218,15 +182,25 @@ function Post() {
                 ) : (
                   <span className="category-text" style={{ zIndex: 2, color: 'white', fontSize: '33px', position: 'absolute' }}>카테고리 선택</span>
                 )}
-                <div style={{ zIndex: 2, color: 'white', fontSize: '23px',position: 'absolute', }} className="dropdown-menu-container">
+                <div style={{ zIndex: 2, color: 'white', fontSize: '23px',position: 'absolute', alignItems: 'center',}} className="dropdown-menu-container">
                 
                   {isMenuOpen && (
-                    <div style={{ zIndex: 2, color: 'black', fontSize: '23px' }} className="dropdown-menu">
-                      <div style={{ zIndex: 2, color: 'black', fontSize: '23px' }} onClick={() => handleCategorySelect('가족사진')}>가족사진</div>
-                      <div onClick={() => handleCategorySelect('증명사진')}>증명사진</div>
-                      <div onClick={() => handleCategorySelect('반려동물')}>반려동물</div>
-                      <div onClick={() => handleCategorySelect('바디프로필')}>바디프로필</div>
-                      <div onClick={() => handleCategorySelect('웨딩사진')}>웨딩사진</div>   
+                    <div style={{ position: 'relative',
+                    backgroundColor: '#798BE6',
+                    border: '1px solid #ccc',
+                    padding: '10px',
+                    minWidth: 700,  //370,
+                    borderRadius: 31,
+                    zIndex: 2,
+                    color: 'white',
+                    textAlign: 'center',
+                    
+                    top: '-157px',}} className="dropdown-menu"> {/* 스타일 수정 */}
+                      <div style={{fontSize:29}} onClick={() => handleCategorySelect('가족사진')}>가족사진</div>
+                      <div style={{fontSize:29}} onClick={() => handleCategorySelect('증명사진')}>증명사진</div>
+                      <div style={{fontSize:29}} onClick={() => handleCategorySelect('반려동물')}>반려동물</div>
+                      <div style={{fontSize:29}} onClick={() => handleCategorySelect('바디프로필')}>바디프로필</div>
+                      <div style={{fontSize:29}} onClick={() => handleCategorySelect('웨딩사진')}>웨딩사진</div>   
                     </div>
 
                   )}
@@ -263,11 +237,11 @@ function Post() {
               </div>
 
               <div>
-                <img  style={{ marginTop: 20 ,float:'right' }}
+                <img  style={{ marginTop: 20 ,float:'right' ,height: 80}}
                 className="c-upload"
                 src={c_upload}
                 alt=""
-                onClick={handleSubmit}
+                onClick={handleSubmit} 
                   />
               </div>
           </div>   

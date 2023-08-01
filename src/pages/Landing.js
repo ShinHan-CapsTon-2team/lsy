@@ -2,7 +2,7 @@ import logo from '../Images/imagelogo.png'
 import photoreco from '../Images/image 20.png'
 import fitphoto from '../Images/image 19.png'
 import gogohome from '../Images/image 18.png'
-
+import gopostup from '../Images/postup.png'
 import { useNavigate } from 'react-router-dom';
 
 import styled from "styled-components";
@@ -26,7 +26,10 @@ function Re_Landing(){
     const handleUploadPhotoClick = () => {
         navigate('/reco');
     };
-    
+    // 사진 등록
+    const handleUpPhotoClick = () => {
+        navigate('/post');
+    };
 
     const OutWrap = styled.div`
     width: 100%;
@@ -78,7 +81,8 @@ function Re_Landing(){
                 <ImgWrap>
                     <Img src={photoreco} onClick ={handleUploadPhotoClick} alt='' />
                     <Img src={fitphoto} alt=''onClick={handleFitPhotoClick}/>
-                    <Img src={gogohome} onClick={handleGohomeClick} alt=''/>
+                    <Img src={gogohome} onClick={handleGohomeClick} alt=''/> 
+                    <Img src={gopostup} onClick={handleUpPhotoClick} alt=''/> {/* 사진 등록 추가 */}
                 </ImgWrap>
                 
             </InsideWrap>
