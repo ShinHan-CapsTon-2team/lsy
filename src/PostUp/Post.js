@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; 
-// import logo from '../images/imagelogo.png';
+
+import React, { useState ,useRef, useCallback} from 'react';
+import logo from '../Images/imagelogo.png';
+
 import upload from '../Images/upload.png';
 import f_file from '../Images/f-file.png';
 import c_upload from '../Images/com_upload.png';
-import set_Cate from '../Images/sel-Cate.png';
-import hol from '../Images/place.png';
-import './Post.css';
+
+// import hol from '../Images/place.png';
+
 
 const SERVER_URL= 'http://localhost:4000/api/post';
 
@@ -26,33 +27,30 @@ function Post() {
 
   // 사용자가 게시글을 업로드한 시점의 시간을 가져오는 함수
   const getCurrentTime = () => {
-    const currentDate = new Date();
-    const year = currentDate.getFullYear();
-    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
-    const day = String(currentDate.getDate()).padStart(2, '0');
-    const hours = String(currentDate.getHours()).padStart(2, '0');
-    const minutes = String(currentDate.getMinutes()).padStart(2, '0');
-    const seconds = String(currentDate.getSeconds()).padStart(2, '0');
+  const currentDate = new Date();
+  const year = currentDate.getFullYear();
+  const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+  const day = String(currentDate.getDate()).padStart(2, '0');
+  const hours = String(currentDate.getHours()).padStart(2, '0');
+  const minutes = String(currentDate.getMinutes()).padStart(2, '0');
+  const seconds = String(currentDate.getSeconds()).padStart(2, '0');
 
-    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
-    
+  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 };
 
-  
-const Navigate = useNavigate(); // useHistory 훅 호출
-
   const handleSubmit = () => {
+    //window.location.href = '/home';
     // 사용자가 게시글을 업로드한 시점의 시간
     //const currentTime = new Date().toISOString();
     // 서버로 보낼 데이터 객체를 생성
     const data = {
-      //image_url: previewImage, //미리보기 이미지를 전송
-      title, 
+      title,
       description,
+      //image_url: previewImage, //미리보기 이미지를 전송
       category,
-      //created_at: getCurrentTime(),
       name,
       profile,
+      //created_at : getCurrentTime(),
     };
 
 // 이미지 파일을 FormData로 감싸서 서버로 전송
@@ -71,7 +69,6 @@ const Navigate = useNavigate(); // useHistory 훅 호출
       .then((response) => response.json())
       .then((data) => {
         console.log('서버 응답:', data);
-        Navigate('/home');
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -111,6 +108,10 @@ const Navigate = useNavigate(); // useHistory 훅 호출
     setCategory(selectedCategory);
   };
 
+  /*로고클릭->홈페이지*/
+  const handleLogoClick = () => {
+    window.location.href = '/home';
+  };
 
   /*파일업로드*/
   const handleImageFileChange = (e) => {
@@ -140,90 +141,141 @@ const Navigate = useNavigate(); // useHistory 훅 호출
   //     setPreviewImage(null); // 파일이 유효하지 않을 때 미리보기 이미지 초기화
   //   }
   // };
+  const textRef = useRef();
 
+  const handleResizeHeight = useCallback(() => {
+    const maxHeight = 650;
+    const calculatedHeight = textRef.current.scrollHeight;
+    const newHeight = calculatedHeight <= maxHeight ? calculatedHeight : maxHeight;
+    textRef.current.style.height = newHeight + 'px';
+  }, []);
 
   return (
-    <div className="container">
-      {/* 업로드박스 */}
-      <div className="box1" />
 
-      <input
-        type="text"
-        className="name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        placeholder="이름"
-      />
-
-      <textarea
-        className="profile"
-        value={profile}
-        onChange={(e) => setProfile(e.target.value)}
-        placeholder="소개 및 커리어"
-      />
-
-      <textarea
-        value={description}
-        className="description"
-        onChange={(e) => setDescription(e.target.value)}
-        placeholder="설명"
-      />
-
-      <input
-        type="text"
-        className="title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        placeholder="제목"
-      />
-
-      {/* <img className="logo" src={logo} alt="logo" /> */}
-      <img className="upload-img" src={upload} alt="upload" />
-
-      <img
-        className="c-upload"
-        src={c_upload}
-        alt=""
-        onClick={handleSubmit}
-      />
-
-      {category && <div className="selected-category">{category}</div>} {/* 카테고리 표시 부분 */}
-
-      <img className="set-cate" src={set_Cate} alt="set_Cate" onClick={handleMenuToggle} />
-      <div className="dropdown-menu-container">
-        {isMenuOpen && (
-          <div className="dropdown-menu">
-          <div onClick={() => handleCategorySelect('가족사진')}>가족사진</div>
-          <div onClick={() => handleCategorySelect('증명사진')}>증명사진</div>
-          <div onClick={() => handleCategorySelect('반려동물')}>반려동물</div>
-          <div onClick={() => handleCategorySelect('바디프로필')}>바디프로필</div>
-          <div onClick={() => handleCategorySelect('웨딩사진')}>웨딩사진</div>
-</div>
-
-        )}
+    
+    <div style={{width: '100%', height: '100%', position: 'relative', background: 'white',boxSizing: 'border-box' }}>
         
+      <div style={{ width: 496, height: 239,textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <img style={{width: 354, height: 239, left: 0, top: 0, position: 'absolute'}} src={logo} alt=''  onClick={handleLogoClick}/>
       </div>
-      <img className="placeholder" src={hol} alt="placeholder" /> 
+
+
+      <div style={{ display: 'flex',marginLeft:20,marginRight:20,flexWrap: 'wrap',height:500}}>
+          <div style={{ width:1272 }}>
+
+              <div style={{ height: 'auto', opacity: 0.90, background: 'white', borderRadius: 31, border: '3px #3A76EF solid', padding: '20px', wordWrap: 'break-word'}}> 
+              {/*input 박스 수정해야함 */}
+                  <div style={{  borderRadius: 31,paddingLeft: '20px', paddingRight: '20px' }}>
+                    <input style={{ color: 'black', fontSize: 40, fontFamily: 'Inter', fontWeight: '400',border: 'none',outline:'none',width:'100%' }}
+                        type="text"
+                        className="title"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                        placeholder="제목"
+                      />
+                  </div>
+              </div>
+
+              <div style={{ height: 'auto', opacity: 0.90, background: 'white', borderRadius: 31, border: '3px #3A76EF solid', marginTop: 20, marginBottom: 20, padding: '20px', wordWrap: 'break-word' }}>
+                  {/* 추가된 부분 시작 */}
+                  <div style={{  borderRadius: 31 , paddingLeft: '20px', paddingRight: '20px'}}>
+                      <textarea style={{ color: 'black',width:'100%', fontSize: 40, fontFamily: 'Inter', fontWeight: '400',border: 'none',outline:'none'  }}
+                          value={description}
+                          className="description"
+                          onChange={(e) => setDescription(e.target.value)}
+                          placeholder="설명"
+                      />
+                  </div>
+                  {/* 추가된 부분 끝 */}
+              </div>
+
+
+              <div style={{ position:'relative', height:500 , opacity: 0.90, background: 'white', boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)', borderRadius: 31, border: '3px #3A76EF solid',padding: '20px' }}>
+                
+                {!previewImage && (
+                  <img className="upload-img" style={{ width: 100, height: 100, objectFit: 'cover',position:'absolute',top:'50%',left:'50%',transform: 'translate(-50%,-50%)'}} src={upload} alt="upload" />
+                )}
+
+                <img style={{ position: 'absolute', bottom: '10px', right: '10px',}}className="f-file" src={f_file} alt="f_file" onClick={() => document.getElementById('fileInput').click()}/>
+                <input //이미지를 사용자로부터 받아온다 
+                  id="fileInput"
+                  type="file"
+                  style={{ display: 'none' }}
+                  accept="image/jpg, image/png ,image/jpeg"
+                  onChange={handleImageFileChange}
+                />
+                {previewImage && <img style={{width:'100%',height:'100%',objectFit: 'cover'}} className="selected-image" src={previewImage} alt="Preview" />}
+
+                  
+                  
+              </div>
+
+              <div style={{ width:700,height: 50, opacity: 0.90, background: '#798BE6', borderRadius: 31,marginTop:20, padding: '20px', wordWrap: 'break-word', cursor: 'pointer', display: 'flex',
+                    alignItems: 'center', position: 'relative',justifyContent: 'center',left:'50%',transform: 'translate(-50%)' }} onClick={handleMenuToggle}>
+                
+                {category ? (
+                  <span className="category-text" style={{ zIndex: 2, color: 'white', fontSize: '33px', position: 'absolute' }}>{category}</span>
+                ) : (
+                  <span className="category-text" style={{ zIndex: 2, color: 'white', fontSize: '33px', position: 'absolute' }}>카테고리 선택</span>
+                )}
+                <div style={{ zIndex: 2, color: 'white', fontSize: '23px',position: 'absolute', }} className="dropdown-menu-container">
+                
+                  {isMenuOpen && (
+                    <div style={{ zIndex: 2, color: 'black', fontSize: '23px' }} className="dropdown-menu">
+                      <div style={{ zIndex: 2, color: 'black', fontSize: '23px' }} onClick={() => handleCategorySelect('가족사진')}>가족사진</div>
+                      <div onClick={() => handleCategorySelect('증명사진')}>증명사진</div>
+                      <div onClick={() => handleCategorySelect('반려동물')}>반려동물</div>
+                      <div onClick={() => handleCategorySelect('바디프로필')}>바디프로필</div>
+                      <div onClick={() => handleCategorySelect('웨딩사진')}>웨딩사진</div>   
+                    </div>
+
+                  )}
+                </div>
+              </div>
+
+              
+          </div> 
+
+          <div style={{ marginLeft: 20 }}>
+              <div style={{ width: 491, height: 'auto', opacity: 0.90, background: 'white', borderRadius: 31, border: '3px #3A76EF solid', padding: '20px', wordWrap: 'break-word' }}>
+                  <div style={{  borderRadius: 31 }}>
+                    <input style={{ color: 'black', fontSize: 40, fontFamily: 'Inter', fontWeight: '400', paddingLeft: '20px', paddingRight: '20px',border: 'none',outline:'none'  }}
+                          type="text"
+                          className="name"
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
+                          placeholder="이름"
+                      />
+                  </div>
+              </div>
+
+              <div style={{ width: 491, height: 670, opacity: 0.90, background: 'white', padding: '20px', wordWrap: 'break-word', borderRadius: 31, border: '3px #3A76EF solid', marginTop: 20 }}>
+                  <div style={{  borderRadius: 31 , paddingLeft: '20px', paddingRight: '20px'}}>
+                    <textarea style={{ color: 'black', fontSize: 40, fontFamily: 'Inter', fontWeight: '400',border: 'none',outline:'none' ,height:'auto', }}
+                      className="profile"
+                      ref={textRef}
+                      onInput={handleResizeHeight}
+                      value={profile}
+                      onChange={(e) => setProfile(e.target.value)}
+                      placeholder="소개 및 커리어"
+                    />
+                  </div>
+              </div>
+
+              <div>
+                <img  style={{ marginTop: 20 ,float:'right' }}
+                className="c-upload"
+                src={c_upload}
+                alt=""
+                onClick={handleSubmit}
+                  />
+              </div>
+          </div>   
+      </div>
+
       
-      {previewImage && <img className="selected-image" src={previewImage} alt="Preview" />}
 
-      <img className="f-file" src={f_file} alt="f_file" onClick={() => document.getElementById('fileInput').click()} />
-      <input //이미지를 사용자로부터 받아온다 
-        id="fileInput"
-        type="file"
-        style={{ display: 'none' }}
-        accept="image/jpg, image/png ,image/jpeg"
-        onChange={handleImageFileChange}
-      />
-      {/* {imageFile && (
-        <button className="upload-button" onClick={handleImageUpload}>
-          업로드
-        </button>
-      )} */}
-
-      {/* {image_url && <div className="selected-image">{image_url}</div>}
-       */}
-
+           
     </div>
   );
 }
