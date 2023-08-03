@@ -6,17 +6,15 @@ import logo from '../Images/imagelogo.png';
 import file from '../Images/image_6.png';
 import result from '../Images/image_5.png';
 import upload from '../Images/upload.png';
+
+import styled from "styled-components";
+
+
 function Recommend() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [imageSrc, setImageSrc] = useState(null);
   const navigate = useNavigate();
 
-  const screenWidth = window.innerWidth;
-  const screenHeight = window.innerHeight;
-
-  console.log(`현재 화면 너비: ${screenWidth}px`);
-  console.log(`현재 화면 높이: ${screenHeight}px`);
-  
   const handleFileSelect = (event) => {
     const file = event.target.files[0];
     const reader = new FileReader();
@@ -54,10 +52,7 @@ function Recommend() {
     reader.readAsDataURL(file);
   };
 
-  const handleFileButtonClick = () => {
-    const fileInput = document.getElementById('file-upload');
-    fileInput.click();
-  };
+
   //홈페이지
   const handleGohomeClick = () => {
     navigate('/home');
@@ -91,48 +86,166 @@ function Recommend() {
     }
   };
 
-  return (
-    <div style={{width: '100%',height: '100%',background: 'white', position: 'relative',alignItems: 'center'}}>
-      <div style={{width: 496, height: 239,textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <img style={{width: 354, height: 239, left: 0, top: 0, position: 'absolute'}} src={logo} alt='' onClick={handleGohomeClick}/>
-      </div>
+  //const OutWrap = styled.div``;
+  //const OutWrap = styled.div``;
 
-      <div style={{  height: 500, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-        <div style={{width:'65%', position:'relative', height:500,textAlign:'center',  opacity: 0.90, background: 'white',
-        boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)', borderRadius: 31, border: '3px #3A76EF solid',padding: '20px',overflow: 'hidden' }}>
-            
+  return (
+    <OutWrap>
+      <LogoWrap>
+        <Logo src={logo} alt='' onClick={handleGohomeClick}/>
+      </LogoWrap>
+
+      <InnerWrap>
+        <Box> 
             {selectedFile && (
-                  <img className="selected-image" style={{width:'100%',height:'100%',objectFit: 'contain'}} src={imageSrc} alt="upload" />
+                <SelectImg src={imageSrc} alt="upload" />
                 )}{/* 업르드시 보이는 사진 */}
         
             {!selectedFile && (
-                
-                <img className="upload" src={upload} style={{ width: 100, height: 100, position:'absolute',top:'50%',left:'50%',transform: 'translate(-50%,-50%)'}} alt="up" />
-                
+                <EmptyImg src={upload} alt="up" />        
             )}{/* 빈 이미지 로고 그림인데 업로드 하면 없어진 */}
 
-            <input
+
+            {!selectedFile && (
+                <FindImg src={file} alt="file" onClick={() => document.getElementById('file-upload').click()} />
+            )}
+
+            <InputBox
                 id="file-upload"
                 type="file"
                 accept="image/*"
-                style={{ display: 'none' }}
                 onChange={handleFileSelect}
             />
-
-            {!selectedFile && (
-                <img className="files" src={file} style={{position: 'absolute', bottom: '10px', right: '10px'}} alt="file" onClick={handleFileButtonClick} />
-            )}{/* 위 아래  파일찾기  버튼, 이미지 셀렉 하면 없어진다. */}
-        </div>
-   
-      </div>
-
-      <div style={{ marginTop:20}}>
+            {/* 위 아래  파일찾기  버튼, 이미지 셀렉 하면 없어진다. */}
+        </Box>
+        <Button>
           <Link to="/quizresult">
-              <img className="results" style={{float:'right' ,height: 70}}src={result} alt="result" onClick={handleImageUploadAndNavigate} />
+              <GoResult src={result} alt="result" onClick={handleImageUploadAndNavigate} />
           </Link>
-        </div>
-    </div>
+        </Button>
+      </InnerWrap>
+
+      
+    </OutWrap>
   );
 }
 
 export default Recommend;
+
+const OutWrap = styled.div`
+  width: 100%;
+  height: 100%;
+  background: white;
+  position: relative;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+const LogoWrap = styled.div`
+  width: 496px;
+  height: 239px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @media screen and (max-height: 864px) {
+    width: 456px; height: 199px; 
+  };
+`;
+
+const InnerWrap = styled.div`
+  width: 90vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+  const Logo = styled.img`
+  width: 354px; height: 239px; 
+
+  @media screen and (max-height: 864px) {
+    width: 314px; height: 199px; 
+  }`;
+
+  const Box = styled.div`
+  width: 65vw;
+  position: relative;
+  height: 60vh;
+  text-align: center;
+  opacity: 0.90;
+  background: white;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 31px;
+  border: 3px #3A76EF solid;
+  padding: 20px;
+  overflow: hidden;
+
+  @media screen and (max-height: 864px) {
+    height: 55vh; 
+  };
+`;
+
+  const SelectImg = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  `;
+
+  const EmptyImg = styled.img`
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    @media screen and (max-height: 865px) {
+      width: 150px;
+      height: 150px;
+       
+    };
+  `;
+
+  
+  const FindImg = styled.img`
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+
+  width:18vw;
+  height: 8vh; 
+  
+
+  @media screen and (max-height: 864px) {
+    width:17vw;
+    height: 7.5vh; 
+  };
+
+`;
+const GoResult = styled.img`
+  width:18.5vw;
+  height: 7.5vh;
+
+  @media screen and (max-height: 864px) {
+    width:18vw;
+    height: 7vh; 
+  };
+  `;
+  const InputBox = styled.input`
+  display: none;
+`;
+
+const Button = styled.div`
+  width: 67vw;
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+`;
+
+  
+  
+  

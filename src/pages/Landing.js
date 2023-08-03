@@ -30,7 +30,7 @@ function Re_Landing(){
     const handleUpPhotoClick = () => {
         navigate('/post');
     };
-
+    //const OutWrap = styled.div``;
     const OutWrap = styled.div`
     width: 100%;
     height: 100%;
