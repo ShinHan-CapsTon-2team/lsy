@@ -1,16 +1,22 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import './recommend.css';
+
 import logo from '../Images/imagelogo.png';
-import up from '../Images/up.jpg';
+
 import file from '../Images/image_6.png';
 import result from '../Images/image_5.png';
-
+import upload from '../Images/upload.png';
 function Recommend() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [imageSrc, setImageSrc] = useState(null);
   const navigate = useNavigate();
 
+  const screenWidth = window.innerWidth;
+  const screenHeight = window.innerHeight;
+
+  console.log(`현재 화면 너비: ${screenWidth}px`);
+  console.log(`현재 화면 높이: ${screenHeight}px`);
+  
   const handleFileSelect = (event) => {
     const file = event.target.files[0];
     const reader = new FileReader();
@@ -52,7 +58,10 @@ function Recommend() {
     const fileInput = document.getElementById('file-upload');
     fileInput.click();
   };
-
+  //홈페이지
+  const handleGohomeClick = () => {
+    navigate('/home');
+  };
   const handleImageUploadAndNavigate = async () => {
     if (!selectedFile) {
       return;
@@ -83,31 +92,45 @@ function Recommend() {
   };
 
   return (
-    <div>
-      
-      <div className="Rectangle17" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        {selectedFile && <img className="selected-image" src={imageSrc} alt="Selected File" />}
+    <div style={{width: '100%',height: '100%',background: 'white', position: 'relative',alignItems: 'center'}}>
+      <div style={{width: 496, height: 239,textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <img style={{width: 354, height: 239, left: 0, top: 0, position: 'absolute'}} src={logo} alt='' onClick={handleGohomeClick}/>
       </div>
-      {!selectedFile && (
-        <label className="upload-label" htmlFor="file-upload">
-          <img className="upload" src={up} alt="up" />
-        </label>
-      )}
-      <input
-        id="file-upload"
-        type="file"
-        accept="image/*"
-        style={{ display: 'none' }}
-        onChange={handleFileSelect}
-      />
 
-      {!selectedFile && (
-        <img className="files" src={file} alt="file" onClick={handleFileButtonClick} />
-      )}
+      <div style={{  height: 500, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{width:'65%', position:'relative', height:500,textAlign:'center',  opacity: 0.90, background: 'white',
+        boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)', borderRadius: 31, border: '3px #3A76EF solid',padding: '20px',overflow: 'hidden' }}>
+            
+            {selectedFile && (
+                  <img className="selected-image" style={{width:'100%',height:'100%',objectFit: 'contain'}} src={imageSrc} alt="upload" />
+                )}{/* 업르드시 보이는 사진 */}
+        
+            {!selectedFile && (
+                
+                <img className="upload" src={upload} style={{ width: 100, height: 100, position:'absolute',top:'50%',left:'50%',transform: 'translate(-50%,-50%)'}} alt="up" />
+                
+            )}{/* 빈 이미지 로고 그림인데 업로드 하면 없어진 */}
 
-      <Link to="/quizresult">
-        <img className="results" src={result} alt="result" onClick={handleImageUploadAndNavigate} />
-      </Link>
+            <input
+                id="file-upload"
+                type="file"
+                accept="image/*"
+                style={{ display: 'none' }}
+                onChange={handleFileSelect}
+            />
+
+            {!selectedFile && (
+                <img className="files" src={file} style={{position: 'absolute', bottom: '10px', right: '10px'}} alt="file" onClick={handleFileButtonClick} />
+            )}{/* 위 아래  파일찾기  버튼, 이미지 셀렉 하면 없어진다. */}
+        </div>
+   
+      </div>
+
+      <div style={{ marginTop:20}}>
+          <Link to="/quizresult">
+              <img className="results" style={{float:'right' ,height: 70}}src={result} alt="result" onClick={handleImageUploadAndNavigate} />
+          </Link>
+        </div>
     </div>
   );
 }
