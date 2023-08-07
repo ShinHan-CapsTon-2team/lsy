@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from "styled-components";
 
 
-function Re_Landing(){
+function Landing(){
 
     
     const navigate = useNavigate();
@@ -31,6 +31,7 @@ function Re_Landing(){
         navigate('/post');
     };
     //const OutWrap = styled.div``;
+
     const OutWrap = styled.div`
     width: 100%;
     height: 100%;
@@ -40,6 +41,7 @@ function Re_Landing(){
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    
 `;
 
     const InsideWrap = styled.div`
@@ -47,17 +49,19 @@ function Re_Landing(){
         display: flex;
         flex-direction: column;
         align-items: center;
+
+       
     `;
 
     const LogoImg = styled.img`
         width: 55%;
-        height: 274px; /* height 값에 px 단위를 추가하세요 */
-        margin-top: 100px; /* marginTop -> margin-top */
-        margin-bottom: 50px; /* marginBottom -> margin-bottom */
+        height: 60%; /* height 값에 px 단위를 추가하세요 */
+        margin-top: 50px; /* marginTop -> margin-top */
+        margin-bottom: 20px; /* marginBottom -> margin-bottom */
 
-        @media (min-width: 1920px) and (max-width: 1080px) {} {
-            width: 80%;
-            height: 100%;
+        @media (min-width: 1920px) and (min-width: 1080px)  {
+            width: 70%;
+            height: 60%;
         }
     `;
 
@@ -65,14 +69,18 @@ function Re_Landing(){
         text-align: center;
         display: flex;
         flex-direction: column;
-        
         align-items: center;
     `;
 
     const Img = styled.img`
-        width: 45%;
+        width: 55%;
         height: auto;
         margin-bottom: 16px; /* marginBottom -> margin-bottom */
+
+        @media (min-width: 1920px) and (min-width: 1080px) {
+            width: 70%;
+            
+        }
     `;
 
 
@@ -96,4 +104,4 @@ function Re_Landing(){
     );
 }
 
-export default  Re_Landing;
+export default  Landing;
