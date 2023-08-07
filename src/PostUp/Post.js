@@ -110,16 +110,14 @@ function Post() {
     return (
         
         <OutWrap>
-            <InOutWrap>
-            
+            <InOutWrap>            
                 {/* 홈페이지 로고 같*/}        
                 <LogoWrap>
                     <Logo src={logo} alt='' onClick={handleGohomeClick}/>
                 </LogoWrap>
                 {/* 로고 아래 */} 
 
-                <Center>
-                    
+                <Center>                   
                     <InLayoutOne>  
                         <Content>
 
@@ -230,11 +228,9 @@ function Post() {
                                 </ButtonTwo>
                             </Right>
                         </Buttons>
-                    </InLayoutTwo>
-                    
-
+                    </InLayoutTwo>               
                 </Center>
-
+                
             </InOutWrap>
         </OutWrap>
     );
@@ -568,11 +564,3 @@ const CateMenu = styled.div`
 const ProfileWrap = styled(Area)`
 height:100%;
 `;
-//const OutWrap = styled(Radius)``;
-//const OutWrap = styled.div``;
-//const OutWrap = styled.div``;
-//const OutWrap = styled.div``;
-//const OutWrap = styled.div``;
-//const OutWrap = styled.div``;
-//const OutWrap = styled.div``;
-//const OutWrap = styled.div``;

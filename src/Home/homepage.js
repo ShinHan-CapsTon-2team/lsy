@@ -142,13 +142,13 @@ const Homepage = () => {
   useEffect(() => {
      //컴포넌트가 마운트될 때 '가족사진' 데이터를 불러옵니다
     handleCategorySelect('가족사진');
-  }, []); //??
-
+  }, []); 
+ 
   const handleGohomeClick = () => {
     handleCategorySelect('가족사진');
     //navigate('/home');
 
-  };
+};
 
   
   const handleCategorySelect = (category, limit, offset) => {

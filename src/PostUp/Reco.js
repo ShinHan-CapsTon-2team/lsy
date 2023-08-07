@@ -290,6 +290,7 @@ const Button = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items:center;
+  
 `;
 
   
@@ -340,7 +341,7 @@ position: relative;
 justify-content: center;
 color: white;
   font-size: 45px;
-  
+  over-flow:hidden;
   font-weight: 500;
 
 width:18.5vw;
