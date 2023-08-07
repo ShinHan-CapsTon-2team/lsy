@@ -374,7 +374,7 @@ align-items: center;
 
 @media screen and (min-width: 1700px) {
     width: 75vw;
-    height:12vh;
+    height:13vh;
 };
 `;
 
@@ -471,12 +471,17 @@ const FindImg = styled(Radius)`
   
   width:18.5vw;
   height: 7.5vh;
-
-  @media screen and (max-height: 864px) {
+  // 여기 적응된다고 . . .왜 다른 곳은 안되는거고 여긴 
+  @media screen and (min-height: 950px) {
     width:18vw;
-    height: 7vh; 
-    //font-size: 33px;
-  };
+    height: 8vh; 
+    
+   // };
+  //@media screen and (max-height: 864px) {
+    //width:18vw;
+    //height: 7vh; 
+    
+   // };
   
 `;
 
@@ -621,15 +626,34 @@ const DropMenu = styled.div`
   padding: 10px;
   border-radius: 31px;
   z-index: 2;
-  color: white;
+
   text-align: center;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  top: -157px;
+  
+
+  
+
+  @media screen and (max-height: 870px) {
+    top: -157px;
+    };
+
+  @media screen and (max-height: 1100px) {
+    top: -167px;
+    };
+
+    @media screen and (max-width: 1600px) {
+      width:25vw;
+    };
+  @media screen and (max-width: 1950px) {
+    width:40vw;
+  };
+  
 `;
 
 const CateMenu = styled.div` 
   font-size: 29px;
   font-weight: 550;
+  margin-top:5px;
 `;
 
 

@@ -107,11 +107,11 @@ function Reco() {
                   )}{/* 빈 이미지 로고 그림인데 업로드 하면 없어진 */}
 
 
-                  {!selectedFile && (
-                      <FindImg >
-                        <span onClick={() => document.getElementById('file-upload').click()}>파일 찾기</span>
-                      </FindImg>
-                  )}
+                  
+                  <FindImg >
+                    <Menu onClick={() => document.getElementById('file-upload').click()}>파일 찾기</Menu>
+                  </FindImg>
+                  
 
                   <InputBox
                       id="file-upload"
@@ -128,8 +128,8 @@ function Reco() {
           <InLayoutTwo>
             
             <ButtonTwo>
-              <span onClick={handleImageUploadAndNavigate} >
-                결과보기  </span>
+              <Menu onClick={handleImageUploadAndNavigate} >
+                결과보기  </Menu>
             </ButtonTwo>
           </InLayoutTwo>
         </Center>
@@ -333,3 +333,19 @@ width:18.5vw;
  `;
 
 
+ // span 
+ const Menu = styled.span`
+ z-index: 2;
+ color: white;
+ 
+ position: absolute;
+ font-weight: 500;
+ 
+ font-size: 45px;
+ over-flow:hidden;
+ 
+ @media screen and (max-height: 865px) {
+   font-size: 33px;
+   
+   };
+ `;
