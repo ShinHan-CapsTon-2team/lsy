@@ -54,6 +54,11 @@ function Re_Landing(){
         height: 274px; /* height 값에 px 단위를 추가하세요 */
         margin-top: 100px; /* marginTop -> margin-top */
         margin-bottom: 50px; /* marginBottom -> margin-bottom */
+
+        @media (min-width: 1920px) and (max-width: 1080px) {} {
+            width: 80%;
+            height: 100%;
+        }
     `;
 
     const ImgWrap = styled.div`

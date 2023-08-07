@@ -1,5 +1,6 @@
 
-import React, { useState ,useRef, useCallback} from 'react';
+import React, { useState } from 'react';
+//useRef, useCallback
 import logo from '../Images/imagelogo.png';
 import { useNavigate } from 'react-router-dom';
 
@@ -7,264 +8,254 @@ import upload from '../Images/upload.png';
 import f_file from '../Images/f-file.png';
 import c_upload from '../Images/com_upload.png';
 
-//import Inputtitle from './InTitle'
+//import Inputtitle from './InTitle' 컴포넌트 
 
 import styled from "styled-components";
 
 const SERVER_URL= 'http://localhost:4000/api/post';
 
-
 function Post() {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [image_url, setImageUrl] = useState('');
-  const [category, setCategory] = useState('');
-  const [name, setName] = useState('');
-  const [profile, setProfile] = useState(''); 
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState('');
-  const [imageFile, setImageFile] = useState(null);
-  const [previewImage, setPreviewImage] = useState(null); // 미리보기 이미지 URL 상태
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
+    //const [image_url, setImageUrl] = useState('');
+    const [category, setCategory] = useState('');
+    const [name, setName] = useState('');
+    const [profile, setProfile] = useState(''); 
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [selectedImage, setSelectedImage] = useState('');
+    const [imageFile, setImageFile] = useState(null);
+    const [previewImage, setPreviewImage] = useState(null); // 미리보기 이미지 URL 상태
 
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
-  //홈페이지
-  const handleGohomeClick = () => {
-    navigate('/home');
-  };
-
-  const handleSubmit = () => {
-    //window.location.href = '/home';
-    // 사용자가 게시글을 업로드한 시점의 시간
-    //const currentTime = new Date().toISOString();
-    // 서버로 보낼 데이터 객체를 생성
-    const data = {
-      title,
-      description,
-      //image_url: previewImage, //미리보기 이미지를 전송
-      category,
-      name,
-      profile,
-      //created_at : getCurrentTime(),
+    //홈페이지
+    const handleGohomeClick = () => {
+        navigate('/home');
     };
-    console.log(data.title);
-// 이미지 파일을 FormData로 감싸서 서버로 전송
-    const formData = new FormData();
-    formData.append('data', JSON.stringify(data));
-    formData.append('image', imageFile);
-    
-// fetch()를 이용하여 서버로 데이터를 전송
-    fetch(SERVER_URL, {
-      method: 'POST',
-      // headers: {
-      //   'Content-Type': 'application/json', 
-      // },
-      body: formData,
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log('서버 응답:', data);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-  };
 
-  const handleMenuToggle = () => { //메뉴열기/닫기
-    setIsMenuOpen(!isMenuOpen);
-  };
-
-
-  /*카테고리*/
-  const handleCategorySelect = (selectedCategory) => {
-    setCategory(selectedCategory);
-  };
-
-  
-
-  /*파일업로드*/
-  const handleImageFileChange = (e) => {
-    const imageFile = e.target.files[0];
-    if (
-      imageFile &&
-      (imageFile.type === 'image/jpeg' ||
-        imageFile.type === 'image/png' ||
-        imageFile.type === 'image/jpg') &&
-      imageFile.size <= 30 * 1024 * 1024
-    ) {
-      setImageFile(imageFile);
-      setPreviewImage(URL.createObjectURL(imageFile));
-    } else {
-      setImageFile(null);
-      setPreviewImage(null);
-    }
-  };
- 
-
-  const textRef = useRef();  {}
-  
-  function handleResizeHeight() {
-    const maxHeight = 650;
-    const calculatedHeight = textRef.current.scrollHeight;
-    const newHeight = calculatedHeight <= maxHeight ? calculatedHeight : maxHeight;
-    textRef.current.style.height = newHeight + 'px';
-  }
-  //width:1252px
-  //const OneWrap = styled.div``;
- 
-// One ,SmallWrap ,InputSmall 등 틀 재활용하기 ! .
-  return (
-    
-    <OutWrap>
-      <InOutWrap>
+    const handleSubmit = () => {
+        //window.location.href = '/home';
+        // 사용자가 게시글을 업로드한 시점의 시간
+        //const currentTime = new Date().toISOString();
+        // 서버로 보낼 데이터 객체를 생성
+        const data = {
+        title,
+        description,
+        //image_url: previewImage, //미리보기 이미지를 전송
+        category,
+        name,
+        profile,
+        //created_at : getCurrentTime(),
+        };
+        console.log(data.title);
+    // 이미지 파일을 FormData로 감싸서 서버로 전송
+        const formData = new FormData();
+        formData.append('data', JSON.stringify(data));
+        formData.append('image', imageFile);
         
-        {/* 홈페이지 로고 같*/}        
-        <LogoWrap>
-          <Logo src={logo} alt='' onClick={handleGohomeClick}/>
-        </LogoWrap>
-        {/* 로고 아래 */} 
-        <Center>
-          <Layout>
-              <Left> 
-                  <One> {/*제목*/}
-                      <SmallWrap>
-                          <InputSmall
-                            type="text"
-                            value={title}
-                            onChange={(e) => setTitle(e.target.value)}
-                            placeholder="제목"
-                          />
-                      </SmallWrap>
-                  </One>
+    // fetch()를 이용하여 서버로 데이터를 전송
+        fetch(SERVER_URL, {
+        method: 'POST',
+        // headers: {
+        //   'Content-Type': 'application/json', 
+        // },
+        body: formData,
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            console.log('서버 응답:', data);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    };
 
-                  <Two>{/* 설명 */}
-                      {/* 드래그 방지 추가하기 */}
-                      <DescriptionWrap>
-                          <DescriptArea
-                              value={description}
-                              onChange={(e) => setDescription(e.target.value)}
-                              placeholder="설명" 
-                          />
-                      </DescriptionWrap>
-                      
-                  </Two>
+    const handleMenuToggle = () => { //메뉴열기/닫기
+        setIsMenuOpen(!isMenuOpen);
+    };
 
-                  <Lthree>{/* 이미지 */}
-                      {!previewImage && (
-                        <EmptyImg src={upload} alt="upload" />
-                      )} {/*빈 이미지로 사진 올리면 없어짐 */}
 
-                      <FindImg  src={f_file} alt="f_file" onClick={() => document.getElementById('fileInput').click()}/>
-                      <input 
-                        type="file"
-                        style={{ display: 'none' }}
-                        accept="image/jpg, image/png ,image/jpeg"
-                        onChange={handleImageFileChange}
-                      />
+    /*카테고리*/
+    const handleCategorySelect = (selectedCategory) => {
+        setCategory(selectedCategory);
+    };
 
-                      {previewImage && 
-                      <SelectImg src={previewImage} alt="Preview" />} 
-                      
-                  </Lthree>
+    
 
-                  <Lfour onClick={handleMenuToggle}> {/*카테고리 */}
+    /*파일업로드*/
+    const handleImageFileChange = (e) => {
+        const imageFile = e.target.files[0];
+        if (
+        imageFile &&
+        (imageFile.type === 'image/jpeg' ||
+            imageFile.type === 'image/png' ||
+            imageFile.type === 'image/jpg') &&
+        imageFile.size <= 30 * 1024 * 1024
+        ) {
+        setImageFile(imageFile);
+        setPreviewImage(URL.createObjectURL(imageFile));
+        } else {
+        setImageFile(null);
+        setPreviewImage(null);
+        }
+    };
+    
+    /* textarea 길이 조절 
+    const textRef = useRef();
+    const handleResizeHeight = useCallback(() => {
+    textRef.current.style.height = textRef.current.scrollHeight + "px";
+    }, []);
+    */
+
+    return (
+        
+        <OutWrap>
+            <InOutWrap>
+            
+                {/* 홈페이지 로고 같*/}        
+                <LogoWrap>
+                    <Logo src={logo} alt='' onClick={handleGohomeClick}/>
+                </LogoWrap>
+                {/* 로고 아래 */} 
+
+                <Center>
                     
-                    {category ? (
-                      <Menu>{category}</Menu>
-                    ) : (
-                      <Menu>카테고리 선택</Menu>
-                    )}
+                    <InLayoutOne>  
+                        <Content>
 
-                    <DropContainer>
+                            <One> {/*제목*/}
+                                <SmallWrap>
+                                    <InputSmall
+                                        type="text"
+                                        value={title}
+                                        onChange={(e) => setTitle(e.target.value)}
+                                        placeholder="제목"
+                                    />
+                                </SmallWrap>
+                            </One>
+
+                            <Two>{/*이름 */}
+                                <SmallWrap>
+                                    <InputSmall 
+                                        type="text"
+                                        value={name}
+                                        onChange={(e) => setName(e.target.value)}
+                                        placeholder="이름"
+                                    />
+                                </SmallWrap>
+                            </Two>
+
+                            <Three> {/*소개 */}
+                                <ProfileWrap>
+                                    <ProfileArea 
+                                    //ref={textRef} 길이 조절 수정해야함 
+                                    //onInput={handleResizeHeight}
+                                    value={profile}
+                                    onChange={(e) => setProfile(e.target.value)}
+                                    placeholder="소개 및 커리어"
+                                    />
+                                </ProfileWrap>
+                            </Three>
+
+                            <Four>{/* 설명 */}
+                                {/* 드래그 방지 추가하기 */}
+                                <DescriptionWrap>
+                                    <DescriptArea
+                                        value={description}
+                                        onChange={(e) => setDescription(e.target.value)}
+                                        placeholder="설명" 
+                                    />
+                                </DescriptionWrap>
+                                
+                            </Four>                                        
+                            
+                            <Five>{/* 이미지 */}
+                                {!previewImage && (
+                                    <EmptyImg src={upload} alt="upload" />
+                                )} {/*빈 이미지로 사진 올리면 없어짐 */}
+
+                                <FindImg  src={f_file} alt="f_file" onClick={() => document.getElementById('fileInput').click()}/>
+                                <FileBox 
+                                    id="fileInput"
+                                    type="file"
+                                    accept="image/jpg, image/png ,image/jpeg"
+                                    onChange={handleImageFileChange} 
+                                />
+
+                                {previewImage && 
+                                <SelectImg src={previewImage} alt="Preview" />} 
+                                
+                            </Five>
+
+                        </Content>  
+                    </InLayoutOne>  
+
+                    <InLayoutTwo>
                     
-                      {isMenuOpen && (
-                        <DropMenu > {/* 스타일 수정 */}
-                          <CateMenu onClick={() => handleCategorySelect('가족사진')}>가족사진</CateMenu>
-                          <CateMenu onClick={() => handleCategorySelect('증명사진')}>증명사진</CateMenu>
-                          <CateMenu onClick={() => handleCategorySelect('반려동물')}>반려동물</CateMenu>
-                          <CateMenu onClick={() => handleCategorySelect('바디프로필')}>바디프로필</CateMenu>
-                          <CateMenu onClick={() => handleCategorySelect('웨딩사진')}>웨딩사진</CateMenu>   
-                        </DropMenu>
-                      )}
+                        <Buttons>
+                            <Left>
+                                <ButtonOne onClick={handleMenuToggle}> {/*카테고리 */}
+                                
+                                {category ? (
+                                    <Menu>{category}</Menu>
+                                ) : (
+                                    <Menu>카테고리 선택</Menu>
+                                )}
 
-                    </DropContainer>
+                                <DropContainer>
+                                
+                                    {isMenuOpen && (
+                                    <DropMenu > {/* 스타일 수정 */}
+                                        <CateMenu onClick={() => handleCategorySelect('가족사진')}>가족사진</CateMenu>
+                                        <CateMenu onClick={() => handleCategorySelect('증명사진')}>증명사진</CateMenu>
+                                        <CateMenu onClick={() => handleCategorySelect('반려동물')}>반려동물</CateMenu>
+                                        <CateMenu onClick={() => handleCategorySelect('바디프로필')}>바디프로필</CateMenu>
+                                        <CateMenu onClick={() => handleCategorySelect('웨딩사진')}>웨딩사진</CateMenu>   
+                                    </DropMenu>
+                                    )}
 
-                  </Lfour>
-              </Left> 
+                                </DropContainer>
 
-              <Right>
-                  <One>
-                      <SmallWrap>
-                        <InputSmall 
-                              type="text"
-                              value={name}
-                              onChange={(e) => setName(e.target.value)}
-                              placeholder="이름"
-                          />
-                      </SmallWrap>
-                  </One>
+                                </ButtonOne>
+                            </Left>
 
-                  <Two>
-                      <ProfileWrap>
-                        <ProfileArea 
-                          ref={textRef}
-                          onInput={handleResizeHeight}
-                          value={profile}
-                          onChange={(e) => setProfile(e.target.value)}
-                          placeholder="소개 및 커리어"
-                        />
-                      </ProfileWrap>
-                  </Two>
+                            <Right> 
+                                <ButtonTwo>
+                                    <UploadFinally
+                                    className="c-upload"
+                                    src={c_upload}
+                                    alt=""
+                                    onClick={handleSubmit} 
+                                        />
+                                </ButtonTwo>
+                            </Right>
+                        </Buttons>
+                    </InLayoutTwo>
+                    
 
-                  <div>
-                    <UploadFinally
-                    className="c-upload"
-                    src={c_upload}
-                    alt=""
-                    onClick={handleSubmit} 
-                      />
-                  </div>
-              </Right>   
-          </Layout>
+                </Center>
 
-        </Center>
-
-      </InOutWrap>
-    </OutWrap>
-  );
+            </InOutWrap>
+        </OutWrap>
+    );
 }
 
 export default Post;
 
-
-const LogoWrap = styled.div`
-  width: 496px;
-  height: 239px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  @media screen and (max-height: 864px) {
-    width: 456px; height: 199px; 
-  };
-`;
-const Logo = styled.img`
-  width: 354px; height: 239px; 
-
-  @media screen and (max-height: 864px) {
-    width: 314px; height: 199px; 
-  }`;
-
 const OutWrap = styled.div`
 width: 100%;
-height: 100%;
+height: 97.6vh;
+
 position: relative;
+
 background: white;
+
 display: flex;
 flex-direction: column;
-justify-content: center;
+// justify-content: center;
 align-items: center;
+
+//overflow: hidden;
 `;
 
 const InOutWrap = styled.div`
@@ -272,59 +263,147 @@ text-align: center;
 display: flex;
 flex-direction: column;
 align-items: center;
+justify-content: center;
 `;
 
-const Center = styled.div`
-width: 85%;
+const LogoWrap = styled.div`
+width: 30vw; 
+height: 26vh;
+  text-align: center;
+display: flex;
+flex-direction: column;
+align-items: center;
 
-@media screen and (min-width: 1600px) {
-  width: 90% 
+@media screen and (min-height: 900px) {
+    width: 32vw; 
+    height: 29vh;
 };
 `;
 
-const Layout = styled.div`
-width: 100%;
+const Logo = styled.img`
+width: 29vw; 
+height: 25vh;
+
+@media screen and (min-height: 900px) {
+    width: 31vw; 
+    height: 28vh; 
+}`;
+
+const Center = styled.div`
+//width: 65vw;
+text-align: center;
 display: flex;
-margin: auto;
+flex-direction: column;
+align-items: center;
 `;
 
-const Left = styled.div`
-width: 65vw;
+const InLayoutOne = styled.div`
+text-align:center;
+width:65vw;
+
+@media screen and (min-width: 1700px) {
+    width: 75vw;
+};
 `;
 
-const Right = styled.div`
-margin-left: 20px;
+const InLayoutTwo = styled(InLayoutOne)`
+display: flex;
+width:65vw;
+height:15vh;
+
+@media screen and (min-width: 1700px) {
+    width: 75vw;
+};
 `;
-// 겹치는 부분 후에 수정하기 !!!!
-const Radius = styled.div`
+
+const Content = styled.div`
+//width:65vw;
+display: flex;
+flex-direction: column;
+`;
+
+const ContentRadius = styled.div`
 border: 3px #3A76EF solid;
 padding: 20px;
 word-wrap: break-word;
 opacity: 0.90;
 border-radius: 31px;
 box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+margin-top: 20px;
+
+@media screen and (min-height: 900px) {
+    margin-top: 30px;
+    border: 4px #3A76EF solid;
+};
 `;
 
-const One = styled(Radius)`
+const Radius = styled.div`
+//border: 3px #3A76EF solid;
+padding: 20px;
+word-wrap: break-word;
+border-radius: 40px;
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+margin-top: 20px;
+
+`;
+// 색깔 탁하게 하는 주범 이 새기임 opacity: 0.90;
+const One = styled(ContentRadius)`
 display: flex;
 align-items: center;
+
+
 `;
 
-const Two = styled(Radius)`
+const Two = styled(One)`
+
+
+`;
+
+const Three = styled(ContentRadius)`
 height: auto;
-margin-top: 20px;
+
+flex:1;
 `;
 
-const Lthree = styled(Radius)`
-margin-top: 20px;
+const Four = styled(ContentRadius)`
+height: 25vh;
+
+`;
+
+
+const Five = styled(ContentRadius)`
+
 position: relative;
-height: 500px;
+
 overflow: hidden;
 text-align: center;
+height:75vh;
 `;
 
 
-const Lfour = styled(Radius)`
+const Left = styled.div`
+width: 65%;
+display: flex;
+justify-content: center;
+`;
+
+const Right = styled.div`
+display: flex;
+flex-direction: column;
+//margin-left: auto;
+flex:1
+`;
+
+const Buttons = styled.div`
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+`;
+
+const ButtonOne = styled(Radius)`
 background: #798BE6;
 margin-top: 20px;
 cursor: pointer;
@@ -332,37 +411,34 @@ display: flex;
 align-items: center;
 position: relative;
 justify-content: center;
-left: 50%;
-transform: translate(-50%);
 
-width: 18vw;
+width: 40vw;
 height: 3.3vh;
 
-  @media screen and (max-height: 864px) {
-    width: 17.5vw;
-    height: 6.8vh;
-  }
+@media screen and (min-width: 1700px) {
+    width: 50vw;
+};
 
 `;
-
-
 
 const Area = styled.div`
 display: flex;
 align-items: center;
 width: 100%;
 border-radius: 31px;
+overflow: hidden; 
 `;
 
 const SmallWrap = styled(Area)`
-height: 40px;
+height: auto;
+
 `;
+// overflow: hidden;  내용이 부모 요소를 넘어가지 않도록 함 
 
 const DescriptionWrap = styled(Area)`
-height: 6vh;
+height: 100%;
+
 `;
-
-
 const inputStyle = {
 color: 'black',
 fontSize: 40,
@@ -371,22 +447,20 @@ fontWeight: '400',
 border: 'none',
 outline: 'none',
 width: '100%',
-'@media screen and (max-height: 864px)': {
-  fontSize: 35,
-},
 
-
+    '@media screen and (max-height: 864px)': {
+        fontSize: 35,
+    },
 };
+
 const InputSmall = styled.input`
 ${inputStyle}
 height: 6vh;
-
 `;
-
 
 const DescriptArea = styled.textarea`
 ${inputStyle}
-height: 6vh;
+height: 100%;
 `;
 
 const ProfileArea = styled.textarea`
@@ -395,18 +469,18 @@ height: 100%;
 `;
 
 const EmptyImg = styled.img`
-  width: 200px;
-  height: 200px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  
-  @media screen and (max-height: 865px) {
-    width: 150px;
-    height: 150px;
-     
-  };
+width: 200px;
+height: 200px;
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+
+@media screen and (max-height: 865px) {
+width: 150px;
+height: 150px;
+
+};
 `;
 const FindImg = styled.img`
 position: absolute;
@@ -419,9 +493,12 @@ height: 7.4vh;
 
 @media screen and (max-height: 864px) {
   width:16.5vw;
-  height: 7.1vh; 
+  
 };
+`;
 
+
+const ButtonTwo = styled.div`
 `;
 const UploadFinally = styled.img`
   margin-top: 20px;
@@ -431,8 +508,12 @@ const UploadFinally = styled.img`
 
   @media screen and (max-height: 864px) {
     width: 17.5vw;
-    height: 7.1vh;
+    height: 9vh;
   }
+`;
+
+const FileBox = styled.input`
+  display:none;
 `;
 
 const SelectImg = styled.img`
@@ -444,9 +525,14 @@ const SelectImg = styled.img`
   const Menu = styled.span`
   z-index: 2;
   color: white;
-  font-size: 33px;
+  font-size: 37px;
   position: absolute;
-  font-weight: 550;
+  font-weight: 500;
+
+  @media screen and (max-height: 865px) {
+    font-size: 33px;
+    
+    };
 `;
 
 const DropContainer = styled.div`
@@ -457,7 +543,7 @@ const DropContainer = styled.div`
   align-items: center;
 `;
 
- {/*드롭메뉴바*/}
+//드롭메뉴바
 const DropMenu = styled.div` 
   position: relative;
   background-color: #798BE6;
@@ -480,7 +566,7 @@ const CateMenu = styled.div`
 
 
 const ProfileWrap = styled(Area)`
-height: 635px;
+height:100%;
 `;
 //const OutWrap = styled(Radius)``;
 //const OutWrap = styled.div``;

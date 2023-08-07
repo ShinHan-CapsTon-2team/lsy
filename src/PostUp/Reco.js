@@ -10,7 +10,7 @@ import upload from '../Images/upload.png';
 import styled from "styled-components";
 
 
-function Recommend() {
+function Reco() {
   const [selectedFile, setSelectedFile] = useState(null);
   const [imageSrc, setImageSrc] = useState(null);
   const navigate = useNavigate();
@@ -132,9 +132,9 @@ function Recommend() {
               <GoResult src={result} alt="result" onClick={handleImageUploadAndNavigate} />
                 
             </Button>
-            <ButtonOne>
-                    뭐야
-            </ButtonOne>
+            <ButtonTwo>
+                    결과 보기
+            </ButtonTwo>
           </InLayoutTwo>
         </Center>
       </InOutWrap>
@@ -142,7 +142,7 @@ function Recommend() {
   );
 }
 
-export default Recommend;
+export default Reco;
 
 const OutWrap = styled.div`
   width: 100%;
@@ -330,7 +330,7 @@ margin-top: 20px;
 border:none;
 
 `;
-const ButtonOne = styled(Radius)`
+const ButtonTwo = styled(Radius)`
 background: #798BE6;
 
 cursor: pointer;
@@ -338,10 +338,19 @@ display: flex;
 align-items: center;
 position: relative;
 justify-content: center;
+color: white;
+  font-size: 45px;
+  
+  font-weight: 500;
 
-width: 40vw;
-height: 3.3vh;
+width:18.5vw;
+  height: 7.5vh;
 
-@media screen and (min-width: 1700px) {
-    width: 50vw;
-}`;
+  @media screen and (max-height: 864px) {
+    width:18vw;
+    height: 7vh; 
+    font-size: 33px;
+  };
+ `;
+
+
