@@ -210,18 +210,19 @@ height: 23vh;
   `;
 
   const EmptyImg = styled.img`
-    width: 200px;
-    height: 200px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    
-    @media screen and (max-height: 865px) {
-      width: 150px;
-      height: 150px;
-       
-    };
+  width: 200px;
+  height: 200px;
+  width: 150px;
+  height: 150px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  
+  @media screen and  (min-height: 950px){
+      width: 200px;
+      height: 200px;
+  };
   `;
 
 const InLayoutTwo = styled(InLayoutOne)`
@@ -283,8 +284,8 @@ border:none;
 `;
 
 
-const FindImg = styled(Radius)`
-background: #798BE6;
+const FindImg = styled(Radius)` 
+  background: #798BE6;
   position: absolute;
   bottom: 10px;
   right: 10px;
@@ -292,60 +293,50 @@ background: #798BE6;
   display: flex;
   justify-content: center;
   align-items:center;
-
-  color: white;
-  font-size: 45px;
-  over-flow:hidden;
-  font-weight: 500;
   
   width:18.5vw;
   height: 7.5vh;
-
-  @media screen and (max-height: 864px) {
+  // 여기 적응된다고 . . .왜 다른 곳은 안되는거고 여긴 
+  @media screen and (min-height: 950px) {
     width:18vw;
-    height: 7vh; 
-    font-size: 33px;
-  };
+    height: 8vh; 
+    
+   };
   
 
 `;
 const ButtonTwo = styled(Radius)`
 background: #798BE6;
-
-cursor: pointer;
 display: flex;
 align-items: center;
-position: relative;
 justify-content: center;
-color: white;
-  font-size: 45px;
-  over-flow:hidden;
-  font-weight: 500;
 
-width:18.5vw;
-  height: 7.5vh;
+position: relative;
+cursor: pointer;
+  width:18vw;
+  height: 7vh; 
+  font-size: 33px;
 
-  @media screen and (max-height: 864px) {
+  @media screen and (min-width: 1700px) {
     width:18vw;
-    height: 7vh; 
-    font-size: 33px;
+    height: 7.5vh; 
   };
  `;
 
 
- // span 
  const Menu = styled.span`
- z-index: 2;
- color: white;
- 
- position: absolute;
- font-weight: 500;
- 
- font-size: 45px;
- over-flow:hidden;
- 
- @media screen and (max-height: 865px) {
-   font-size: 33px;
-   
-   };
- `;
+z-index: 2;
+color: white;
+
+position: absolute;
+font-weight: 500;
+
+font-size: 33px;
+over-flow:hidden;
+
+@media screen and (min-height: 950px) {
+  
+  font-size: 45px;
+  
+  };
+`;

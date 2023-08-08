@@ -477,11 +477,7 @@ const FindImg = styled(Radius)`
     height: 8vh; 
     
    // };
-  //@media screen and (max-height: 864px) {
-    //width:18vw;
-    //height: 7vh; 
-    
-   // };
+  
   
 `;
 
@@ -530,11 +526,12 @@ color: white;
 position: absolute;
 font-weight: 500;
 
-font-size: 45px;
+font-size: 33px;
 over-flow:hidden;
 
-@media screen and (max-height: 865px) {
-  font-size: 33px;
+@media screen and (min-height: 950px) {
+  
+  font-size: 45px;
   
   };
 `;
@@ -559,15 +556,15 @@ height: 100%;
 `;
 const inputStyle = {
 color: 'black',
-fontSize: 40,
+fontSize: 35,
 fontFamily: 'Inter',
 fontWeight: '400',
 border: 'none',
 outline: 'none',
 width: '100%',
 
-    '@media screen and (max-height: 864px)': {
-        fontSize: 35,
+    '@media screen and (min-height: 950px)': {
+        fontSize: 40,
     },
 };
 
@@ -589,14 +586,16 @@ height: 100%;
 const EmptyImg = styled.img`
 width: 200px;
 height: 200px;
+width: 150px;
+height: 150px;
 position: absolute;
 top: 50%;
 left: 50%;
 transform: translate(-50%, -50%);
 
-@media screen and (max-height: 865px) {
-width: 150px;
-height: 150px;
+@media screen and  (min-height: 950px){
+    width: 200px;
+    height: 200px;
 };
 `;
 
@@ -629,23 +628,20 @@ const DropMenu = styled.div`
 
   text-align: center;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  
+  top: -157px;
 
   
 
-  @media screen and (max-height: 870px) {
-    top: -157px;
-    };
-
-  @media screen and (max-height: 1100px) {
+  @media screen and (min-height: 950px){
     top: -167px;
     };
 
-    @media screen and (max-width: 1600px) {
-      width:25vw;
-    };
+    
   @media screen and (max-width: 1950px) {
     width:40vw;
+  };
+  @media screen and (max-width: 1600px) {
+    width:25vw;
   };
   
 `;
