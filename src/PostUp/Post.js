@@ -236,7 +236,7 @@ function Post() {
                                 )} {/*빈 이미지로 사진 올리면 없어짐 */}
 
                                 <FindImg >
-                                  <Menu onClick={() => document.getElementById('file-upload').click()}>파일 찾기</Menu>
+                                  <Menu onClick={() => document.getElementById('fileInput').click()}>파일 찾기</Menu>
                                 </FindImg>
 
                                 <FileBox 

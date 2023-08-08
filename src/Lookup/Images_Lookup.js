@@ -7,7 +7,7 @@ import { useEffect,useState } from 'react'
 
 import styled from "styled-components";
 
-const SERVER_URL= 'http://localhost:4000/api/post';
+const SERVER_URL= 'http://localhost:4000/api/lookup';
 
 //const SERVER_URL= 'http://localhost:4000/api/post';
 
@@ -59,6 +59,7 @@ function Images_Lookup() {
     }
 
     return (  
+        
         <OutWrap>
             <InOutWrap>
             
@@ -66,9 +67,10 @@ function Images_Lookup() {
                 <LogoWrap>
                     <Logo src={logo} alt='' onClick={handleGohomeClick}/>
                 </LogoWrap>
+
                 {/* 로고 아래 */} 
                 {user.map((uu)=>{
-                    const imageUrl = uu.image_url; // 이미지 URL 사용
+                    let imageUrl = uu.image_url; // 이미지 URL 사용
                     console.log("url:", imageUrl);
 
                     return(
@@ -116,7 +118,7 @@ function Images_Lookup() {
             </InOutWrap>
         </OutWrap>
     );
-}
+};
 
 export default Images_Lookup;
 
