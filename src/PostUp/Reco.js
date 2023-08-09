@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import {  useNavigate } from 'react-router-dom';
 
-import logo from '../Images/imagelogo.png';
 import upload from '../Images/upload.png';
 
 import styled from "styled-components";
 
+import Logo from './Header' 
 
 function Reco() {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -50,10 +50,6 @@ function Reco() {
   };
 
 
-  //홈페이지
-  const handleGohomeClick = () => {
-    navigate('/home');
-  };
   const handleImageUploadAndNavigate = async () => {
     if (!selectedFile) {
       return;
@@ -89,10 +85,9 @@ function Reco() {
   return (
     <OutWrap>
       <InOutWrap>
-        <LogoWrap>
-          <Logo src={logo} alt='' onClick={handleGohomeClick}/>
-        </LogoWrap>
-
+        {/* 로고 */}        
+        <Logo />
+        {/* 컨텐츠 */}
         <Center>
 
           <InLayoutOne>
@@ -158,19 +153,7 @@ align-items: center;
 justify-content: center;
 `;
 
-const LogoWrap = styled.div`
-width: 27vw; 
-height: 23.2vh;
-  text-align: center;
-display: flex;
-flex-direction: column;
-align-items: center;
 
-@media screen and (min-height: 900px) {
-    width: 29vw; 
-    height: 26.2vh;
-};
-`;
 const Center = styled.div`
 //width: 65vw;
 text-align: center;
@@ -192,16 +175,6 @@ const Content = styled.div`
 display: flex;
 flex-direction: column;
 `;
-
-const Logo = styled.img`
-width: 27vw; 
-height: 23vh;
-
-@media screen and (min-height: 900px) {
-    width: 29vw; 
-    height: 26vh; 
-}`;
-
 
   const SelectImg = styled.img`
   width: 100%;

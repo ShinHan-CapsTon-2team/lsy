@@ -4,6 +4,8 @@ import { useNavigate  } from 'react-router-dom';
 import React, { useCallback, useEffect, useState } from 'react';
 //import React, { useEffect } from 'react';
 //import { useSearchParams } from 'react-router-dom';
+import homelogo from '../Images/homelogo.png'
+
 
 import logo from '../Images/imagelogo.png';
 import styled from 'styled-components';
@@ -35,26 +37,38 @@ const OutWrap = styled.div`
   `;
 
   const LogoWrap = styled.div`
-  width: 496px;
-  height: 239px;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  width: 100%; 
+//width: 30vw; 
+height: 26vh;
+ // text-align: center;
+display: flex;
+//flex-direction: row;
+align-items: center;
+justify-content: center;
 
-  @media screen and (max-height: 864px) {
-    width: 456px; height: 199px; 
-  };
+
+@media screen and (min-height: 900px) {
+    //width: 32vw; 
+    width: 100%;
+    height: 29vh;
+};
 `;
+
+
   
 const Logo = styled.img`
-width: 354px; height: 239px; 
+width: 29vw; 
+height: 25vh;
+//margin: 0 auto;
+text-align: center;
 
-@media screen and (max-height: 864px) {
-  width: 314px; height: 199px; 
- };
-`  
-  const CategoryWrap = styled.div`
+
+@media screen and (min-height: 900px) {
+    width: 31vw; 
+    height: 28vh; 
+}`;
+ 
+const CategoryWrap = styled.div`
   display: flex;
   flex-wrap: wrap; /* 줄바꿈을 허용하여 가로 공간에 맞게 정렬될 수 있도록 설정 */
   justify-content: space-between; /* 공간을 균등하게 분배하여 가로로 정렬 */
@@ -186,16 +200,23 @@ const handleCategorySelect = useCallback((category, limit, offset) => {
 
   };
 
+  // page
 
-    const handleClick = (id) => {
-     console.log('Clicked with id:', id); // 확인용
-      if (id !== undefined) {
-        
-        navigate(`/lookup/${id}`);
-      } else {
-       console.error('Invalid id:', id);
-     }
+  // landing page
+  const handleGoLandingClick = () => {
+    navigate('/');
     };
+    
+  // lookup page
+  const handleClick = (id) => {
+    console.log('Clicked with id:', id); // 확인용
+    if (id !== undefined) {
+      
+      navigate(`/lookup/${id}`);
+    } else {
+      console.error('Invalid id:', id);
+    }
+  };
 
   
    
@@ -211,9 +232,12 @@ const handleCategorySelect = useCallback((category, limit, offset) => {
   return (
     <OutWrap>
       <InsideWrap>
-      <LogoWrap>
-        <Logo src={logo} alt='' onClick={handleGohomeClick}/>
-      </LogoWrap>
+        {/* 로고 */}        
+        <LogoWrap>                
+            <Logo src={logo} alt='' onClick={handleGoLandingClick}/>
+        </LogoWrap>
+
+
         <CategoryWrap>
           {categoriesData&&categoriesData.map((category, index) => (
             <ButtonTwo  

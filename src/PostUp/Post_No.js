@@ -1,34 +1,32 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect ,useRef, useCallback } from 'react';
 import * as tf from '@tensorflow/tfjs'; //npm i @tensorflow/tfjs
 import '@tensorflow/tfjs-backend-webgl'; //npm i @tensorflow/tfjs-backend-webgl
-
+//useRef, useCallback
+import logo from '../Images/imagelogo.png';
 import { useNavigate } from 'react-router-dom';
 
 import upload from '../Images/upload.png';
 
-
 //import Inputtitle from './InTitle' 컴포넌트 
-import Loogo from './Header' 
+
 import styled from "styled-components";
 
 const SERVER_URL= 'http://localhost:4000/api/post';
 
-function PostEx() {
+function Post() {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     //const [image_url, setImageUrl] = useState('');
-    const [password, setPassword] = useState('');
     const [category, setCategory] = useState('');
     const [name, setName] = useState('');
     const [profile, setProfile] = useState(''); 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [selectedImage, setSelectedImage] = useState(''); // 이거 뭐야 
+    const [selectedImage, setSelectedImage] = useState('');
     const [imageFile, setImageFile] = useState(null);
     const [previewImage, setPreviewImage] = useState(null); // 미리보기 이미지 URL 상태
     const [prediction, setPrediction] = useState(null);
     const [selectedClass, setSelectedClass] = useState(0); // 선택한 클래스의 인덱스
-
     const classLabels = [
       '바디프로필',
       '반려동물',
@@ -36,14 +34,12 @@ function PostEx() {
       '증명사진',
       '웨딩사진',
     ];
-
     const navigate = useNavigate();
 
     //홈페이지
     const handleGohomeClick = () => {
         navigate('/home');
     };
-    
 
     useEffect(() => {
         // 모델 로드
@@ -104,7 +100,10 @@ function PostEx() {
       };
 
     const handleSubmit = () => {
-
+        //window.location.href = '/home';
+        // 사용자가 게시글을 업로드한 시점의 시간
+        //const currentTime = new Date().toISOString();
+        // 서버로 보낼 데이터 객체를 생성
         const data = {
         title,
         description,
@@ -112,7 +111,6 @@ function PostEx() {
         category,
         name,
         profile,
-        password, // 비밀번호 추가 
         //created_at : getCurrentTime(),
         };
         console.log(data.title);
@@ -176,9 +174,11 @@ function PostEx() {
         
         <OutWrap>
             <InOutWrap>            
-                {/* 로고 */}        
-                <Loogo/>
-                {/* 내용 */} 
+                {/* 홈페이지 로고 같*/}        
+                <LogoWrap>
+                    <Logo src={logo} alt='' onClick={handleGohomeClick}/>
+                </LogoWrap>
+                {/* 로고 아래 */} 
 
                 <Center>                   
                     <InLayoutOne>  
@@ -194,31 +194,17 @@ function PostEx() {
                                     />
                                 </SmallWrap>
                             </One>
-                            
-                            <Em>{/*이름 , 비밀번호 */}
-                              <Two style={{marginRight:20 ,flex:1}}>{/*이름 */}
-                                  <TwoWrap>
-                                      <InputSmall 
-                                          type="text"
-                                          value={name}
-                                          onChange={(e) => setName(e.target.value)}
-                                          placeholder="이름"
-                                      />
-                                  </TwoWrap>
-                              </Two>
 
-                              <Two style={{flex:1}}>{/*비밀번호  */}
-                                <TwoWrap>
-                                    <InputSmall
-                                        type="password"
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
-                                        placeholder="비밀번호"
+                            <Two>{/*이름 */}
+                                <SmallWrap>
+                                    <InputSmall 
+                                        type="text"
+                                        value={name}
+                                        onChange={(e) => setName(e.target.value)}
+                                        placeholder="이름"
                                     />
-                                </TwoWrap>
-                              </Two>
-                            </Em>
-                            
+                                </SmallWrap>
+                            </Two>
 
                             <Three> {/*소개 */}
                                 <ProfileWrap>
@@ -313,7 +299,7 @@ function PostEx() {
     );
 }
 
-export default PostEx;
+export default Post;
 
 const OutWrap = styled.div`
 width: 100%;
@@ -339,8 +325,28 @@ align-items: center;
 justify-content: center;
 `;
 
+const LogoWrap = styled.div`
+width: 30vw; 
+height: 26vh;
+  text-align: center;
+display: flex;
+flex-direction: column;
+align-items: center;
 
+@media screen and (min-height: 900px) {
+    width: 32vw; 
+    height: 29vh;
+};
+`;
 
+const Logo = styled.img`
+width: 29vw; 
+height: 25vh;
+
+@media screen and (min-height: 900px) {
+    width: 31vw; 
+    height: 28vh; 
+}`;
 
 const Center = styled.div`
 //width: 65vw;
@@ -399,15 +405,8 @@ display: flex;
 align-items: center;
 `;
 
-const Two = styled(ContentRadius)`
-display: flex;
-align-items: center;
+const Two = styled(One)`
 `;
-const Em = styled.div`
-display: flex;
-  //flex-wrap: wrap; /* 줄바꿈을 허용하여 가로 공간에 맞게 정렬될 수 있도록 설정 */
-  justify-content: space-between; /* 공간을 균등하게 분배하여 가로로 정렬 */
-  align-items: center; /* 수직 가운데 정렬 (선택 사항) *`
 
 const Three = styled(ContentRadius)`
 height: auto;
@@ -549,10 +548,7 @@ const SmallWrap = styled(Area)`
 height: auto;
 
 `;
-const TwoWrap = styled(Area)`
-height: auto;
-
-`;
+// overflow: hidden;  내용이 부모 요소를 넘어가지 않도록 함 
 
 const DescriptionWrap = styled(Area)`
 height: 100%;
@@ -576,7 +572,6 @@ const InputSmall = styled.input`
 ${inputStyle}
 height: 6vh;
 `;
-
 
 const DescriptArea = styled.textarea`
 ${inputStyle}

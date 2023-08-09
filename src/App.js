@@ -15,9 +15,10 @@ import QuizReult from './Quiz/Quizresult'
 import Post from './PostUp/Post.js'
 import Home from './Home/homepage.js'
 import Reco from './PostUp/Reco.js'
+
 //import Lookup from './Lookup/Images_Lookup.js' // 조회
 import Lookup from './Lookup/Images_Lookup'
-//style={{display:'flex',flexDirection:'column',alignItems:'center',textAlign:'center',margin : '0 auto'}}
+
 function App() {
     
 

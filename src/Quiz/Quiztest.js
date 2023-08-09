@@ -60,6 +60,8 @@ const QuizTest = () => {
     width: 35vw;
     height: 79vh;
     margin-right: 50px;
+    flex-direction: row; //가로로 나란히 
+    // flex-direction: column; // 세로로 나란히 
 
     @media screen and (min-width: 1600px) {
         width: 35vw;
