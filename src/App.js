@@ -1,11 +1,5 @@
-//기본 제공 fetch
-//axios 라이브러리 
-
-
-
 import React from 'react';
 import {BrowserRouter, Routes, Route} from 'react-router-dom'; 
-
 
 
 import Landing from './pages/Landing';
@@ -17,7 +11,7 @@ import Home from './Home/homepage.js'
 import Reco from './PostUp/Reco.js'
 
 //import Lookup from './Lookup/Images_Lookup.js' // 조회
-import Lookup from './Lookup/Images_Lookup'
+import Lookup from './Lookup/Image_Button'
 
 function App() {
     
@@ -38,7 +32,7 @@ function App() {
                 <Route path ='/quizresult' element={<QuizReult />}/>
 
                 <Route path ='/home' element={<Home />}/>
-                <Route path ='/lookup/:id' element={<Lookup/>}/>
+                <Route path ='/lookup' element={<Lookup/>}/>
 
 
             </Routes>

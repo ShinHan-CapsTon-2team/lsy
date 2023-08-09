@@ -3,7 +3,7 @@ import logo from '../Images/imagelogo.png';
 
 import React, {useNavigate,useParams } from 'react-router-dom';
 import { useEffect,useState } from 'react'
-
+import love from '../Images/el.jpg'
 
 import styled from "styled-components";
 
@@ -75,7 +75,7 @@ function Images_Button() {
 
                             <One> {/*제목*/}
                                 <SmallWrap>
-                                    <Font>제목</Font>
+                                    <Font>제제제목 </Font>
                                 </SmallWrap>
                             </One>
 
@@ -87,23 +87,56 @@ function Images_Button() {
 
                             <Three> {/*소개 */}
                                 <ProfileWrap>
-                                    <Font>소개</Font>
+                                    <Font>소개소개 </Font>
                                 </ProfileWrap>
                             </Three>
                                         
                             
                             <Five>{/* 이미지 */}
                                 <BoxRadius > {/* 이미지 */}
-                                    <Img src={imageUrl} alt='이미지' />
+                                    <Img src={love} alt='이미지' />
                                 </BoxRadius>
                                 
                                 <BoxRadius> {/* 설명 */}
-                                    <Font>{uu.description || 'None'}</Font>
+                                    <Font>설명설명 </Font>
                                 </BoxRadius>
                             </Five>
 
                         </Content>  
                     </InLayoutOne>  
+                    <InLayoutTwo>
+                        <Buttons>
+                            <Left>
+                                <Two style={{width:'45vh'}}>{/*비밀번호  */}
+                                    <TwoWrap>
+                                        <InputSmall
+                                            type="password"
+                                            
+                                            placeholder="비밀번호"
+                                        />
+                                    </TwoWrap>
+                                </Two>
+                                <ButtonTwo style={{width:'10vw',marginLeft:20}}>
+                                    <Menu  >
+                                    확인  </Menu>
+                                </ButtonTwo>
+                                
+                            </Left>
+
+                            <Right> 
+                                <ButtonTwo>
+                                    <Menu  >
+                                    수정  </Menu>
+                                </ButtonTwo>
+
+                                <ButtonTwo>
+                                    <Menu  >
+                                    삭제  </Menu>
+                                </ButtonTwo> 
+                            </Right>
+                        </Buttons>
+
+                    </InLayoutTwo>
 
                             
                 </Center>
@@ -238,7 +271,7 @@ position: relative;
 overflow: hidden;
 text-align: center;
 height:auto;
-margin-bottom : 6vh;
+margin-bottom : 3vh;
 `;
 
 const Area = styled.div`
@@ -273,3 +306,142 @@ font-size: 35px;
 const ProfileWrap = styled(Area)`
 height:100%;
 `;
+
+
+const InLayoutTwo = styled(InLayoutOne)`
+display: flex;
+width:65vw;
+height:19vh;
+align-items: center;
+//justify-content: center;
+
+margin-bottom:30px;
+@media screen and (min-width: 1700px) {
+    width: 75vw;
+    height:21vh;
+};
+`;
+
+const Buttons = styled.div`
+  text-align: center;
+  display: flex;
+  
+  flex-direction: row;
+  width: 100%;
+`;
+
+const Left = styled.div`
+width: 75%;
+display: flex;
+align-items:center;
+//justify-content: center; //
+`;
+
+const Right = styled.div`
+display: flex;
+flex-direction: column;
+margin-left: auto;
+margin-right:10px;
+//flex:1
+`;
+
+
+const Radius = styled.button`
+//border: 3px #3A76EF solid;
+
+padding: 20px;
+word-wrap: break-word;
+border-radius: 40px;
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+margin-top: 20px;
+border:none;
+
+`;
+
+//파일 찾기 
+
+const FindImg = styled(Radius)` 
+  background: #798BE6;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+
+  display: flex;
+  justify-content: center;
+  align-items:center;
+  
+  width:18.5vw;
+  height: 7.5vh;
+  // 여기 적응된다고 . . .왜 다른 곳은 안되는거고 여긴 
+  @media screen and (min-height: 950px) {
+    width:18vw;
+    height: 8vh; 
+    
+   // };
+  
+  
+`;
+
+
+
+
+const ButtonTwo = styled(Radius)`
+background: #798BE6;
+display: flex;
+align-items: center;
+justify-content: center;
+
+position: relative;
+cursor: pointer;
+  width:18vw;
+  height: 7vh; 
+  font-size: 33px;
+
+  @media screen and (min-width: 1700px) {
+    width:18vw;
+    height: 7.5vh; 
+  };
+ `;
+
+ const Menu = styled.span`
+z-index: 2;
+color: white;
+
+position: absolute;
+font-weight: 500;
+
+font-size: 33px;
+over-flow:hidden;
+
+@media screen and (min-height: 950px) {
+  
+  font-size: 45px;
+  
+  };
+`;
+
+
+const TwoWrap = styled(Area)`
+height: auto;
+
+`;
+
+const inputStyle = {
+    color: 'black',
+    fontSize: 35,
+    fontFamily: 'Inter',
+    fontWeight: '400',
+    border: 'none',
+    outline: 'none',
+    width: '100%',
+    
+        '@media screen and (min-height: 950px)': {
+            fontSize: 40,
+        },
+    };
+    
+    const InputSmall = styled.input`
+    ${inputStyle}
+    height: 6vh;
+    `;
