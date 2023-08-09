@@ -9,9 +9,8 @@ import QuizReult from './Quiz/Quizresult'
 import Post from './PostUp/Post.js'
 import Home from './Home/homepage.js'
 import Reco from './PostUp/Reco.js'
+import Lookup from './Lookup/Images_Lookup.js' // 조회
 
-//import Lookup from './Lookup/Images_Lookup.js' // 조회
-import Lookup from './Lookup/Image_Button'
 
 function App() {
     
@@ -32,7 +31,7 @@ function App() {
                 <Route path ='/quizresult' element={<QuizReult />}/>
 
                 <Route path ='/home' element={<Home />}/>
-                <Route path ='/lookup' element={<Lookup/>}/>
+                <Route path ='/lookup/:id' element={<Lookup/>}/>
 
 
             </Routes>

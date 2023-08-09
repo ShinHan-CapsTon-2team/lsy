@@ -3,7 +3,6 @@ import logo from '../Images/imagelogo.png';
 
 import React, {useNavigate,useParams } from 'react-router-dom';
 import { useEffect,useState } from 'react'
-import love from '../Images/el.jpg'
 
 import styled from "styled-components";
 
@@ -68,78 +67,85 @@ function Images_Button() {
                     <Logo src={logo} alt='' onClick={handleGohomeClick}/>
                 </LogoWrap>
 
-                
-                <Center >
-                    <InLayoutOne>  
-                        <Content>
+                {user.map((uu)=>{
+                    let imageUrl = uu.image_url; // 이미지 URL 사용
+                    console.log("url:", imageUrl);
 
-                            <One> {/*제목*/}
-                                <SmallWrap>
-                                    <Font>제제제목 </Font>
-                                </SmallWrap>
-                            </One>
+                    return(
+                        <Center key={uu.id}>
+                            <InLayoutOne>  
+                                <Content>
 
-                            <Two>{/*이름 */}
-                                <SmallWrap>
-                                    <Font>이름</Font>
-                                </SmallWrap>
-                            </Two>
+                                    <One> {/*제목*/}
+                                        <SmallWrap>
+                                            <Font>{uu.title || 'None'} </Font>
+                                        </SmallWrap>
+                                    </One>
 
-                            <Three> {/*소개 */}
-                                <ProfileWrap>
-                                    <Font>소개소개 </Font>
-                                </ProfileWrap>
-                            </Three>
+                                    <Two>{/*이름 */}
+                                        <SmallWrap>
+                                            <Font>{uu.name || 'None'}</Font>
+                                        </SmallWrap>
+                                    </Two>
+
+                                    <Three> {/*소개 */}
+                                        <ProfileWrap>
+                                            <Font>{uu.profile || 'None'} </Font>
+                                        </ProfileWrap>
+                                    </Three>
+                                                
+                                    
+                                    <Five>{/* 이미지 */}
+                                        <BoxRadius > {/* 이미지 */}
+                                            <Img src={imageUrl} alt='이미지' />
+                                        </BoxRadius>
                                         
-                            
-                            <Five>{/* 이미지 */}
-                                <BoxRadius > {/* 이미지 */}
-                                    <Img src={love} alt='이미지' />
-                                </BoxRadius>
-                                
-                                <BoxRadius> {/* 설명 */}
-                                    <Font>설명설명 </Font>
-                                </BoxRadius>
-                            </Five>
+                                        <BoxRadius> {/* 설명 */}
+                                            <Font>{uu.description || 'None'} </Font>
+                                        </BoxRadius>
+                                    </Five>
 
-                        </Content>  
-                    </InLayoutOne>  
-                    <InLayoutTwo>
-                        <Buttons>
-                            <Left>
-                                <Two style={{width:'45vh'}}>{/*비밀번호  */}
-                                    <TwoWrap>
-                                        <InputSmall
-                                            type="password"
-                                            
-                                            placeholder="비밀번호"
-                                        />
-                                    </TwoWrap>
-                                </Two>
-                                <ButtonTwo style={{width:'10vw',marginLeft:20}}>
-                                    <Menu  >
-                                    확인  </Menu>
-                                </ButtonTwo>
-                                
-                            </Left>
+                                </Content>  
+                            </InLayoutOne>  
+                            <InLayoutTwo>
+                                <Buttons>
+                                    <Left>
+                                        <Two style={{width:'45vh'}}>{/*비밀번호  */}
+                                            <TwoWrap>
+                                                <InputSmall
+                                                    type="password"
+                                                    
+                                                    placeholder="비밀번호"
+                                                />
+                                            </TwoWrap>
+                                        </Two>
+                                        <ButtonTwo style={{width:'10vw',marginLeft:20}}>
+                                            <Menu  >
+                                            확인  </Menu>
+                                        </ButtonTwo>
+                                        
+                                    </Left>
 
-                            <Right> 
-                                <ButtonTwo>
-                                    <Menu  >
-                                    수정  </Menu>
-                                </ButtonTwo>
+                                    <Right> 
+                                        <ButtonTwo>
+                                            <Menu  >
+                                            수정  </Menu>
+                                        </ButtonTwo>
 
-                                <ButtonTwo>
-                                    <Menu  >
-                                    삭제  </Menu>
-                                </ButtonTwo> 
-                            </Right>
-                        </Buttons>
+                                        <ButtonTwo>
+                                            <Menu  >
+                                            삭제  </Menu>
+                                        </ButtonTwo> 
+                                    </Right>
+                                </Buttons>
 
-                    </InLayoutTwo>
+                            </InLayoutTwo>
 
-                            
-                </Center>
+                                    
+                        </Center>
+                    )
+                }
+            )}
             </InOutWrap>
         </OutWrap>
     );

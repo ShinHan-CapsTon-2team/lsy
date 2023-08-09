@@ -2,8 +2,6 @@ import { useLocation } from 'react-router-dom';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import pic1 from '../Images/image 7.png'
-import pic2 from    '../Images/image 8.png'
 import styled from "styled-components";
 
 const Quizresult  = () => {
@@ -41,9 +39,17 @@ const Quizresult  = () => {
                 <OneImg src="https://via.placeholder.com/378x482" style={{marginLeft:20,marginRight:20}} />
                 <OneImg src="https://via.placeholder.com/378x482" />
             </InsideWrap>
-            <InsideNextWrap>
-                <Button src={pic1} onClick={handleGoHomeClick} />
-                <Button src={pic2} onClick={handleGoUploadClick}/>
+
+            
+            <InsideNextWrap> 
+                <ButtonTwo style={{marginRight:30}}>                         
+                    <Menu onClick={handleGoHomeClick} >
+                    홈페이지 방문하기  </Menu>
+                </ButtonTwo>
+                <ButtonTwo>                         
+                    <Menu onClick={handleGoUploadClick} >
+                    테스트 다시 하기  </Menu>
+                </ButtonTwo>
             </InsideNextWrap>
         </OutWrap>
     );
@@ -64,6 +70,7 @@ const OutWrap = styled.div`
 `;
 
     const InsideWrap = styled.div`
+
         text-align: center;
         display: flex;
         flex-direction: row;
@@ -91,9 +98,15 @@ const OutWrap = styled.div`
         //margin-right: ${({ isMargin }) => (isMargin ? '20px' : 0)};
 
     const InsideNextWrap = styled.div`
+    
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         margin-top: 20px;
+
+        width:100%;
+        position: fixed;
+        bottom: 20px;
+         right: 20px;
     `;
 
     const Button = styled.img`
@@ -111,3 +124,50 @@ const OutWrap = styled.div`
     
     
     
+    const Radius = styled.button`
+    //border: 3px #3A76EF solid;
+    
+    padding: 20px;
+    word-wrap: break-word;
+    border-radius: 40px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    
+    margin-top: 20px;
+    border:none;
+    
+    `;
+    const ButtonTwo = styled(Radius)`
+background: #798BE6;
+display: flex;
+align-items: center;
+justify-content: center;
+
+position: relative;
+cursor: pointer;
+  width:25vw;
+  height: 7vh; 
+  font-size: 33px;
+
+  @media screen and (min-width: 1700px) {
+    width:18vw;
+    height: 7.5vh; 
+  };
+ `;
+
+  // span 
+const Menu = styled.span`
+z-index: 2;
+color: white;
+
+position: absolute;
+font-weight: 500;
+
+font-size: 30px;
+over-flow:hidden;
+
+@media screen and (min-height: 950px) {
+  
+  font-size: 40px;
+  
+  };
+`;

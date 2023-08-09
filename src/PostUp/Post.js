@@ -328,7 +328,6 @@ flex-direction: column;
 // justify-content: center;
 align-items: center;
 
-//overflow: hidden;
 `;
 
 const InOutWrap = styled.div`
