@@ -243,8 +243,6 @@ display: none;
 `;
 
 
-
-  
 const ContentRadius = styled.div`
 border: 3px #3A76EF solid;
 padding: 20px;

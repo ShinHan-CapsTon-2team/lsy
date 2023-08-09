@@ -6,20 +6,13 @@ import React, { useCallback, useEffect, useState } from 'react';
 //import { useSearchParams } from 'react-router-dom';
 
 import logo from '../Images/imagelogo.png';
-import family from '../Images/image 13.png';
-import pet from '../Images/image 10.png';
-import profile from '../Images/image 12.png';
-import wedding from '../Images/image 11.png';
-import body from '../Images/image 9.png';
-import styled from "styled-components";
-
-
+import styled from 'styled-components';
 const categoriesData = [
-  { name: '가족사진', src: family },
-  { name: '반려동물', src: pet },
-  { name: '증명사진', src: profile },
-  { name: '웨딩사진', src: wedding },
-  { name: '바디프로필', src: body },
+  { name: '가족사진' },
+  { name: '반려동물' },
+  { name: '증명사진' },
+  { name: '웨딩사진' },
+  { name: '바디프로필'},
 ];
 
 
@@ -62,7 +55,10 @@ width: 354px; height: 239px;
  };
 `  
   const CategoryWrap = styled.div`
-  
+  display: flex;
+  flex-wrap: wrap; /* 줄바꿈을 허용하여 가로 공간에 맞게 정렬될 수 있도록 설정 */
+  justify-content: space-between; /* 공간을 균등하게 분배하여 가로로 정렬 */
+  align-items: center; /* 수직 가운데 정렬 (선택 사항) */
   `;
 
   const CategoryImg = styled.img`
@@ -134,11 +130,18 @@ width: 354px; height: 239px;
 const Homepage = () => {
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
+  //데이터 불러오는 
   const [selectedCategory, setSelectedCategory] = useState('가족사진');
+  // 버튼
+  const [selectCategory, setSelectCategory] = useState('가족사진');
+  
   const [pageNumber, setPageNumber] = useState(1);
   const limit = 10; // 한 페이지당 이미지 수 설정
  
-  
+  //버튼 
+const selectCate = (categoryName) => {
+  setSelectCategory(categoryName);
+};
 
 const handleCategorySelect = useCallback((category, limit, offset) => {
   //const queryString = new URLSearchParams({ category }).toString();
@@ -213,12 +216,14 @@ const handleCategorySelect = useCallback((category, limit, offset) => {
       </LogoWrap>
         <CategoryWrap>
           {categoriesData&&categoriesData.map((category, index) => (
-            <CategoryImg
-              key={category.name || index}
-              src={category.src}
-              alt=''
-              onClick={() => handleCategorySelect(category.name)}
-            />
+            <ButtonTwo  
+            key={index}
+            isSelected={selectCategory === category.name}
+            onClick={() => handleCategorySelect(category.name)}>
+              <Menu  onClick={() => selectCate(category.name)} >
+                {category.name }
+              </Menu>
+            </ButtonTwo>
           ))}
         </CategoryWrap>
 
@@ -249,3 +254,54 @@ const handleCategorySelect = useCallback((category, limit, offset) => {
 };
 
 export default Homepage;
+const Radius = styled.button`
+//border: 3px #3A76EF solid;
+
+padding: 20px;
+word-wrap: break-word;
+border-radius: 40px;
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+//margin-top: 20px;
+border:none;
+
+`;
+const ButtonTwo = styled(Radius)`
+background: ${({ isSelected }) => isSelected ? '#5D6BB4' : '#798BE6'};
+
+//background: ${(props) => (props.selected ? '#FF5733' : '#798BE6')};
+// background: #798BE6;
+display: flex;
+align-items: center;
+justify-content: center;
+
+position: relative;
+cursor: pointer;
+  width:13vw;
+  height: 7vh; 
+  font-size: 33px;
+
+  margin-right:20px;
+  @media screen and (min-width: 1700px) {
+    width:18vw;
+    height: 7.5vh; 
+  };
+ `;
+
+
+ const Menu = styled.span`
+z-index: 2;
+color: white;
+
+position: absolute;
+font-weight: 500;
+
+font-size: 30px;
+over-flow:hidden;
+
+@media screen and (min-height: 950px) {
+  
+  font-size: 45px;
+  
+  };
+`;
