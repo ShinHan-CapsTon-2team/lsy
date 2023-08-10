@@ -1,12 +1,14 @@
-import { useLocation } from 'react-router-dom';
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-
+import { useLocation ,useNavigate} from 'react-router-dom';
+import{ React,useState} from 'react';
 import styled from "styled-components";
+import Des from './Des'
+import love from '../Images/love.jpg'
 
 const Quizresult  = () => {
     const location = useLocation();
     const params = new URLSearchParams(location.search);
+
+    const [visible,setVisible] =useState(false);
 
     const categoryName = params.get('name');
     const res = params.get('res');
@@ -35,9 +37,31 @@ const Quizresult  = () => {
     return (
         <OutWrap>
             <InsideWrap>
+                <Content>
+                    <OneImg src="https://via.placeholder.com/378x482"/>
+                    
+                    <ButtonTwo style={{ marginTop:20,width:200,height:50,marginBottom:20}}>                         
+                        <Menu onClick={() => {setVisible(!visible);}} style={{fontSize:33}} >
+                            설명 보기  </Menu>
+                    </ButtonTwo>
+                    
+                    {visible && <Des/>}
+                </Content>
+
+                <Content style={{marginLeft:20,marginRight:20}}>
+                    <OneImg src="https://via.placeholder.com/378x482"/>
+                    
+                    <ButtonTwo style={{ marginTop:20,width:200,height:50,marginBottom:20}}>                         
+                        <Menu onClick={() => {setVisible(!visible);}} style={{fontSize:33}} >
+                            설명 보기  </Menu>
+                    </ButtonTwo>
+                    
+                    {visible && <Des/>}
+                </Content>
+                <div>
                 <OneImg src="https://via.placeholder.com/378x482" />
-                <OneImg src="https://via.placeholder.com/378x482" style={{marginLeft:20,marginRight:20}} />
-                <OneImg src="https://via.placeholder.com/378x482" />
+                </div>
+                
             </InsideWrap>
 
             
@@ -63,6 +87,12 @@ const OutWrap = styled.div`
 
     position: relative;
     background: white;
+    display: flex;
+    flex-direction: column;
+    //justify-content: center;
+    align-items: center;
+`;
+const Content = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
