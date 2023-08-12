@@ -4,11 +4,11 @@
         "options": [
             {
                 "type":"a",
-                "img":"profile1.png"
+                "img":"profile1.jpg"
             },
             {
                 "type":"b",
-                "img":"profile2.png"
+                "img":"profile2.jpg"
             }
         ]
         },
@@ -17,11 +17,11 @@
             "options": [
                 {
                     "type":"a",
-                    "img":"/profile3.png"
+                    "img":"/profile3.jpg"
                 },
                 {
                     "type":"b", 
-                    "img":"profile4.png"
+                    "img":"profile4.jpg"
                 }
             ]
     },
@@ -35,7 +35,20 @@
             },
             {
                 "type":"b",
-                "img":"profile6.png"
+                "img":"profile6.jpg"
+            }
+        ]
+    },
+    {
+        "questions": "4",
+        "options": [
+            {
+                "type":"a",
+                "img":"profile7.png"
+            },
+            {
+                "type":"b",
+                "img":"profile8.png"
             }
         ]
     }

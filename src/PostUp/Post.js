@@ -409,8 +409,7 @@ display: flex;
   align-items: center; /* 수직 가운데 정렬 (선택 사항) *`
 
 const Three = styled(ContentRadius)`
-height: auto;
-flex:1;
+height: 20vh;
 `;
 
 const Four = styled(ContentRadius)`

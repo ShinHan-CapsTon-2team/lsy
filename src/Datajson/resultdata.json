@@ -3,42 +3,70 @@
         "category": "body",
         "answer": [
             {
-                "type":"aaa",
-                "img":["","",""]
+                "type":"baaa",
+                "img":["i.jpg","a.png","d.jpg","c.jpg"]
             },
             {
-                "type":"aab",
-                "img":["","",""]
+                "type":"abaa",
+                "img":["j.jpg","a.png","d.jpg","c.jpg"]
             },
             {
-                "type":"aba",
-                "img":["","",""]
+                "type":"aaba",
+                "img":["g.jpg","a.png","d.jpg","c.jpg"]
             },
             {
-                "type":"baa",
-                "img":["","",""]
+                "type":"aaab",
+                "img":["f.png","a.png","d.jpg","c.jpg"]
             },
 
             {
-                "type":"abb",
-                "img":["","",""]
+                "type":"aabb",
+                "img":["c.jpg","d.jpg","h.png","f.png"]
             },
             {
-                "type":"bbb",
-                "img":["","",""]
+                "type":"abba",
+                "img":["e.png","j.jpg","d.jpg","a"]
             },
             {
-                "type":"bab",
-                "img":["","",""]
+                "type":"abab",
+                "img":["c.jpg","j.jpg","k.png","f.png"]
             },
             
             {
-                "type":"bba",
-                "img":["","",""]
+                "type":"baab",
+                "img":["e.png","a.png","m.png","f.png"]
             },
             {
-                "type":"bbb",
-                "img":["","",""]
+                "type":"abbb",
+                "img":["p.png","j.jpg","e.png","f.png"]
+            },
+            {
+                "type":"babb",
+                "img":["i.jpg","l.jpg","e.png","njpg"]
+            },
+            {
+                "type":"bbab",
+                "img":["e.png","j.jpg","d.jpg","njpg"]
+            },
+            {
+                "type":"bbaa",
+                "img":["e.png","j.jpg","m.png","c.jpg"]
+            },
+            {
+                "type":"bbba",
+                "img":["e.png","j.jpg","m.png","a.jpg"]
+            },
+            {
+                "type":"baba",
+                "img":["e.png","a.png","i.jpg","c.jpg"]
+            },
+            {
+                "type":"aaaa",
+                "img":["a.png","b.jpg","c.jpg","d.jpg"]
+            },
+            {
+                "type":"bbbb",
+                "img":["f.png","e.png","i.jpg","j.jpg"]
             }
         ]
     },
@@ -48,42 +76,68 @@
         "category": "pet",
         "answer": [
             {
-                "type":"aaa",
-                "img":["","",""]
+                "type":"",
+                "img":["","","",""]
             },
             {
-                "type":"aab",
-                "img":["","",""]
+                "type":"",
+                "img":["","","",""]
             },
             {
-                "type":"aba",
-                "img":["","",""]
+                "type":"",
+                "img":["","","",""]
             },
             {
-                "type":"baa",
-                "img":["","",""]
-            },
-
-            {
-                "type":"abb",
-                "img":["","",""]
+                "type":"",
+                "img":["","","",""]
             },
             {
-                "type":"bbb",
-                "img":["","",""]
+                "type":"",
+                "img":["","","",""]
             },
             {
-                "type":"bab",
-                "img":["","",""]
-            },
-            
-            {
-                "type":"bba",
-                "img":["","",""]
+                "type":"",
+                "img":["","","",""]
             },
             {
-                "type":"bbb",
-                "img":["","",""]
+                "type":"",
+                "img":["","","",""]
+            },
+            {
+                "type":"",
+                "img":["","","",""]
+            },
+            {
+                "type":"",
+                "img":["","","",""]
+            },
+            {
+                "type":"",
+                "img":["","","",""]
+            },
+            {
+                "type":"",
+                "img":["","","",""]
+            },
+            {
+                "type":"",
+                "img":["","","",""]
+            },
+            {
+                "type":"",
+                "img":["","","",""]
+            },
+            {
+                "type":"",
+                "img":["","","",""]
+            },
+            {
+                "type":"",
+                "img":["","","",""]
+            },
+            {
+                "type":"",
+                "img":["","","",""]
             }
         ]
     },
@@ -226,10 +280,6 @@
             }
         ]
     }
-
-
-
-    
 
 
 ]

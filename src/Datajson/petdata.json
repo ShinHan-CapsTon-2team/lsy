@@ -4,11 +4,11 @@
         "options": [
             {
                 "type":"a",
-                "img":"pet1.png"
+                "img":"pet1.jpg"
             },
             {
                 "type":"b",
-                "img":"/pet2.png"
+                "img":"/pet2.jpg"
             }
         ]
         },
@@ -17,11 +17,11 @@
             "options": [
                 {
                     "type":"a",
-                    "img":"/pet3.png"
+                    "img":"/pet3.jpg"
                 },
                 {
                     "type":"b",
-                    "img":"/pet4.png"
+                    "img":"/pet4.jpg"
                 }
             ]
     },
@@ -31,11 +31,24 @@
         "options": [
             {
                 "type":"a",
-                "img":"pet5.png"
+                "img":"pet5.jpg"
             },
             {
                 "type":"b",
-                "img":"pet6.png"
+                "img":"pet6.jpg"
+            }
+        ]
+    },
+    {
+        "questions": "4",
+        "options": [
+            {
+                "type":"a",
+                "img":"pet7.png"
+            },
+            {
+                "type":"b",
+                "img":"pet8.png"
             }
         ]
     }

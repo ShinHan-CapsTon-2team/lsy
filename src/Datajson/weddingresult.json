@@ -1,0 +1,354 @@
+[
+    {
+        "type": "baaa",
+        "answer": [
+            {
+                "img":"b1.jpg",
+                "id":32
+            },
+            {
+                "img":"a2.jpg",
+                "id":33
+            },
+            {
+                "img":"a3.jpg",
+                "id":35
+            },
+            
+            {
+                "img":"a4.jpg",
+                "id":37
+            }
+        ]
+    },
+    {
+        "type": "abaa",
+        "answer": [
+            {
+                "img":"a1.jpg",
+                "id":31
+            },
+            {
+                "img":"b2.jpg",
+                "id":34
+            },
+            {
+                "img":"a3.jpg",
+                "id":35
+            },
+            
+            {
+                "img":"a4.jpg",
+                "id":37
+            }
+        ]
+    },
+    {
+        "type": "aaba",
+        "answer": [
+            {
+                "img":"a1.jpg",
+                "id":31
+            },
+            {
+                "img":"a2.jpg",
+                "id":33
+            },
+            {
+                "img":"b3.jpg",
+                "id":36
+            },
+            
+            {
+                "img":"a4.jpg",
+                "id":37
+            }
+        ]
+    },
+    {
+        "type": "aaab",
+        "answer": [
+            {
+                "img":"a1.jpg",
+                "id":31
+            },
+            {
+                "img":"a2.jpg",
+                "id":33
+            },
+            {
+                "img":"a3.jpg",
+                "id":35
+            },
+            
+            {
+                "img":"b4.jpg",
+                "id":38
+            }
+        ]
+    },
+    {
+        "type": "aabb",
+        "answer": [
+            {
+                "img":"a1.jpg",
+                "id":31
+            },
+            {
+                "img":"a2.jpg",
+                "id":33
+            },
+            {
+                "img":"b3.jpg",
+                "id":36
+            },
+            
+            {
+                "img":"b4.jpg",
+                "id":38
+            }
+        ]
+    },
+    {
+        "type": "abba",
+        "answer": [
+            {
+                "img":"a1.jpg",
+                "id":31
+            },
+            {
+                "img":"b2.jpg",
+                "id":34
+            },
+            {
+                "img":"b3.jpg",
+                "id":36
+            },
+            
+            {
+                "img":"a4.jpg",
+                "id":37
+            }
+        ]
+    },
+    {
+        "type": "abab",
+        "answer": [
+            {
+                "img":"a1.jpg",
+                "id":31
+            },
+            {
+                "img":"b2.jpg",
+                "id":34
+            },
+            {
+                "img":"a3.jpg",
+                "id":35
+            },
+            
+            {
+                "img":"b4.jpg",
+                "id":38
+            }
+        ]
+    },
+    {
+        "type": "baab",
+        "answer": [
+            {
+                "img":"b1.jpg",
+                "id":32
+            },
+            {
+                "img":"a2.jpg",
+                "id":33
+            },
+            {
+                "img":"a3.jpg",
+                "id":35
+            },
+            
+            {
+                "img":"b4.jpg",
+                "id":38
+            }
+        ]
+    },
+    {
+        "type": "abbb",
+        "answer": [
+            {
+                "img":"a1.jpg",
+                "id":31
+            },
+            {
+                "img":"b2.jpg",
+                "id":34
+            },
+            {
+                "img":"b3.jpg",
+                "id":36
+            },
+            
+            {
+                "img":"b4.jpg",
+                "id":38
+            }
+        ]
+    },
+    {
+        "type": "babb",
+        "answer": [
+            {
+                "img":"b1.jpg",
+                "id":32
+            },
+            {
+                "img":"a2.jpg",
+                "id":33
+            },
+            {
+                "img":"b3.jpg",
+                "id":36
+            },
+            
+            {
+                "img":"b4.jpg",
+                "id":38
+            }
+        ]
+    },
+    {
+        "type": "bbab",
+        "answer": [
+            {
+                "img":"b1.jpg",
+                "id":32
+            },
+            {
+                "img":"b2.jpg",
+                "id":34
+            },
+            {
+                "img":"a3.jpg",
+                "id":35
+            },
+            
+            {
+                "img":"b4.jpg",
+                "id":38
+            }
+        ]
+    },
+    {
+        "type": "bbaa",
+        "answer": [
+            {
+                "img":"b1.jpg",
+                "id":32
+            },
+            {
+                "img":"b2.jpg",
+                "id":34
+            },
+            {
+                "img":"a3.jpg",
+                "id":35
+            },
+            
+            {
+                "img":"a4.jpg",
+                "id":37
+            }
+        ]
+    },
+    {
+        "type": "bbba",
+        "answer": [
+            {
+                "img":"b1.jpg",
+                "id":32
+            },
+            {
+                "img":"b2.jpg",
+                "id":34
+            },
+            {
+                "img":"b3.jpg",
+                "id":36
+            },
+            
+            {
+                "img":"a4.jpg",
+                "id":37
+            }
+        ]
+    },
+    {
+        "type": "baba",
+        "answer": [
+            {
+                "img":"b1.jpg",
+                "id":32
+            },
+            {
+                "img":"a2.jpg",
+                "id":33
+            },
+            {
+                "img":"b3.jpg",
+                "id":36
+            },
+            
+            {
+                "img":"a4.jpg",
+                "id":37
+            }
+        ]
+    },
+    {
+        "type": "aaaa",
+        "answer": [
+            {
+                "img":"a1.jpg",
+                "id":31
+            },
+            {
+                "img":"a2.jpg",
+                "id":33
+            },
+            {
+                "img":"a3.jpg",
+                "id":35
+            },
+            
+            {
+                "img":"a4.jpg",
+                "id":37
+            }
+        ]
+    },
+    {
+        "type": "bbbb",
+        "answer": [
+            {
+                "img":"b1.jpg",
+                "id":32
+            },
+            {
+                "img":"b2.jpg",
+                "id":34
+            },
+            {
+                "img":"b3.jpg",
+                "id":36
+            },
+            
+            {
+                "img":"b4.jpg",
+                "id":38
+            }
+        ]
+    }
+]
