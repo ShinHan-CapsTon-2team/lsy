@@ -1,14 +1,9 @@
-//import React, { useState, useEffect } from 'react';
-//import { Link, useLocation } from 'react-router-dom';
 import { useNavigate  } from 'react-router-dom';
 import React, { useCallback, useEffect, useState } from 'react';
-//import React, { useEffect } from 'react';
-//import { useSearchParams } from 'react-router-dom';
-import homelogo from '../Images/homelogo.png'
-
 
 import logo from '../Images/imagelogo.png';
 import styled from 'styled-components';
+
 const categoriesData = [
   { name: '가족사진' },
   { name: '반려동물' },

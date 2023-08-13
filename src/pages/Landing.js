@@ -104,6 +104,7 @@ function Landing(){
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border:none;
     `;
+
     const Button = styled(Radius)`
     background: #798BE6;
     display: flex;
@@ -127,9 +128,9 @@ function Landing(){
 
         /* mobile 규격 */
         @media screen and (max-width: 540px){
-            width: 85vw;
+            width: 88vw;
             height: 9vh;
-            font-size: 20px;
+            font-size: 24px;
             margin-bottom:20px;
         }
         /* s 데스크 */
@@ -158,8 +159,8 @@ function Landing(){
                 
                 <LogoImg src={logo} alt=''/>
                 
-                <ImgWrap>
-                    <Button onClick ={handleUploadPhotoClick}>원하는 사진을 등록해 추천 받기 </Button>
+                <ImgWrap> {/* 말 줄이기 ... fontsize 높여야함  */}
+                    <Button onClick ={handleUploadPhotoClick}>원하는 사진을 통해 추천 받기 </Button>
                     <Button onClick={handleFitPhotoClick}> 나에게 맞는 사진 추천 받기</Button>
                     <Button onClick={handleGohomeClick} > 홈페이지 방문하기</Button>
                     <Button onClick={handleUpPhotoClick} >사진 등록하기 </Button>

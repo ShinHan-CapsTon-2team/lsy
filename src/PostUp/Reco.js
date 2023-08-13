@@ -79,9 +79,6 @@ function Reco() {
     }
   };
 
-  //const OutWrap = styled.div``;
-  //const OutWrap = styled.div``;
-
   return (
     <OutWrap>
       <InOutWrap>
@@ -102,9 +99,8 @@ function Reco() {
                   )}{/* 빈 이미지 로고 그림인데 업로드 하면 없어진 */}
 
 
-                  
-                  <FindImg >
-                    <Menu onClick={() => document.getElementById('file-upload').click()}>파일 찾기</Menu>
+                  <FindImg onClick={() => document.getElementById('file-upload').click()}>
+                    파일 찾기
                   </FindImg>
                   
 
@@ -122,9 +118,9 @@ function Reco() {
 
           <InLayoutTwo>
             
-            <ButtonTwo>
-              <Menu onClick={handleImageUploadAndNavigate} >
-                결과보기  </Menu>
+            <ButtonTwo  onClick={handleImageUploadAndNavigate}>
+              
+                결과보기 
             </ButtonTwo>
           </InLayoutTwo>
         </Center>
@@ -144,9 +140,23 @@ const OutWrap = styled.div`
   display: flex;
   flex-direction: column;
  // justify-content: center;
+  * {
+  font-size: 33px;
+  }
+  /* mobile 규격 */
+  @media screen and (max-width: 540px){
+  * {
+  font-size: 27px;
+  }
+    
+  }
+  @media screen and (min-width: 1700px) {
+  * {
+    font-size: 45px;
+  }
 `;
 const InOutWrap = styled.div`
-text-align: center;
+//text-align: center;
 display: flex;
 flex-direction: column;
 align-items: center;
@@ -156,14 +166,14 @@ justify-content: center;
 
 const Center = styled.div`
 //width: 65vw;
-text-align: center;
+//text-align: center;
 display: flex;
 flex-direction: column;
 align-items: center;
 
 `;
 const InLayoutOne = styled.div`
-text-align:center;
+//text-align:center;
 width:65vw;
 
 @media screen and (min-width: 1700px) {
@@ -236,8 +246,8 @@ const Five = styled(ContentRadius)`
 
 position: relative;
 
-overflow: hidden;
-text-align: center;
+//overflow: hidden;
+//text-align: center;
 height:58vh;
 `;
   
@@ -253,61 +263,44 @@ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 border:none;
 
 `;
-
-
-const FindImg = styled(Radius)` 
-  background: #798BE6;
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-
-  display: flex;
-  justify-content: center;
-  align-items:center;
-  
-  width:18.5vw;
-  height: 7.5vh;
-  // 여기 적응된다고 . . .왜 다른 곳은 안되는거고 여긴 
-  @media screen and (min-height: 950px) {
-    width:18vw;
-    height: 8vh; 
-    
-   };
-  
-
-`;
+// 버튼투
 const ButtonTwo = styled(Radius)`
-background: #798BE6;
-display: flex;
-align-items: center;
-justify-content: center;
+  background: #798BE6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-position: relative;
-cursor: pointer;
+  position: relative;
+  cursor: pointer;
+
   width:18vw;
   height: 7vh; 
-  font-size: 33px;
+  color: white;
 
+  /* mobile 규격 */
+  @media screen and (max-width: 540px){
+    width:39vw;
+    height: 7vh; 
+
+  }
+
+  /* s 데스크 */
+  @media screen and (min-width: 1024px){
+      
+  }
   @media screen and (min-width: 1700px) {
     width:18vw;
     height: 7.5vh; 
   };
  `;
+const FindImg = styled(ButtonTwo)` 
+  position: absolute;
+  bottom: 30px;
+  right: 10px;
 
+  /* tablet 규격 */
+  @media screen and (max-width: 1023px){
+    bottom: 20px;
+  }
 
- const Menu = styled.span`
-z-index: 2;
-color: white;
-
-position: absolute;
-font-weight: 500;
-
-font-size: 33px;
-over-flow:hidden;
-
-@media screen and (min-height: 950px) {
-  
-  font-size: 45px;
-  
-  };
 `;

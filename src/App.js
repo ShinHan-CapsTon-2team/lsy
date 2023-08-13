@@ -2,6 +2,8 @@ import React from 'react';
 import {BrowserRouter, Routes, Route} from 'react-router-dom'; 
 
 
+
+//import GlobalStyles from "./GlobalStyles"; // GlobalStyles 불러오기
 import Landing from './pages/Landing';
 import QuizSelIndex from './Quiz/Quizstart'
 import QuizSelPhoto from './Quiz/Quiztest'
@@ -16,10 +18,14 @@ function App() {
     
 
     return (
-        
+    
+
     <BrowserRouter>
+        
         <div className="App" >
+            
             <Routes>
+                
                 <Route path='/' element={<Landing />}/>
 
                 <Route path ='/post' element={<Post />}/>
@@ -35,6 +41,7 @@ function App() {
 
 
             </Routes>
+            
         </div>
     </BrowserRouter>
 

@@ -1,5 +1,5 @@
 import { useLocation } from 'react-router-dom';
-import React, { useState } from 'react';
+import React  from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import styled from "styled-components";
@@ -197,7 +197,7 @@ const OutWrap = styled.div`
     
     &:hover {
         border: 5px #4E62C5 solid;
-      }
+    }
     /* tablet 규격 */
         @media screen and (max-width: 1023px){
             
@@ -391,29 +391,3 @@ font-weight: 500;
             font-size: 36px;
         }
  `;
-
-
-
-const Button = styled(Radius)`
-  background: #9AA5DE;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  position: relative;
-  cursor: pointer;
-  width: 13vw;
-height: 6vh;; 
-
-
-  color: white;
-  font-weight: 500;
-  font-size: 30px;
-
-  @media screen and (min-width: 1700px) and {
-    width: 34vw;
-    height: 8vh;
-  }
-
-  
-`;

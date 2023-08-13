@@ -185,62 +185,62 @@ function PostEx() {
                         <Content>
 
                             <One> {/*제목*/}
-                                <OneWrap>
-                                    <InputSmall
+                                <WrapAuto>
+                                    <InputBasic
                                         type="text"
                                         value={title}
                                         onChange={(e) => setTitle(e.target.value)}
                                         placeholder="제목"
                                     />
-                                </OneWrap>
+                                </WrapAuto>
                             </One>
                             
                             <Two>{/*이름 , 비밀번호 */}
                               <NameWrap >{/*이름 */}
-                                  <TwoWrap>
-                                      <InputSmall 
+                                  <WrapAuto>
+                                      <InputBasic 
                                           type="text"
                                           value={name}
                                           onChange={(e) => setName(e.target.value)}
                                           placeholder="이름"
                                       />
-                                  </TwoWrap>
+                                  </WrapAuto>
                               </NameWrap>
 
                               <PwdWrap>{/*비밀번호  */}
-                                <TwoWrap>
-                                    <InputSmall
+                                <WrapAuto>
+                                    <InputBasic
                                         type="password"
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
                                         placeholder="비밀번호"
                                     />
-                                </TwoWrap>
+                                </WrapAuto>
                               </PwdWrap>
                             </Two>
                             
 
                             <Three> {/*소개 */}
-                                <ProfileWrap>
-                                    <ProfileArea 
+                                <WrapPer>
+                                    <TextareaBasic 
                                     //ref={textRef} 길이 조절 수정해야함 
                                     //onInput={handleResizeHeight}
                                     value={profile}
                                     onChange={(e) => setProfile(e.target.value)}
                                     placeholder="소개 및 커리어"
                                     />
-                                </ProfileWrap>
+                                </WrapPer>
                             </Three>
 
                             <Four>{/* 설명 */}
                                 {/* 드래그 방지 추가하기 */}
-                                <DescriptionWrap>
-                                    <DescriptArea
+                                <WrapPer>
+                                    <TextareaBasic
                                         value={description}
                                         onChange={(e) => setDescription(e.target.value)}
                                         placeholder="설명" 
                                     />
-                                </DescriptionWrap>
+                                </WrapPer>
                                 
                             </Four>                                        
                             
@@ -298,10 +298,8 @@ function PostEx() {
                             </Left>
 
                             <Right> 
-                                <ButtonTwo>
-                                    
-                                    <Menu onClick={handleSubmit} >
-                                    업로드  </Menu>
+                                <ButtonTwo onClick={handleSubmit}>
+                                    업로드  
                                 </ButtonTwo>
                             </Right>
                         </Buttons>
@@ -328,29 +326,39 @@ flex-direction: column;
 // justify-content: center;
 align-items: center;
 
+* {
+  font-size: 33px;
+}
+/* mobile 규격 */
+@media screen and (max-width: 540px){
+  * {
+  font-size: 27px;
+}
+    
+}
+@media screen and (min-width: 1700px) {
+  * {
+    font-size: 45px;
+  }
 `;
 
 const InOutWrap = styled.div`
-text-align: center;
+//text-align: center;
 display: flex;
 flex-direction: column;
 align-items: center;
 justify-content: center;
 `;
 
-
-
-
 const Center = styled.div`
 //width: 65vw;
-text-align: center;
+//text-align: center;
 display: flex;
 flex-direction: column;
 align-items: center;
 `;
 
 const InLayoutOne = styled.div`
-text-align:center;
 width:65vw;
 
 /* tablet 규격 */
@@ -378,8 +386,12 @@ display: flex;
 width:65vw;
 height:12vh;
 align-items: center;
-//justify-content: center;
-
+margin-bottom:20px;
+/* mobile 규격 */
+  @media screen and (max-width: 540px){
+    width: 80vw;
+    height:19vh;
+  }
 @media screen and (min-width: 1700px) {
     width: 75vw;
     height:13vh;
@@ -387,7 +399,6 @@ align-items: center;
 `;
 
 const Content = styled.div`
-//width:65vw;
 display: flex;
 flex-direction: column;
 `;
@@ -406,8 +417,6 @@ margin-top: 20px;
 };
 `;
 
-
-// 색깔 탁하게 하는 주범 이 새기임 opacity: 0.90;
 const One = styled(ContentRadius)`
 display: flex;
 align-items: center;
@@ -416,9 +425,8 @@ height:auto;
 `;
 
 const Two = styled.div`
-display: flex;
+  display: flex;
   //flex-wrap: wrap; /* 줄바꿈을 허용하여 가로 공간에 맞게 정렬될 수 있도록 설정 */
-  //justify-content: space-between; /* 공간을 균등하게 분배하여 가로로 정렬 */
   align-items: center; /* 수직 가운데 정렬 (선택 사항) *
   
   /* tablet 규격 */
@@ -426,6 +434,7 @@ display: flex;
         flex-direction: column;
   }
 `;
+
 const Em = styled(ContentRadius)`
 display: flex;
 align-items: center;
@@ -443,6 +452,7 @@ flex:1;
 const PwdWrap = styled(Em)`
 flex:1;
 `;
+
 const Three = styled(ContentRadius)`
 height: 20vh;
 `;
@@ -454,27 +464,28 @@ height: 25vh;
 const Five = styled(ContentRadius)`
 position: relative;
 overflow: hidden;
-text-align: center;
+//text-align: center;
 height:75vh;
 `;
 
 const Left = styled.div`
-width: 65%;
 display: flex;
 justify-content: center;
+margin-left:auto;
 `;
 
 const Right = styled.div`
 display: flex;
 flex-direction: column;
 margin-left: auto;
-margin-right:10px;
-//flex:1
+
+/* s 데스크 */
+@media screen and (min-width: 1024px){
+  margin-right:auto;
+}
 `;
 
 const Radius = styled.button`
-//border: 3px #3A76EF solid;
-
 padding: 20px;
 word-wrap: break-word;
 border-radius: 40px;
@@ -485,40 +496,19 @@ border:none;
 
 `;
 const Buttons = styled.div`
-  text-align: center;
+  //text-align: center;
   display: flex;
-  justify-items: space-between;
+  //justify-items: space-between;
   flex-direction: row;
   width: 100%;
+
+  /* tablet 규격 */
+  @media screen and (max-width: 1023px){
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 `;
-//파일 찾기 
-
-const FindImg = styled(Radius)` 
-  background: #798BE6;
-  position: absolute;
-  bottom: 30px;
-  right: 10px;
-
-  display: flex;
-  justify-content: center;
-  align-items:center;
-  
-  width:18.5vw;
-  height: 7.5vh;
-  /* mobile 규격 */
-        @media screen and (max-width: 540px){
-          width:45vw;
-          height: 7.5vh;
-        }
-  @media screen and (min-height: 950px) {
-    width:18vw;
-    height: 8vh; 
-    
-   // };
-  
-  
-`;
-
 
 const ButtonOne = styled(Radius)`
 background: #798BE6;
@@ -531,96 +521,96 @@ position: relative;
 width: 40vw;
 height: 7vh;
 
+/* mobile 규격 */
+@media screen and (max-width: 540px){
+  width:80vw;
+  height: 7vh; 
+}
 @media screen and (min-width: 1700px) {
     width: 50vw;
     height: 7.5vh;
 };
 
 `;
-
+// 버튼투
 const ButtonTwo = styled(Radius)`
-background: #798BE6;
-display: flex;
-align-items: center;
-justify-content: center;
+  background: #798BE6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-position: relative;
-cursor: pointer;
+  position: relative;
+  cursor: pointer;
+
   width:18vw;
   height: 7vh; 
-  font-size: 33px;
+  color: white;
 
+  /* mobile 규격 */
+  @media screen and (max-width: 540px){
+    width:39vw;
+    height: 7vh; 
+
+  }
+
+  /* s 데스크 */
+  @media screen and (min-width: 1024px){
+      
+  }
   @media screen and (min-width: 1700px) {
     width:18vw;
     height: 7.5vh; 
   };
  `;
+//파일 찾기 
 
+const FindImg = styled(ButtonTwo)` 
+  position: absolute;
+  bottom: 30px;
+  right: 10px;
+
+  /* tablet 규격 */
+  @media screen and (max-width: 1023px){
+    bottom: 20px;
+  }
+
+`;
  // span 
 const Menu = styled.span`
 z-index: 2;
 color: white;
-
 position: absolute;
-font-weight: 500;
-
-font-size: 33px;
-over-flow:hidden;
-
-@media screen and (min-height: 950px) {
-  
-  font-size: 45px;
-  
-  };
 `;
 
 const Area = styled.div`
 display: flex;
 align-items: center;
 width: 100%;
-border-radius: 31px;
 overflow: hidden; 
 `;
 
-const OneWrap = styled(Area)`
+const WrapAuto = styled(Area)`
 height: auto;
 
 `;
-const TwoWrap = styled(Area)`
-height: auto;
-
-`;
-
-const DescriptionWrap = styled(Area)`
+const WrapPer = styled(Area)`
 height: 100%;
-
 `;
+
 const inputStyle = {
 color: 'black',
-fontSize: 35,
 fontFamily: 'Inter',
-fontWeight: '400',
 border: 'none',
 outline: 'none',
-width: '100%',
-
-    '@media screen and (min-height: 950px)': {
-        fontSize: 40,
-    },
+width: '100%'
 };
 
-const InputSmall = styled.input`
+const InputBasic = styled.input`
 ${inputStyle}
 height: 6vh;
 `;
 
-
-const DescriptArea = styled.textarea`
-${inputStyle}
-height: 100%;
-`;
-
-const ProfileArea = styled.textarea`
+const TextareaBasic = styled.textarea`
 ${inputStyle}
 height: 100%;
 `;
@@ -628,17 +618,29 @@ height: 100%;
 const EmptyImg = styled.img`
 width: 200px;
 height: 200px;
-width: 150px;
-height: 150px;
 position: absolute;
 top: 50%;
 left: 50%;
 transform: translate(-50%, -50%);
+/* tablet 규격 */
+  @media screen and (max-width: 1023px){
+      
+  }
 
-@media screen and  (min-height: 950px){
-    width: 200px;
-    height: 200px;
-};
+  /* mobile 규격 */
+  @media screen and (max-width: 540px){
+    width: 120px;
+    height: 120px;
+  }
+  /* s 데스크 */
+  @media screen and (min-width: 1024px){
+    
+  }
+  /* l 데스크 */
+  @media screen and (min-width: 1700px){
+      
+  }
+
 `;
 
 const FileBox = styled.input`
@@ -654,7 +656,7 @@ const SelectImg = styled.img`
 const DropContainer = styled.div`
   z-index: 2;
   color: white;
-  font-size: 33px;
+  //font-size: 33px;
   position: absolute;
   align-items: center;
 `;
@@ -663,38 +665,58 @@ const DropContainer = styled.div`
 const DropMenu = styled.div` 
   position: relative;
   background-color: #798BE6;
-  border: 1px solid #ccc;
+  //border: 1px solid #ccc;
   padding: 10px;
   border-radius: 31px;
   z-index: 2;
 
-  text-align: center;
+  //text-align: center;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  top: -157px;
+  top: -137px;
 
-  
 
-  @media screen and (min-height: 950px){
-    top: -167px;
-    };
+  /* tablet 규격 */
+        @media screen and (max-width: 1023px){
+            
+        }
 
-    
-  @media screen and (max-width: 1950px) {
-    width:40vw;
-  };
-  @media screen and (max-width: 1600px) {
-    width:25vw;
-  };
-  
+        /* mobile 규격 */
+        @media screen and (max-width: 540px){
+          width:45vw;
+          top: -147px;
+        }
+        /* s 데스크 */
+        @media screen and (min-width: 1024px){
+          width:25vw;
+        }
+        /* l 데스크 */
+        @media screen and (min-width: 1700px){
+          width:40vw;
+          top: -177px;
+        }
 `;
 
 const CateMenu = styled.div` 
-  font-size: 33px;
-  font-weight: 550;
+  font-size: 25px;
   margin-top:5px;
+
+  /* tablet 규격 */
+        @media screen and (max-width: 1023px){
+            
+        }
+
+        /* mobile 규격 */
+        @media screen and (max-width: 540px){
+            
+        }
+        /* s 데스크 */
+        @media screen and (min-width: 1024px){
+          
+        }
+        /* l 데스크 */
+        @media screen and (min-width: 1700px){
+          font-size: 30px;
+        }
 `;
 
 
-const ProfileWrap = styled(Area)`
-height:100%;
-`;
