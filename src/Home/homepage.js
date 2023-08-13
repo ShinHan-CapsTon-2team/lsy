@@ -22,6 +22,27 @@ const OutWrap = styled.div`
       flex-direction: column;
       justify-content: center;
       align-items: center;
+
+      * {
+      font-size: 33px;
+    }
+    /* mobile 규격 */
+    @media screen and (max-width: 540px){
+      * {
+      font-size: 25px;
+    }
+        
+    }
+    /* ss 데스크 */
+  @media screen and (min-width: 1024px){
+   *{
+    font-size: 29px;
+   } 
+  }
+    @media screen and (min-width: 1700px) {
+      * {
+        font-size: 45px;
+      }
   `;
   
   const InsideWrap = styled.div`
@@ -56,31 +77,39 @@ width: 29vw;
 height: 25vh;
 //margin: 0 auto;
 text-align: center;
+width: 31vw; 
+    height: 28vh;
 
 
-@media screen and (min-height: 900px) {
-    width: 31vw; 
-    height: 28vh; 
-}`;
+/* tablet 규격 */
+        @media screen and (max-width: 1023px){
+            
+        }
+
+        /* mobile 규격 */
+        @media screen and (max-width: 540px){
+          width: 60vw; 
+            height: 20vh; 
+        }
+        /* s 데스크 */
+        @media screen and (min-width: 1024px){
+            
+        }
+        /* l 데스크 */
+        @media screen and (min-width: 1700px){
+            
+        }
+`;
+
  
 const CategoryWrap = styled.div`
   display: flex;
   flex-wrap: wrap; /* 줄바꿈을 허용하여 가로 공간에 맞게 정렬될 수 있도록 설정 */
-  justify-content: space-between; /* 공간을 균등하게 분배하여 가로로 정렬 */
+  justify-content: center; /* 공간을 균등하게 분배하여 가로로 정렬 */
   align-items: center; /* 수직 가운데 정렬 (선택 사항) */
   `;
 
-  const CategoryImg = styled.img`
-      width: 228.43px;
-      height: 58px;
-      margin-right: 30px;
-
-      @media (min-width: 1920px) and (max-height: 1080px) {
-        width: 256px; 
-        height: 60px; 
-      
-       };
-  `;
+  
 
   const GridWrap = styled.div`
     display: grid;
@@ -214,7 +243,6 @@ const handleCategorySelect = useCallback((category, limit, offset) => {
   };
 
   
-   
     const movePage = (pageNumber) => {
       const newPageNumber = Math.max(1, pageNumber);
       setPageNumber(newPageNumber);
@@ -238,10 +266,11 @@ const handleCategorySelect = useCallback((category, limit, offset) => {
             <ButtonTwo  
             key={index}
             isSelected={selectCategory === category.name}
-            onClick={() => handleCategorySelect(category.name)}>
-              <Menu  onClick={() => selectCate(category.name)} >
-                {category.name }
-              </Menu>
+            onClick={() => {
+              handleCategorySelect(category.name);
+              selectCate(category.name);
+            }}>
+            {category.name }
             </ButtonTwo>
           ))}
         </CategoryWrap>
@@ -273,6 +302,7 @@ const handleCategorySelect = useCallback((category, limit, offset) => {
 };
 
 export default Homepage;
+
 const Radius = styled.button`
 //border: 3px #3A76EF solid;
 
@@ -283,44 +313,51 @@ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
 //margin-top: 20px;
 border:none;
-
 `;
+
+// 버튼투
 const ButtonTwo = styled(Radius)`
-background: ${({ isSelected }) => isSelected ? '#5D6BB4' : '#798BE6'};
+  background: ${({ isSelected }) => isSelected ? '#5D6BB4' : '#798BE6'};
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-//background: ${(props) => (props.selected ? '#FF5733' : '#798BE6')};
-// background: #798BE6;
-display: flex;
-align-items: center;
-justify-content: center;
-
-position: relative;
-cursor: pointer;
-  width:13vw;
+  position: relative;
+  cursor: pointer;
+  color: white;
+  //flex-wrap: wrap;
+  width:17vw;
   height: 7vh; 
-  font-size: 33px;
-
   margin-right:20px;
+
+  
+  /* tablet 규격 */
+  @media screen and (max-width: 1023px){
+      
+  }
+  
+
+  /* mobile 규격 */
+  @media screen and (max-width: 540px){
+    width:46vw;
+    height: 7vh; 
+    margin-right:6px;
+    margin-bottom:10px;
+  }
+
+  /* ss 데스크 */
+  @media screen and (min-width: 1024px){
+    width:18.5vw;
+    margin-right:6px;
+  }
+  /* s 데스크 */
+  @media screen and (min-width: 1210px){
+      
+  }
   @media screen and (min-width: 1700px) {
-    width:18vw;
+    width:17vw;
     height: 7.5vh; 
   };
  `;
 
 
- const Menu = styled.span`
-z-index: 2;
-color: white;
-
-position: absolute;
-font-weight: 500;
-
-font-size: 30px;
-over-flow:hidden;
-
-@media screen and (min-height: 950px) {
-  
-  font-size: 45px;
-  
-  };
-`;

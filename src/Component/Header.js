@@ -45,8 +45,7 @@ height: 23.2vh;
 display: flex;
 //flex-direction: row;
 align-items: center;
-justify-content: space-between;
-
+//justify-content: space-between;
 //position: relative;
 
 /* tablet 규격 */
@@ -92,8 +91,8 @@ right:225px;
 `;
 
 const HomeLogo =styled.img`
-width:80px;
-height:80px;
+width:70px;
+height:70px;
 /* tablet 규격 */
         @media screen and (max-width: 1023px){
             

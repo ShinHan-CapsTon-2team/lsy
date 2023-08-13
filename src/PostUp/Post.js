@@ -9,7 +9,7 @@ import upload from '../Images/upload.png';
 
 
 //import Inputtitle from './InTitle' 컴포넌트 
-import Loogo from './Header' 
+import Loogo from '../Component/Header' 
 import styled from "styled-components";
 
 const SERVER_URL= 'http://localhost:4000/api/post';
@@ -548,7 +548,7 @@ const ButtonTwo = styled(Radius)`
 
   /* mobile 규격 */
   @media screen and (max-width: 540px){
-    width:39vw;
+    width:41vw;
     height: 7vh; 
 
   }

@@ -5,7 +5,7 @@ import upload from '../Images/upload.png';
 
 import styled from "styled-components";
 
-import Logo from './Header' 
+import Logo from '../Component/Header' 
 
 function Reco() {
   const [selectedFile, setSelectedFile] = useState(null);

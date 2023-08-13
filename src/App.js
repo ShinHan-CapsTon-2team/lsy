@@ -11,7 +11,7 @@ import QuizReult from './Quiz/Quizresult'
 import Post from './PostUp/Post.js'
 import Home from './Home/homepage.js'
 import Reco from './PostUp/Reco.js'
-import Lookup from './Lookup/Image_Lookup.js' // 조회
+import Lookup from './Lookup/Image_Lookup_Comtest' // 조회
 
 
 function App() {
