@@ -193,8 +193,11 @@ const OutWrap = styled.div`
     display: flex;
     align-items: center; 
     overflow:hidden;
-
+    cursor:pointer;
     
+    &:hover {
+        border: 5px #4E62C5 solid;
+      }
     /* tablet 규격 */
         @media screen and (max-width: 1023px){
             
@@ -203,7 +206,7 @@ const OutWrap = styled.div`
         /* mobile 규격 */
         @media screen and (max-width: 540px){
             width: 85vw;
-            height: 45vh;
+            height: 50vh;
             margin-bottom:20px;
 
             border: 4px #798BE6 solid;
@@ -215,7 +218,11 @@ const OutWrap = styled.div`
         }
         /* l 데스크 */
         @media screen and (min-width: 1700px){
-            
+            height: 65vh;
+            border: 8px #798BE6 solid;
+            &:hover {
+                border: 8px #4E62C5 solid;
+              }
         }
     
     `;
@@ -225,32 +232,16 @@ const OutWrap = styled.div`
     
         display: flex;
         justify-content: center;
-        margin-top: 20px;
+        margin-top: 30px;
 
         width:100%;
         //position: fixed;
         //margin-bottom: 40px;
-        
-        
-        /* tablet 규격 */
-        @media screen and (max-width: 1023px){
-            
-        }
-
         /* mobile 규격 */
         @media screen and (max-width: 540px){
-            //margin-bottom: 60px;
-            
+            margin-top: 15px; 
         }
-        /* s 데스크 */
-        @media screen and (min-width: 1024px){
-           // right: 20px;
-        }
-        /* l 데스크 */
-        @media screen and (min-width: 1700px){
-            width:18vw;
-            height: 7.5vh;
-        }
+        
     `;
 
    
@@ -264,9 +255,10 @@ const OutWrap = styled.div`
     word-wrap: break-word;
     border-radius: 21px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
-    
+    cursor:pointer;
     margin-bottom: 20px;
     border:none;
+    
     
     &:active {
         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -290,7 +282,7 @@ const OutWrap = styled.div`
     justify-content: center;
     flex-direction: column;
     margin-top:20px;
-    margin-bottom:20px;
+    margin-bottom:25px;
     /* tablet 규격 */
         @media screen and (max-width: 1023px){
             
@@ -298,7 +290,8 @@ const OutWrap = styled.div`
 
         /* mobile 규격 */
         @media screen and (max-width: 540px){
-            
+            width:75vw;
+            height: 9vh; 
         }
         /* s 데스크 */
         @media screen and (min-width: 1024px){
@@ -306,7 +299,7 @@ const OutWrap = styled.div`
         }
         /* l 데스크 */
         @media screen and (min-width: 1700px){
-            
+            height: 11vh;
         }
 
     `;
@@ -322,7 +315,7 @@ const OutWrap = styled.div`
 
         /* mobile 규격 */
         @media screen and (max-width: 540px){
-            
+            font-size: 30px;
         }
         /* s 데스크 */
         @media screen and (min-width: 1024px){
@@ -345,7 +338,7 @@ const OutWrap = styled.div`
 
         /* mobile 규격 */
         @media screen and (max-width: 540px){
-            
+            font-size: 20px;
         }
         /* s 데스크 */
         @media screen and (min-width: 1024px){
@@ -368,7 +361,6 @@ position: relative;
 cursor: pointer;
   
   font-size: 33px;
-
 
 color: white;
 font-weight: 500;
@@ -394,8 +386,9 @@ font-weight: 500;
         }
         /* l 데스크 */
         @media screen and (min-width: 1700px){
-            //width:10vw;
+            width:26vw;
             height: 7vh;
+            font-size: 36px;
         }
  `;
 
