@@ -185,18 +185,18 @@ function PostEx() {
                         <Content>
 
                             <One> {/*제목*/}
-                                <SmallWrap>
+                                <OneWrap>
                                     <InputSmall
                                         type="text"
                                         value={title}
                                         onChange={(e) => setTitle(e.target.value)}
                                         placeholder="제목"
                                     />
-                                </SmallWrap>
+                                </OneWrap>
                             </One>
                             
-                            <Em>{/*이름 , 비밀번호 */}
-                              <Two style={{marginRight:20 ,flex:1}}>{/*이름 */}
+                            <Two>{/*이름 , 비밀번호 */}
+                              <NameWrap >{/*이름 */}
                                   <TwoWrap>
                                       <InputSmall 
                                           type="text"
@@ -205,9 +205,9 @@ function PostEx() {
                                           placeholder="이름"
                                       />
                                   </TwoWrap>
-                              </Two>
+                              </NameWrap>
 
-                              <Two style={{flex:1}}>{/*비밀번호  */}
+                              <PwdWrap>{/*비밀번호  */}
                                 <TwoWrap>
                                     <InputSmall
                                         type="password"
@@ -216,8 +216,8 @@ function PostEx() {
                                         placeholder="비밀번호"
                                     />
                                 </TwoWrap>
-                              </Two>
-                            </Em>
+                              </PwdWrap>
+                            </Two>
                             
 
                             <Three> {/*소개 */}
@@ -353,9 +353,24 @@ const InLayoutOne = styled.div`
 text-align:center;
 width:65vw;
 
-@media screen and (min-width: 1700px) {
-    width: 75vw;
-};
+/* tablet 규격 */
+        @media screen and (max-width: 1023px){
+            
+        }
+
+        /* mobile 규격 */
+        @media screen and (max-width: 540px){
+          width: 80vw;
+        }
+        /* s 데스크 */
+        @media screen and (min-width: 1024px){
+            
+        }
+        /* l 데스크 */
+        @media screen and (min-width: 1700px){
+          width: 75vw;
+        }
+
 `;
 
 const InLayoutTwo = styled(InLayoutOne)`
@@ -396,18 +411,38 @@ margin-top: 20px;
 const One = styled(ContentRadius)`
 display: flex;
 align-items: center;
+height:auto;
+
 `;
 
-const Two = styled(ContentRadius)`
+const Two = styled.div`
+display: flex;
+  //flex-wrap: wrap; /* 줄바꿈을 허용하여 가로 공간에 맞게 정렬될 수 있도록 설정 */
+  //justify-content: space-between; /* 공간을 균등하게 분배하여 가로로 정렬 */
+  align-items: center; /* 수직 가운데 정렬 (선택 사항) *
+  
+  /* tablet 규격 */
+  @media screen and (max-width: 1023px){
+        flex-direction: column;
+  }
+`;
+const Em = styled(ContentRadius)`
 display: flex;
 align-items: center;
 `;
-const Em = styled.div`
-display: flex;
-  //flex-wrap: wrap; /* 줄바꿈을 허용하여 가로 공간에 맞게 정렬될 수 있도록 설정 */
-  justify-content: space-between; /* 공간을 균등하게 분배하여 가로로 정렬 */
-  align-items: center; /* 수직 가운데 정렬 (선택 사항) *`
 
+const NameWrap = styled(Em)`
+
+flex:1;
+/* s 데스크 */
+        @media screen and (min-width: 1024px){
+          margin-right:20px;
+        }
+`;
+
+const PwdWrap = styled(Em)`
+flex:1;
+`;
 const Three = styled(ContentRadius)`
 height: 20vh;
 `;
@@ -461,7 +496,7 @@ const Buttons = styled.div`
 const FindImg = styled(Radius)` 
   background: #798BE6;
   position: absolute;
-  bottom: 10px;
+  bottom: 30px;
   right: 10px;
 
   display: flex;
@@ -470,7 +505,11 @@ const FindImg = styled(Radius)`
   
   width:18.5vw;
   height: 7.5vh;
-  // 여기 적응된다고 . . .왜 다른 곳은 안되는거고 여긴 
+  /* mobile 규격 */
+        @media screen and (max-width: 540px){
+          width:45vw;
+          height: 7.5vh;
+        }
   @media screen and (min-height: 950px) {
     width:18vw;
     height: 8vh; 
@@ -543,7 +582,7 @@ border-radius: 31px;
 overflow: hidden; 
 `;
 
-const SmallWrap = styled(Area)`
+const OneWrap = styled(Area)`
 height: auto;
 
 `;
@@ -615,7 +654,7 @@ const SelectImg = styled.img`
 const DropContainer = styled.div`
   z-index: 2;
   color: white;
-  font-size: 23px;
+  font-size: 33px;
   position: absolute;
   align-items: center;
 `;
@@ -650,7 +689,7 @@ const DropMenu = styled.div`
 `;
 
 const CateMenu = styled.div` 
-  font-size: 29px;
+  font-size: 33px;
   font-weight: 550;
   margin-top:5px;
 `;
