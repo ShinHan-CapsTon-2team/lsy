@@ -4,11 +4,11 @@
         "options": [
             {
                 "type":"a",
-                "img":"wedding1.png"
+                "img":"wedding1.jpg"
             },
             {
                 "type":"b",
-                "img":"wedding2.png"
+                "img":"wedding2.jpg"
             }
         ]
         },
@@ -17,11 +17,11 @@
             "options": [
                 {
                     "type":"a",
-                    "img":"wedding3.png"
+                    "img":"wedding3.jpg"
                 },
                 {
                     "type":"b",
-                    "img":"wedding4.png"
+                    "img":"wedding4.jpg"
                 }
             ]
     },
@@ -35,7 +35,20 @@
             },
             {
                 "type":"b",
-                "img":"wedding6.png"
+                "img":"wedding6.jpg"
+            }
+        ]
+    },
+    {
+        "questions": "4",
+        "options": [
+            {
+                "type":"a",
+                "img":"wedding7.png"
+            },
+            {
+                "type":"b",
+                "img":"wedding8.jpg"
             }
         ]
     }

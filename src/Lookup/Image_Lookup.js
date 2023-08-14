@@ -88,13 +88,6 @@ function Images_Button() {
                                         </SmallWrap>
                                     </Two>
 
-                                    <Three> {/*소개 */}
-                                        <ProfileWrap>
-                                            <Font>{uu.profile || 'None'} </Font>
-                                        </ProfileWrap>
-                                    </Three>
-                                                
-                                    
                                     <Five>{/* 이미지 */}
                                         <BoxRadius > {/* 이미지 */}
                                             <Img src={imageUrl} alt='이미지' />
@@ -104,6 +97,11 @@ function Images_Button() {
                                             <Font>{uu.description || 'None'} </Font>
                                         </BoxRadius>
                                     </Five>
+                                    <Three> {/*소개 */}
+                                        <ProfileWrap>
+                                            <Font>{uu.profile || 'None'} </Font>
+                                        </ProfileWrap>
+                                    </Three>
 
                                 </Content>  
                             </InLayoutOne>  

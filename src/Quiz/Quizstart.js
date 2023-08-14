@@ -1,10 +1,6 @@
  //import React, { useState } from 'react';
 import text from '../Images/image 21.png'
-import selBody from '../Images/image 22.png'
-import selPet from '../Images/image 23.png'
-import selWedding from '../Images/image 24.png'
-import selProfile from '../Images/image 25.png'
-import selFamily from '../Images/image 26.png'
+
 import styled from "styled-components";
 
 import { useNavigate } from 'react-router-dom';
@@ -16,18 +12,169 @@ const Quizstart = () => {
         const queryString = new URLSearchParams({ name: category }).toString();
         navigate(`/quiztest?${queryString}`);
     };
-    
+
+    const OutWrap = styled.div`
+    width: 100%;
+    height: 97.6vh;
+
+    background: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    `;
+
+
+    const InsidWrap = styled.div`
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        
+    `;
+
+    const Text = styled.img`
+
+
+        /* tablet 규격 */
+            @media screen and (max-width: 1023px){
+                
+            }
+
+            /* mobile 규격 */
+            @media screen and (max-width: 540px){
+                width: 88vw;
+                height: 80px; 
+            }
+            /* s 데스크 */
+            @media screen and (min-width: 1024px){
+                width: 48vw;
+                height: 80px; 
+            }
+            /* l 데스크 */
+            @media screen and (min-width: 1700px){
+                width: 55vw;
+                height: 100px; 
+            }
+    `;
+
+    const ImgWrap = styled.div`
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top:20px;
+    //justify-content: center;  
+    `;
+
+
+
+    const Radius = styled.button`
+    //border: 3px #3A76EF solid;
+    padding: 20px;
+    word-wrap: break-word;
+    border-radius: 20px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+    margin-top: 20px;
+    border:none;
+    `;
+
+    const ButtonTwo = styled(Radius)`
+        background: #798BE6;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        position: relative;
+        cursor: pointer;
+
+        color: white;
+        font-weight: 500;
+
+        width: 35vw;
+        height: 9vh;; 
+        font-size: 40px;
+        
+        margin-bottom:5px;
+        /* tablet 규격 */
+        @media screen and (max-width: 1023px){
+            
+        }
+
+        /* mobile 규격 */
+        @media screen and (max-width: 540px){
+            width: 80vw;
+            height: 9vh;; 
+            font-size: 30px;
+        }
+        /* s 데스크 */
+        @media screen and (min-width: 1024px){
+            width: 35vw;
+            height: 9vh;; 
+            font-size: 40px;
+            
+        }
+        /* l 데스크 */
+        @media screen and (min-width: 1700px){
+            width: 45vw;
+            height: 10vh;; 
+            font-size: 48px;
+            
+        }
+        
+        
+
+        
+
+        
+    `;
+
+
+
     return (
         <OutWrap>
-            <InsidWrap>
-
-                <Text src={text} alt='' />
+            <InsidWrap style={{width:'100%',}}>
+                <div>
+                    <Text src={text} alt='' />
+                </div>
+                
+                
+                
                 <ImgWrap>
-                    <Img src={selBody} alt='' onClick={() => handleCategorySelect('body')} />
-                    <Img src={selPet} alt='' onClick={() => handleCategorySelect('pet')} />
-                    <Img src={selWedding} alt='' onClick={() => handleCategorySelect('wedding')} />
-                    <Img src={selProfile} alt='' onClick={() => handleCategorySelect('profile')} />
-                    <Img src={selFamily} alt='' onClick={() => handleCategorySelect('family')} />
+                    <div >
+                        <ButtonTwo onClick={() => handleCategorySelect('body')}>
+                        바디프로필
+                        </ButtonTwo>
+                    </div>
+
+                    <div>
+                        <ButtonTwo onClick={() => handleCategorySelect('pet')}>
+                            
+                                반려동물
+                            
+                        </ButtonTwo>
+                    </div>
+
+                    <div>
+                        <ButtonTwo onClick={() => handleCategorySelect('wedding')}>
+                            웨딩사진
+                        </ButtonTwo>
+                    </div>
+
+                    <div>
+                        <ButtonTwo  onClick={() => handleCategorySelect('profile')} >
+                            증명사진
+                        </ButtonTwo>
+                    </div>
+
+                    <div>
+                        <ButtonTwo onClick={() => handleCategorySelect('family')}>
+                            가족사진
+                        </ButtonTwo>
+                    </div>
+
                 </ImgWrap>
             </InsidWrap>
         </OutWrap>
@@ -35,57 +182,4 @@ const Quizstart = () => {
 };
 
 export default Quizstart;
-//98.8 , 98
-const OutWrap = styled.div`
-width: 100%;
-height: 97.6vh;
 
-background: white;
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-
-`;
-//div wid,height 사이즈 설정 : vh,vw 으로  
-
-const InsidWrap = styled.div`
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    
-`;
-
-const Text = styled.img`
-    width: 80%;
-    height: 80px; 
-
-
-    @media screen and (min-width: 1600px) {
-        width: 95%;
-        height: 100px;  
-        
-    };
-`;
-
-const ImgWrap = styled.div`
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 46px; /* marginTop -> margin-top */
-    
-`;
-
-const Img = styled.img`
-    width: 85%;
-    height: 60px; /* height 값에 px 단위 추가 */
-    margin-bottom: 16px; /* marginBottom -> margin-bottom */
-
-    @media screen and (min-width: 1600px) {
-        width: 95%;
-        height: 80px;  
-        
-    };
-`;

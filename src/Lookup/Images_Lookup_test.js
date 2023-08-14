@@ -1,22 +1,17 @@
 
-import logo from '../Images/imagelogo.png';
-
 import React, {useNavigate,useParams } from 'react-router-dom';
 import { useEffect,useState } from 'react'
 
-
 import styled from "styled-components";
 
+import testimg from "../Images/body1.png"
+import Logo from "../Component/Header"
 const SERVER_URL= 'http://localhost:4000/api/lookup';
 
-//const SERVER_URL= 'http://localhost:4000/api/post';
 
-function Images_Lookup() {
+function Images_Lookup_test() {
     const navigate = useNavigate();
-    //홈페이지 이동 
-    const handleGohomeClick = () => {
-        navigate('/home');
-    };
+    
 
     const params = useParams(); // 1
     const id = params.id; // 2
@@ -61,66 +56,83 @@ function Images_Lookup() {
     return (  
         
         <OutWrap>
-            <InOutWrap>
-            
+            <InOutWrap>      
                 {/* 홈페이지 로고 같*/}        
-                <LogoWrap>
-                    <Logo src={logo} alt='' onClick={handleGohomeClick}/>
-                </LogoWrap>
+                <Logo />
 
-                {/* 로고 아래 */} 
-                {user.map((uu)=>{
-                    let imageUrl = uu.image_url; // 이미지 URL 사용
-                    console.log("url:", imageUrl);
+                <Center >
 
-                    return(
-                        <Center key={uu.id}>
-                            <InLayoutOne>  
-                                <Content>
+                    <InLayoutOne>  
+                        <Content>
+                            <ContentBasic> {/*제목*/}
+                                <WrapBasic>
+                                    <Font>제목제목제목제목제목제목제목제목 </Font>
+                                </WrapBasic>
+                            </ContentBasic>
 
-                                    <One> {/*제목*/}
-                                        <SmallWrap>
-                                            <Font>{uu.title || 'None'}</Font>
-                                        </SmallWrap>
-                                    </One>
+                            <ContentBasic>{/*이름 */}
+                                <WrapBasic>
+                                    <Font>이름이름이름이름이름이름</Font>
+                                </WrapBasic>
+                            </ContentBasic>
 
-                                    <Two>{/*이름 */}
-                                        <SmallWrap>
-                                            <Font>{uu.name || 'None'}</Font>
-                                        </SmallWrap>
-                                    </Two>
+                            <ContentTwo>{/* 이미지 */}
+                                <BoxRadius > {/* 이미지 */}
+                                    <Img src={testimg} alt='이미지' />
+                                </BoxRadius>
+                                
+                                <BoxRadius> {/* 설명 */}
+                                    <Font>설명설명설명설명설명설명설명설명설명</Font>
+                                </BoxRadius>
+                            </ContentTwo>
+                            <ContentThree> {/*소개 */}
+                                <ProfileWrap>
+                                    <Font>소개소개소개소개소개소개소개소개소개소개소개소개소개 </Font>
+                                </ProfileWrap>
+                            </ContentThree>
+                        </Content>  
+                    </InLayoutOne>  
 
-                                    <Three> {/*소개 */}
-                                        <ProfileWrap>
-                                            <Font>{uu.profile || 'None'}</Font>
-                                        </ProfileWrap>
-                                    </Three>
-                                                
-                                    
-                                    <Five>{/* 이미지 */}
-                                        <BoxRadius > {/* 이미지 */}
-                                            <Img src={imageUrl} alt='이미지' />
-                                        </BoxRadius>
-                                        
-                                        <BoxRadius> {/* 설명 */}
-                                            <Font>{uu.description || 'None'}</Font>
-                                        </BoxRadius>
-                                    </Five>
+                    <InLayoutTwo>
+                        <Buttons>
+                            <Left>
+                                <ContentPwd >{/*비밀번호  */}
+                                    <WrapBasic>
+                                        <InputSmall
+                                            type="password"
+                                            
+                                            placeholder="비밀번호"
+                                        />
+                                    </WrapBasic>
+                                </ContentPwd>
+                                <ButtonShort >
+                                    확인  
+                                </ButtonShort>
+                                
+                            </Left>
 
-                                </Content>  
-                            </InLayoutOne>  
+                            <Right> 
+                                <ButtonLong>
+                                    수정  
+                                </ButtonLong>
+
+                                <ButtonLong>
+                                    삭제  
+                                </ButtonLong> 
+                            </Right>
+                        </Buttons>
+
+                    </InLayoutTwo>
 
                             
-                        </Center>
-                    )
-                    }
-                )}
+                </Center>
+                    
             </InOutWrap>
         </OutWrap>
     );
 };
 
-export default Images_Lookup;
+export default Images_Lookup_test  ;
 
 const BoxRadius = styled.div`
     border-radius: 31px;
@@ -148,6 +160,21 @@ flex-direction: column;
 align-items: center;
 
 //overflow: hidden;
+
+* {
+    font-size: 33px;
+  }
+  /* mobile 규격 */
+  @media screen and (max-width: 540px){
+    * {
+    font-size: 27px;
+  }
+      
+  }
+  @media screen and (min-width: 1700px) {
+    * {
+      font-size: 45px;
+    }
 `;
 
 const InOutWrap = styled.div`
@@ -158,31 +185,7 @@ align-items: center;
 justify-content: center;
 `;
 
-const LogoWrap = styled.div`
-width: 30vw; 
-height: 26vh;
-  text-align: center;
-display: flex;
-flex-direction: column;
-align-items: center;
-
-@media screen and (min-height: 900px) {
-    width: 32vw; 
-    height: 29vh;
-};
-`;
-
-const Logo = styled.img`
-width: 29vw; 
-height: 25vh;
-
-@media screen and (min-height: 900px) {
-    width: 31vw; 
-    height: 28vh; 
-}`;
-
 const Center = styled.div`
-//width: 65vw;
 text-align: center;
 display: flex;
 flex-direction: column;
@@ -194,13 +197,27 @@ const InLayoutOne = styled.div`
 text-align:center;
 width:65vw;
 
-@media screen and (min-width: 1700px) {
+/* tablet 규격 */
+@media screen and (max-width: 1023px){
+    
+}
+
+/* mobile 규격 */
+@media screen and (max-width: 540px){
+    
+}
+/* s 데스크 */
+@media screen and (min-width: 1024px){
+    
+}
+/* l 데스크 */
+@media screen and (min-width: 1700px){
     width: 75vw;
-};
+}
+
 `;
 
 const Content = styled.div`
-//width:65vw;
 display: flex;
 flex-direction: column;
 `;
@@ -209,7 +226,7 @@ const ContentRadius = styled.div`
 border: 3px #3A76EF solid;
 padding: 20px;
 word-wrap: break-word;
-opacity: 0.90;
+//opacity: 0.90;
 border-radius: 31px;
 box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
@@ -222,32 +239,43 @@ margin-top: 20px;
 `;
 
 
-// 색깔 탁하게 하는 주범 이 새기임 opacity: 0.90;
-const One = styled(ContentRadius)`
+
+const ContentBasic = styled(ContentRadius)`
 display: flex;
 align-items: center;
 `;
 
-const Two = styled(One)`
-
-
-`;
-
-const Three = styled(ContentRadius)`
+const ContentThree = styled(ContentRadius)`
 height: auto;
 `;
 
-
-//height: 500px;
-const Five = styled(ContentRadius)`
-
+const ContentTwo = styled(ContentRadius)`
 position: relative;
-
 overflow: hidden;
 text-align: center;
 height:auto;
-margin-bottom : 6vh;
 `;
+
+const ContentPwd =styled(ContentBasic)`
+/* tablet 규격 */
+@media screen and (max-width: 1023px){
+    
+}
+
+/* mobile 규격 */
+@media screen and (max-width: 540px){
+    
+}
+/* s 데스크 */
+@media screen and (min-width: 1024px){
+    
+}
+/* l 데스크 */
+@media screen and (min-width: 1700px){
+    width:35vw;
+}
+`;
+
 
 const Area = styled.div`
 display: flex;
@@ -257,27 +285,152 @@ border-radius: 31px;
 overflow: hidden; 
 `;
 
-const SmallWrap = styled(Area)`
+const WrapBasic = styled(Area)`
 height: auto;
-
 `;
+
+const ProfileWrap = styled(Area)`
+height:100%; 
+`;
+
 // overflow: hidden;  내용이 부모 요소를 넘어가지 않도록 함 
 
 
 const Font = styled.div`
 color: black;
-font-size: 40px;
-font-family: Inter;
-font-weight: 400;
-
 width: 100%;
 
-@media screen and (max-height: 864px) {
-font-size: 35px;
+`;
+
+
+
+
+const InLayoutTwo = styled(InLayoutOne)`
+display: flex;
+width:65vw;
+height:19vh;
+align-items: center;
+//justify-content: center;
+
+margin-bottom:30px;
+@media screen and (min-width: 1700px) {
+    width: 75vw;
+    height:21vh;
+};
+`;
+
+const Buttons = styled.div`
+  text-align: center;
+  display: flex;
+  
+  flex-direction: row;
+  width: 100%;
+`;
+
+const Left = styled.div`
+width: 75%;
+display: flex;
+align-items:center;
+//justify-content: center; //
+`;
+
+const Right = styled.div`
+display: flex;
+flex-direction: column;
+margin-left: auto;
+margin-right:10px;
+//flex:1
+`;
+
+
+const Radius = styled.button`
+padding: 20px;
+word-wrap: break-word;
+border-radius: 40px;
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+margin-top: 20px;
+border:none;
+background: #798BE6;
+display: flex;
+align-items: center;
+justify-content: center;
+
+position: relative;
+cursor: pointer;
+color: white;
+
+`;
+
+
+const ButtonShort =  styled(Radius)`
+width:10vw;
+height: 7vh; 
+margin-left:20px;
+
+/* tablet 규격 */
+@media screen and (max-width: 1023px){
+    
+}
+
+/* mobile 규격 */
+@media screen and (max-width: 540px){
+    
+}
+/* s 데스크 */
+@media screen and (min-width: 1024px){
+    
+}
+/* l 데스크 */
+@media screen and (min-width: 1700px){
+    width:12vw;
+    height: 7.5vh;
 }
 `;
 
 
-const ProfileWrap = styled(Area)`
-height:100%;
-`;
+
+const ButtonLong = styled(Radius)`
+  
+  width:18vw;
+  height: 7vh; 
+  
+
+  /* mobile 규격 */
+  @media screen and (max-width: 540px){
+    width:41vw;
+    height: 7vh; 
+
+  }
+
+  /* s 데스크 */
+  @media screen and (min-width: 1024px){
+      
+  }
+  @media screen and (min-width: 1700px) {
+    width:18vw;
+    height: 7.5vh; 
+  };
+ `;
+
+
+
+
+
+const inputStyle = {
+    color: 'black',
+    //fontSize: 35,
+    //fontFamily: 'Inter',
+    //fontWeight: '400',
+    border: 'none',
+    outline: 'none',
+    width: '100%',
+    
+        '@media screen and (min-height: 950px)': {
+            fontSize: 40,
+        },
+    };
+    
+    const InputSmall = styled.input`
+    ${inputStyle}
+    height: 6vh;
+    `;

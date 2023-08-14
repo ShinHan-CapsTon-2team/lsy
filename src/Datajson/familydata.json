@@ -4,11 +4,11 @@
         "options": [
             {
                 "type":"a",
-                "img":"family1.png"
+                "img":"family1.jpg"
             },
             {
                 "type":"b",
-                "img":"family2.png"
+                "img":"family2.jpg"
             }
         ]
         },
@@ -17,11 +17,11 @@
             "options": [
                 {
                     "type":"a",
-                    "img":"family3.png"
+                    "img":"family3.jpg"
                 },
                 {
                     "type":"b",
-                    "img":"family4.png"
+                    "img":"family4.jpg"
                 }
             ]
     },
@@ -31,12 +31,26 @@
         "options": [
             {
                 "type":"a",
-                "img":"family5.png"
+                "img":"family5.jpg"
             },
             {
                 "type":"b",
-                "img":"family6.png"
+                "img":"family6.jpg"
+            }
+        ]
+    },
+    {
+        "questions": "4",
+        "options": [
+            {
+                "type":"a",
+                "img":"family7.png"
+            },
+            {
+                "type":"b",
+                "img":"family8.png"
             }
         ]
     }
+
 ]
