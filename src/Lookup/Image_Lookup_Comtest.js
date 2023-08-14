@@ -35,7 +35,7 @@ function Images_Button() {
         .then((data) => {
             console.log(data);
             setUser(data);
-            console.log('설명',data.description)
+            console.log('설명:',data.description)
             setLoading(false); // 데이터를 가져왔으므로 로딩 상태를 false로 설정
             
         })
@@ -129,6 +129,11 @@ flex-direction: column;
 align-items: center;
 
 //overflow: hidden;
+-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none; /* 인터넷 익스플로러 */
+  scrollbar-width: none; /* 파이어폭스 */
 `;
 
 const InOutWrap = styled.div`

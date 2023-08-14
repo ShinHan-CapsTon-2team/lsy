@@ -2,46 +2,7 @@
 import styled from "styled-components";
 
 const Lookup_Content =({ title,name,imageurl,description,profile }) => {
-  
-    return (
-        <InLayoutOne>  
-            <Content>
-                <One> {/*제목*/}
-                    <SmallWrap>
-                        <Font>{title} </Font>
-                    </SmallWrap>
-                </One>
-
-                <Two>{/*이름 */}
-                    <SmallWrap>
-                        <Font>{name || 'None'}</Font>
-                    </SmallWrap>
-                </Two>
-
-                <Five>{/* 이미지 */}
-                    <BoxRadius > {/* 이미지 */}
-                        <Img src={imageurl} alt='이미지' />
-                    </BoxRadius>
-                    
-                    <BoxRadius> {/* 설명 */}
-                        <Font>{description || 'None'} </Font>
-                    </BoxRadius>
-                </Five>
-                <Three> {/*소개 */}
-                    <ProfileWrap>
-                        <Font>{profile || 'None'} </Font>
-                    </ProfileWrap>
-                </Three>
-
-            </Content>  
-        </InLayoutOne> 
-
-    );
-  };
-  
-export default Lookup_Content;
-
-const BoxRadius = styled.div`
+    const BoxRadius = styled.div`
     border-radius: 31px;
     
         `;
@@ -54,13 +15,14 @@ margin-bottom: 30px;
 `;
 
 
-
+//축소하기 !!!!!!
 const InLayoutOne = styled.div`
 text-align:center;
 width:65vw;
 
 @media screen and (min-width: 1700px) {
-    width: 75vw;
+    width: 55vw;
+    //width: 75vw;
 };
 `;
 
@@ -167,3 +129,41 @@ const inputStyle = {
     ${inputStyle}
     height: 6vh;
     `;
+    return (
+        <InLayoutOne>  
+            <Content>
+                <One> {/*제목*/}
+                    <SmallWrap>
+                        <Font>{title} </Font>
+                    </SmallWrap>
+                </One>
+
+                <Two>{/*이름 */}
+                    <SmallWrap>
+                        <Font>{name || 'None'}</Font>
+                    </SmallWrap>
+                </Two>
+
+                <Five>{/* 이미지 */}
+                    <BoxRadius > {/* 이미지 */}
+                        <Img src={imageurl} alt='이미지' />
+                    </BoxRadius>
+                    
+                    <BoxRadius> {/* 설명 */}
+                        <Font>{description || 'None'} </Font>
+                    </BoxRadius>
+                </Five>
+                <Three> {/*소개 */}
+                    <ProfileWrap>
+                        <Font>{profile || 'None'} </Font>
+                    </ProfileWrap>
+                </Three>
+
+            </Content>  
+        </InLayoutOne> 
+
+    );
+  };
+  
+export default Lookup_Content;
+

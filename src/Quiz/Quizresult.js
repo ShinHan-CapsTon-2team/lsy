@@ -106,12 +106,13 @@ const Quizresult  = () => {
 
                 
                 {answers && answers.map((answer, index) => (
-                    <Content>
+                    <Content  isNotLast={index !== answers.length - 1}>
                         <Img 
                             key={index} 
                             src={`${process.env.PUBLIC_URL}/Images/questresult/${categoryName}/${answer.img}`}
                             alt={`Image ${index + 1}`}
-                            onClick={() => handleImageClick(answer.id)}  />
+                            onClick={() => handleImageClick(answer.id)} 
+                            />
                     </Content>
                 ))}
                 </Direction>
@@ -170,15 +171,15 @@ const OutWrap = styled.div`
     justify-content: center;
     //flex-direction: column;
     align-items: center;
-    
+    ${({ isNotLast }) => isNotLast && "margin-right: 20px;"}
 
     /* s 데스크 */
         @media screen and (min-width: 1024px){
-            margin-right:20px;
+            //margin-right:20px;
         }
         /* l 데스크 */
         @media screen and (min-width: 1700px){
-            margin-right:40px;
+            //margin-right:40px;
         }
 
     `;
@@ -192,6 +193,7 @@ const OutWrap = styled.div`
     align-items: center; 
     overflow:hidden;
     cursor:pointer;
+    /* margin-right 스타일 조건부 적용 */
     
     &:hover {
         border: 5px #4E62C5 solid;
@@ -203,7 +205,7 @@ const OutWrap = styled.div`
 
         /* mobile 규격 */
         @media screen and (max-width: 540px){
-            width: 85vw;
+            width: 65vw;
             height: 50vh;
             margin-bottom:20px;
 

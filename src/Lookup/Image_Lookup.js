@@ -8,7 +8,6 @@ import styled from "styled-components";
 
 const SERVER_URL= 'http://localhost:4000/api/lookup';
 
-//const SERVER_URL= 'http://localhost:4000/api/post';
 
 function Images_Button() {
     const navigate = useNavigate();
