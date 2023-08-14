@@ -34,8 +34,8 @@ function PostEx() {
       '가족사진',
       '증명사진',
       '웨딩사진',
+      '해당없음'
     ];
-
     const navigate = useNavigate();
   
     //홈페이지
@@ -202,11 +202,16 @@ function PostEx() {
       setImageFile(imageFile);
       setPreviewImage(URL.createObjectURL(imageFile));
       // 이미지 파일이 업로드되면 예측 수행
-      const classIndex = await classifyImage(imageFile);
+      const classIndex = await classifyImage(imageFile, 0.8); //0.8프로의정확도가 임계값
       setSelectedClass(classIndex);
-      const predictedLabel = classLabels[classIndex];
-      setPrediction(predictedLabel);
-      setCategory(classLabels[classIndex]); // 카테고리를 예측된 클래스로 설정
+      if (classIndex === -1) {
+        setPrediction(classLabels[5]);
+        setCategory(classLabels[5]);
+      } else {
+        const predictedLabel = classLabels[classIndex];
+        setPrediction(predictedLabel);
+        setCategory(predictedLabel); // 카테고리를 예측된 클래스로 설정
+      }
     } else {
       setImageFile(null);
       setPreviewImage(null);
@@ -336,7 +341,8 @@ function PostEx() {
                                         <CateMenu onClick={() => handleCategorySelect(classLabels[1])}>{classLabels[1]}</CateMenu>
                                         <CateMenu onClick={() => handleCategorySelect(classLabels[2])}>{classLabels[2]}</CateMenu>
                                         <CateMenu onClick={() => handleCategorySelect(classLabels[3])}>{classLabels[3]}</CateMenu>
-                                        <CateMenu onClick={() => handleCategorySelect(classLabels[4])}>{classLabels[4]}</CateMenu>   
+                                        <CateMenu onClick={() => handleCategorySelect(classLabels[4])}>{classLabels[4]}</CateMenu>
+                                        <CateMenu onClick={() => handleCategorySelect(classLabels[5])}>{classLabels[5]}</CateMenu>    
                                     </DropMenu>
                                     )}
 

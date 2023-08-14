@@ -105,16 +105,32 @@ const Quizresult  = () => {
                 <Direction>
 
                 
-                {answers && answers.map((answer, index) => (
-                    <Content  isNotLast={index !== answers.length - 1}>
+                
+                <Content  >
+                    <Row>
+                        {answers && answers.slice(0, 2).map((answer, index) => (
                         <Img 
-                            key={index} 
+                            key={index}
                             src={`${process.env.PUBLIC_URL}/Images/questresult/${categoryName}/${answer.img}`}
                             alt={`Image ${index + 1}`}
-                            onClick={() => handleImageClick(answer.id)} 
-                            />
-                    </Content>
-                ))}
+                            onClick={() => handleImageClick(answer.id)}
+                            isNotLast={index !== 1}
+                        />
+                        ))}
+                    </Row>
+                    <Row>
+                        {answers && answers.slice(2, 4).map((answer, index) => (
+                        <Img 
+                            key={index + 2}
+                            src={`${process.env.PUBLIC_URL}/Images/questresult/${categoryName}/${answer.img}`}
+                            alt={`Image ${index + 3}`}
+                            onClick={() => handleImageClick(answer.id)}
+                            isNotLast={index !== 1}
+                        />
+                        ))}
+                    </Row>
+                </Content>
+                
                 </Direction>
                 
                 
@@ -171,7 +187,7 @@ const OutWrap = styled.div`
     justify-content: center;
     //flex-direction: column;
     align-items: center;
-    ${({ isNotLast }) => isNotLast && "margin-right: 20px;"}
+    flex-direction: column;
 
     /* s 데스크 */
         @media screen and (min-width: 1024px){
@@ -184,7 +200,10 @@ const OutWrap = styled.div`
 
     `;
 
-
+    const Row = styled.div`
+  display: flex;
+  margin-bottom: 20px;
+`;
     const Img= styled.img`
     border: 5px #798BE6 solid;
     border-radius: 31px;
@@ -193,7 +212,7 @@ const OutWrap = styled.div`
     align-items: center; 
     overflow:hidden;
     cursor:pointer;
-    /* margin-right 스타일 조건부 적용 */
+    ${({ isNotLast }) => isNotLast && "margin-right: 20px;"}
     
     &:hover {
         border: 5px #4E62C5 solid;
@@ -205,10 +224,10 @@ const OutWrap = styled.div`
 
         /* mobile 규격 */
         @media screen and (max-width: 540px){
-            width: 65vw;
-            height: 50vh;
-            margin-bottom:20px;
-
+            width: 45vw;
+            height: 46vh;
+            margin-bottom:10px;
+            ${({ isNotLast }) => isNotLast && "margin-right: 10px;"}
             border: 4px #798BE6 solid;
         }
         /* s 데스크 */
@@ -218,6 +237,7 @@ const OutWrap = styled.div`
         }
         /* l 데스크 */
         @media screen and (min-width: 1700px){
+            width: 26vw;
             height: 65vh;
             border: 8px #798BE6 solid;
             &:hover {

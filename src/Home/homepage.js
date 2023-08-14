@@ -5,11 +5,11 @@ import logo from '../Images/imagelogo.png';
 import styled from 'styled-components';
 
 const categoriesData = [
-  { name: '가족사진' },
+  { name: '바디프로필'},
   { name: '반려동물' },
+  { name: '가족사진' },
   { name: '증명사진' },
   { name: '웨딩사진' },
-  { name: '바디프로필'},
 ];
 
 
@@ -41,7 +41,7 @@ const OutWrap = styled.div`
   }
     @media screen and (min-width: 1700px) {
       * {
-        font-size: 45px;
+        font-size: 39px;
       }
   `;
   
@@ -328,7 +328,7 @@ const ButtonTwo = styled(Radius)`
   //flex-wrap: wrap;
   width:17vw;
   height: 7vh; 
-  margin-right:20px;
+  
 
   
   /* tablet 규격 */
@@ -355,8 +355,11 @@ const ButtonTwo = styled(Radius)`
       
   }
   @media screen and (min-width: 1700px) {
-    width:17vw;
-    height: 7.5vh; 
+    width:15vw;
+    height: 7vh; 
+    margin-right:25px;
+  }
+    
   };
  `;
 

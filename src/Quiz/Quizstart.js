@@ -54,7 +54,7 @@ const Quizstart = () => {
             }
             /* l 데스크 */
             @media screen and (min-width: 1700px){
-                width: 55vw;
+                width: 50vw;
                 height: 100px; 
             }
     `;
@@ -118,8 +118,8 @@ const Quizstart = () => {
         }
         /* l 데스크 */
         @media screen and (min-width: 1700px){
-            width: 45vw;
-            height: 10vh;; 
+            width: 40vw;
+            height: 9vh;; 
             font-size: 48px;
             
         }
