@@ -20,7 +20,6 @@ function PostEx() {
     const [name, setName] = useState('');
     const [profile, setProfile] = useState(''); 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [selectedImage, setSelectedImage] = useState(''); // 이거 뭐야 
     const [imageFile, setImageFile] = useState(null);
     const [previewImage, setPreviewImage] = useState(null); // 미리보기 이미지 URL 상태
     const [prediction, setPrediction] = useState(null);
