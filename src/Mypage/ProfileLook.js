@@ -11,13 +11,7 @@ function ProfileLook() {
 
     
     //const navigate = useNavigate();
-    const params = useParams(); // 1
-    const id = params.id; // 2
-    console.log( 'params:',params);
-    console.log('id:',id);
-
-    const [user, setUser] = useState([]);
-    const [loading, setLoading] = useState(true);
+    
 
     /* 데이터 value 넣어줄 값 
     const [board, setBoard] = useState({
@@ -28,36 +22,7 @@ function ProfileLook() {
     });
     */
 
-    useEffect(() => {
-        function getUserList() {
-            let reqOption = {
-            method: 'get',
-            headers: {
-                //'content-type': 'application/json; charset=utf-8',
-                'Accept': 'application/json',
-            },
-            };
     
-            fetch(`${SERVER_URL}/${id}`, reqOption)
-            .then((res) => res.json())
-            .then((data) => {
-                console.log(data);
-                setUser(data); //가져온 데이터 확인용
-                setLoading(false); // 데이터를 가져왔으므로 로딩 상태를 false로 설정
-                
-            })
-            .catch((error) => {
-                console.error('Error fetching data:', error);
-                setLoading(false); 
-            });
-        }
-    
-        getUserList();
-        }, [id]);
-
-    if (loading) { //데이터 가져오는 중 페이지 
-        return <Loading/>;
-    }
     
     /* 처리해야 할 코드  idx => id
     const getBoard = async () => {

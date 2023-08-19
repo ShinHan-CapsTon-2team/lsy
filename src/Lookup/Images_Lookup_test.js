@@ -238,8 +238,6 @@ height:auto;
 `;
 
 
-
-
 const Area = styled.div`
 display: flex;
 align-items: center;
@@ -341,30 +339,7 @@ color: white;
 `;
 
 
-const ButtonShort =  styled(Radius)`
-width:10vw;
-height: 7vh; 
-margin-left:20px;
 
-/* tablet 규격 */
-@media screen and (max-width: 1023px){
-    
-}
-
-/* mobile 규격 */
-@media screen and (max-width: 540px){
-    
-}
-/* s 데스크 */
-@media screen and (min-width: 1024px){
-    
-}
-/* l 데스크 */
-@media screen and (min-width: 1700px){
-    width:12vw;
-    height: 7.5vh;
-}
-`;
 
 
 
