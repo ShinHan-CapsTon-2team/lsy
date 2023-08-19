@@ -65,44 +65,25 @@ function Images_Button() {
                         let imageUrl = uu.image_url; // 이미지 URL 사용
                         console.log("url:", imageUrl);
 
+                        {/*  id={uu.id}  작성자 식별할 수 있는 걸로 고쳐야함 */}
                         return(
                                 <Lookup_Content title={uu.title} name={uu.name} imageurl={imageUrl} description ={uu.description}
-                                profile={uu.profile} />
+                                created_at={uu.created_at} id={uu.id} />    
                                 )
                             }
                         )} 
-                    <InLayoutTwo>
+                    <InLayoutTwo> {/* 자기 게시글이면 보이게 처리하기  */}
                         <Buttons>
-                            <Left>
-                                <Two style={{width:'45vh'}}>{/*비밀번호  */}
-                                    <TwoWrap>
-                                        <InputSmall
-                                            type="password"
-                                            
-                                            placeholder="비밀번호"
-                                        />
-                                    </TwoWrap>
-                                </Two>
-                                <ButtonTwo style={{width:'10vw',marginLeft:20}}>
-                                    <Menu  >
-                                    확인  </Menu>
-                                </ButtonTwo>
-                                
-                            </Left>
-
                             <Right> 
-                                <ButtonTwo>
-                                    <Menu  >
-                                    수정  </Menu>
-                                </ButtonTwo>
+                                <EditButton>
+                                    수정  
+                                </EditButton>
 
-                                <ButtonTwo>
-                                    <Menu  >
-                                    삭제  </Menu>
-                                </ButtonTwo> 
+                                <DelectButton>
+                                    삭제  
+                                </DelectButton> 
                             </Right>
                         </Buttons>
-
                     </InLayoutTwo>
 
                                     
@@ -114,6 +95,7 @@ function Images_Button() {
 };
 
 export default Images_Button;
+
 
 
 const OutWrap = styled.div`
@@ -130,11 +112,8 @@ flex-direction: column;
 align-items: center;
 
 //overflow: hidden;
--webkit-scrollbar {
-    display: none;
-  }
-  -ms-overflow-style: none; /* 인터넷 익스플로러 */
-  scrollbar-width: none; /* 파이어폭스 */
+
+
 `;
 
 const InOutWrap = styled.div`
@@ -145,9 +124,7 @@ align-items: center;
 justify-content: center;
 `;
 
-
 const Center = styled.div`
-//width: 65vw;
 text-align: center;
 display: flex;
 flex-direction: column;
@@ -158,10 +135,25 @@ align-items: center;
 const InLayoutOne = styled.div`
 text-align:center;
 width:65vw;
+margin-bottom:30px;
+/* tablet 규격 */
+@media screen and (max-width: 1023px){
+    
+}
 
-@media screen and (min-width: 1700px) {
+/* mobile 규격 */
+@media screen and (max-width: 540px){
+    
+}
+/* s 데스크 */
+@media screen and (min-width: 1024px){
+    
+}
+/* l 데스크 */
+@media screen and (min-width: 1700px){
     width: 75vw;
-};
+}
+
 `;
 
 
@@ -169,7 +161,7 @@ const ContentRadius = styled.div`
 border: 3px #3A76EF solid;
 padding: 20px;
 word-wrap: break-word;
-opacity: 0.90;
+//opacity: 0.90;
 border-radius: 31px;
 box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
@@ -182,27 +174,11 @@ margin-top: 20px;
 `;
 
 
-// 색깔 탁하게 하는 주범 이 새기임 opacity: 0.90;
-const One = styled(ContentRadius)`
-display: flex;
-align-items: center;
-`;
-
-const Two = styled(One)`
-`;
-
-const Area = styled.div`
-display: flex;
-align-items: center;
-width: 100%;
-border-radius: 31px;
-overflow: hidden; 
-`;
 
 const InLayoutTwo = styled(InLayoutOne)`
 display: flex;
 width:65vw;
-height:19vh;
+//height:19vh;
 align-items: center;
 //justify-content: center;
 
@@ -221,16 +197,10 @@ const Buttons = styled.div`
   width: 100%;
 `;
 
-const Left = styled.div`
-width: 75%;
-display: flex;
-align-items:center;
-//justify-content: center; //
-`;
 
 const Right = styled.div`
 display: flex;
-flex-direction: column;
+flex-direction: row;
 margin-left: auto;
 margin-right:10px;
 //flex:1
@@ -238,19 +208,12 @@ margin-right:10px;
 
 
 const Radius = styled.button`
-//border: 3px #3A76EF solid;
-
 padding: 20px;
 word-wrap: break-word;
 border-radius: 40px;
 box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-
 margin-top: 20px;
 border:none;
-
-`;
-
-const ButtonTwo = styled(Radius)`
 background: #798BE6;
 display: flex;
 align-items: center;
@@ -258,54 +221,41 @@ justify-content: center;
 
 position: relative;
 cursor: pointer;
+color: white;
+
+`;
+
+
+
+
+
+
+const ButtonLong = styled(Radius)`
+  
   width:18vw;
   height: 7vh; 
-  font-size: 33px;
+  ${FontStyle};
 
+  /* mobile 규격 */
+  @media screen and (max-width: 540px){
+    width:41vw;
+    height: 7vh; 
+
+  }
+
+  /* s 데스크 */
+  @media screen and (min-width: 1024px){
+      
+  }
   @media screen and (min-width: 1700px) {
     width:18vw;
     height: 7.5vh; 
   };
  `;
 
- const Menu = styled.span`
-z-index: 2;
-color: white;
-
-position: absolute;
-font-weight: 500;
-
-font-size: 33px;
-over-flow:hidden;
-
-@media screen and (min-height: 950px) {
-  
-  font-size: 45px;
-  
-  };
-`;
+const EditButton =styled(ButtonLong)``;
+const DelectButton=styled(ButtonLong)`
+margin-left:20px;`;
 
 
-const TwoWrap = styled(Area)`
-height: auto;
 
-`;
-
-const inputStyle = {
-    color: 'black',
-    fontSize: 35,
-    fontFamily: 'Inter',
-    fontWeight: '400',
-    border: 'none',
-    outline: 'none',
-    width: '100%',
-    
-        '@media screen and (min-height: 950px)': {
-            fontSize: 40,
-        },
-    };
-    
-const InputSmall = styled.input`
-${inputStyle}
-height: 6vh;
-`;
