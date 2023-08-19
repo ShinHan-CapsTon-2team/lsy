@@ -4,8 +4,10 @@ import { useEffect,useState } from 'react'
 
 import styled from "styled-components";
 
-import testimg from "../Images/body1.png"
+import aa from "../Images/aa.jpg"
 import Logo from "../Component/Header"
+import Loading from '../Component/Loading';
+import profilelogo from '../Images/profileimg.png'
 const SERVER_URL= 'http://localhost:4000/api/lookup';
 
 
@@ -50,7 +52,8 @@ function Images_Lookup_test() {
     getUserList();
     }, [id]);
     if (loading) {
-        return <div>Loading...</div>;
+        return <Loading
+                what="Loading"/>;
     }
 
     return (  
@@ -64,64 +67,52 @@ function Images_Lookup_test() {
 
                     <InLayoutOne>  
                         <Content>
-                            <ContentBasic> {/*제목*/}
+                            <ContentTitle> {/*제목*/}
                                 <WrapBasic>
-                                    <Font>제목제목제목제목제목제목제목제목 </Font>
+                                    <Font>바디프로필입니다. </Font>
                                 </WrapBasic>
-                            </ContentBasic>
 
-                            <ContentBasic>{/*이름 */}
-                                <WrapBasic>
-                                    <Font>이름이름이름이름이름이름</Font>
+                                <WrapBasic> {/* 날짜 */}
+                                    <At>2023-09-01</At>
                                 </WrapBasic>
-                            </ContentBasic>
+                            </ContentTitle>
 
-                            <ContentTwo>{/* 이미지 */}
+                            <ContentProfile> {/* 이름 */}
+                                <ProfileImgWrap > 
+                                    <ProfileImg src={profilelogo} />
+                                </ProfileImgWrap>
+                                <ContentBasic  style={{flex:1}}>{/*이름 */}
+                                    <WrapBasic>
+                                        <Font>곽두팔</Font>
+                                    </WrapBasic>
+                                </ContentBasic>
+                            </ContentProfile>
+
+                            <ContentImgDes>{/* 이미지/설명 */}
                                 <BoxRadius > {/* 이미지 */}
-                                    <Img src={testimg} alt='이미지' />
+                                    <Img src={aa} alt='이미지' />
                                 </BoxRadius>
                                 
                                 <BoxRadius> {/* 설명 */}
-                                    <Font>설명설명설명설명설명설명설명설명설명</Font>
+                                    <Font>설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명</Font>
                                 </BoxRadius>
-                            </ContentTwo>
-                            <ContentThree> {/*소개 */}
-                                <ProfileWrap>
-                                    <Font>소개소개소개소개소개소개소개소개소개소개소개소개소개 </Font>
-                                </ProfileWrap>
-                            </ContentThree>
+                            </ContentImgDes>
+                            
                         </Content>  
                     </InLayoutOne>  
 
-                    <InLayoutTwo>
+                    <InLayoutTwo> {/* 자기 게시글이면 보이게 처리하기  */}
                         <Buttons>
-                            <Left>
-                                <ContentPwd >{/*비밀번호  */}
-                                    <WrapBasic>
-                                        <InputSmall
-                                            type="password"
-                                            
-                                            placeholder="비밀번호"
-                                        />
-                                    </WrapBasic>
-                                </ContentPwd>
-                                <ButtonShort >
-                                    확인  
-                                </ButtonShort>
-                                
-                            </Left>
-
                             <Right> 
-                                <ButtonLong>
+                                <EditButton>
                                     수정  
-                                </ButtonLong>
+                                </EditButton>
 
-                                <ButtonLong>
+                                <DelectButton>
                                     삭제  
-                                </ButtonLong> 
+                                </DelectButton> 
                             </Right>
                         </Buttons>
-
                     </InLayoutTwo>
 
                             
@@ -134,6 +125,9 @@ function Images_Lookup_test() {
 
 export default Images_Lookup_test  ;
 
+const At =styled.text`
+color:gray;
+font-size:20px;`
 const BoxRadius = styled.div`
     border-radius: 31px;
     
@@ -161,20 +155,7 @@ align-items: center;
 
 //overflow: hidden;
 
-* {
-    font-size: 33px;
-  }
-  /* mobile 규격 */
-  @media screen and (max-width: 540px){
-    * {
-    font-size: 27px;
-  }
-      
-  }
-  @media screen and (min-width: 1700px) {
-    * {
-      font-size: 45px;
-    }
+
 `;
 
 const InOutWrap = styled.div`
@@ -196,7 +177,7 @@ align-items: center;
 const InLayoutOne = styled.div`
 text-align:center;
 width:65vw;
-
+margin-bottom:30px;
 /* tablet 규격 */
 @media screen and (max-width: 1023px){
     
@@ -238,50 +219,32 @@ margin-top: 20px;
 };
 `;
 
-
-
 const ContentBasic = styled(ContentRadius)`
 display: flex;
 align-items: center;
 `;
-
-const ContentThree = styled(ContentRadius)`
-height: auto;
+ 
+const ContentTitle =styled(ContentBasic)`
+flex-direction: column;
 `;
+const ContentProfile =styled.div`display: flex;`;
 
-const ContentTwo = styled(ContentRadius)`
+
+const ContentImgDes = styled(ContentRadius)`
 position: relative;
 overflow: hidden;
 text-align: center;
 height:auto;
 `;
 
-const ContentPwd =styled(ContentBasic)`
-/* tablet 규격 */
-@media screen and (max-width: 1023px){
-    
-}
 
-/* mobile 규격 */
-@media screen and (max-width: 540px){
-    
-}
-/* s 데스크 */
-@media screen and (min-width: 1024px){
-    
-}
-/* l 데스크 */
-@media screen and (min-width: 1700px){
-    width:35vw;
-}
-`;
 
 
 const Area = styled.div`
 display: flex;
 align-items: center;
 width: 100%;
-border-radius: 31px;
+//border-radius: 31px;
 overflow: hidden; 
 `;
 
@@ -289,16 +252,38 @@ const WrapBasic = styled(Area)`
 height: auto;
 `;
 
-const ProfileWrap = styled(Area)`
-height:100%; 
+const ProfileImgWrap = styled.div`
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+  margin-top: 20px;
+  cursor: pointer;
 `;
 
-// overflow: hidden;  내용이 부모 요소를 넘어가지 않도록 함 
+const ProfileImg = styled.img`
+  width: 95px;
+  height: 95px;
+`;
 
+const FontStyle= {
+    fontSize: 33,
+
+    /* mobile 규격 */
+  '@media screen and (max-width: 540px)':
+    {
+        fontSize: 27,
+  },
+  '@media screen and (min-width: 1700px)': {
+    
+        fontSize: 45,
+    },
+};
+    
 
 const Font = styled.div`
+${FontStyle};
 color: black;
-width: 100%;
+//width: 100%;
 
 `;
 
@@ -308,7 +293,7 @@ width: 100%;
 const InLayoutTwo = styled(InLayoutOne)`
 display: flex;
 width:65vw;
-height:19vh;
+//height:19vh;
 align-items: center;
 //justify-content: center;
 
@@ -327,16 +312,10 @@ const Buttons = styled.div`
   width: 100%;
 `;
 
-const Left = styled.div`
-width: 75%;
-display: flex;
-align-items:center;
-//justify-content: center; //
-`;
 
 const Right = styled.div`
 display: flex;
-flex-direction: column;
+flex-direction: row;
 margin-left: auto;
 margin-right:10px;
 //flex:1
@@ -393,7 +372,7 @@ const ButtonLong = styled(Radius)`
   
   width:18vw;
   height: 7vh; 
-  
+  ${FontStyle};
 
   /* mobile 규격 */
   @media screen and (max-width: 540px){
@@ -412,25 +391,9 @@ const ButtonLong = styled(Radius)`
   };
  `;
 
+const EditButton =styled(ButtonLong)``;
+const DelectButton=styled(ButtonLong)`
+margin-left:20px;`;
 
 
 
-
-const inputStyle = {
-    color: 'black',
-    //fontSize: 35,
-    //fontFamily: 'Inter',
-    //fontWeight: '400',
-    border: 'none',
-    outline: 'none',
-    width: '100%',
-    
-        '@media screen and (min-height: 950px)': {
-            fontSize: 40,
-        },
-    };
-    
-    const InputSmall = styled.input`
-    ${inputStyle}
-    height: 6vh;
-    `;

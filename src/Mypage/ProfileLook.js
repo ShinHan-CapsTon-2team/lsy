@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 
-import Logo from "../Component/HeaderTwo"
+import Logo from "../Component/Header"
 import styled from "styled-components";
 import Loading from '../Component/Loading'
 const SERVER_URL= 'http://localhost:4000/api/lookup';

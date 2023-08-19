@@ -5,7 +5,6 @@ import {  useNavigate } from 'react-router-dom';
 import logo from '../Images/imagelogo.png';
 import styled from "styled-components";
 import homelogo from '../Images/homelogo.png'
-import profilelogo from '../Images/profileimg.png'
 
 // 회원 아이콘 추가,,, 누를 시 1) 로그인 한 경우는 프로필 정보 페이지 2)로그인 x 로그인 페이지로 
 const Header=() => 
@@ -22,11 +21,6 @@ const Header=() =>
     const handleGohomeClick = () => {
         navigate('/home');
     };
-
-    //프로필 페이지 
-    const handleGoProfileClick = () => {
-        navigate('/profile');
-    };
     return (
 
     <LogoWrap>                
@@ -35,9 +29,6 @@ const Header=() =>
         </LandingWrap> 
         
         <HomeWrap >
-
-            
-            <ProfileLogo src={profilelogo} alt='profilelogo' onClick={handleGoProfileClick}/>
             <HomeLogo src={homelogo} alt='homelogo' onClick={handleGohomeClick} />
         </HomeWrap>         
     </LogoWrap>
@@ -55,7 +46,7 @@ height: 23.2vh;
 display: flex;
 //flex-direction: row;
 align-items: center;
-justify-content: space-between;
+//justify-content: space-between;
 //position: relative;
 
 /* tablet 규격 */
@@ -82,21 +73,27 @@ justify-content: space-between;
 height: 26.2vh;
 }; */
 `;
-
-
 const LandingWrap = styled.div`
 `;
 const HomeWrap = styled.div`
-display: flex;
-flex-direction: row;
-align-items: center;
-justify-content: center;
+margin-right:25px;
+
+position: absolute;
+right:225px;
+
+/* mobile 규격 */
+        @media screen and (max-width: 540px){
+            
+            top:65px;
+            right:5px;
+            margin-left:10px;
+        }
   
 `;
 
 const HomeLogo =styled.img`
-width:50px;
-height:50px;
+width:70px;
+height:70px;
 /* tablet 규격 */
         @media screen and (max-width: 1023px){
             
@@ -119,35 +116,14 @@ height:50px;
         }
 `;
 
-const ProfileLogo = styled.img`
-width:55px;
-height:55px;
-margin-right :20px;
-/* tablet 규격 */
-        @media screen and (max-width: 1023px){
-            
-        }
-
-        /* mobile 규격 */
-        @media screen and (max-width: 540px){
-            width:35px;
-            height:35px;
-            
-        }
-        /* s 데스크 */
-        @media screen and (min-width: 1024px){
-            
-        }
-        /* l 데스크 */
-        @media screen and (min-width: 1700px){
-            width:90px;
-            height:90px;
-        }
-
-`;
 const Logo = styled.img`
 width: 27vw; 
 height: 23vh;
+
+position: absolute;
+
+left: 50%;
+transform: translate(-50%, -50%);
 
 
 /* tablet 규격 */
@@ -162,8 +138,8 @@ height: 23vh;
         }
         /* s 데스크 */
         @media screen and (min-width: 1024px){
-            width: 21vw; 
-            height: 19vh; 
+            width: 29vw; 
+            height: 26vh; 
         }
         /* l 데스크 */
         @media screen and (min-width: 1700px){

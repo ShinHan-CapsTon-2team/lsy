@@ -24,9 +24,7 @@ function PostEx() {
     const [previewImage, setPreviewImage] = useState(null); // 미리보기 이미지 URL 상태
     const [prediction, setPrediction] = useState(null);
     const [selectedClass, setSelectedClass] = useState(0); // 선택한 클래스의 인덱스
-    const [password, setPassword] = useState('');
-    const [passwordMessage, setPasswordMessage] = useState('');
-    const [isPassword, setIsPassword] = useState(false);
+    
     const classLabels = [
       '바디프로필',
       '반려동물',
@@ -124,11 +122,7 @@ function PostEx() {
       };
 
       const handleSubmit = () => {
-        if (!password) {
-          alert('비밀번호를 입력해주세요.');
-          return;
-      }
-  
+
           const data = {
           title,
           description,
@@ -136,7 +130,6 @@ function PostEx() {
           category,
           name,
           profile,
-          password, // 비밀번호 추가 
           //created_at : getCurrentTime(),
           };
           console.log(data.title);
@@ -160,22 +153,7 @@ function PostEx() {
           });
       };
 
-      // 비밀번호 유효성
-    const onChangePassword = useCallback((e) => {
-      const passwordRegex = /^[a-zA-Z0-9]{6,12}$/;
-      ;
-      const passwordCurrent = e.target.value;
-      setPassword(passwordCurrent);
     
-      if (!passwordRegex.test(passwordCurrent)) {
-        setPasswordMessage('숫자 또는 영문자 조합으로 6자리 이상');
-        setIsPassword(false);
-      } else {
-        setPasswordMessage('');
-        setIsPassword(true);
-      }
-    }, []);
-
     const handleMenuToggle = () => { //메뉴열기/닫기
         setIsMenuOpen(!isMenuOpen);
     };
@@ -240,51 +218,20 @@ function PostEx() {
                                 </WrapAuto>
                             </One>
                             
-                            <Two>{/*이름 , 비밀번호 */}
-                              <NameWrap >{/*이름 */}
-                                  <WrapAuto>
-                                      <InputBasic 
-                                          type="text"
-                                          value={name}
-                                          onChange={(e) => setName(e.target.value)}
-                                          placeholder="이름"
-                                      />
-                                      
-                                  </WrapAuto>
-                              </NameWrap>
+                            <Two>{/*이름 */}
+                              
+                              <WrapAuto>
+                                  <InputBasic 
+                                      type="text"
+                                      value={name}
+                                      onChange={(e) => setName(e.target.value)}
+                                      placeholder="이름"
+                                  />
+                              </WrapAuto>
 
-                              <PwdWrap>{/*비밀번호  */}
-                                <WrapAuto>
-                                    <InputBasic
-                                        type="password"
-                                        value={password}
-                                        onChange={(e) => {
-                                          onChangePassword(e); // 비밀번호 유효성 검사 실행
-                                          setPassword(e.target.value); // 입력된 비밀번호 업데이트
-                                        }}
-                                        placeholder="비밀번호"
-                                    />
-                                </WrapAuto>
-                                {password.length > 0 && (
-                                          <span className={`message ${isPassword ? 'success' : 'error'}`} style={{fontSize:33,color:'red'}}>{passwordMessage}</span>
-                                          )}
-                              </PwdWrap>
                             </Two>
                             
-
-                            <Three> {/*소개 */}
-                                <WrapPer>
-                                    <TextareaBasic 
-                                    //ref={textRef} 길이 조절 수정해야함 
-                                    //onInput={handleResizeHeight}
-                                    value={profile}
-                                    onChange={(e) => setProfile(e.target.value)}
-                                    placeholder="소개 및 커리어"
-                                    />
-                                </WrapPer>
-                            </Three>
-
-                            <Four>{/* 설명 */}
+                            <Three>{/* 설명 */}
                                 {/* 드래그 방지 추가하기 */}
                                 <WrapPer>
                                     <TextareaBasic
@@ -294,9 +241,9 @@ function PostEx() {
                                     />
                                 </WrapPer>
                                 
-                            </Four>                                        
+                            </Three>                                        
                             
-                            <Five>{/* 이미지 */}
+                            <Four>{/* 이미지 */}
                                 {!previewImage && (
                                     <EmptyImg src={upload} alt="upload" />
                                 )} {/*빈 이미지로 사진 올리면 없어짐 */}
@@ -315,7 +262,7 @@ function PostEx() {
                                 {previewImage && 
                                 <SelectImg src={previewImage} alt="Preview" />} 
                                 
-                            </Five>
+                            </Four>
 
                         </Content>  
                     </InLayoutOne>  
@@ -336,12 +283,11 @@ function PostEx() {
                                 
                                     {isMenuOpen && (
                                     <DropMenu > {/* 스타일 수정 */}
-                                        <CateMenu onClick={() => handleCategorySelect(classLabels[0])}>{classLabels[0]}</CateMenu>
-                                        <CateMenu onClick={() => handleCategorySelect(classLabels[1])}>{classLabels[1]}</CateMenu>
-                                        <CateMenu onClick={() => handleCategorySelect(classLabels[2])}>{classLabels[2]}</CateMenu>
-                                        <CateMenu onClick={() => handleCategorySelect(classLabels[3])}>{classLabels[3]}</CateMenu>
-                                        <CateMenu onClick={() => handleCategorySelect(classLabels[4])}>{classLabels[4]}</CateMenu>
-                                        <CateMenu onClick={() => handleCategorySelect(classLabels[5])}>{classLabels[5]}</CateMenu>    
+                                        {classLabels.map((label, index) => (
+                                          <CateMenu key={index} onClick={() => handleCategorySelect(label)}>
+                                            {label}
+                                          </CateMenu>
+                                        ))}    
                                     </DropMenu>
                                     )}
 
@@ -477,44 +423,18 @@ height:auto;
 
 `;
 
-const Two = styled.div`
+const Two = styled(ContentRadius)`
   display: flex;
   //flex-wrap: wrap; /* 줄바꿈을 허용하여 가로 공간에 맞게 정렬될 수 있도록 설정 */
-  align-items: center; /* 수직 가운데 정렬 (선택 사항) *
-  
-  /* tablet 규격 */
-  @media screen and (max-width: 1023px){
-        flex-direction: column;
-  }
+  align-items: center; /* 수직 가운데 정렬 (선택 사항) *  
 `;
 
-const Em = styled(ContentRadius)`
-display: flex;
-align-items: center;
-`;
-
-const NameWrap = styled(Em)`
-
-flex:1;
-/* s 데스크 */
-        @media screen and (min-width: 1024px){
-          margin-right:20px;
-        }
-`;
-
-const PwdWrap = styled(Em)`
-flex:1;
-`;
 
 const Three = styled(ContentRadius)`
-height: 20vh;
-`;
-
-const Four = styled(ContentRadius)`
 height: 25vh;
 `;
 
-const Five = styled(ContentRadius)`
+const Four = styled(ContentRadius)`
 position: relative;
 overflow: hidden;
 //text-align: center;

@@ -25,11 +25,7 @@ const Homepage = () => {
   const [pageNumber, setPageNumber] = useState(1);
   const limit = 10; // 한 페이지당 이미지 수 설정
 
-  const [showDescription, setShowDescription] = useState(false);
-
-  const toggleDescription = () => {
-    setShowDescription(!showDescription);
-  };
+ 
   //버튼 
 const selectCate = (categoryName) => {
   setSelectCategory(categoryName);

@@ -11,10 +11,10 @@ import QuizReult from './Quiz/Quizresult'
 import Post from './PostUp/Post.js'
 import Home from './Home/homepage.js'
 import Reco from './PostUp/Reco.js'
-import Lookup from './Lookup/Image_Lookup_Comtest' // 조회
-import Loading from './Component/Loading';
+import Lookup from './Lookup/Image_Lookup_Comtest'
 import  { createGlobalStyle } from "styled-components";  
 import ProfileLook from './Mypage/ProfileLook';
+import PostEdit from './PostUp/PostEdit';
 // 전역 스타일 설정
 const GlobalStyle = createGlobalStyle`
   html, body {
@@ -49,7 +49,7 @@ function App() {
 
                 <Route path ='/home' element={<Home />}/>
                 <Route path ='/lookup/:id' element={<Lookup/>}/>
-                <Route path ='/load' element={<Loading/>}/>
+                <Route path ='/postedit/:id' element={<PostEdit/>}/>
 
                 <Route path='/profile' element={<ProfileLook/>}/> {/* 후에 useparams 사용해야 */}
             </Routes>

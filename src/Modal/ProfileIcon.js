@@ -1,13 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import profilelogo from '../Images/profileimg.png'
-export const ModalContainer = styled.div`
-  // Modal을 구현하는데 전체적으로 필요한 CSS를 구현
-  display : flex;
-  justify-content : center;
-  align-items : center;
-  height : 100%;
-`;
+
 const HomeWrap = styled.div`
 margin-right:25px;
 
@@ -63,17 +57,6 @@ export const ModalBackdrop = styled.div`
   right : 0;
   bottom : 0;
 `;
-
-export const ModalBtn = styled.button`
-  background-color: var(--coz-purple-600);
-  text-decoration: none;
-  border: none;
-  padding: 20px;
-  color: white;
-  border-radius: 30px;
-  cursor: grab;
-`;
-
 
 
 export const ModalView = styled.div.attrs((props) => ({
