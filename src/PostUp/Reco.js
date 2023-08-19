@@ -133,13 +133,15 @@ export default Reco;
 
 const OutWrap = styled.div`
   width: 100%;
-  height: 97.6vh;
+  height: 100%;
   background: white;
   position: relative;
   align-items: center;
   display: flex;
   flex-direction: column;
  // justify-content: center;
+
+ 
   * {
   font-size: 33px;
   }

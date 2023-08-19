@@ -1,47 +1,55 @@
 
-import React  from 'react';
+import React , { useState } from 'react';
 import {  useNavigate } from 'react-router-dom';
 
 import logo from '../Images/imagelogo.png';
 import styled from "styled-components";
-import homelogo from '../Images/homelogo.png'
-
+//import profilelogo from '../Images/profileimg.png'
+import { ProfileIcon } from '../Modal/ProfileIcon';
 // 회원 아이콘 추가,,, 누를 시 1) 로그인 한 경우는 프로필 정보 페이지 2)로그인 x 로그인 페이지로 
-const Header=() => 
+const HeaderHome=() => 
 {
     const navigate = useNavigate();
-     // page
 
+    //const [showLoginMenu, setShowLoginMenu] = useState(false);
+
+    // 아이콘 클릭시 경우
+    // 1.로그인 안한 상태면 로그인 버튼 
+    /*
+    const toggleLoginMenu = () => {
+        setShowLoginMenu(!showLoginMenu);
+    };
+    //2.로그인 한 상태면 
+    const handleGoProfileClick = () => {
+        navigate('/profile');
+    };
+*/
     // landing page
     const handleGoLandingClick = () => {
         navigate('/');
         };
     
-    //홈페이지
-    const handleGohomeClick = () => {
-        navigate('/home');
-    };
+
     return (
 
     <LogoWrap>                
         <LandingWrap> 
-            <Logo src={logo} alt='' onClick={handleGoLandingClick}/>
+            <Logo src={logo} alt='' onClick={handleGoLandingClick}/> 
         </LandingWrap> 
         
-        <HomeWrap >
-            <HomeLogo src={homelogo} alt='homelogo' onClick={handleGohomeClick} />
-        </HomeWrap>         
+        
+        <ProfileIcon/>        
     </LogoWrap>
 
     );
 };
 
-export default Header;
+export default HeaderHome;
 
 const LogoWrap = styled.div`
 
 width: 100%; 
-height: 23.2vh;
+height: 26vh;
 // text-align: center;
 display: flex;
 //flex-direction: row;
@@ -65,13 +73,10 @@ align-items: center;
         }
         /* l 데스크 */
         @media screen and (min-width: 1700px){
-            
+            width: 100%;
+    height: 29vh;
         }
-/*
-@media screen and (min-height: 900px) {
-//width: 29vw; 
-height: 26.2vh;
-}; */
+
 `;
 const LandingWrap = styled.div`
 `;
@@ -92,8 +97,8 @@ right:225px;
 `;
 
 const HomeLogo =styled.img`
-width:70px;
-height:70px;
+width:50px;
+height:50px;
 /* tablet 규격 */
         @media screen and (max-width: 1023px){
             
@@ -117,8 +122,8 @@ height:70px;
 `;
 
 const Logo = styled.img`
-width: 27vw; 
-height: 23vh;
+width: 29vw; 
+height: 25vh;
 
 position: absolute;
 
@@ -138,8 +143,7 @@ transform: translate(-50%, -50%);
         }
         /* s 데스크 */
         @media screen and (min-width: 1024px){
-            width: 29vw; 
-            height: 26vh; 
+            
         }
         /* l 데스크 */
         @media screen and (min-width: 1700px){

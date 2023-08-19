@@ -88,8 +88,6 @@ const SmallWrap = styled(Area)`
 height: auto;
 
 `;
-// overflow: hidden;  내용이 부모 요소를 넘어가지 않도록 함 
-
 
 const Font = styled.div`
 color: black;

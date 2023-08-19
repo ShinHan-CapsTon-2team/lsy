@@ -160,8 +160,8 @@ function Landing(){
                 <LogoImg src={logo} alt=''/>
                 
                 <ImgWrap> {/* 말 줄이기 ... fontsize 높여야함  */}
-                    <Button onClick ={handleUploadPhotoClick}>원하는 사진을 통해 추천 받기 </Button>
-                    <Button onClick={handleFitPhotoClick}> 나에게 맞는 사진 추천 받기</Button>
+                    <Button onClick ={handleUploadPhotoClick}>매칭을 통해 추천받기 </Button>
+                    <Button onClick={handleFitPhotoClick}> 맞는 사진 추천받기</Button>
                     <Button onClick={handleGohomeClick} > 홈페이지 방문하기</Button>
                     <Button onClick={handleUpPhotoClick} >사진 등록하기 </Button>
                 </ImgWrap>
