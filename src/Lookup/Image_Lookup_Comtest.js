@@ -5,12 +5,14 @@ import { useEffect,useState } from 'react'
 import Logo from "../Component/Header"
 import styled from "styled-components";
 import Lookup_Content from '../Component/Lookup_Content';
+import Loading from '../Component/Loading';
 const SERVER_URL= 'http://localhost:4000/api/lookup';
 
 //const SERVER_URL= 'http://localhost:4000/api/post';
 
-function Images_Button() {
-    
+function Images_Lookup_Comtest() {
+    const navigate = useNavigate();
+
     const params = useParams(); // 1
     const id = params.id; // 2
     console.log( 'params:',params);
@@ -49,9 +51,13 @@ function Images_Button() {
     }, [id]);
     
     if (loading) {
-        return <div>Loading...</div>;
+        <Loading
+        what="Loading"/>;
     }
 
+    const handelGoEdit = () => {
+        navigate(`/postedit/${id}`); 
+    };
     return (  
         
         <OutWrap>
@@ -75,7 +81,7 @@ function Images_Button() {
                     <InLayoutTwo> {/* 자기 게시글이면 보이게 처리하기  */}
                         <Buttons>
                             <Right> 
-                                <EditButton>
+                                <EditButton onClick={handelGoEdit}>
                                     수정  
                                 </EditButton>
 
@@ -94,7 +100,7 @@ function Images_Button() {
     );
 };
 
-export default Images_Button;
+export default Images_Lookup_Comtest;
 
 
 
