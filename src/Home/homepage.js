@@ -24,7 +24,7 @@ const Homepage = () => {
   const [selectCategory, setSelectCategory] = useState('가족사진');
 
   const [pageNumber, setPageNumber] = useState(1);
-  const limit = 10; // 한 페이지당 이미지 수 설정
+  const limit = 20; // 한 페이지당 이미지 수 설정
   const [offset, setOffset] = useState(0); //offset 초기값
 
  
@@ -161,12 +161,12 @@ const handleCategorySelect = useCallback((category, limit, offset) => {
         </PostWrap>
 
       <PaginationWrap>
-        <PaginationButton onClick={handleGoToPreviousPage} disabled={pageNumber === 1}>
+        <ButtonShort onClick={handleGoToPreviousPage} disabled={pageNumber === 1}>
           이전
-        </PaginationButton>
-        <PaginationButton onClick={() => movePage(pageNumber + 1)} disabled={!users || users.length < limit}>
+        </ButtonShort>
+        <ButtonShort onClick={() => movePage(pageNumber + 1)} disabled={!users || users.length < limit}>
           다음
-        </PaginationButton>
+        </ButtonShort>
       </PaginationWrap>
     </OutWrap>
   );
@@ -230,9 +230,11 @@ const CategoryWrap = styled.div`
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(5, 1fr);
     gap: 10px;
-    width: 100%;
-    height: 100vh;
+    width: 75%;
+    height: auto;
+    //min-height:80vh;
     padding: 20px;
+    margin-top:20px;
 
     @media screen and (max-width: 768px) {
     /* 뷰포트 너비가 768px 이하인 경우에 적용할 스타일 */
@@ -249,7 +251,7 @@ const CategoryWrap = styled.div`
   
   const GridDiv = styled.div`
       width: 100%;
-      height: 100%;
+      height: 36vh;
       border-radius: 10px;
       overflow: hidden;
   `;
@@ -263,22 +265,13 @@ const CategoryWrap = styled.div`
 
   const PaginationWrap = styled.div`
       margin-top: 20px;
+      margin-bottom: 40px;
+      display: flex;
+      justify-content: center;
   `;
 
-  const PaginationButton = styled.button`
-      margin: 0 5px;
-      padding: 8px 16px;
-      border: 1px solid #ccc;
-      background-color: white;
-      cursor: pointer;
-
-      &:disabled {
-       opacity: 0.6;
-       cursor: not-allowed;
-    }
-  `;
-  
-const Radius = styled.button`
+ 
+  const Radius = styled.button`
 //border: 3px #3A76EF solid;
 
 padding: 20px;
@@ -289,6 +282,46 @@ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 //margin-top: 20px;
 border:none;
 `;
+
+  const ButtonShort =  styled(Radius)`
+  background: #798BE6;
+width:10vw;
+height: 7vh; 
+margin-left:20px;
+cursor: pointer;
+display: flex;
+align-items: center;
+justify-content: center;
+
+position: relative;
+cursor: pointer;
+color: white;
+
+&:hover {
+  background:#5D6BB4;
+}
+
+      
+/* tablet 규격 */
+@media screen and (max-width: 1023px){
+    
+}
+
+/* mobile 규격 */
+@media screen and (max-width: 540px){
+    
+}
+/* s 데스크 */
+@media screen and (min-width: 1024px){
+    
+}
+/* l 데스크 */
+@media screen and (min-width: 1700px){
+    width:10vw;
+    height: 7vh;
+}
+`;
+
 
 // 버튼투
 const ButtonTwo = styled(Radius)`
@@ -351,6 +384,7 @@ text-align: center;
 
 const StyledBsPlusCircleFill = styled(BsPlusCircleFill)`
     width: 70px;
+    
     height: 70px;
     color:#798BE6;
     cursor:pointer;

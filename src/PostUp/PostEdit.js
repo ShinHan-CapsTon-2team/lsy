@@ -1,5 +1,6 @@
 
-import React, { useState,useEffect,useParams } from 'react';
+import React, { useState,useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import * as tf from '@tensorflow/tfjs'; //npm i @tensorflow/tfjs
 import '@tensorflow/tfjs-backend-webgl'; //npm i @tensorflow/tfjs-backend-webgl
 
@@ -45,14 +46,15 @@ function PostEdit() {
         navigate('/home');
     };
 
-
+    /*
     //데이터 가져오기 위해 
     const params = useParams(); // 
     const id = params.id; // 게시글 몇번인지 
     console.log( 'params:',params);
-    console.log('id:',id);
+    console.log('id:',id); */
 
-
+    const { postId } = useParams();
+    console.log( 'postId:',postId);
 
     useEffect(() => {
     function getBoardList() {
@@ -64,7 +66,7 @@ function PostEdit() {
         },
         };
 
-        fetch(`${SERVER_URL}/${id}`, reqOption)
+        fetch(`${SERVER_URL}/${postId}`, reqOption)
         .then((res) => res.json())
         .then((data) => {
             console.log(data);
@@ -79,7 +81,7 @@ function PostEdit() {
     }
     
     getBoardList();
-    }, [id]);
+    }, [postId]);
     /*
     if (getloading) { //데이터 가져오는 중 페이지 
         return <Loading
@@ -201,7 +203,7 @@ function PostEdit() {
 
     // 취소 버튼 
     const handleCancel =() => {
-        navigate(`/lookup/${id}`);
+        navigate(`/lookup/${postId}`);
     }
     
     const handleMenuToggle = () => { //메뉴열기/닫기
@@ -444,7 +446,7 @@ width:65vw;
 const InLayoutTwo = styled(InLayoutOne)`
 display: flex;
 width:65vw;
-height:12vh;
+//height:21vh;
 align-items: center;
 margin-bottom:20px;
 /* mobile 규격 */
@@ -454,9 +456,11 @@ margin-bottom:20px;
   }
 @media screen and (min-width: 1700px) {
     width: 75vw;
-    height:13vh;
+    height:21vh;
 };
 `;
+
+
 
 const Content = styled.div`
 display: flex;
@@ -520,6 +524,7 @@ margin-left: auto;
 `;
 
 const Radius = styled.button`
+background: #798BE6;
 padding: 20px;
 word-wrap: break-word;
 border-radius: 40px;
@@ -545,7 +550,7 @@ const Buttons = styled.div`
 `;
 
 const ButtonOne = styled(Radius)`
-background: #798BE6;
+
 display: flex;
 align-items: center;
 justify-content: center;
@@ -585,17 +590,8 @@ const ButtonTwo = styled(Radius)`
     width:41vw;
     height: 7vh; 
 
-  }
+  }`;
 
-  /* s 데스크 */
-  @media screen and (min-width: 1024px){
-      
-  }
-  @media screen and (min-width: 1700px) {
-    width:18vw;
-    height: 7.5vh; 
-  };
- `;
 //파일 찾기 
 
 const FindImg = styled(ButtonTwo)` 
@@ -756,9 +752,14 @@ const CateMenu = styled.div`
 
 const ButtonLong = styled(Radius)`
   
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
   width:18vw;
   height: 7vh; 
-  
+  color:white;
 
   /* mobile 규격 */
   @media screen and (max-width: 540px){
@@ -779,4 +780,4 @@ const ButtonLong = styled(Radius)`
 
 const EditButton =styled(ButtonLong)``;
 const CancelButton=styled(ButtonLong)`
-margin-left:20px;`;
+`;

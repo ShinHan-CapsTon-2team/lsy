@@ -9,10 +9,10 @@ import upload from '../Images/upload.png';
 
 import Loogo from '../Component/Header' 
 import styled from "styled-components";
-
+import Success from '../Modal/Success';
 const SERVER_URL= 'http://localhost:4000/api/post';
 
-function PostEx() {
+function Post() {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
    
@@ -24,7 +24,13 @@ function PostEx() {
     const [previewImage, setPreviewImage] = useState(null); // 미리보기 이미지 URL 상태
     const [prediction, setPrediction] = useState(null);
     const [selectedClass, setSelectedClass] = useState(0); // 선택한 클래스의 인덱스
+    //const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false); 성공 모달 보이기 
     
+    /*
+    // 다음 이벤트 핸들러를 추가합니다.
+    const handleSuccessModalClose = () => {
+      setIsSuccessModalOpen(false);
+    }; */
     const classLabels = [
       '바디프로필',
       '반려동물',
@@ -146,6 +152,7 @@ function PostEx() {
           .then((response) => response.json())
           .then((data) => {
               console.log('서버 응답:', data);
+              //setIsSuccessModalOpen(true); // 성공 모달 열기
               handleGohomeClick();
           })
           .catch((error) => {
@@ -198,6 +205,7 @@ function PostEx() {
     return (
         
         <OutWrap>
+          
             <InOutWrap>            
                 {/* 로고 */}        
                 <Loogo/>
@@ -310,7 +318,7 @@ function PostEx() {
     );
 }
 
-export default PostEx;
+export default Post;
 
 const OutWrap = styled.div`
 width: 100%;
