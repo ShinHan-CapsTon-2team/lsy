@@ -1,9 +1,10 @@
 import { useNavigate  } from 'react-router-dom';
 import React, { useCallback, useEffect, useState } from 'react';
+import { BsPlusCircleFill } from 'react-icons/bs'
 
-import logo from '../Images/imagelogo.png';
 import styled from 'styled-components';
 import HomeLogo from '../Component/HeaderHome'
+
 const categoriesData = [
   { name: '바디프로필'},
   { name: '반려동물' },
@@ -21,9 +22,10 @@ const Homepage = () => {
   const [selectedCategory, setSelectedCategory] = useState('가족사진');
   // 버튼
   const [selectCategory, setSelectCategory] = useState('가족사진');
-  
+
   const [pageNumber, setPageNumber] = useState(1);
   const limit = 10; // 한 페이지당 이미지 수 설정
+  const [offset, setOffset] = useState(0); //offset 초기값
 
  
   //버튼 
@@ -65,22 +67,13 @@ const handleCategorySelect = useCallback((category, limit, offset) => {
 
   useEffect(() => {
     //컴포넌트가 마운트될 때 '가족사진' 데이터를 불러옵니다
-  handleCategorySelect('가족사진');
-  }, [handleCategorySelect]); 
+  handleCategorySelect(selectedCategory, limit, offset);
+  }, [selectedCategory, offset]); 
 
-  const handleGohomeClick = () => {
-  handleCategorySelect('가족사진');
-  navigate('/home');
-
-  };
 
   // page
 
-  // landing page
-  const handleGoLandingClick = () => {
-    navigate('/');
-    };
-    
+  
   // lookup page
   const handleClick = (id) => {
     console.log('Clicked with id:', id); // 확인용
@@ -91,15 +84,39 @@ const handleCategorySelect = useCallback((category, limit, offset) => {
       console.error('Invalid id:', id);
     }
   };
+  // 다음페이지
+  const movePage = (newPageNumber) => {
+    //const newPageNumber = Math.max(1, pageNumber);
+    
+    const newOffset = (newPageNumber - 1) * limit;
+    setPageNumber(newPageNumber);
+    setOffset(newOffset);
+  };
 
-  
-    const movePage = (pageNumber) => {
-      const newPageNumber = Math.max(1, pageNumber);
-      setPageNumber(newPageNumber);
-      const offset = (pageNumber - 1) * limit;
-      handleCategorySelect(selectedCategory, limit, offset);
-      //console.log(pageNumber);
+    // 이전페이지
+    const handleGoToPreviousPage = () => {
+      const newPageNumber = pageNumber - 1;
+      if (newPageNumber >= 1) {
+        const newOffset  = (newPageNumber - 1) * limit;
+        setPageNumber(newPageNumber);
+        setOffset(newOffset);
+        handleCategorySelect(selectedCategory, limit, newOffset );
+      }
     };
+
+    // 카테고리 클릭할 때마다 초기화
+    const handleCategoryClick = (newCategory) => {
+      const newOffset = 0; // 카테고리 클릭 시 offset 초기화
+      
+      setSelectedCategory(newCategory);
+      setOffset(newOffset);
+      movePage(1); // 첫 페이지로 이동
+    };
+
+    const goToWorkUpload = () => {
+      navigate('/post');
+    };
+    
 
   
   return (
@@ -108,14 +125,13 @@ const handleCategorySelect = useCallback((category, limit, offset) => {
         {/* 로고 */}        
         <HomeLogo/>
 
-
         <CategoryWrap>
           {categoriesData&&categoriesData.map((category, index) => (
             <ButtonTwo  
             key={index}
-            isSelected={selectCategory === category.name}
+            isSelected={selectCategory === category.name ? 'true' : 'false'}
             onClick={() => {
-              handleCategorySelect(category.name);
+              handleCategoryClick(category.name);
               selectCate(category.name);
             }}>
             {category.name }
@@ -125,23 +141,30 @@ const handleCategorySelect = useCallback((category, limit, offset) => {
 
         
         <GridWrap>
-         {users && users.map((user) => {
+          {users && users.map((user) => {
           const imageUrl = user.image; // 이미지 URL 사용
           //console.log("url:", imageUrl);
           return (
             <GridDiv key={user.id}>
-             <GridImg src={imageUrl} onClick={() => handleClick(user.id)} alt="사진" />
-           </GridDiv>
-          );
-         })}
+              <GridImg src={imageUrl} onClick={() => handleClick(user.id)} alt="사진" />
+            </GridDiv>
+            );
+          })}
         </GridWrap>
       </InsideWrap>
 
+
+      <PostWrap>
+            
+          <StyledBsPlusCircleFill onClick={goToWorkUpload}/>
+            
+        </PostWrap>
+
       <PaginationWrap>
-        <PaginationButton onClick={() => movePage(pageNumber - 1)} disabled={pageNumber === 1}>
+        <PaginationButton onClick={handleGoToPreviousPage} disabled={pageNumber === 1}>
           이전
         </PaginationButton>
-        <PaginationButton onClick={() => movePage(pageNumber + 1)} disabled={!users || users.length === 0}>
+        <PaginationButton onClick={() => movePage(pageNumber + 1)} disabled={!users || users.length < limit}>
           다음
         </PaginationButton>
       </PaginationWrap>
@@ -315,4 +338,23 @@ const ButtonTwo = styled(Radius)`
   };
  `;
 
+const PostWrap =styled.div`
+text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /* 수평 정렬을 오른쪽으로 변경 */
+    justify-content: flex-end; /* 수직 정렬을 아래쪽으로 변경 */
+    position: fixed; /* 위치를 고정 */
+    bottom: 50px; /* 아래쪽 여백을 20px로 설정 */
+    right: 50px; /* 오른쪽 여백을 20px로 설정 */
+`;
 
+const StyledBsPlusCircleFill = styled(BsPlusCircleFill)`
+    width: 70px;
+    height: 70px;
+    color:#798BE6;
+    cursor:pointer;
+    &:hover {
+      color:#5D6BB4;
+    }
+    `;

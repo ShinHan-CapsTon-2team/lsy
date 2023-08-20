@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import Logo from "../Component/Header"
 import styled from "styled-components";
-import Loading from '../Component/Loading'
+//import Loading from '../Component/Loading'
 const SERVER_URL= 'http://localhost:4000/api/lookup';
 
 function ProfileLook() {
@@ -56,23 +56,26 @@ function ProfileLook() {
 
                 <Center>
                     <One>
-                        <SmallWrap>
-                            <Font>이름</Font>
+                        <div style={{display:'flex',flexDirection:'column'}}>
+                            <SmallWrap>
+                                <Font>이름</Font>
 
-                        </SmallWrap>
-                        
-                        <SmallWrap>
-                            <Font>이메일</Font>
+                            </SmallWrap>
+                            
+                            <Wrap>
+                                <text style={{fontSize:25}}>stpaq@gamil.com</text>
 
-                        </SmallWrap>
+                            </Wrap>
+                        </div>
 
-                        <Left >
-                            <Text> 커리어</Text>
-                        </Left>
-                        <SmallWrap>
-                            <Font>커리어</Font>
-                        </SmallWrap>
-
+                        <div>
+                            <Left >
+                                <Text> 커리어</Text>
+                            </Left>
+                            <SmallWrap>
+                                <Font>커리어</Font>
+                            </SmallWrap>
+                        </div>
                     </One>
                     
                     <Two>
@@ -98,6 +101,8 @@ display: flex;
 flex-direction: column;
 // justify-content: center;
 align-items: center;
+
+
 `;
 
 const InOutWrap = styled.div`
@@ -138,7 +143,7 @@ display: flex;
 align-items: center;
 width:40%;
 height:auto;
-
+min-height:50vh;
 flex-direction: column;
 
 `;
@@ -164,12 +169,29 @@ height: auto;
 margin-top:20px;
 
 `;
+const Wrap = styled(Area)`
+height: auto;
 
+
+`;
+const FontStyle= {
+    fontSize: 30,
+
+    /* mobile 규격 */
+  '@media screen and (max-width: 540px)':
+    {
+        fontSize: 27,
+  },
+  '@media screen and (min-width: 1700px)': {
+    
+        fontSize: 45,
+    },
+};
+   
 const Font = styled.div`
+${FontStyle};
 color: black;
-font-size: 40px;
-font-family: Inter;
-font-weight: 400;
+
 
 width: 100%;
 

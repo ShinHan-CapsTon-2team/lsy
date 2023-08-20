@@ -1,7 +1,6 @@
 import React from 'react';
 import {BrowserRouter, Routes, Route} from 'react-router-dom'; 
-
-
+//import "./Font/Font.css"
 
 //import GlobalStyles from "./GlobalStyles"; // GlobalStyles 불러오기
 import Landing from './pages/Landing';
@@ -17,12 +16,15 @@ import ProfileLook from './Mypage/ProfileLook';
 import PostEdit from './PostUp/PostEdit';
 // 전역 스타일 설정
 const GlobalStyle = createGlobalStyle`
+
   html, body {
     height: 100vh;
     width: 100%;
     padding: 0;
     margin: 0;
    // overflow: hidden;
+   //font-family: 'Nanum Gothic';
+   
   }
 `;
 function App() {

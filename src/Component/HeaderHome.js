@@ -57,6 +57,8 @@ align-items: center;
 //justify-content: space-between;
 //position: relative;
 
+margin-top:20px;
+
 /* tablet 규격 */
         @media screen and (max-width: 1023px){
             

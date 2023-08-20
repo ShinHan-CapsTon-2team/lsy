@@ -1,6 +1,6 @@
 
 
-import React, {useParams } from 'react-router-dom';
+import React, {useParams ,useNavigate} from 'react-router-dom';
 import { useEffect,useState } from 'react'
 import Logo from "../Component/Header"
 import styled from "styled-components";
@@ -163,21 +163,7 @@ margin-bottom:30px;
 `;
 
 
-const ContentRadius = styled.div`
-border: 3px #3A76EF solid;
-padding: 20px;
-word-wrap: break-word;
-//opacity: 0.90;
-border-radius: 31px;
-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
-margin-top: 20px;
-
-@media screen and (min-height: 900px) {
-    margin-top: 30px;
-    border: 4px #3A76EF solid;
-};
-`;
 
 
 
@@ -233,7 +219,20 @@ color: white;
 
 
 
+const FontStyle= {
+    fontSize: 33,
 
+    /* mobile 규격 */
+  '@media screen and (max-width: 540px)':
+    {
+        fontSize: 27,
+  },
+  '@media screen and (min-width: 1700px)': {
+    
+        fontSize: 45,
+    },
+};
+   
 
 
 const ButtonLong = styled(Radius)`
