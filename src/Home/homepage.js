@@ -184,9 +184,14 @@ const OutWrap = styled.div`
       justify-content: center;
       align-items: center;
 
+      
+
+    @media screen and (max-width: 1023px){
       * {
-      font-size: 33px;
+      font-size: 23px;
     }
+    }
+   
     /* mobile 규격 */
     @media screen and (max-width: 540px){
       * {
@@ -194,12 +199,20 @@ const OutWrap = styled.div`
     }
         
     }
-    /* ss 데스크 */
-  @media screen and (min-width: 1024px){
-   *{
-    font-size: 29px;
-   } 
+    /* tablet 규격 */
+    @media screen and (min-width: 1024px){
+      * {
+      font-size: 27.5px;
+    }
+    }
+    /* s 데스크 */
+  @media screen and (min-width: 1210px){
+    * {
+    font-size: 33px;
   }
+      
+  }
+   
     @media screen and (min-width: 1700px) {
       * {
         font-size: 39px;
@@ -236,16 +249,25 @@ const CategoryWrap = styled.div`
     padding: 20px;
     margin-top:20px;
 
-    @media screen and (max-width: 768px) {
-    /* 뷰포트 너비가 768px 이하인 경우에 적용할 스타일 */
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(6, 1fr);
+  
+    /* tablet 규격 */
+    @media screen and (max-width: 1023px){
+      width: 90%;
     }
 
-    @media screen and (max-width: 480px) {
-    /* 뷰포트 너비가 480px 이하인 경우에 적용할 스타일 */
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(8, 1fr);
+    /* mobile 규격 */
+    @media screen and (max-width: 540px){
+      width: 93%;
+      gap: 5px;
+      
+    }
+    /* s 데스크 */
+    @media screen and (min-width: 1024px){
+        
+    }
+    /* l 데스크 */
+    @media screen and (min-width: 1700px){
+        
     }
   `;
   
@@ -254,6 +276,24 @@ const CategoryWrap = styled.div`
       height: 36vh;
       border-radius: 10px;
       overflow: hidden;
+
+      /* tablet 규격 */
+      @media screen and (max-width: 1023px){
+        height: 26vh;
+      }
+  
+      /* mobile 규격 */
+      @media screen and (max-width: 540px){
+        height: 26vh;
+      }
+      /* s 데스크 */
+      @media screen and (min-width: 1024px){
+          
+      }
+      /* l 데스크 */
+      @media screen and (min-width: 1700px){
+          
+      }
   `;
   
   const GridImg = styled.img`
@@ -304,12 +344,14 @@ color: white;
       
 /* tablet 규격 */
 @media screen and (max-width: 1023px){
-    
+  width:16vw;
+  height: 7vh;
 }
 
 /* mobile 규격 */
 @media screen and (max-width: 540px){
-    
+  width:30vw;
+  height: 7vh;
 }
 /* s 데스크 */
 @media screen and (min-width: 1024px){
@@ -334,14 +376,15 @@ const ButtonTwo = styled(Radius)`
   cursor: pointer;
   color: white;
   //flex-wrap: wrap;
-  width:17vw;
-  height: 7vh; 
+  
   
 
   
   /* tablet 규격 */
   @media screen and (max-width: 1023px){
-      
+    width:19vw;
+    height: 7vh; 
+    margin-right:6px;
   }
   
 
@@ -360,6 +403,8 @@ const ButtonTwo = styled(Radius)`
   }
   /* s 데스크 */
   @media screen and (min-width: 1210px){
+    width:17vw;
+    height: 7vh; 
       
   }
   @media screen and (min-width: 1700px) {
@@ -378,17 +423,57 @@ text-align: center;
     align-items: flex-end; /* 수평 정렬을 오른쪽으로 변경 */
     justify-content: flex-end; /* 수직 정렬을 아래쪽으로 변경 */
     position: fixed; /* 위치를 고정 */
-    bottom: 50px; /* 아래쪽 여백을 20px로 설정 */
+    bottom: 100px; /* 아래쪽 여백을 20px로 설정 */
     right: 50px; /* 오른쪽 여백을 20px로 설정 */
+
+    /* tablet 규격 */
+    @media screen and (max-width: 1023px){
+        
+    }
+
+    /* mobile 규격 */
+    @media screen and (max-width: 540px){
+      bottom: 120px; /* 아래쪽 여백을 20px로 설정 */
+      right: 25px; /* 오른쪽 여백을 20px로 설정 */
+    }
+    /* s 데스크 */
+    @media screen and (min-width: 1024px){
+      
+    }
+    /* l 데스크 */
+    @media screen and (min-width: 1700px){
+      bottom: 130px; /* 아래쪽 여백을 20px로 설정 */
+      right: 80px;
+    }
 `;
 
 const StyledBsPlusCircleFill = styled(BsPlusCircleFill)`
     width: 70px;
-    
     height: 70px;
     color:#798BE6;
     cursor:pointer;
     &:hover {
       color:#5D6BB4;
+    }
+
+    /* tablet 규격 */
+    @media screen and (max-width: 1023px){
+        width: 75px;
+      height:75px;
+    }
+
+    /* mobile 규격 */
+    @media screen and (max-width: 540px){
+      width: 63px;
+      height:63px;
+    }
+    /* s 데스크 */
+    @media screen and (min-width: 1024px){
+        
+    }
+    /* l 데스크 */
+    @media screen and (min-width: 1700px){
+      width: 90px;
+      height:90px;
     }
     `;

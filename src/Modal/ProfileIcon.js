@@ -7,7 +7,12 @@ margin-right:25px;
 
 position: absolute;
 right:225px;
+/* tablet 규격 */
+        @media screen and (max-width: 1023px){
+          right:5%;
+          top:5.5%;
 
+        }
 /* mobile 규격 */
         @media screen and (max-width: 540px){
             
@@ -22,18 +27,18 @@ const HomeLogo =styled.img`
 width:50px;
 height:50px;
 /* tablet 규격 */
-        @media screen and (max-width: 1023px){
+        @media screen and (max-width: 1024px){
             
         }
 
         /* mobile 규격 */
         @media screen and (max-width: 540px){
-            width:35px;
-            height:35px;
+            width:37px;
+            height:37px;
             
         }
         /* s 데스크 */
-        @media screen and (min-width: 1024px){
+        @media screen and (min-width: 1025px){
             
         }
         /* l 데스크 */

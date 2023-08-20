@@ -60,7 +60,7 @@ align-items: center;
 margin-top:20px;
 
 /* tablet 규격 */
-        @media screen and (max-width: 1023px){
+        @media screen and (max-width: 1024px){
             
         }
 
@@ -70,7 +70,7 @@ margin-top:20px;
             height: 20vh;
         }
         /* s 데스크 */
-        @media screen and (min-width: 1024px){
+        @media screen and (min-width: 1025px){
             
         }
         /* l 데스크 */
@@ -135,7 +135,8 @@ transform: translate(-50%, -50%);
 
 /* tablet 규격 */
         @media screen and (max-width: 1023px){
-            
+            width: 49vw;
+            height: 20vh;
         }
 
         /* mobile 규격 */
