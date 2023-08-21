@@ -34,20 +34,26 @@ function Landing(){
     //position: relative;
     background: white;
     display: flex;
-    flex-direction: column;
+    //flex-direction: column;
     justify-content: center;
     align-items: center;
 
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
     width: 80%;
-	min-width: 350px;
-	max-width: 1200px;
+    height:100%;
+
+	
 	@media (max-width: 700px) {
 		width: 95%;
 	}
 	@media (max-width: 900px) {
 		width: 90%;
 	}
-	margin: 0 auto;
+	
 `;
 
     const InsideWrap = styled.div`
@@ -62,27 +68,12 @@ function Landing(){
         margin-top: 50px; 
         margin-bottom: 20px; 
 
+        width: 50%;
 
-        /* tablet 규격 */
-        @media screen and (max-width: 1023px){
-            
-        }
-
-        /* mobile 규격 */
         @media screen and (max-width: 540px){
-            margin-top: 100px;
+            
             width: 85%;
-            height: 200px;
-        }
-        /* s 데스크 */
-        @media screen and (min-width: 1024px){
-            width: 55%;
-            height: 290px;
-        }
-        /* l 데스크 */
-        @media screen and (min-width: 1700px){
-            width: 70%;
-            height: 400px;
+           
         }
         
     `;
@@ -117,6 +108,11 @@ function Landing(){
     font-weight: 500;
 
     
+
+    width: 44vw;
+            height: 9.6vh;; 
+            
+            font-size: 35px;
     
     margin-bottom:15px;
 
@@ -135,10 +131,7 @@ function Landing(){
         }
         /* s 데스크 */
         @media screen and (min-width: 1024px){
-            width: 44vw;
-            height: 9.6vh;; 
             
-            font-size: 35px;
         }
         /* l 데스크 */
         @media screen and (min-width: 1700px){
@@ -158,6 +151,7 @@ function Landing(){
             <InsideWrap>
                 
                 <LogoImg src={logo} alt=''/>
+                
                 
                 <ImgWrap> {/* 말 줄이기 ... fontsize 높여야함  */}
                     <Button onClick ={handleUploadPhotoClick}>매칭을 통해 추천받기 </Button>

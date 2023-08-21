@@ -54,8 +54,9 @@ const handleCategorySelect = useCallback((category, limit, offset) => {
   .then((data) => {
     setUsers(data); // 데이터 저장
     console.log(data); // 받아온 데이터를 콘솔에 출력하거나 원하는 로직으로 처리합니다.
-    navigate(`/home?${queryString}`);
     setSelectedCategory(category);
+    navigate(`/home?${queryString}`);
+    
   })
   .catch((error) => {
     // 오류 처리
