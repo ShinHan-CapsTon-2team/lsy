@@ -1,8 +1,8 @@
-import { useLocation } from 'react-router-dom';
-import React  from 'react';
+import { useLocation ,Link} from 'react-router-dom';
+import React,{useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from "styled-components";
-
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import bodyResult from '../Datajson/bodyresult.json'
 import familyResult from '../Datajson/familyresult.json'
 import petResult from '../Datajson/petresult.json'
@@ -10,6 +10,7 @@ import profileResult from '../Datajson/petresult.json'
 import weddingResult from '../Datajson/weddingresult.json'
 
 
+import KakaoShareBtn from '../Component/Kakao';
 const getResultbody = () => {
     return bodyResult;
 };
@@ -32,6 +33,13 @@ const getResultprofile = () => {
 const Quizresult  = () => {
     const location = useLocation();
     const params = new URLSearchParams(location.search);
+    console.log("location",location);
+
+    //링크 복사 
+    const [copied, setCopied] = useState(false);
+    const currentUrl = window.location.href;
+    
+    
 
     const categoryName = params.get('name');
     const res = params.get('res');
@@ -93,6 +101,18 @@ const Quizresult  = () => {
     const answers = typeData?.answer;
     console.log("answers:",answers)
 
+    
+    
+  
+    const handleCopy = () => {
+      setCopied(true);
+      setTimeout(() => {
+        setCopied(false);
+      }, 2000); // 2초 후에 '복사되었습니다' 메시지가 사라지도록 설정
+  
+      // 복사 후 추가적인 작업을 수행하고 싶다면 여기에 코드를 추가할 수 있습니다.
+    };
+    
 
     return (
         <OutWrap>
@@ -146,6 +166,16 @@ const Quizresult  = () => {
                 <ButtonTwo onClick={handleRetestdClick}>                         
                     테스트 다시 하기  
                 </ButtonTwo>
+
+            
+                <div>
+                    <CopyToClipboard text={currentUrl} onCopy={handleCopy}>
+                        <button>링크 복사하기</button>
+                    </CopyToClipboard>
+                    {copied && <p>링크가 복사되었습니다.</p>}
+                </div>
+                
+                <KakaoShareBtn/>
             </InsideNextWrap>
         </OutWrap>
     );
