@@ -8,6 +8,7 @@ function KaKao() {
 
     
     const onHandleShareKaKao = () => {
+        
         if (!Kakao.isInitialized()) {
             Kakao.init("14d73507d839c77cc5ba6721b9a54ed2");
         }
