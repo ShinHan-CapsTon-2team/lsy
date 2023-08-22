@@ -28,13 +28,9 @@ function Landing(){
     };
 
     const OutWrap = styled.div`
-    //width: 100%;
-    //height:100%;
-    //height: 97.6vh;
-    //position: relative;
+
     background: white;
     display: flex;
-    //flex-direction: column;
     justify-content: center;
     align-items: center;
 
@@ -46,13 +42,9 @@ function Landing(){
     width: 80%;
     height:100%;
 
-	
-	@media (max-width: 700px) {
-		width: 95%;
-	}
-	@media (max-width: 900px) {
-		width: 90%;
-	}
+	@media screen and (max-width: 1023px){
+        width: 95%;
+    }
 	
 `;
 
@@ -68,12 +60,13 @@ function Landing(){
         margin-top: 50px; 
         margin-bottom: 20px; 
 
-        width: 50%;
+        width: 48%;
 
+        @media screen and (max-width: 1024px){
+            width: 63%;
+        }
         @media screen and (max-width: 540px){
-            
-            width: 85%;
-           
+            width: 80%;
         }
         
     `;
@@ -83,12 +76,24 @@ function Landing(){
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin-top:20px
+
+        width:55%;
+
+        @media screen and (max-width: 1024px){
+            
+            width: 70%;
+        }
+        @media screen and (max-width: 540px){
+            
+            width: 91%;
+        }
+
+        
+        
     `;
 
 
     const Radius = styled.button`
-    //border: 3px #3A76EF solid;
     padding: 20px;
     word-wrap: break-word;
     border-radius: 20px;
@@ -108,12 +113,9 @@ function Landing(){
     font-weight: 500;
 
     
-
-    width: 44vw;
-            height: 9.6vh;; 
-            
-            font-size: 35px;
-    
+    width: 100%;
+    height: 9.6vh;; 
+    font-size: 35px;
     margin-bottom:15px;
 
 
@@ -124,10 +126,10 @@ function Landing(){
 
         /* mobile 규격 */
         @media screen and (max-width: 540px){
-            width: 88vw;
-            height: 9vh;
+            
+            height: 9.4vh;
             font-size: 24px;
-            margin-bottom:20px;
+            margin-bottom:12px;
         }
         /* s 데스크 */
         @media screen and (min-width: 1024px){
@@ -135,7 +137,6 @@ function Landing(){
         }
         /* l 데스크 */
         @media screen and (min-width: 1700px){
-            width: 40vw;
             height: 9vh;
             font-size: 40px;
             

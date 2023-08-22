@@ -135,12 +135,17 @@ const OutWrap = styled.div`
   width: 100%;
   height: 100%;
   background: white;
-  position: relative;
+  //position: relative;
   align-items: center;
   display: flex;
   flex-direction: column;
  // justify-content: center;
 
+// 가운데로 
+ position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
  
   * {
   font-size: 33px;
@@ -163,11 +168,30 @@ display: flex;
 flex-direction: column;
 align-items: center;
 justify-content: center;
+width: 65%;
+height:100%;
+
+/* tablet 규격 */
+        @media screen and (max-width: 1023px){
+          width: 75%;
+        }
+/* mobile 규격 */
+        @media screen and (max-width: 540px){
+          width: 90%;
+        }
+        /* s 데스크 */
+        @media screen and (min-width: 1024px){
+            
+        }
+        /* l 데스크 */
+        @media screen and (min-width: 1700px){
+            
+        }
 `;
 
 
 const Center = styled.div`
-//width: 65vw;
+width: 100%;
 //text-align: center;
 display: flex;
 flex-direction: column;
@@ -176,11 +200,9 @@ align-items: center;
 `;
 const InLayoutOne = styled.div`
 //text-align:center;
-width:65vw;
+width:100%;
 
-@media screen and (min-width: 1700px) {
-    width: 75vw;
-};
+
 `;
 const Content = styled.div`
 //width:65vw;
@@ -212,15 +234,13 @@ flex-direction: column;
 
 const InLayoutTwo = styled(InLayoutOne)`
 display: flex;
-width:65vw;
+//width:65vw;
 height:10vh;
 justify-content: flex-end;
 align-items: center;
-margin-right:20px;
+//margin-right:20px;
 
-@media screen and (min-width: 1700px) {
-    width: 75vw;
-};
+
 `;
 
 const InputBox = styled.input`

@@ -50,7 +50,8 @@ export default Header;
 const LogoWrap = styled.div`
 
 width: 100%; 
-height: 23.2vh;
+//height: 23.2vh;
+height:20%;
 // text-align: center;
 display: flex;
 //flex-direction: row;
@@ -60,13 +61,12 @@ justify-content: space-between;
 
 /* tablet 규격 */
         @media screen and (max-width: 1023px){
-            
+           
         }
 
         /* mobile 규격 */
         @media screen and (max-width: 540px){
-            margin-top:20px;
-            height: 20vh;
+            
         }
         /* s 데스크 */
         @media screen and (min-width: 1024px){
@@ -78,13 +78,13 @@ justify-content: space-between;
         }
 /*
 @media screen and (min-height: 900px) {
-//width: 29vw; 
-height: 26.2vh;
+
 }; */
 `;
 
 
 const LandingWrap = styled.div`
+
 `;
 const HomeWrap = styled.div`
 display: flex;
@@ -152,7 +152,8 @@ height: 23vh;
 
 /* tablet 규격 */
         @media screen and (max-width: 1023px){
-            
+            width: 37vw; 
+            height: 13vh; 
         }
 
         /* mobile 규격 */
