@@ -87,21 +87,26 @@ const QuizTest = () => {
         
     return (
         <OutWrap>
-            <InsideWrap>
-                <ProgressBar total={questions.length} current={num + 1} />
+            
+                
+                    <ProgressBar total={questions.length} current={num + 1} />
+                    
+                
                     <Ulstyle> 
                     
                     {questions[num].options.map((option, index) => (
-                        <Img
-                            key={index}
-                            src={`${process.env.PUBLIC_URL}/Images/quest/${categoryName}/${option.img}`}
-                            alt={`Option ${index + 1}`}
-                            onClick={() => handleAnswer(option)}
-                        />
+                        
+                            <Img
+                                key={index}
+                                src={`${process.env.PUBLIC_URL}/Images/quest/${categoryName}/${option.img}`}
+                                alt={`Option ${index + 1}`}
+                                onClick={() => handleAnswer(option)}
+                            />
+                        
                         
                     ))}
                     </Ulstyle>
-            </InsideWrap>
+            
         </OutWrap>
     );
 };
@@ -116,10 +121,26 @@ const OutWrap = styled.div`
     background: white;
     display: flex;
     justify-content: center;
-    align-items: center;    
+    align-items: center;   
+    
+    
+    flex-direction: column;
+
+    /* mobile 규격 */
+        @media screen and (max-width: 540px){
+            height: calc(var(--vh, 1vh) * 100);
+        }
+
+    /* tablet 규격 */
+        @media screen and (max-width: 1023px){
+            justify-content: center;
+            align-items: center;
+        }
 `;
 
     const InsideWrap = styled.div`
+    //width: 100%;
+    //height: 100%;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -131,8 +152,14 @@ const OutWrap = styled.div`
         }
     
     `;
+    const ProgressWrap = styled.div`
+    width:50%;
+    height:25%;
+    `;
 
     const Ulstyle = styled.div`
+    //width:50%;
+    //height:75%;
     display:flex;
     flex-direction:row;
     margin-top:40px;
@@ -143,6 +170,7 @@ const OutWrap = styled.div`
         }
     `;
 
+    
     
 
     const Img= styled.img`

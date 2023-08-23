@@ -118,7 +118,7 @@ function Reco() {
 
           <InLayoutTwo>
             
-            <ButtonTwo  onClick={handleImageUploadAndNavigate}>
+            <ButtonTwo  style={{marginRight:10}}onClick={handleImageUploadAndNavigate}>
               
                 결과보기 
             </ButtonTwo>
@@ -143,9 +143,9 @@ const OutWrap = styled.div`
 
 // 가운데로 
  position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+   // top: 50%;
+    //left: 50%;
+    //transform: translate(-50%, -50%);
  
   * {
   font-size: 33px;
@@ -192,20 +192,41 @@ height:100%;
 
 const Center = styled.div`
 width: 100%;
+height:80%;
 //text-align: center;
 display: flex;
 flex-direction: column;
 align-items: center;
+/* tablet 규격 */
+        @media screen and (max-width: 1023px){
+          //height:80%;
+        }
+
+        /* mobile 규격 */
+        @media screen and (max-width: 540px){
+          height:83%;
+        }
+        /* s 데스크 */
+        @media screen and (min-width: 1024px){
+            
+        }
+        /* l 데스크 */
+        @media screen and (min-width: 1700px){
+            
+        }
 
 `;
 const InLayoutOne = styled.div`
 //text-align:center;
 width:100%;
+height:85%
 
 
 `;
 const Content = styled.div`
 //width:65vw;
+width:100%;
+height:100%;
 display: flex;
 flex-direction: column;
 `;
@@ -217,8 +238,7 @@ flex-direction: column;
   `;
 
   const EmptyImg = styled.img`
-  width: 200px;
-  height: 200px;
+  
   width: 150px;
   height: 150px;
   position: absolute;
@@ -226,20 +246,32 @@ flex-direction: column;
   left: 50%;
   transform: translate(-50%, -50%);
   
-  @media screen and  (min-height: 950px){
-      width: 200px;
-      height: 200px;
-  };
+  /* tablet 규격 */
+        @media screen and (max-width: 1023px){
+            
+        }
+
+        /* mobile 규격 */
+        @media screen and (max-width: 540px){
+            
+        }
+        /* s 데스크 */
+        @media screen and (min-width: 1024px){
+            
+        }
+        /* l 데스크 */
+        @media screen and (min-width: 1700px){
+          width: 200px;
+          height: 200px;
+        }
   `;
 
 const InLayoutTwo = styled(InLayoutOne)`
 display: flex;
-//width:65vw;
-height:10vh;
+width:100%;
+height:15%;
 justify-content: flex-end;
 align-items: center;
-//margin-right:20px;
-
 
 `;
 
@@ -255,7 +287,7 @@ word-wrap: break-word;
 opacity: 0.90;
 border-radius: 31px;
 box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-
+box-sizing:border-box;
 
 @media screen and (min-height: 900px) {
     border: 4px #3A76EF solid;
@@ -265,26 +297,20 @@ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
 
 const Five = styled(ContentRadius)`
-
 position: relative;
-
-//overflow: hidden;
-//text-align: center;
-height:58vh;
+width:100%;
+height:100%;
 `;
   
 const Radius = styled.button`
-//border: 3px #3A76EF solid;
 
 padding: 20px;
 word-wrap: break-word;
 border-radius: 40px;
 box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-
-//margin-top: 20px;
 border:none;
-
 `;
+
 // 버튼투
 const ButtonTwo = styled(Radius)`
   background: #798BE6;
@@ -295,14 +321,19 @@ const ButtonTwo = styled(Radius)`
   position: relative;
   cursor: pointer;
 
-  width:18vw;
-  height: 7vh; 
+  width:30%;
+  height: 70%; 
   color: white;
 
+  /* tablet 규격 */
+  @media screen and (max-width: 1023px){
+    width:40%;
+    
+  }
   /* mobile 규격 */
   @media screen and (max-width: 540px){
-    width:39vw;
-    height: 7vh; 
+    width:55%;
+     
 
   }
 
@@ -311,8 +342,7 @@ const ButtonTwo = styled(Radius)`
       
   }
   @media screen and (min-width: 1700px) {
-    width:18vw;
-    height: 7.5vh; 
+     
   };
  `;
 const FindImg = styled(ButtonTwo)` 
@@ -320,9 +350,28 @@ const FindImg = styled(ButtonTwo)`
   bottom: 30px;
   right: 10px;
 
+  width:30%;
+  height:12.5%;
+
   /* tablet 규격 */
   @media screen and (max-width: 1023px){
-    bottom: 20px;
+    width:40%;
+    
   }
+  /* mobile 규격 */
+  @media screen and (max-width: 540px){
+    width:55%;
+    height: 13%; 
+    bottom: 20px;
+
+  }
+
+  /* s 데스크 */
+  @media screen and (min-width: 1024px){
+      
+  }
+  @media screen and (min-width: 1700px) {
+     
+  };
 
 `;

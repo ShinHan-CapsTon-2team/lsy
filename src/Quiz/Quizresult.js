@@ -47,6 +47,8 @@ const Quizresult  = () => {
     console.log('categoryName :',categoryName);
     console.log('res: ',res);
 
+    const type= '?name='+categoryName+'&res='+res;
+    console.log('type:',type);
     //페이지 이동 
     const navigate = useNavigate();
 
@@ -175,7 +177,7 @@ const Quizresult  = () => {
                     {copied && <p>링크가 복사되었습니다.</p>}
                 </div>
                 
-                <KakaoShareBtn/>
+                <KakaoShareBtn _resulttype={type}/>
             </InsideNextWrap>
         </OutWrap>
     );
@@ -185,13 +187,17 @@ export default Quizresult;
 
 const OutWrap = styled.div`
     width: 100%;
-    height: 97.6vh;
+    height: 100%;
 
     position: relative;
     background: white;
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    
+
+    
 `;
 
     const InsideWrap = styled.div`

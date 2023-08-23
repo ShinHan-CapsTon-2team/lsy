@@ -59,14 +59,40 @@ align-items: center;
 justify-content: space-between;
 //position: relative;
 
-/* tablet 규격 */
-        @media screen and (max-width: 1023px){
-           
+/* tablet 규격 *
+        @media screen and (max-width: 1024px){
+            //height:20%;
         }
 
         /* mobile 규격 */
         @media screen and (max-width: 540px){
+            height:17%;
+        }
+        /* s 데스크 */
+        @media screen and (min-width: 1025px){
             
+        }
+        /* l 데스크 */
+        @media screen and (min-width: 1700px){
+            
+        }
+`;
+
+
+const LandingWrap = styled.div`
+width:30%;
+height:85%;
+
+/* tablet 규격 */
+        @media screen and (max-width: 1023px){
+            width:45%;
+            
+        }
+
+        /* mobile 규격 */
+        @media screen and (max-width: 540px){
+            width:50%;
+            //height:90%
         }
         /* s 데스크 */
         @media screen and (min-width: 1024px){
@@ -76,14 +102,6 @@ justify-content: space-between;
         @media screen and (min-width: 1700px){
             
         }
-/*
-@media screen and (min-height: 900px) {
-
-}; */
-`;
-
-
-const LandingWrap = styled.div`
 
 `;
 const HomeWrap = styled.div`
@@ -146,25 +164,25 @@ margin-right :20px;
 
 `;
 const Logo = styled.img`
-width: 27vw; 
-height: 23vh;
+width: 100%; 
+height: 100%;
 
 
 /* tablet 규격 */
         @media screen and (max-width: 1023px){
-            width: 37vw; 
-            height: 13vh; 
+            //width: 37vw; 
+            //height: 13vh; 
         }
 
         /* mobile 규격 */
         @media screen and (max-width: 540px){
-            width: 60vw; 
-            height: 20vh; 
+            //width: 60vw; 
+            //height: 20vh; 
         }
         /* s 데스크 */
         @media screen and (min-width: 1024px){
-            width: 21vw; 
-            height: 19vh; 
+            //width: 21vw; 
+            //height: 19vh; 
         }
         /* l 데스크 */
         @media screen and (min-width: 1700px){

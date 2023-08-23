@@ -27,6 +27,11 @@ const Homepage = () => {
   const limit = 20; // 한 페이지당 이미지 수 설정
   const [offset, setOffset] = useState(0); //offset 초기값
 
+  const [showDescription, setShowDescription] = useState(false);
+
+  const toggleDescription = () => {
+    setShowDescription(!showDescription);
+  };
  
   //버튼 
 const selectCate = (categoryName) => {
@@ -56,6 +61,7 @@ const handleCategorySelect = useCallback((category, limit, offset) => {
     console.log(data); // 받아온 데이터를 콘솔에 출력하거나 원하는 로직으로 처리합니다.
     setSelectedCategory(category);
     navigate(`/home?${queryString}`);
+    setSelectedCategory(category);
     
   })
   .catch((error) => {
@@ -69,7 +75,7 @@ const handleCategorySelect = useCallback((category, limit, offset) => {
   useEffect(() => {
     //컴포넌트가 마운트될 때 '가족사진' 데이터를 불러옵니다
   handleCategorySelect(selectedCategory, limit, offset);
-  }, [selectedCategory, offset]); 
+  }, [selectedCategory, offset, handleCategorySelect]); 
 
 
   // page
@@ -87,23 +93,21 @@ const handleCategorySelect = useCallback((category, limit, offset) => {
   };
   // 다음페이지
   const movePage = (newPageNumber) => {
-    //const newPageNumber = Math.max(1, pageNumber);
-    
     const newOffset = (newPageNumber - 1) * limit;
     setPageNumber(newPageNumber);
     setOffset(newOffset);
   };
 
-    // 이전페이지
-    const handleGoToPreviousPage = () => {
-      const newPageNumber = pageNumber - 1;
-      if (newPageNumber >= 1) {
-        const newOffset  = (newPageNumber - 1) * limit;
-        setPageNumber(newPageNumber);
-        setOffset(newOffset);
-        handleCategorySelect(selectedCategory, limit, newOffset );
-      }
-    };
+  // 이전페이지
+  const handleGoToPreviousPage = () => {
+    const newPageNumber = pageNumber - 1;
+    if (newPageNumber >= 1) {
+      const newOffset  = (newPageNumber - 1) * limit;
+      setPageNumber(newPageNumber);
+      setOffset(newOffset);
+      handleCategorySelect(selectedCategory, limit, newOffset );
+    }
+  };
 
     // 카테고리 클릭할 때마다 초기화
     const handleCategoryClick = (newCategory) => {

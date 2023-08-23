@@ -1,4 +1,4 @@
-import React from 'react';
+import React ,{useEffect}from 'react';
 import {BrowserRouter, Routes, Route} from 'react-router-dom'; 
 //import "./Font/Font.css"
 
@@ -26,9 +26,17 @@ const GlobalStyle = createGlobalStyle`
    //font-family: 'Nanum Gothic';
    
   }
+  
+  
 `;
 function App() {
-    
+    function setScreenSize() {
+        let vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty("--vh", `${vh}px`);
+      }
+      useEffect(() => {
+        setScreenSize();
+      });
 
     return (
     

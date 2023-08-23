@@ -4,7 +4,7 @@ import React from 'react';
 
 const { Kakao } = window;
 
-function KaKao() {
+function KaKao({_resulttype}) {
 
     
     const onHandleShareKaKao = () => {
@@ -16,7 +16,7 @@ function KaKao() {
             objectType: 'feed',
             content: {
             title: '딸기 치즈 케익',
-            description: '#케익 #딸기 #삼평동 #카페 #분위기 #소개팅',
+            description: '사진 추천 ',
             imageUrl:
                 'http://k.kakaocdn.net/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png',
             link: {
@@ -30,14 +30,14 @@ function KaKao() {
                     title: '결과 보기',
                     link: {
                         mobileWebUrl: 'https://developers.kakao.com',
-                        webUrl: 'https://developers.kakao.com',
+                        webUrl: 'https://localhost:3000/quizresult'+_resulttype
                     },
                 },
                     {
                     title: '테스트 하기',
                     link: {
                         mobileWebUrl: 'https://developers.kakao.com',
-                        webUrl: 'https://developers.kakao.com',
+                        webUrl: 'https://localhost:3000/quizindex',
                     }
                 }
             ],
