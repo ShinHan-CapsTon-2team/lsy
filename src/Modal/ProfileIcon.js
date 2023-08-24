@@ -59,7 +59,6 @@ export const ModalBackdrop = styled.div`
   justify-content : center;
   align-items : center;
   background-color: rgba(0,0,0,0.4);
-  border-radius: 10px;
   top : 0;
   left : 0;
   right : 0;

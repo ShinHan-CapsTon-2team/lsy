@@ -16,7 +16,7 @@ margin-top: 10px;
 
         /* mobile 규격 */
         @media screen and (max-width: 540px){
-            
+          height: 1vh;
         }
         /* s 데스크 */
         @media screen and (min-width: 1024px){

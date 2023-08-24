@@ -1,11 +1,42 @@
 import React from 'react';
-//import styled from 'styled-components';
+import { styled } from 'styled-components';
 
+import kakaimg from '../Images/btn_kakao.svg'
 
 const { Kakao } = window;
 
 function KaKao({_resulttype}) {
+    const Button = styled.button`
+    cursor: pointer;
+  outline: none;
+  background: none;
+  border: none;
+    `;
+    const Img =styled.img`
+    width:60px;
+    height:60px;
 
+    
+	/* tablet 규격 */
+    @media screen and (max-width: 1023px){
+        
+    }
+
+    /* mobile 규격 */
+    @media screen and (max-width: 540px){
+        width:50px;
+        height:50px;
+    }
+    /* s 데스크 */
+    @media screen and (min-width: 1024px){
+        
+    }
+    /* l 데스크 */
+    @media screen and (min-width: 1700px){
+        width:70px;
+        height:70px;
+    }
+    `;
     
     const onHandleShareKaKao = () => {
         
@@ -45,9 +76,9 @@ function KaKao({_resulttype}) {
     };
 
     return (
-        <button value="KaKao" onClick={onHandleShareKaKao} >
-            <img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png" />
-        </button>
+        <Button value="KaKao" onClick={onHandleShareKaKao} >
+            <Img src={kakaimg} />
+        </Button>
     );
 }
 

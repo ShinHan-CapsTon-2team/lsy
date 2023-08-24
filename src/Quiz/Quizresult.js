@@ -8,8 +8,8 @@ import familyResult from '../Datajson/familyresult.json'
 import petResult from '../Datajson/petresult.json'
 import profileResult from '../Datajson/petresult.json'
 import weddingResult from '../Datajson/weddingresult.json'
-
-
+import btn_link from '../Images/btn_link.svg'
+import { Success } from '../Modal/Success';
 import KakaoShareBtn from '../Component/Kakao';
 const getResultbody = () => {
     return bodyResult;
@@ -108,6 +108,7 @@ const Quizresult  = () => {
   
     const handleCopy = () => {
       setCopied(true);
+      
       setTimeout(() => {
         setCopied(false);
       }, 2000); // 2초 후에 '복사되었습니다' 메시지가 사라지도록 설정
@@ -155,36 +156,66 @@ const Quizresult  = () => {
                 
                 </Direction>
                 
+                <Wrap>
+                    <Twrap>
+                        <div>
+                            <CopyToClipboard text={currentUrl} onCopy={handleCopy}>
+                                <BtnLink src = {btn_link}></BtnLink>
+                            </CopyToClipboard>
+                            {copied && <Success text="링크 복사가 완료되었습니다."/>}
+                        </div>
+                        
+                        <KakaoShareBtn _resulttype={type}/>
+                    </Twrap>
                 
+                </Wrap>
+
+                <InsideNextWrap> 
+                    <ButtonTwo onClick={handleGoHomeClick}>                         
+                        
+                        홈페이지 방문하기 
+                    </ButtonTwo>
+                    <ButtonTwo style={{marginRight:0}} onClick={handleRetestdClick}>                         
+                        테스트 다시 하기  
+                    </ButtonTwo>
+
+                </InsideNextWrap>
                     
             </InsideWrap>
-
             
-            <InsideNextWrap> 
-                <ButtonTwo onClick={handleGoHomeClick}>                         
-                    
-                    홈페이지 방문하기 
-                </ButtonTwo>
-                <ButtonTwo onClick={handleRetestdClick}>                         
-                    테스트 다시 하기  
-                </ButtonTwo>
-
             
-                <div>
-                    <CopyToClipboard text={currentUrl} onCopy={handleCopy}>
-                        <button>링크 복사하기</button>
-                    </CopyToClipboard>
-                    {copied && <p>링크가 복사되었습니다.</p>}
-                </div>
-                
-                <KakaoShareBtn _resulttype={type}/>
-            </InsideNextWrap>
+            
+            
         </OutWrap>
     );
 };
 
 export default Quizresult;
 
+
+const BtnLink = styled.img`
+width:60px;
+height:60px;
+
+/* tablet 규격 */
+    @media screen and (max-width: 1023px){
+        
+    }
+
+    /* mobile 규격 */
+    @media screen and (max-width: 540px){
+        width:50px;
+        height:50px;
+    }
+    /* s 데스크 */
+    @media screen and (min-width: 1024px){
+        
+    }
+    /* l 데스크 */
+    @media screen and (min-width: 1700px){
+        width:70px;
+        height:70px;
+    }`;
 const OutWrap = styled.div`
     width: 100%;
     height: 100%;
@@ -193,11 +224,14 @@ const OutWrap = styled.div`
     background: white;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center; 
 
-    
-
-    
+    /* mobile 규격 */
+        @media screen and (max-width: 840px){
+            
+            height: calc(var(--vh, 1vh) * 100);
+            /*border: 3px solid red;*/
+        }
 `;
 
     const InsideWrap = styled.div`
@@ -208,6 +242,16 @@ const OutWrap = styled.div`
         //margin-top: 50px;
         align-items: center;
     `;
+
+    const Wrap = styled.div`
+
+        text-align: center;
+        display: flex;
+        //flex-direction: column;
+        //margin-top: 50px;
+        align-items: center;
+    `;
+    
     const Direction = styled.div`
         display: flex;
         flex-direction: row;
@@ -238,7 +282,7 @@ const OutWrap = styled.div`
 
     const Row = styled.div`
   display: flex;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 `;
     const Img= styled.img`
     border: 5px #798BE6 solid;
@@ -250,26 +294,33 @@ const OutWrap = styled.div`
     cursor:pointer;
     ${({ isNotLast }) => isNotLast && "margin-right: 20px;"}
     
+
+    width: 24vw;
+    height: 63vh;
+
     &:hover {
         border: 5px #4E62C5 solid;
     }
     /* tablet 규격 */
         @media screen and (max-width: 1023px){
-            
+            width: 33vw;
+            height: 31vh;
+            margin-bottom:10px;
+            ${({ isNotLast }) => isNotLast && "margin-right: 10px;"}
+            border: 4px #798BE6 solid;
         }
 
         /* mobile 규격 */
         @media screen and (max-width: 540px){
-            width: 45vw;
-            height: 46vh;
+            width: 43vw;
+            height: 36vh;
             margin-bottom:10px;
             ${({ isNotLast }) => isNotLast && "margin-right: 10px;"}
             border: 4px #798BE6 solid;
         }
         /* s 데스크 */
         @media screen and (min-width: 1024px){
-            width: 22vw;
-            height: 63vh;
+            
         }
         /* l 데스크 */
         @media screen and (min-width: 1700px){
@@ -341,13 +392,15 @@ const OutWrap = styled.div`
     margin-bottom:25px;
     /* tablet 규격 */
         @media screen and (max-width: 1023px){
-            
+            width:75vw;
+            height: 9vh; 
         }
 
         /* mobile 규격 */
         @media screen and (max-width: 540px){
-            width:75vw;
+            width:85vw;
             height: 9vh; 
+            margin-bottom:30px;
         }
         /* s 데스크 */
         @media screen and (min-width: 1024px){
@@ -407,6 +460,44 @@ const OutWrap = styled.div`
     `;
 
 
+    const Twrap =styled.div`
+    border: 3px #798BE6 solid;
+    
+    padding: 20px;
+    word-wrap: break-word;
+    border-radius: 21px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+    width:38vw;
+    height: 9vh; 
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    margin-top:20px;
+    margin-bottom:25px;
+    /* tablet 규격 */
+        @media screen and (max-width: 1023px){
+            
+        }
+
+        /* mobile 규격 */
+        @media screen and (max-width: 540px){
+            width:85vw;
+            height: 9vh; 
+            margin-bottom:30px;
+        }
+        /* s 데스크 */
+        @media screen and (min-width: 1024px){
+            
+        }
+        /* l 데스크 */
+        @media screen and (min-width: 1700px){
+            height: 11vh;
+        }
+
+    `;
     const ButtonTwo = styled(Radius)`
 background: #798BE6;
 display: flex;
@@ -424,7 +515,10 @@ font-weight: 500;
   ;
   /* tablet 규격 */
         @media screen and (max-width: 1023px){
-            
+            width:33vw;
+            height: 7vh;
+            font-size: 25px;
+            margin-right:10px;
         }
 
         /* mobile 규격 */

@@ -88,13 +88,17 @@ const QuizTest = () => {
     return (
         <OutWrap>
             
-                
-                    <ProgressBar total={questions.length} current={num + 1} />
+                    <div>
+                        <ProgressBar total={questions.length} current={num + 1} />
+                    </div>
+                    
                     
                 
                     <Ulstyle> 
                     
                     {questions[num].options.map((option, index) => (
+                        
+
                         
                             <Img
                                 key={index}
@@ -127,15 +131,12 @@ const OutWrap = styled.div`
     flex-direction: column;
 
     /* mobile 규격 */
-        @media screen and (max-width: 540px){
+        @media screen and (max-width: 840px){
+            border: 3px solid red;
             height: calc(var(--vh, 1vh) * 100);
         }
 
-    /* tablet 규격 */
-        @media screen and (max-width: 1023px){
-            justify-content: center;
-            align-items: center;
-        }
+    
 `;
 
     const InsideWrap = styled.div`
@@ -163,10 +164,15 @@ const OutWrap = styled.div`
     display:flex;
     flex-direction:row;
     margin-top:40px;
-    /* tablet 규격 */
-        @media screen and (max-width: 1023px){
+    
+        @media screen and (max-width: 950px){
             flex-direction:column;
             margin-top:20px;
+        }
+        
+        /* mobile 규격 */
+        @media screen and (max-width: 540px){
+            margin-top:15px;
         }
     `;
 
@@ -193,10 +199,10 @@ const OutWrap = styled.div`
 
         /* mobile 규격 */
         @media screen and (max-width: 540px){
-            width: 85vw;
-            height: 45vh;
+            width: 65vw;
+            height: 40vh;
             margin-bottom:10px;
-
+            
             border: 4px #798BE6 solid;
         }
         /* s 데스크 */
