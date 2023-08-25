@@ -5,7 +5,7 @@ import {  useNavigate } from 'react-router-dom';
 import logo from '../Images/imagelogo.png';
 import styled from "styled-components";
 import homelogo from '../Images/homelogo.png'
-import profilelogo from '../Images/profileimg.png'
+import { ProfileIcon } from '../Modal/ProfileIcon';
 
 // 회원 아이콘 추가,,, 누를 시 1) 로그인 한 경우는 프로필 정보 페이지 2)로그인 x 로그인 페이지로 
 const Header=() => 
@@ -37,7 +37,7 @@ const Header=() =>
         <HomeWrap >
 
             
-            <ProfileLogo src={profilelogo} alt='profilelogo' onClick={handleGoProfileClick}/>
+            <ProfileIcon/>
             <HomeLogo src={homelogo} alt='homelogo' onClick={handleGohomeClick} />
         </HomeWrap>         
     </LogoWrap>

@@ -6,8 +6,8 @@ import { LoginModal } from './LoginModal';
 const HomeWrap = styled.div`
 margin-right:25px;
 
-position: absolute;
-right:225px;
+//position: absolute;
+//right:225px;
 /* tablet 규격 */
         @media screen and (max-width: 1023px){
           right:5%;
@@ -83,45 +83,19 @@ export const ModalView = styled.div.attrs((props) => ({
     
 `;
 
-const TextWrap= styled.div`
-width: 100%;
-  height: 100%;
-padding:30px;
-box-sizing:border-box;
-display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
-`;
-const Text= styled.div`
-font-size: 20px;
-color: black;
-margin-bottom:5%;
-`;
-
-const BtnLoginWrap = styled.div`
-width:55%;
-height:30%;
-
-//height:1.5em;
-`;
-
-const BtnNaver = styled.img`
-width:100%;
-height:100%;
-`;
 
 const DropMenu = styled.div` 
-  position: relative;
-  background-color: #798BE6;
+  position: absolute;
+  background-color: white;
   //border: 1px solid #ccc;
   padding: 10px;
-  border-radius: 31px;
-  z-index: 2;
+  border-radius: 30px;
+  z-index: 9999;
 
   //text-align: center;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  top: -0px;
+  top: 100px;
+  right:80px;
 
 
   /* tablet 규격 */
@@ -132,16 +106,16 @@ const DropMenu = styled.div`
         /* mobile 규격 */
         @media screen and (max-width: 540px){
           width:45vw;
-          top: -147px;
+          //top: -147px;
         }
         /* s 데스크 */
         @media screen and (min-width: 1024px){
-          width:25vw;
+          width:15vw;
         }
         /* l 데스크 */
         @media screen and (min-width: 1700px){
-          width:40vw;
-          top: -177px;
+          width:20vw;
+          top: 120px;
         }
 `;
 
@@ -179,12 +153,15 @@ export const ProfileIcon = () => {
       setIsOpen(!isOpen) 
     };
 
-    // 네이버 로그인 처리하기 
-    const onNaverLogin = () => {
+   
+  // 자기 프로필 가는거 처리하기 App js 참고  
+  const onGoProfile = () => {
        
-    };
-  
-  
+  };
+  // 로그아웃 처리하기 
+  const onNaverLogout = () => {
+     
+  };
     return (
       <>
         <HomeWrap>
@@ -195,12 +172,10 @@ export const ProfileIcon = () => {
           
           {/* 조건부 렌더링을 활용해서 Modal이 열린 상태(isOpen이 true인 상태)일 때만 모달창과 배경이 뜰 수 있게 구현 */}
           {isOpen ? 
-          <div className="dropdown-menu">
-            {/* 드롭다운 메뉴 아이템들 */}
-            <a href="#">메뉴 항목 1</a>
-            <a href="#">메뉴 항목 2</a>
-            <a href="#">메뉴 항목 3</a>
-          </div>
+          <DropMenu>
+            <CateMenu onClick={onGoProfile}>마이프로필</CateMenu>  
+            <CateMenu onClick={onNaverLogout}> 로그아웃 </CateMenu>          
+          </DropMenu>
             : null
           }
         </HomeWrap>

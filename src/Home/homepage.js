@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { BsPlusCircleFill } from 'react-icons/bs'
 
 import styled from 'styled-components';
-import Logo from '../Component/Header'
+import HeaderHome from '../Component/HeaderHome'
 
 const categoriesData = [
   { name: '바디프로필'},
@@ -122,7 +122,7 @@ const handleCategorySelect = useCallback((category, limit, offset) => {
     <OutWrap>
       <InsideWrap>
         {/* 로고 */}        
-        <Logo/>
+        <HeaderHome/>
 
         <CategoryWrap>
           {categoriesData&&categoriesData.map((category, index) => (
@@ -223,6 +223,7 @@ const OutWrap = styled.div`
       display: flex;
       flex-direction: column;
       align-items: center;
+      width:80%;
   `;
 
 

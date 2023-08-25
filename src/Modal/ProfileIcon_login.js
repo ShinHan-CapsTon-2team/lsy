@@ -83,35 +83,6 @@ export const ModalView = styled.div.attrs((props) => ({
     
 `;
 
-const TextWrap= styled.div`
-width: 100%;
-  height: 100%;
-padding:30px;
-box-sizing:border-box;
-display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
-`;
-const Text= styled.div`
-font-size: 20px;
-color: black;
-margin-bottom:5%;
-`;
-
-const BtnLoginWrap = styled.div`
-width:55%;
-height:30%;
-
-//height:1.5em;
-`;
-
-const BtnNaver = styled.img`
-width:100%;
-height:100%;
-`;
-
-
 
 export const ProfileIcon_login= () => {
     const [isOpen, setIsOpen] = useState(false);
