@@ -152,6 +152,8 @@ function Post() {
           .then((response) => response.json())
           .then((data) => {
               console.log('서버 응답:', data);
+              const postId = data.data.id; // Assuming your response includes the new post's ID
+              navigate(`/lookup/${postId}`); 
               //setIsSuccessModalOpen(true); // 성공 모달 열기
               handleGohomeClick();
           })

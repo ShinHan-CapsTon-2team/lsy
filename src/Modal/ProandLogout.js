@@ -60,19 +60,18 @@ const CateMenu = styled.div`
 
 export const ProandLogout = () => {
     // 자기 프로필 가는거 처리하기 App js 참고  
-  const onGoProfile = () => {
-       
-  };
-  // 로그아웃 처리하기 
-  const onNaverLogout = () => {
-     
-  };
+    const onGoProfile = () => {
+        
+    };
+    // 로그아웃 처리하기 
+    const onNaverLogout = () => {
+        
+    };
     return
     (
-
-    <DropMenu>
-        <CateMenu onClick={onGoProfile}>마이프로필</CateMenu>  
-        <CateMenu onClick={onNaverLogout}> 로그아웃 </CateMenu>          
-    </DropMenu>
+        <DropMenu>
+            <CateMenu onClick={onGoProfile}>마이프로필</CateMenu>  
+            <CateMenu onClick={onNaverLogout}> 로그아웃 </CateMenu>          
+        </DropMenu>
     );
 };

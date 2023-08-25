@@ -150,6 +150,17 @@ const handleCategorySelect = useCallback((category, limit, offset) => {
             );
           })}
         </GridWrap>
+
+
+        <PaginationWrap>
+          <ButtonShort onClick={handleGoToPreviousPage} disabled={pageNumber === 1}>
+            이전
+          </ButtonShort>
+          <ButtonShort onClick={() => movePage(pageNumber + 1)} disabled={!users || users.length < limit}>
+            다음
+          </ButtonShort>
+        </PaginationWrap>
+
       </InsideWrap>
 
 
@@ -159,14 +170,7 @@ const handleCategorySelect = useCallback((category, limit, offset) => {
             
         </PostWrap>
 
-      <PaginationWrap>
-        <ButtonShort onClick={handleGoToPreviousPage} disabled={pageNumber === 1}>
-          이전
-        </ButtonShort>
-        <ButtonShort onClick={() => movePage(pageNumber + 1)} disabled={!users || users.length < limit}>
-          다음
-        </ButtonShort>
-      </PaginationWrap>
+      
     </OutWrap>
   );
 };
@@ -207,7 +211,7 @@ const OutWrap = styled.div`
     /* s 데스크 */
   @media screen and (min-width: 1210px){
     * {
-    font-size: 33px;
+    font-size: 30px;
   }
       
   }

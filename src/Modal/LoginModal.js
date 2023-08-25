@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import styled from 'styled-components';
 import naverlogin from '../Images/naverlogin.png'
 
@@ -65,24 +64,7 @@ width:100%;
 height:100%;
 `;
 export const LoginModal = () => {
-    /*
-const [isOpen, setIsOpen] = useState(false);
 
-const openModalHandler = () => {
-    // isOpen의 상태를 변경하는 메소드를 구현
-    // !false -> !true -> !false
-    setIsOpen(!isOpen) 
-}; */
-
-const [isOpen, setIsOpen] = useState(false);
-
-    const openModalHandler = () => {
-        setIsOpen(!isOpen);
-    };
-
-    const closeModalHandler = () => {
-        setIsOpen(false);
-    };
 // 네이버 로그인 처리하기 
 const onNaverLogin = () => {
     
@@ -90,23 +72,15 @@ const onNaverLogin = () => {
 
 
 return (
+    <ModalView onClick={(e) => e.stopPropagation()}>
     
-        
-        
-            <ModalView onClick={(e) => e.stopPropagation()}>
-            
-            <TextWrap>
-                <Text>로그인 또는 회원가입 하세요.</Text>
-                <BtnLoginWrap> 
-                    <BtnNaver src={naverlogin}  onclick={onNaverLogin} alt=''></BtnNaver>
-                
-                </BtnLoginWrap>
-            </TextWrap>
+        <TextWrap>
+            <Text>로그인 또는 회원가입 하세요.</Text>
+            <BtnLoginWrap> 
+                <BtnNaver src={naverlogin}  onclick={onNaverLogin} alt=''></BtnNaver>
+            </BtnLoginWrap>
+        </TextWrap>
 
-            
-            </ModalView>
-        
-        
-    
+    </ModalView>
     );
 };

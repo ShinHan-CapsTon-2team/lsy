@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import profilelogo from '../Images/profileimg.png'
-import naverlogin from '../Images/naverlogin.png'
 import { LoginModal } from './LoginModal';
+
 const HomeWrap = styled.div`
 margin-right:25px;
 
@@ -153,26 +153,37 @@ export const ProfileIcon = () => {
       setIsOpen(!isOpen) 
     };
 
+    // 자기 프로필 가는거 처리하기 App js 참고  
+    const onGoProfile = () => {
+        
+    };
+    // 로그아웃 처리하기 
+    const onNaverLogout = () => {
+        
+    };
   
     return (
       <>
         <HomeWrap>
           <HomeLogo src={profilelogo} onClick={openModalHandler} />
-          {isLogin ?  // 로그인 유무 여부 처리를 해야하는 거임 
-          ( // 1. 로그인 하기 전 상태라면 
-            isOpen ? (
+
+          {isOpen && (
+            isLogin ? (
+              // 1. 로그인한  상태
+              <DropMenu>
+                <CateMenu onClick={onGoProfile}>마이프로필</CateMenu>
+                <CateMenu onClick={onNaverLogout}>로그아웃</CateMenu>
+              </DropMenu>
+              
+            ) : (
+              // 2. 로그인 안한 상태
               <ModalBackdrop onClick={openModalHandler}>
                 <LoginModal />
               </ModalBackdrop>
-            ) : null
-          ) : (
-            //2. 로그인한 후 상태라면 
-            <DropMenu>
-              <CateMenu onClick={onGoProfile}>마이프로필</CateMenu>  
-              <CateMenu onClick={onNaverLogout}>로그아웃</CateMenu>          
-            </DropMenu>
+            )
           )}
         </HomeWrap>
+
       </>
     );
   };

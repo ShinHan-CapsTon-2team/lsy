@@ -119,54 +119,72 @@ const Quizstart = () => {
     width:100%;
     height:20%;
     //margin-top:20px;`;
-    const ButtonTwo = styled(Radius)`
-        background: #798BE6;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: relative;
-        cursor: pointer;
-        color: white;
-        font-weight: 500;
 
-        width: 100%;
-        height: 80%;; 
-        //margin-top: 20px;
-        font-size: 40px;
-        
-        margin-bottom:5px;
-        /* tablet 규격 */
-        @media screen and (max-width: 1023px){
-            
-        }
+    const Textselect= styled(Radius)`
+    border: 3px #798BE6 solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+    color: #798BE6;
+    font-weight: 500;
+    background:white;
+    width: 100%;
+    height:80%;
+    font-size:35px;
 
-        /* mobile 규격 */
-        @media screen and (max-width: 540px){
-            //width: 80vw;
-            //height: 9vh;; 
-            font-size: 30px;
-        }
-        /* s 데스크 */
-        @media screen and (min-width: 1024px){
-           // width: 35vw;
-            //height: 9vh;; 
-            font-size: 40px;
-            
-        }
-        /* l 데스크 */
-        @media screen and (min-width: 1700px){
-            //width: 40vw;
-            //height: 9vh;; 
-            font-size: 48px;
-            
-        }
+    /* mobile 규격 */
+    @media screen and (max-width: 540px){
         
-        
+        font-size: 25px;
+    }
 
-        
-
-        
     `;
+    const ButtonTwo = styled(Radius)`
+    background: #798BE6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+    color: white;
+    font-weight: 500;
+
+    width: 100%;
+    height: 80%;; 
+    font-size: 40px;
+    pointer:cusor;
+    &:hover{
+        background:#5D6BB4;
+    }
+    margin-bottom:5px;
+    /* tablet 규격 */
+    @media screen and (max-width: 1023px){
+        
+    }
+
+    /* mobile 규격 */
+    @media screen and (max-width: 540px){
+        //width: 80vw;
+        //height: 9vh;; 
+        font-size: 30px;
+    }
+    /* s 데스크 */
+    @media screen and (min-width: 1024px){
+        // width: 35vw;
+        //height: 9vh;; 
+        font-size: 30px;
+        
+    }
+    /* l 데스크 */
+    @media screen and (min-width: 1700px){
+        //width: 40vw;
+        //height: 9vh;; 
+        font-size: 48px;
+        
+    }
+`;
 
 
 
@@ -174,7 +192,7 @@ const Quizstart = () => {
         <OutWrap>
             <InsidWrap>
                 <TextWrap>
-                    <Text src={text} alt='' />
+                    <Textselect>관심있는 분야 선택하기</Textselect>
                 </TextWrap>
                 
                 
