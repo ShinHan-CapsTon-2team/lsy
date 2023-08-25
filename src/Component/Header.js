@@ -51,7 +51,7 @@ const LogoWrap = styled.div`
 
 width: 100%; 
 //height: 23.2vh;
-height:20%;
+height:10%;
 // text-align: center;
 display: flex;
 //flex-direction: row;
@@ -80,8 +80,8 @@ justify-content: space-between;
 
 
 const LandingWrap = styled.div`
-width:30%;
-height:85%;
+//width:30%;
+//height:85%;
 
 /* tablet 규격 */
         @media screen and (max-width: 1023px){
@@ -96,7 +96,8 @@ height:85%;
         }
         /* s 데스크 */
         @media screen and (min-width: 1024px){
-            
+           // width:15%;
+            //height:55%;
         }
         /* l 데스크 */
         @media screen and (min-width: 1700px){
@@ -164,8 +165,8 @@ margin-right :20px;
 
 `;
 const Logo = styled.img`
-width: 100%; 
-height: 100%;
+width: 220px; 
+height: 120px;
 
 
 /* tablet 규격 */

@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { BsPlusCircleFill } from 'react-icons/bs'
 
 import styled from 'styled-components';
-import HomeLogo from '../Component/HeaderHome'
+import Logo from '../Component/Header'
 
 const categoriesData = [
   { name: '바디프로필'},
@@ -12,7 +12,6 @@ const categoriesData = [
   { name: '증명사진' },
   { name: '웨딩사진' },
 ];
-
 
 
 const Homepage = () => {
@@ -27,11 +26,6 @@ const Homepage = () => {
   const limit = 20; // 한 페이지당 이미지 수 설정
   const [offset, setOffset] = useState(0); //offset 초기값
 
-  const [showDescription, setShowDescription] = useState(false);
-
-  const toggleDescription = () => {
-    setShowDescription(!showDescription);
-  };
  
   //버튼 
 const selectCate = (categoryName) => {
@@ -59,10 +53,8 @@ const handleCategorySelect = useCallback((category, limit, offset) => {
   .then((data) => {
     setUsers(data); // 데이터 저장
     console.log(data); // 받아온 데이터를 콘솔에 출력하거나 원하는 로직으로 처리합니다.
-    setSelectedCategory(category);
     navigate(`/home?${queryString}`);
     setSelectedCategory(category);
-    
   })
   .catch((error) => {
     // 오류 처리
@@ -93,21 +85,23 @@ const handleCategorySelect = useCallback((category, limit, offset) => {
   };
   // 다음페이지
   const movePage = (newPageNumber) => {
+    //const newPageNumber = Math.max(1, pageNumber);
+    
     const newOffset = (newPageNumber - 1) * limit;
     setPageNumber(newPageNumber);
     setOffset(newOffset);
   };
 
-  // 이전페이지
-  const handleGoToPreviousPage = () => {
-    const newPageNumber = pageNumber - 1;
-    if (newPageNumber >= 1) {
-      const newOffset  = (newPageNumber - 1) * limit;
-      setPageNumber(newPageNumber);
-      setOffset(newOffset);
-      handleCategorySelect(selectedCategory, limit, newOffset );
-    }
-  };
+    // 이전페이지
+    const handleGoToPreviousPage = () => {
+      const newPageNumber = pageNumber - 1;
+      if (newPageNumber >= 1) {
+        const newOffset  = (newPageNumber - 1) * limit;
+        setPageNumber(newPageNumber);
+        setOffset(newOffset);
+        handleCategorySelect(selectedCategory, limit, newOffset );
+      }
+    };
 
     // 카테고리 클릭할 때마다 초기화
     const handleCategoryClick = (newCategory) => {
@@ -128,13 +122,13 @@ const handleCategorySelect = useCallback((category, limit, offset) => {
     <OutWrap>
       <InsideWrap>
         {/* 로고 */}        
-        <HomeLogo/>
+        <Logo/>
 
         <CategoryWrap>
           {categoriesData&&categoriesData.map((category, index) => (
             <ButtonTwo  
             key={index}
-            isSelected={selectCategory === category.name ? 'true' : 'false'}
+            isselected={selectCategory === category.name ? 'true' : 'false'}
             onClick={() => {
               handleCategoryClick(category.name);
               selectCate(category.name);
@@ -372,7 +366,8 @@ color: white;
 
 // 버튼투
 const ButtonTwo = styled(Radius)`
-  background: ${({ isSelected }) => isSelected ? '#5D6BB4' : '#798BE6'};
+  //background: ${({ isSelected }) => isSelected ? '#5D6BB4' : '#798BE6'};
+  background: ${({ isselected }) => (isselected === 'true' ? '#5D6BB4' : '#798BE6')};
   display: flex;
   align-items: center;
   justify-content: center;

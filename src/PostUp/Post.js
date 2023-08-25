@@ -135,7 +135,7 @@ function Post() {
           //image_url: previewImage, //미리보기 이미지를 전송
           category,
           name,
-          profile,
+          
           //created_at : getCurrentTime(),
           };
           console.log(data.title);

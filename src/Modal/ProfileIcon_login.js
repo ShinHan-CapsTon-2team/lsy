@@ -111,66 +111,9 @@ width:100%;
 height:100%;
 `;
 
-const DropMenu = styled.div` 
-  position: relative;
-  background-color: #798BE6;
-  //border: 1px solid #ccc;
-  padding: 10px;
-  border-radius: 31px;
-  z-index: 2;
-
-  //text-align: center;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  top: -0px;
 
 
-  /* tablet 규격 */
-        @media screen and (max-width: 1023px){
-            
-        }
-
-        /* mobile 규격 */
-        @media screen and (max-width: 540px){
-          width:45vw;
-          top: -147px;
-        }
-        /* s 데스크 */
-        @media screen and (min-width: 1024px){
-          width:25vw;
-        }
-        /* l 데스크 */
-        @media screen and (min-width: 1700px){
-          width:40vw;
-          top: -177px;
-        }
-`;
-
-const CateMenu = styled.div` 
-  font-size: 25px;
-  margin-top:5px;
-
-  /* tablet 규격 */
-        @media screen and (max-width: 1023px){
-            
-        }
-
-        /* mobile 규격 */
-        @media screen and (max-width: 540px){
-            
-        }
-        /* s 데스크 */
-        @media screen and (min-width: 1024px){
-          
-        }
-        /* l 데스크 */
-        @media screen and (min-width: 1700px){
-          font-size: 30px;
-        }
-`;
-
-
-
-export const ProfileIcon = () => {
+export const ProfileIcon_login= () => {
     const [isOpen, setIsOpen] = useState(false);
   
     const openModalHandler = () => {
@@ -195,12 +138,10 @@ export const ProfileIcon = () => {
           
           {/* 조건부 렌더링을 활용해서 Modal이 열린 상태(isOpen이 true인 상태)일 때만 모달창과 배경이 뜰 수 있게 구현 */}
           {isOpen ? 
-          <div className="dropdown-menu">
-            {/* 드롭다운 메뉴 아이템들 */}
-            <a href="#">메뉴 항목 1</a>
-            <a href="#">메뉴 항목 2</a>
-            <a href="#">메뉴 항목 3</a>
-          </div>
+          <ModalBackdrop onClick={openModalHandler}>
+              {/* 로그인 안할시  */}
+              <LoginModal onNaverLogin={onNaverLogin} />
+            </ModalBackdrop>
             : null
           }
         </HomeWrap>
