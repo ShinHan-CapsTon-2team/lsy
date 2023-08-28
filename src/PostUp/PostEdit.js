@@ -46,12 +46,6 @@ function PostEdit() {
         navigate('/home');
     };
 
-    /*
-    //데이터 가져오기 위해 
-    const params = useParams(); // 
-    const id = params.id; // 게시글 몇번인지 
-    console.log( 'params:',params);
-    console.log('id:',id); */
 
     const { postId } = useParams();
     console.log( 'postId:',postId);

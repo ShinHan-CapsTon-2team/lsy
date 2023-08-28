@@ -240,8 +240,6 @@ const OutWrap = styled.div`
       align-items: center;
       width:80%;
 
-
-
       /* tablet 규격 */
     @media screen and (max-width: 1024px){
       width:87%;
@@ -434,7 +432,7 @@ const ButtonTwo = styled(Radius)`
   @media screen and (max-width: 850px){
     width:19%;
     height: 7vh; 
-    
+
     &:nth-child(1){
       width:21%;
     }
