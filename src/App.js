@@ -17,13 +17,31 @@ import PostEdit from './PostUp/PostEdit';
 // 전역 스타일 설정
 const GlobalStyle = createGlobalStyle`
 
+@font-face {
+  font-family: 'Nanum_GothicNormal';
+  font-style: normal;
+  font-weight: normal;
+  src: url(./AnyConv.com__NanumGothic-Regular.woff);
+}
+@font-face {
+  font-family: 'Nanum_GothicBold';
+  font-style: normal;
+  font-weight: bold;
+  src: url(./AnyConv.com__NanumGothic-Bold.woff);
+}
+@font-face {
+  font-family: 'Nanum_Gothic';
+  font-style: normal;
+  font-weight: 800;
+  src: url(./AnyConv.com__NanumGothic-ExtraBold.woff);
+}
   html, body {
     height: 100%;
     width: 100%;
     padding: 0;
     margin: 0;
    // overflow: hidden;
-   //font-family: 'Nanum Gothic';
+   font-family: 'Nanum_GothicNormal';
    
   }
   

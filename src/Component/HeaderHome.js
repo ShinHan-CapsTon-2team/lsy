@@ -49,6 +49,7 @@ align-items: center;
 justify-content: space-between;
 //position: relative;
 
+margin-top:20px;
 /* tablet 규격 *
         @media screen and (max-width: 1024px){
             //height:20%;
@@ -95,15 +96,6 @@ const LandingWrap = styled.div`
         }
 
 `;
-const HomeWrap = styled.div`
-display: flex;
-flex-direction: row;
-align-items: center;
-justify-content: center;
-  
-`;
-
-
 
 const Logo = styled.img`
 width: 220px; 
@@ -128,7 +120,8 @@ height: 120px;
         }
         /* l 데스크 */
         @media screen and (min-width: 1700px){
-            
+            width: 290px; 
+            height: 170px;
         }
 `;
 

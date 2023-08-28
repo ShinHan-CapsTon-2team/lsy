@@ -105,6 +105,7 @@ const QuizTest = () => {
                                 src={`${process.env.PUBLIC_URL}/Images/quest/${categoryName}/${option.img}`}
                                 alt={`Option ${index + 1}`}
                                 onClick={() => handleAnswer(option)}
+                                style={{ marginRight: index === 1 ? 0 : null }}
                             />
                         
                         
@@ -127,36 +128,25 @@ const OutWrap = styled.div`
     justify-content: center;
     align-items: center;   
     
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     
     flex-direction: column;
 
     /* mobile 규격 */
         @media screen and (max-width: 840px){
-            border: 3px solid red;
+           
             height: calc(var(--vh, 1vh) * 100);
         }
 
     
 `;
 
-    const InsideWrap = styled.div`
-    //width: 100%;
-    //height: 100%;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-
-    /* tablet 규격 */
-        @media screen and (max-width: 1023px){
-            justify-content: center;
-            align-items: center;
-        }
     
-    `;
-    const ProgressWrap = styled.div`
-    width:50%;
-    height:25%;
-    `;
+   
 
     const Ulstyle = styled.div`
     //width:50%;
@@ -165,7 +155,7 @@ const OutWrap = styled.div`
     flex-direction:row;
     margin-top:40px;
     
-        @media screen and (max-width: 950px){
+        @media screen and (max-width: 650px){
             flex-direction:column;
             margin-top:20px;
         }
@@ -196,6 +186,13 @@ const OutWrap = styled.div`
         @media screen and (max-width: 1023px){
             
         }
+
+        @media screen and (max-width: 900px){
+            width: 43vw;
+            height: 66vh;
+            margin-right: 15px;
+        }
+
 
         /* mobile 규격 */
         @media screen and (max-width: 540px){

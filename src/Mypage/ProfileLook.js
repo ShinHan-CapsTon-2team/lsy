@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { BsPlusCircleFill } from 'react-icons/bs'
 
 import img1 from "../Images/a.png";
 import img2 from "../Images/b.jpg";
@@ -32,46 +33,18 @@ import styled from "styled-components";
 //import Loading from '../Component/Loading'
 const SERVER_URL= 'http://localhost:4000/api/lookup';
 
-function ProfileLook() {
+// 1. 데이터 불러오기 
+// 2. 자기 프로필일 때만 프로필 수정, 포스트 버튼 보이게 처리하기 
+// 3. 프로필 수정 추가하기 
+
+function ProfileLook() { 
 
     
-    //const navigate = useNavigate();
+    const navigate = useNavigate();
+    const goToWorkUpload = () => {
+        navigate('/post');
+    };
     
-
-    /* 데이터 value 넣어줄 값 
-    const [board, setBoard] = useState({
-        idx: 0,
-        title: '',
-        createdBy: '',
-        contents: '',
-    });
-    */
-
-    
-    
-    /* 처리해야 할 코드  idx => id
-    const getBoard = async () => {
-        const resp = await (await axios.get(`//localhost:8080/board/${idx}`)).data;
-        setBoard(resp.data);
-      };
-
-      //확인 버튼 누를시 
-      const updateBoard = async () => {
-        await axios.patch(`//localhost:8080/board`, board).then((res) => {
-          alert('수정되었습니다.');
-          navigate('/board/' + idx);
-        });
-      };
-      // 수정 완료 확인 버튼 누르고 수정한 lookup 페이지로
-      const backToDetail = () => {
-        navigate('/board/' + idx);
-      };
-    
-      useEffect(() => {
-        getBoard();
-      }, []);
-
-      */ 
     return (
         <OutWrap>
             <InOutWrap>
@@ -83,68 +56,63 @@ function ProfileLook() {
                     <div style={{width:'25%'}}>
 
                     
-                        <One>
-                            <div style={{display:'flex',flexDirection:'column',justifyContent:'end',height:'20vh',marginBottom:20}}>
-                                <SmallWrap style={{marginBottom:10}}>
-                                    <div style={{fontSize:35,color:'black',width:'100%'}}>김또잉</div>
+                        <div >
+                            <One> {/* 이름 이메일  */}
+                                <div style={{display:'flex',flexDirection:'column',justifyContent:'end',height:'20vh',marginBottom:20}}>
+                                    <SmallWrap style={{marginBottom:10}}>
+                                        <div style={{fontSize:30,color:'black',width:'100%'}}>김또잉</div>
 
-                                </SmallWrap>
-                                
-                                <Wrap>
-                                    <text style={{fontSize:25}}>ddoing@gmail.com</text>
+                                    </SmallWrap>
+                                    
+                                    <Wrap>
+                                        <text style={{fontSize:25,  }}>ddoing@gmail.com</text> {/* 링크 복사하게끔  */}
 
-                                </Wrap>
-                            </div>
+                                    </Wrap>
+                                </div>
 
+                            </One>
+                            
+                            <Onetwo>  {/* 소개 커리어  */}
 
-                            <div style={{display:'flex',flexDirection:'column',width:'100%',marginBottom:23}}>
-                                <div
-                                        style={{
-                                            width: "100%",
-                                            textAlign: "center",
-                                            borderBottom: "2px solid #aaa",
-                                            lineHeight: "0.1em",
-                                            margin: "10px 0 10px",
-                                        }}
-                                        />
-                                <Left >
-                                    <div style={{fontSize:25,color:'gray'}}> 소개</div>
-                                </Left>
-                                <Left style={{marginTop:10}}>
-                                    <Font  style={{textAlign:'left'}}>안녕 나는 000. 햄버거가 먹고싶다. </Font>
-                                </Left>
-                            </div>
+                                <div style={{display:'flex',flexDirection:'column',width:'100%',marginBottom:23}}>
+                                    <div
+                                            style={{
+                                                width: "100%",
+                                                textAlign: "center",
+                                                //borderBottom: "2px solid #aaa",
+                                                //lineHeight: "0.1em",
+                                                //margin: "10px 0 10px",
+                                            }}
+                                            />
+                                    <Left >
+                                        <div style={{fontSize:25,color:'gray'}}> 소개</div>
+                                    </Left>
+                                    <Left style={{marginTop:10}}>
+                                        <Font  style={{textAlign:'left'}}>안녕 나는 000. 햄버거가 먹고싶다. </Font>
+                                    </Left>
+                                </div>
+                            
+                                <div style={{display:'flex',flexDirection:'column',width:'100%',marginBottom:23}}>
+                                    <div
+                                            style={{
+                                                width: "100%",
+                                                textAlign: "center",
+                                                //borderBottom: "2px solid #aaa",
+                                                //lineHeight: "0.1em",
+                                                //margin: "10px 0 10px",
+                                            }}
+                                            />
+                                    <Left >
+                                        <div style={{fontSize:25,color:'gray'}}> 커리어</div>
+                                    </Left>
+                                    <Left style={{marginTop:10}}>
+                                        <Font  style={{textAlign:'left'}}> 4학년이고 하라는 거 다 잘못해요 그니깐 아무것도 시키지마 </Font>
+                                    </Left>
+                                </div>
+                            </Onetwo>
 
-
-
-
-
-                            <div style={{display:'flex',flexDirection:'column',width:'100%',marginBottom:23}}>
-                                <div
-                                        style={{
-                                            width: "100%",
-                                            textAlign: "center",
-                                            borderBottom: "2px solid #aaa",
-                                            lineHeight: "0.1em",
-                                            margin: "10px 0 10px",
-                                        }}
-                                        />
-                                <Left >
-                                    <div style={{fontSize:25,color:'gray'}}> 커리어</div>
-                                </Left>
-                                <Left style={{marginTop:10}}>
-                                    <Font  style={{textAlign:'left'}}> 4학년이고 하라는 거 다 잘못해요 그니깐 아무것도 시키지마 </Font>
-                                </Left>
-                            </div>
-                        
+                        </div>
                         <ButtonShort>프로필 수정</ButtonShort>
-
-
-
-
-
-
-                        </One>
                     </div>
 
                     <div style={{width:'75%'}}>
@@ -221,6 +189,12 @@ function ProfileLook() {
                     
                 </Center>
             </InOutWrap>
+
+            <PostWrap>
+            
+                <StyledBsPlusCircleFill onClick={goToWorkUpload}/>
+                
+            </PostWrap>
         </OutWrap>
 
     );
@@ -351,13 +325,6 @@ const GridImg = styled.img`
   object-fit: cover;
 `;
 
-const PaginationWrap = styled.div`
-  margin-top: 20px;
-  margin-bottom: 40px;
-  display: flex;
-  justify-content: center;
-`;
-
 
 const OutWrap = styled.div`
 width: 100%;
@@ -382,7 +349,7 @@ flex-direction: column;
 align-items: center;
 justify-content: center;
 
-width:85%
+width:80%
 //height:90%;
 `;
 
@@ -395,6 +362,7 @@ flex-direction: row;
 
 width:100%;
 //height:100%;
+margin-top:20px;
 justify-content: space-between; //고려
 
 margin-bottom:30px;
@@ -411,6 +379,17 @@ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
 
 const One = styled(ContentRadius)`
+display: flex;
+align-items: center;
+//width:25%;
+height:15vh;
+//min-height:50vh;
+flex-direction: column;
+margin-bottom:20px;
+
+`;
+
+const Onetwo = styled(ContentRadius)`
 display: flex;
 align-items: center;
 //width:25%;
@@ -448,7 +427,7 @@ height: auto;
 
 `;
 const FontStyle= {
-    fontSize: 30,
+    fontSize: 27.5,
 
     /* mobile 규격 */
   '@media screen and (max-width: 540px)':
@@ -484,3 +463,64 @@ color:gray;
 font-size:22px;
 `;
 
+const PostWrap =styled.div`
+text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /* 수평 정렬을 오른쪽으로 변경 */
+    justify-content: flex-end; /* 수직 정렬을 아래쪽으로 변경 */
+    position: fixed; /* 위치를 고정 */
+    bottom: 100px; /* 아래쪽 여백을 20px로 설정 */
+    right: 50px; /* 오른쪽 여백을 20px로 설정 */
+
+    /* tablet 규격 */
+    @media screen and (max-width: 1023px){
+        
+    }
+
+    /* mobile 규격 */
+    @media screen and (max-width: 540px){
+      bottom: 120px; /* 아래쪽 여백을 20px로 설정 */
+      right: 25px; /* 오른쪽 여백을 20px로 설정 */
+    }
+    /* s 데스크 */
+    @media screen and (min-width: 1024px){
+      
+    }
+    /* l 데스크 */
+    @media screen and (min-width: 1700px){
+      bottom: 130px; /* 아래쪽 여백을 20px로 설정 */
+      right: 80px;
+    }
+`;
+
+const StyledBsPlusCircleFill = styled(BsPlusCircleFill)`
+    width: 70px;
+    height: 70px;
+    color:#798BE6;
+    cursor:pointer;
+    &:hover {
+      color:#5D6BB4;
+    }
+
+    /* tablet 규격 */
+    @media screen and (max-width: 1023px){
+        width: 75px;
+      height:75px;
+    }
+
+    /* mobile 규격 */
+    @media screen and (max-width: 540px){
+      width: 63px;
+      height:63px;
+    }
+    /* s 데스크 */
+    @media screen and (min-width: 1024px){
+        
+    }
+    /* l 데스크 */
+    @media screen and (min-width: 1700px){
+      width: 90px;
+      height:90px;
+    }
+    `;

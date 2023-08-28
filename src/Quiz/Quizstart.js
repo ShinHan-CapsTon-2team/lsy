@@ -22,10 +22,16 @@ const Quizstart = () => {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+
+    @media screen and (max-width: 840px){
+           
+        height: calc(var(--vh, 1vh) * 100);
+    }
 
     `;
 
@@ -65,31 +71,7 @@ const Quizstart = () => {
     align-items:flex-start;
     
     `;
-    const Text = styled.img`
-    width: 100%;
-    height: 80%;
-
-        /* tablet 규격 */
-            @media screen and (max-width: 1023px){
-                
-            }
-
-            /* mobile 규격 */
-            @media screen and (max-width: 540px){
-                //width: 88vw;
-                //height: 80px; 
-            }
-            /* s 데스크 */
-            @media screen and (min-width: 1024px){
-                //width: 48vw;
-                //height: 80px; 
-            }
-            /* l 데스크 */
-            @media screen and (min-width: 1700px){
-                //width: 50vw;
-                //height: 100px; 
-            }
-    `;
+    
 
     const ImgWrap = styled.div`
     width:80%;
@@ -128,16 +110,38 @@ const Quizstart = () => {
     position: relative;
     cursor: pointer;
     color: #798BE6;
-    font-weight: 500;
+    font-weight: bold;
     background:white;
     width: 100%;
     height:80%;
     font-size:35px;
 
+    @media screen and (max-width: 1024px){
+        font-size: 30px;
+    }
+
+    @media screen and (max-width: 850px){
+        font-size: 35px;
+    }
     /* mobile 규격 */
     @media screen and (max-width: 540px){
         
         font-size: 25px;
+    }
+
+    /* s 데스크 */
+    @media screen and (min-width: 1025px){
+        // width: 35vw;
+        //height: 9vh;; 
+        font-size: 30px;
+        
+    }
+    /* l 데스크 */
+    @media screen and (min-width: 1700px){
+        //width: 40vw;
+        //height: 9vh;; 
+        font-size: 40px;
+        
     }
 
     `;
@@ -160,18 +164,25 @@ const Quizstart = () => {
     }
     margin-bottom:5px;
     /* tablet 규격 */
-    @media screen and (max-width: 1023px){
-        
+    @media screen and (max-width: 1024px){
+        font-size: 30px;
+    }
+
+    
+    @media screen and (max-width: 850px){
+        font-size: 35px;
+        &:hover{
+            background:#798BE6;
+        }
     }
 
     /* mobile 규격 */
     @media screen and (max-width: 540px){
-        //width: 80vw;
-        //height: 9vh;; 
-        font-size: 30px;
+        font-size: 25px;
+        
     }
     /* s 데스크 */
-    @media screen and (min-width: 1024px){
+    @media screen and (min-width: 1025px){
         // width: 35vw;
         //height: 9vh;; 
         font-size: 30px;
@@ -181,7 +192,7 @@ const Quizstart = () => {
     @media screen and (min-width: 1700px){
         //width: 40vw;
         //height: 9vh;; 
-        font-size: 48px;
+        font-size: 40px;
         
     }
 `;

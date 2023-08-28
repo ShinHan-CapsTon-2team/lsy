@@ -211,7 +211,7 @@ const OutWrap = styled.div`
     /* s 데스크 */
   @media screen and (min-width: 1210px){
     * {
-    font-size: 30px;
+    font-size: 25px;
   }
       
   }
@@ -238,6 +238,8 @@ const CategoryWrap = styled.div`
   justify-content: center; /* 공간을 균등하게 분배하여 가로로 정렬 */
   align-items: center; /* 수직 가운데 정렬 (선택 사항) */
   margin-top:20px;
+
+  width:100%;
   `;
 
   
@@ -408,7 +410,8 @@ const ButtonTwo = styled(Radius)`
   }
   /* s 데스크 */
   @media screen and (min-width: 1210px){
-    width:17vw;
+    //width:17vw;
+    width:18.5%;
     height: 7vh; 
       
   }

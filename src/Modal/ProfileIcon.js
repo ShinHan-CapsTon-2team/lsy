@@ -44,8 +44,8 @@ height:50px;
         }
         /* l 데스크 */
         @media screen and (min-width: 1700px){
-            width:90px;
-            height:90px;
+            width:80px;
+            height:80px;
         }
 `;
 
