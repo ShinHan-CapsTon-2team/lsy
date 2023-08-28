@@ -144,7 +144,7 @@ function Landing(){
 `;
 
 
-    
+    // 추가 ) 로그인 부분 
 
     return (
 
@@ -158,7 +158,7 @@ function Landing(){
                     <Button onClick ={handleUploadPhotoClick}>매칭을 통해 추천받기 </Button>
                     <Button onClick={handleFitPhotoClick}> 맞는 사진 추천받기</Button>
                     <Button onClick={handleGohomeClick} > 홈페이지 방문하기</Button>
-                    <Button onClick={handleUpPhotoClick} >사진 등록하기 </Button>
+                    <Button onClick={handleUpPhotoClick} >로그인하기</Button> 
                 </ImgWrap>
                 
             </InsideWrap>

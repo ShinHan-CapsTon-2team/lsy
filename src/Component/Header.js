@@ -5,7 +5,7 @@ import {  useNavigate } from 'react-router-dom';
 import logo from '../Images/imagelogo.png';
 import styled from "styled-components";
 import homelogo from '../Images/homelogo.png'
-import { ProfileIcon } from '../Modal/ProfileIcon';
+import { ProfileIcon } from './ProfileIcon';
 
 // 회원 아이콘 추가,,, 누를 시 1) 로그인 한 경우는 프로필 정보 페이지 2)로그인 x 로그인 페이지로 
 const Header=() => 
@@ -31,7 +31,7 @@ const Header=() =>
 
     <LogoWrap>                
         <LandingWrap> 
-            <Logo src={logo} alt='' onClick={handleGoLandingClick}/>
+            <LandingLogo src={logo} alt='' onClick={handleGoLandingClick}/>
         </LandingWrap> 
         
         <HomeWrap >
@@ -50,59 +50,15 @@ export default Header;
 const LogoWrap = styled.div`
 
 width: 100%; 
-//height: 23.2vh;
-height:10%;
-// text-align: center;
 display: flex;
-//flex-direction: row;
 align-items: center;
 justify-content: space-between;
-//position: relative;
-
-/* tablet 규격 *
-        @media screen and (max-width: 1024px){
-            //height:20%;
-        }
-
-        /* mobile 규격 */
-        @media screen and (max-width: 540px){
-            height:17%;
-        }
-        /* s 데스크 */
-        @media screen and (min-width: 1025px){
-            
-        }
-        /* l 데스크 */
-        @media screen and (min-width: 1700px){
-            
-        }
+margin-top:20px;
 `;
 
 
 const LandingWrap = styled.div`
-//width:30%;
-//height:85%;
 
-/* tablet 규격 */
-        @media screen and (max-width: 1023px){
-            width:45%;
-            
-        }
-
-        /* mobile 규격 */
-        @media screen and (max-width: 540px){
-            width:50%;
-            //height:90%
-        }
-        /* s 데스크 */
-        @media screen and (min-width: 1024px){
-           // width:15%;
-            //height:55%;
-        }
-        /* l 데스크 */
-        @media screen and (min-width: 1700px){
-            
-        }
 
 `;
 const HomeWrap = styled.div`
@@ -114,80 +70,59 @@ justify-content: center;
 `;
 
 const HomeLogo =styled.img`
-width:50px;
-height:50px;
+width:45.5px;
+height:45.5px;
 /* tablet 규격 */
-        @media screen and (max-width: 1023px){
+        @media screen and (max-width: 1024px){
             
         }
 
         /* mobile 규격 */
         @media screen and (max-width: 540px){
-            width:35px;
-            height:35px;
+            width:38px;
+            height:38px;
             
         }
         /* s 데스크 */
-        @media screen and (min-width: 1024px){
+        @media screen and (min-width: 1025px){
             
         }
         /* l 데스크 */
         @media screen and (min-width: 1700px){
-            width:90px;
-            height:90px;
+            width:70px
+            height:70px;
         }
 `;
 
-const ProfileLogo = styled.img`
-width:55px;
-height:55px;
-margin-right :20px;
-/* tablet 규격 */
-        @media screen and (max-width: 1023px){
-            
-        }
-
-        /* mobile 규격 */
-        @media screen and (max-width: 540px){
-            width:35px;
-            height:35px;
-            
-        }
-        /* s 데스크 */
-        @media screen and (min-width: 1024px){
-            
-        }
-        /* l 데스크 */
-        @media screen and (min-width: 1700px){
-            width:90px;
-            height:90px;
-        }
-
-`;
-const Logo = styled.img`
-width: 220px; 
-height: 120px;
-
+const LandingLogo = styled.img`
+width: 170px; 
+height: 100px; 
 
 /* tablet 규격 */
-        @media screen and (max-width: 1023px){
-            //width: 37vw; 
-            //height: 13vh; 
-        }
+@media screen and (max-width: 1024px){
+    width: 190px; 
+    height: 100px; 
+}
+@media screen and (max-width: 850px){
+    width: 170px; 
+    height: 100px; 
+}
 
-        /* mobile 규격 */
-        @media screen and (max-width: 540px){
-            //width: 60vw; 
-            //height: 20vh; 
-        }
-        /* s 데스크 */
-        @media screen and (min-width: 1024px){
-            //width: 21vw; 
-            //height: 19vh; 
-        }
-        /* l 데스크 */
-        @media screen and (min-width: 1700px){
-            
-        }
+/* mobile 규격 */
+@media screen and (max-width: 540px){
+    width: 150px; 
+    height: 90px; 
+}
+/* s 데스크 */
+@media screen and (min-width: 1025px){
+    width: 220px; 
+    height: 120px;
+}
+/* l 데스크 */
+@media screen and (min-width: 1700px){
+    width: 300px; 
+    height: 170px;
+}
 `;
+
 

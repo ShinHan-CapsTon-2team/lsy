@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+
 import { useNavigate, useParams } from 'react-router-dom';
 import { BsPlusCircleFill } from 'react-icons/bs'
 
@@ -26,8 +26,8 @@ import img18 from "../Images/a3.PNG";
 import img19 from "../Images/a4.PNG";
 import img20 from "../Images/b1.PNG";
 
-
-
+import ProfileInfo from '../Component/ProfileInfo';
+import ProfileInfo_Edit from '../Component/ProfileInfo_Edit';
 import Logo from "../Component/Header"
 import styled from "styled-components";
 //import Loading from '../Component/Loading'
@@ -39,7 +39,6 @@ const SERVER_URL= 'http://localhost:4000/api/lookup';
 
 function ProfileLook() { 
 
-    
     const navigate = useNavigate();
     const goToWorkUpload = () => {
         navigate('/post');
@@ -53,67 +52,29 @@ function ProfileLook() {
                 <Logo />
 
                 <Center>
-                    <div style={{width:'25%'}}>
 
-                    
-                        <div >
-                            <One> {/* 이름 이메일  */}
-                                <div style={{display:'flex',flexDirection:'column',justifyContent:'end',height:'20vh',marginBottom:20}}>
-                                    <SmallWrap style={{marginBottom:10}}>
-                                        <div style={{fontSize:30,color:'black',width:'100%'}}>김또잉</div>
+                    {
+                        /*
+                        불러오는 부분은 Lookuo_Content 참고하기 
 
-                                    </SmallWrap>
-                                    
-                                    <Wrap>
-                                        <text style={{fontSize:25,  }}>ddoing@gmail.com</text> {/* 링크 복사하게끔  */}
+                        예시,참고 ) 
+                        ProfileLook 에서 자기 프로필일 경우 true,false 값 상태 저장하고 -> 저장한 변수  isVisible
 
-                                    </Wrap>
-                                </div>
+                        <ProfileInfo visible={isVisible}> 
 
-                            </One>
-                            
-                            <Onetwo>  {/* 소개 커리어  */}
+                        const  ProfileInfo = ({visible}) => { ,,, }
 
-                                <div style={{display:'flex',flexDirection:'column',width:'100%',marginBottom:23}}>
-                                    <div
-                                            style={{
-                                                width: "100%",
-                                                textAlign: "center",
-                                                //borderBottom: "2px solid #aaa",
-                                                //lineHeight: "0.1em",
-                                                //margin: "10px 0 10px",
-                                            }}
-                                            />
-                                    <Left >
-                                        <div style={{fontSize:25,color:'gray'}}> 소개</div>
-                                    </Left>
-                                    <Left style={{marginTop:10}}>
-                                        <Font  style={{textAlign:'left'}}>안녕 나는 000. 햄버거가 먹고싶다. </Font>
-                                    </Left>
-                                </div>
-                            
-                                <div style={{display:'flex',flexDirection:'column',width:'100%',marginBottom:23}}>
-                                    <div
-                                            style={{
-                                                width: "100%",
-                                                textAlign: "center",
-                                                //borderBottom: "2px solid #aaa",
-                                                //lineHeight: "0.1em",
-                                                //margin: "10px 0 10px",
-                                            }}
-                                            />
-                                    <Left >
-                                        <div style={{fontSize:25,color:'gray'}}> 커리어</div>
-                                    </Left>
-                                    <Left style={{marginTop:10}}>
-                                        <Font  style={{textAlign:'left'}}> 4학년이고 하라는 거 다 잘못해요 그니깐 아무것도 시키지마 </Font>
-                                    </Left>
-                                </div>
-                            </Onetwo>
+                        가져온 visible를 통해 ButtonShort 요소 보이게/안보이게 
 
-                        </div>
-                        <ButtonShort>프로필 수정</ButtonShort>
-                    </div>
+
+
+                        프로필 내용 :<ProfileInfo />
+                        프로필 수정  내용 :<ProfileInfo_Edit/>
+                        */
+
+                        
+                    }
+                   <ProfileInfo />
 
                     <div style={{width:'75%'}}>
                         <Two >
@@ -349,8 +310,27 @@ flex-direction: column;
 align-items: center;
 justify-content: center;
 
-width:80%
-//height:90%;
+width:80%;
+
+      /* tablet 규격 */
+    @media screen and (max-width: 1024px){
+      width:87%;
+    }
+
+    
+    /* mobile 규격 */
+    @media screen and (max-width: 540px){
+      width:95%;
+      
+    }
+    /* s 데스크 */
+    @media screen and (min-width: 1025px){
+        
+    }
+    /* l 데스크 */
+    @media screen and (min-width: 1700px){
+      width:75%;
+    }
 `;
 
 
@@ -378,26 +358,7 @@ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 `;
 
 
-const One = styled(ContentRadius)`
-display: flex;
-align-items: center;
-//width:25%;
-height:15vh;
-//min-height:50vh;
-flex-direction: column;
-margin-bottom:20px;
 
-`;
-
-const Onetwo = styled(ContentRadius)`
-display: flex;
-align-items: center;
-//width:25%;
-height:auto;
-min-height:50vh;
-flex-direction: column;
-
-`;
 const Two = styled(ContentRadius)`
 display: flex;
 align-items: center;
@@ -416,52 +377,8 @@ border-radius: 31px;
 overflow: hidden; 
 `;
 
-const SmallWrap = styled(Area)`
-height: auto;
-margin-top:20px;
-
-`;
-const Wrap = styled(Area)`
-height: auto;
 
 
-`;
-const FontStyle= {
-    fontSize: 27.5,
-
-    /* mobile 규격 */
-  '@media screen and (max-width: 540px)':
-    {
-        fontSize: 27,
-  },
-  '@media screen and (min-width: 1700px)': {
-    
-        fontSize: 45,
-    },
-};
-   
-const Font = styled.div`
-${FontStyle};
-color: black;
-
-
-width: 100%;
-
-`;
-
-const Left = styled.div`
-  text-align: center;
-  display: flex;
-  align-items: center;
-  margin-right: auto;
-
-  
-`;
-
-const Text = styled.text`
-color:gray;
-font-size:22px;
-`;
 
 const PostWrap =styled.div`
 text-align: center;

@@ -18,22 +18,22 @@ import PostEdit from './PostUp/PostEdit';
 const GlobalStyle = createGlobalStyle`
 
 @font-face {
-  font-family: 'Nanum_GothicNormal';
+  font-family: 'NanumNormal';
   font-style: normal;
   font-weight: normal;
-  src: url(./AnyConv.com__NanumGothic-Regular.woff);
+  src: url(./Font/AnyConv.com__NanumGothic-Regular.woff);
 }
 @font-face {
-  font-family: 'Nanum_GothicBold';
+  font-family: 'NanumBold';
   font-style: normal;
   font-weight: bold;
-  src: url(./AnyConv.com__NanumGothic-Bold.woff);
+  src: url(./Font/AnyConv.com__NanumGothic-Bold.woff);
 }
 @font-face {
-  font-family: 'Nanum_Gothic';
+  font-family: 'NanumExtra';
   font-style: normal;
   font-weight: 800;
-  src: url(./AnyConv.com__NanumGothic-ExtraBold.woff);
+  src: url(./Font/AnyConv.com__NanumGothic-ExtraBold.woff);
 }
   html, body {
     height: 100%;
@@ -41,7 +41,7 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     margin: 0;
    // overflow: hidden;
-   font-family: 'Nanum_GothicNormal';
+   font-family: 'NanumBold';
    
   }
   

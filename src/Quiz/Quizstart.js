@@ -102,6 +102,7 @@ const Quizstart = () => {
     height:20%;
     //margin-top:20px;`;
 
+    
     const Textselect= styled(Radius)`
     border: 3px #798BE6 solid;
     display: flex;
@@ -121,7 +122,7 @@ const Quizstart = () => {
     }
 
     @media screen and (max-width: 850px){
-        font-size: 35px;
+        font-size: 30px;
     }
     /* mobile 규격 */
     @media screen and (max-width: 540px){
@@ -170,7 +171,7 @@ const Quizstart = () => {
 
     
     @media screen and (max-width: 850px){
-        font-size: 35px;
+        font-size: 30px;
         &:hover{
             background:#798BE6;
         }

@@ -132,6 +132,10 @@ const handleCategorySelect = useCallback((category, limit, offset) => {
             onClick={() => {
               handleCategoryClick(category.name);
               selectCate(category.name);
+            }}
+            
+            style={{
+              marginRight: index === categoriesData.length - 1 ? '0px' : '',
             }}>
             {category.name }
             </ButtonTwo>
@@ -187,39 +191,46 @@ const OutWrap = styled.div`
       justify-content: center;
       align-items: center;
 
-      
+      *{
+        font-family: bold;
+      }
 
-    @media screen and (max-width: 1023px){
+      
+      
+    @media screen and (max-width: 1024px){
       * {
-      font-size: 23px;
+      font-size: 24px;
+      }
     }
-    }
+
+    @media screen and (max-width: 850px){
+     *{font-size: 24px;
+    } 
+  }
    
     /* mobile 규격 */
     @media screen and (max-width: 540px){
       * {
-      font-size: 25px;
+      font-size: 19px;
     }
         
+    
     }
     /* tablet 규격 */
-    @media screen and (min-width: 1024px){
+    @media screen and (min-width: 1025px){
       * {
-      font-size: 27.5px;
+      font-size: 24px;
     }
     }
-    /* s 데스크 */
-  @media screen and (min-width: 1210px){
-    * {
-    font-size: 25px;
-  }
-      
+    
   }
    
     @media screen and (min-width: 1700px) {
       * {
-        font-size: 39px;
+        font-size: 37px;
       }
+ 
+        
   `;
   
   const InsideWrap = styled.div`
@@ -228,6 +239,28 @@ const OutWrap = styled.div`
       flex-direction: column;
       align-items: center;
       width:80%;
+
+
+
+      /* tablet 규격 */
+    @media screen and (max-width: 1024px){
+      width:87%;
+    }
+
+    
+    /* mobile 규격 */
+    @media screen and (max-width: 540px){
+      width:95%;
+      
+    }
+    /* s 데스크 */
+    @media screen and (min-width: 1025px){
+        
+    }
+    /* l 데스크 */
+    @media screen and (min-width: 1700px){
+      width:75%;
+    }
   `;
 
 
@@ -248,8 +281,8 @@ const CategoryWrap = styled.div`
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(5, 1fr);
-    gap: 10px;
-    width: 75%;
+    gap: 15px;
+    width: 90%;
     height: auto;
     //min-height:80vh;
     padding: 20px;
@@ -273,16 +306,17 @@ const CategoryWrap = styled.div`
     }
     /* l 데스크 */
     @media screen and (min-width: 1700px){
-        
+      
     }
   `;
   
   const GridDiv = styled.div`
       width: 100%;
-      height: 36vh;
+      height: 37vh;
       border-radius: 10px;
       overflow: hidden;
 
+      cursor: pointer;
       /* tablet 규격 */
       @media screen and (max-width: 1023px){
         height: 26vh;
@@ -334,7 +368,7 @@ border:none;
 width:10vw;
 height: 7vh; 
 margin-left:20px;
-cursor: pointer;
+
 display: flex;
 align-items: center;
 justify-content: center;
@@ -354,6 +388,9 @@ color: white;
   height: 7vh;
 }
 
+@media screen and (max-width: 850px){
+ 
+}
 /* mobile 규격 */
 @media screen and (max-width: 540px){
   width:30vw;
@@ -384,41 +421,60 @@ const ButtonTwo = styled(Radius)`
   color: white;
   //flex-wrap: wrap;
   
-  
-
+  width:18.5%;
+  margin-right:15px;
   
   /* tablet 규격 */
-  @media screen and (max-width: 1023px){
-    width:19vw;
+  @media screen and (max-width: 1024px){
+    width:19%;
     height: 7vh; 
-    margin-right:6px;
+    margin-right:5px;
   }
-  
+
+  @media screen and (max-width: 850px){
+    width:19%;
+    height: 7vh; 
+    
+    &:nth-child(1){
+      width:21%;
+    }
+  }
 
   /* mobile 규격 */
   @media screen and (max-width: 540px){
-    width:46vw;
+    //width:46vw;
+    width:32%;
     height: 7vh; 
-    margin-right:6px;
+
+    &:nth-child(1){
+      width:33%;
+    }
+    &:nth-child(5){
+      margin-right: 0;
+    }
+
+    margin-right:3px;
     margin-bottom:10px;
   }
 
   /* ss 데스크 */
-  @media screen and (min-width: 1024px){
-    width:17.5vw;
-    margin-right:6px;
+  @media screen and (min-width: 1025px){
+   // width:17.5vw;
+    //margin-right:6px;
   }
   /* s 데스크 */
   @media screen and (min-width: 1210px){
     //width:17vw;
-    width:18.5%;
-    height: 7vh; 
+    //width:20%;
+    height: 7.3vh; 
+   // height:4rem;
       
   }
   @media screen and (min-width: 1700px) {
-    width:15vw;
-    height: 7vh; 
-    margin-right:25px;
+    //width:15vw;
+   height: 7vh; 
+    //margin-right:20px;
+    //height:2rem;
   }
     
   };

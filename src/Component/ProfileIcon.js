@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import profilelogo from '../Images/profileimg.png'
-import { LoginModal } from './LoginModal';
+import { LoginModal } from '../Modal/LoginModal';
 
 const HomeWrap = styled.div`
 margin-right:25px;
@@ -17,7 +17,7 @@ margin-right:25px;
 /* mobile 규격 */
         @media screen and (max-width: 540px){
             
-            top:65px;
+            top:55px;
             right:5px;
             margin-left:10px;
         }
@@ -34,8 +34,8 @@ height:50px;
 
         /* mobile 규격 */
         @media screen and (max-width: 540px){
-            width:37px;
-            height:37px;
+            width:41px;
+            height:41px;
             
         }
         /* s 데스크 */
@@ -44,8 +44,8 @@ height:50px;
         }
         /* l 데스크 */
         @media screen and (min-width: 1700px){
-            width:80px;
-            height:80px;
+            width:70px;
+            height:70px;
         }
 `;
 
@@ -143,7 +143,7 @@ const CateMenu = styled.div`
 `;
 
 
-//예시 !!!!!!! 알아보기 쉽게 
+
 export const ProfileIcon = () => {
     const [isOpen, setIsOpen] = useState(false); // 모달창때문에 있는거 삭제 노 
 
