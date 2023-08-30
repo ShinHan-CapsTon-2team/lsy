@@ -2,7 +2,7 @@ import React from 'react';
 import { styled } from 'styled-components';
 
 import kakaimg from '../Images/btn_kakao.svg'
-
+//import kakaoThimg from '../Images/kakaoshareImg.jpg'
 const { Kakao } = window;
 
 function KaKao({_resulttype}) {
@@ -38,8 +38,15 @@ function KaKao({_resulttype}) {
     }
     `;
     
-    const imageUrl = `${process.env.PUBLIC_URL}/Images/kakaoshareImg.jpg`;
-    console.log(imageUrl);
+    const kakaoThimg = `${process.env.PUBLIC_URL}/Images/kakaoshareImg.jpg`;
+    //const imageUrl = process.env.PUBLIC_URL + '/Images/kakaoshareImg.jpg';
+
+    //const kakaoThimg= '../Images/kakaoshareImg.jpg'
+    let replaced_imageUrl = ''
+    
+        replaced_imageUrl = 'https://localhost:3000/' + kakaoThimg.replace('../', '');
+    
+
     const onHandleShareKaKao = () => {
         
         if (!Kakao.isInitialized()) {
@@ -48,9 +55,9 @@ function KaKao({_resulttype}) {
         Kakao.Link.sendDefault({
             objectType: 'feed',
             content: {
-            title: '선호하는 사진 스타일을 확인해보세요!',
+            title: '📷 선호하는 사진 스타일을 확인해보세요!',
             description: ' 테스트를 통해 선호하는 분위기를 확인하고 비슷한 스타일의 멋진 사진들을 만나보세요. ',
-            imageUrl:imageUrl,
+            imageUrl:'https://postfiles.pstatic.net/MjAyMzA4MzBfMTEx/MDAxNjkzMzYxOTI0NjA2.d-OZdlkBE0kAfoghaQ8sIYzSLc1ZG1Ft7EN1tpUjYXsg.eV926-_YSewC2AZYYIbImZoYRPhO5IK3g4ohxj2DoWgg.JPEG.stpaq125/kakaoshareImg.jpg?type=w773',
             link: {
                 // [내 애플리케이션] > [플랫폼] 에서 등록한 사이트 도메인과 일치해야 함
                 mobileWebUrl: 'https://developers.kakao.com',
