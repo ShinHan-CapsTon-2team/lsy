@@ -38,6 +38,8 @@ function KaKao({_resulttype}) {
     }
     `;
     
+    const imageUrl = `${process.env.PUBLIC_URL}/Images/kakaoshareImg.jpg`;
+    console.log(imageUrl);
     const onHandleShareKaKao = () => {
         
         if (!Kakao.isInitialized()) {
@@ -48,8 +50,7 @@ function KaKao({_resulttype}) {
             content: {
             title: '선호하는 사진 스타일을 확인해보세요!',
             description: ' 테스트를 통해 선호하는 분위기를 확인하고 비슷한 스타일의 멋진 사진들을 만나보세요. ',
-            imageUrl:
-                'http://k.kakaocdn.net/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png',
+            imageUrl:imageUrl,
             link: {
                 // [내 애플리케이션] > [플랫폼] 에서 등록한 사이트 도메인과 일치해야 함
                 mobileWebUrl: 'https://developers.kakao.com',

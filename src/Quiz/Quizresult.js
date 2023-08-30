@@ -11,6 +11,8 @@ import weddingResult from '../Datajson/weddingresult.json'
 import btn_link from '../Images/btn_link.svg'
 import { Success } from '../Modal/Success';
 import KakaoShareBtn from '../Component/Kakao';
+
+
 const getResultbody = () => {
     return bodyResult;
 };
