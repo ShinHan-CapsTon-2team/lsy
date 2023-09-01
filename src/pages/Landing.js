@@ -77,15 +77,17 @@ function Landing(){
         flex-direction: column;
         align-items: center;
 
-        width:55%;
-
+        //width:55%;
+        width:51%;
+        height:100%;
         @media screen and (max-width: 1024px){
             
             width: 70%;
         }
         @media screen and (max-width: 540px){
             
-            width: 91%;
+            width: 87%;
+            
         }
 
         
@@ -117,30 +119,34 @@ function Landing(){
     height: 9.6vh;; 
     font-size: 35px;
     margin-bottom:15px;
+    //height:18.5%;
 
 
-    /* tablet 규격 */
-        @media screen and (max-width: 1023px){
-            
-        }
+    @media screen and (max-width: 1024px){
+        font-size: 28px;
+    }
 
-        /* mobile 규격 */
-        @media screen and (max-width: 540px){
-            
-            height: 9.4vh;
-            font-size: 24px;
-            margin-bottom:12px;
-        }
-        /* s 데스크 */
-        @media screen and (min-width: 1024px){
-            
-        }
-        /* l 데스크 */
-        @media screen and (min-width: 1700px){
-            height: 9vh;
-            font-size: 40px;
-            
-        }
+    @media screen and (max-width: 850px){
+        font-size: 27px;
+    }
+    /* mobile 규격 */
+    @media screen and (max-width: 540px){
+        
+        font-size: 25px;
+        margin-bottom:15px;
+    }
+
+    /* s 데스크 */
+    @media screen and (min-width: 1025px){ 
+        font-size: 30px;
+        
+    }
+    /* l 데스크 */
+    @media screen and (min-width: 1700px){
+
+        font-size: 40px;
+        
+    }
 `;
 
 

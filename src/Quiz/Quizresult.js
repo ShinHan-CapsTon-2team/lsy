@@ -158,19 +158,22 @@ const Quizresult  = () => {
                 
                 </Direction>
                 
-                <Wrap>
-                    <Twrap>
-                        <div>
+                
+                    <Twrap style={{flexDirection:'column'}}>
+                        
+                        <Text2 style={{fontWeight:600 ,marginBottom:20,fontSize:29}}> 결과 공유하기</Text2>
+                        <div style={{display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
                             <CopyToClipboard text={currentUrl} onCopy={handleCopy}>
                                 <BtnLink src = {btn_link}></BtnLink>
                             </CopyToClipboard>
                             {copied && <Success text="링크 복사가 완료되었습니다."/>}
-                        </div>
                         
-                        <KakaoShareBtn _resulttype={type}/>
+                        
+                            <KakaoShareBtn _resulttype={type}/>
+                        </div>
                     </Twrap>
                 
-                </Wrap>
+                
 
                 <InsideNextWrap> 
                     <ButtonTwo onClick={handleGoHomeClick}>                         
@@ -218,6 +221,8 @@ height:60px;
         width:70px;
         height:70px;
     }`;
+
+
 const OutWrap = styled.div`
     width: 100%;
     height: 100%;
@@ -237,6 +242,7 @@ const OutWrap = styled.div`
 `;
 
     const InsideWrap = styled.div`
+        width:100%;
 
         text-align: center;
         display: flex;
@@ -284,7 +290,7 @@ const OutWrap = styled.div`
 
     const Row = styled.div`
   display: flex;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 `;
     const Img= styled.img`
     border: 5px #798BE6 solid;
@@ -296,38 +302,46 @@ const OutWrap = styled.div`
     cursor:pointer;
     ${({ isNotLast }) => isNotLast && "margin-right: 20px;"}
     
+    width:350px;
+    height:470px;
 
-    width: 24vw;
-    height: 63vh;
-
+    //width: 24vw;
+    //height: 63vh;
+   
     &:hover {
         border: 5px #4E62C5 solid;
     }
     /* tablet 규격 */
-        @media screen and (max-width: 1023px){
-            width: 33vw;
-            height: 31vh;
-            margin-bottom:10px;
-            ${({ isNotLast }) => isNotLast && "margin-right: 10px;"}
+        @media screen and (max-width: 1024px){
+           // width: 33vw;
+           // height: 31vh;
+            width:250px;
+            height:370px;
+            //margin-bottom:10px;
+            
             border: 4px #798BE6 solid;
         }
 
         /* mobile 규격 */
         @media screen and (max-width: 540px){
-            width: 43vw;
-            height: 36vh;
-            margin-bottom:10px;
-            ${({ isNotLast }) => isNotLast && "margin-right: 10px;"}
+            //width: 43vw;
+            //height: 36vh;
+            width:160px;
+            height:280px;
+            //margin-bottom:10px;
+           
             border: 4px #798BE6 solid;
         }
         /* s 데스크 */
-        @media screen and (min-width: 1024px){
+        @media screen and (min-width: 1025px){
             
         }
         /* l 데스크 */
         @media screen and (min-width: 1700px){
-            width: 26vw;
-            height: 65vh;
+            //width: 26vw;
+            //height: 65vh;
+            width:470px;
+            height:590px;
             border: 8px #798BE6 solid;
             &:hover {
                 border: 8px #4E62C5 solid;
@@ -376,7 +390,7 @@ const OutWrap = styled.div`
     `;
 
     const TextWrap =styled.div`
-    border: 3px #798BE6 solid;
+    border: 4px #798BE6 solid;
     
     padding: 20px;
     word-wrap: break-word;
@@ -384,8 +398,8 @@ const OutWrap = styled.div`
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
     width:58vw;
-    height: 9vh; 
-
+    height:11vh; 
+    
     display: flex;
     align-items: center;
     justify-content: center;
@@ -410,7 +424,7 @@ const OutWrap = styled.div`
         }
         /* l 데스크 */
         @media screen and (min-width: 1700px){
-            height: 11vh;
+            height: 13vh; 
         }
 
     `;
@@ -419,6 +433,7 @@ const OutWrap = styled.div`
     font-size: 40px;
     color:  #798BE6;
     font-weight: 600;
+    margin-bottom:13px;
     /* tablet 규격 */
         @media screen and (max-width: 1023px){
             
@@ -435,6 +450,7 @@ const OutWrap = styled.div`
         /* l 데스크 */
         @media screen and (min-width: 1700px){
             font-size: 45px;
+            margin-bottom:15px;
         }
     `;
 
@@ -463,22 +479,34 @@ const OutWrap = styled.div`
 
 
     const Twrap =styled.div`
-    border: 3px #798BE6 solid;
+    border: 4px #798BE6 solid;
     
     padding: 20px;
     word-wrap: break-word;
     border-radius: 21px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
-    width:38vw;
-    height: 9vh; 
+    width:30vw;
+    height: 21vh; 
 
     display: flex;
     align-items: center;
     justify-content: center;
+    
     flex-direction: row;
     margin-top:20px;
     margin-bottom:25px;
+
+    &::after {
+        content: "씨발"; // 원하는 텍스트를 입력하세요
+        position: absolute;
+        top: -20px; /* 텍스트가 테두리 위에 오도록 위치 조정 */
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #fff;
+        color:black;
+        padding: 0 10px;
+      }
     /* tablet 규격 */
         @media screen and (max-width: 1023px){
             
@@ -500,7 +528,8 @@ const OutWrap = styled.div`
         }
 
     `;
-    const ButtonTwo = styled(Radius)`
+
+const ButtonTwo = styled(Radius)`
 background: #798BE6;
 display: flex;
 align-items: center;
@@ -509,37 +538,40 @@ justify-content: center;
 position: relative;
 cursor: pointer;
   
-  font-size: 33px;
+font-size: 27px;
 
 color: white;
 font-weight: 500;
 
   ;
   /* tablet 규격 */
-        @media screen and (max-width: 1023px){
+        @media screen and (max-width: 1024px){
             width:33vw;
             height: 7vh;
             font-size: 25px;
             margin-right:10px;
         }
 
+        @media screen and (max-width: 850px){
+            font-size: 24px;
+        }
         /* mobile 규격 */
         @media screen and (max-width: 540px){
             width:42.2vw;
             height: 7vh; 
             margin-right:10px;
-            font-size: 15px;
+            font-size: 22px;
         }
         /* s 데스크 */
-        @media screen and (min-width: 1024px){
+        @media screen and (min-width: 1025px){
             width:25vw;
-            height: 7vh;
+            height: 8vh;
             margin-right:20px;
         }
         /* l 데스크 */
         @media screen and (min-width: 1700px){
             width:26vw;
             height: 7vh;
-            font-size: 36px;
+            font-size: 37px;
         }
  `;

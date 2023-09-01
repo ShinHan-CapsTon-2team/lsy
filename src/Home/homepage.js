@@ -191,20 +191,14 @@ const OutWrap = styled.div`
       justify-content: center;
       align-items: center;
 
-      *{
-        font-family: bold;
-      }
-
-      
-      
     @media screen and (max-width: 1024px){
       * {
-      font-size: 24px;
+      font-size: 22px;
       }
     }
 
     @media screen and (max-width: 850px){
-     *{font-size: 24px;
+     *{font-size: 21px;
     } 
   }
    
@@ -213,10 +207,8 @@ const OutWrap = styled.div`
       * {
       font-size: 19px;
     }
-        
-    
     }
-    /* tablet 규격 */
+    
     @media screen and (min-width: 1025px){
       * {
       font-size: 24px;
@@ -229,8 +221,7 @@ const OutWrap = styled.div`
       * {
         font-size: 37px;
       }
- 
-        
+    
   `;
   
   const InsideWrap = styled.div`
@@ -421,6 +412,10 @@ const ButtonTwo = styled(Radius)`
   
   width:18.5%;
   margin-right:15px;
+  
+  &:nth-child(1){
+    width:19.5%;
+  }
   
   /* tablet 규격 */
   @media screen and (max-width: 1024px){

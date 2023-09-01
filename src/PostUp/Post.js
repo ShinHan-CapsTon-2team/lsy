@@ -17,7 +17,7 @@ function Post() {
     const [description, setDescription] = useState('');
    
     const [category, setCategory] = useState('');
-    const [name, setName] = useState('');
+    //const [name, setName] = useState('');
     const [profile, setProfile] = useState(''); 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [imageFile, setImageFile] = useState(null);
@@ -134,7 +134,7 @@ function Post() {
           description,
           //image_url: previewImage, //미리보기 이미지를 전송
           category,
-          name,
+         // name,
           
           //created_at : getCurrentTime(),
           };
@@ -228,18 +228,7 @@ function Post() {
                                 </WrapAuto>
                             </One>
                             
-                            <Two>{/*이름 */}
-                              
-                              <WrapAuto>
-                                  <InputBasic 
-                                      type="text"
-                                      value={name}
-                                      onChange={(e) => setName(e.target.value)}
-                                      placeholder="이름"
-                                  />
-                              </WrapAuto>
-
-                            </Two>
+                            
                             
                             <Three>{/* 설명 */}
                                 {/* 드래그 방지 추가하기 */}
@@ -335,28 +324,97 @@ flex-direction: column;
 // justify-content: center;
 align-items: center;
 
-* {
-  font-size: 33px;
+
+
+@media screen and (max-width: 1024px)
+{
+  *{
+    font-size: 22px;
+  }
+}
+
+@media screen and (max-width: 850px)
+{
+  *{
+    font-size: 21px;
+  }
 }
 /* mobile 규격 */
 @media screen and (max-width: 540px){
   * {
-  font-size: 27px;
+  font-size: 19px;
+  }
 }
     
+
+@media screen and (min-width: 1025px){
+  * {
+  font-size: 24px;
+  }
+}
+
 }
 @media screen and (min-width: 1700px) {
   * {
-    font-size: 45px;
+    font-size: 37px;
   }
+  
 `;
-
+const FontStyle = {
+  '@media screen and (max-width: 1024px)':{
+  
+  fontSize: 22
+  },
+  
+  '@media screen and (max-width: 850px)':{
+  fontSize: 21
+  
+  },
+  
+  /* mobile 규격 */
+  '@media screen and (max-width: 540px)':{
+  
+  fontSize: 19
+  },
+  /* tablet 규격 */
+  '@media screen and (min-width: 1025px)':{
+  
+  fontSize: 24
+  },
+  '@media screen and (min-width: 1700px)': {
+  
+  fontSize: 37
+  }
+  };
 const InOutWrap = styled.div`
 //text-align: center;
 display: flex;
 flex-direction: column;
 align-items: center;
 justify-content: center;
+/* 헤더 간격 맞추기 
+width:80%;
+/* tablet 규격 */
+@media screen and (max-width: 1024px){
+  width:87%;
+}
+
+
+/* mobile 규격 */
+@media screen and (max-width: 540px){
+  width:95%;
+  
+}
+/* s 데스크 */
+@media screen and (min-width: 1025px){
+    
+}
+/* l 데스크 */
+@media screen and (min-width: 1700px){
+  width:75%;
+} 
+
+*/
 `;
 
 const Center = styled.div`
@@ -374,10 +432,12 @@ width:65vw;
         @media screen and (max-width: 1023px){
             
         }
-
+        @media screen and (max-width: 850px){
+          width: 80vw;
+      }
         /* mobile 규격 */
         @media screen and (max-width: 540px){
-          width: 80vw;
+          width: 90vw;
         }
         /* s 데스크 */
         @media screen and (min-width: 1024px){
@@ -398,7 +458,7 @@ align-items: center;
 margin-bottom:20px;
 /* mobile 규격 */
   @media screen and (max-width: 540px){
-    width: 80vw;
+    width: 90vw;
     height:19vh;
   }
 @media screen and (min-width: 1700px) {
@@ -420,7 +480,63 @@ border-radius: 31px;
 box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 margin-top: 20px;
 
-@media screen and (min-height: 900px) {
+@media screen and (max-width: 540px) {
+  margin-top: 15px;
+  
+};
+@media screen and (max-width: 850px) {
+  //margin-top: 15px;
+  border: 2fgrttttttt
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  px #3A76EF solid;
+};
+@media screen and (min-width: 900px) {
     margin-top: 30px;
     border: 4px #3A76EF solid;
 };
@@ -486,7 +602,7 @@ const Buttons = styled.div`
   width: 100%;
 
   /* tablet 규격 */
-  @media screen and (max-width: 1023px){
+  @media screen and (max-width: 680px){
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -529,6 +645,11 @@ const ButtonTwo = styled(Radius)`
   height: 7vh; 
   color: white;
 
+  @media screen and (max-width: 1024px){
+    width:20vw;
+    height: 7vh; 
+
+  }
   /* mobile 규격 */
   @media screen and (max-width: 540px){
     width:41vw;
@@ -537,7 +658,7 @@ const ButtonTwo = styled(Radius)`
   }
 
   /* s 데스크 */
-  @media screen and (min-width: 1024px){
+  @media screen and (min-width: 1025px){
       
   }
   @media screen and (min-width: 1700px) {
@@ -655,7 +776,7 @@ const DropMenu = styled.div`
 
   //text-align: center;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  top: -137px;
+  top: -167px; // 높 : 860 -167px; 
 
 
   /* tablet 규격 */
@@ -666,7 +787,7 @@ const DropMenu = styled.div`
         /* mobile 규격 */
         @media screen and (max-width: 540px){
           width:45vw;
-          top: -147px;
+          top: -157px;
         }
         /* s 데스크 */
         @media screen and (min-width: 1024px){
@@ -675,7 +796,7 @@ const DropMenu = styled.div`
         /* l 데스크 */
         @media screen and (min-width: 1700px){
           width:40vw;
-          top: -177px;
+          top: -197px; // 1080 
         }
 `;
 

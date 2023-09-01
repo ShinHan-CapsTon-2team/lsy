@@ -1,8 +1,8 @@
 import React ,{useEffect}from 'react';
 import {BrowserRouter, Routes, Route} from 'react-router-dom'; 
-//import "./Font/Font.css"
+import "./Font/Font.css"
 
-//import GlobalStyles from "./GlobalStyles"; // GlobalStyles 불러오기
+import GlobalStyles from "./GlobalStyles"; // GlobalStyles 불러오기
 import Landing from './pages/Landing';
 import QuizSelIndex from './Quiz/Quizstart'
 import QuizSelPhoto from './Quiz/Quiztest'
@@ -14,36 +14,22 @@ import Lookup from './Lookup/Image_Lookup_Comtest'
 import  { createGlobalStyle } from "styled-components";  
 import ProfileLook from './Mypage/ProfileLook';
 import PostEdit from './PostUp/PostEdit';
-// 전역 스타일 설정
+
+
 const GlobalStyle = createGlobalStyle`
 
-@font-face {
-  font-family: 'NanumNormal';
-  font-style: normal;
-  font-weight: normal;
-  src: url(./Font/AnyConv.com__NanumGothic-Regular.woff);
-}
-@font-face {
-  font-family: 'NanumBold';
-  font-style: normal;
-  font-weight: bold;
-  src: url(./Font/AnyConv.com__NanumGothic-Bold.woff);
-}
-@font-face {
-  font-family: 'NanumExtra';
-  font-style: normal;
-  font-weight: 800;
-  src: url(./Font/AnyConv.com__NanumGothic-ExtraBold.woff);
-}
+
   html, body {
     height: 100%;
     width: 100%;
     padding: 0;
     margin: 0;
    // overflow: hidden;
-   font-family: 'NanumBold';
+   //font-family: "GmarketSansTTFBold";
    
   }
+  
+
   
   
 `;
@@ -60,7 +46,7 @@ function App() {
     
 
     <BrowserRouter>
-        <GlobalStyle /> 
+        <GlobalStyles /> 
         <div className="App" >
             
             <Routes>

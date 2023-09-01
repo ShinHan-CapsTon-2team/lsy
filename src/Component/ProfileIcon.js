@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import profilelogo from '../Images/profileimg.png'
+import profilelogo from '../Images/pp.png'
 import { LoginModal } from '../Modal/LoginModal';
-
+import { ProandLogout } from '../Modal/ProandLogout';
 const HomeWrap = styled.div`
-margin-right:25px;
+margin-right:30px;
 
 //position: absolute;
 //right:225px;
@@ -17,36 +17,36 @@ margin-right:25px;
 /* mobile 규격 */
         @media screen and (max-width: 540px){
             
-            top:55px;
-            right:5px;
+            //top:55px;
+            //right:5px;
             margin-left:10px;
         }
   
 `;
 
 const HomeLogo =styled.img`
-width:50px;
-height:50px;
+width:57px;
+height:57px; //+2
 /* tablet 규격 */
-        @media screen and (max-width: 1024px){
-            
-        }
+@media screen and (max-width: 1024px){
+    
+}
 
-        /* mobile 규격 */
-        @media screen and (max-width: 540px){
-            width:41px;
-            height:41px;
-            
-        }
-        /* s 데스크 */
-        @media screen and (min-width: 1025px){
-            
-        }
-        /* l 데스크 */
-        @media screen and (min-width: 1700px){
-            width:70px;
-            height:70px;
-        }
+/* mobile 규격 */
+@media screen and (max-width: 540px){
+    width:43px;
+    height:43px;
+    
+}
+/* s 데스크 */
+@media screen and (min-width: 1025px){
+    
+}
+/* l 데스크 */
+@media screen and (min-width: 1700px){
+    width:70px;
+    height:70px;
+}
 `;
 
 export const ModalBackdrop = styled.div`
@@ -65,7 +65,24 @@ export const ModalBackdrop = styled.div`
   right : 0;
   bottom : 0;
 
-  
+`;
+
+export const ProfileBackdrop = styled.div`
+  // Modal이 떴을 때의 배경을 깔아주는 CSS를 구현
+  width:100%;
+  height:100%;
+
+  z-index: 1; //위치지정 요소
+  position: fixed;
+  display : flex;
+  justify-content : center;
+  align-items : center;
+  //background-color: rgba(0,0,0,0.4);
+  top : 0;
+  left : 0;
+  right : 0;
+  bottom : 0;
+
 `;
 
 
@@ -82,66 +99,6 @@ export const ModalView = styled.div.attrs((props) => ({
   background-color: #ffffff;
     
 `;
-
-
-const DropMenu = styled.div` 
-  position: absolute;
-  background-color: white;
-  //border: 1px solid #ccc;
-  padding: 10px;
-  border-radius: 30px;
-  z-index: 9999;
-
-  //text-align: center;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  top: 100px;
-  right:80px;
-
-
-  /* tablet 규격 */
-        @media screen and (max-width: 1023px){
-            
-        }
-
-        /* mobile 규격 */
-        @media screen and (max-width: 540px){
-          width:45vw;
-          //top: -147px;
-        }
-        /* s 데스크 */
-        @media screen and (min-width: 1024px){
-          width:15vw;
-        }
-        /* l 데스크 */
-        @media screen and (min-width: 1700px){
-          width:20vw;
-          top: 120px;
-        }
-`;
-
-const CateMenu = styled.div` 
-  font-size: 25px;
-  margin-top:5px;
-
-  /* tablet 규격 */
-        @media screen and (max-width: 1023px){
-            
-        }
-
-        /* mobile 규격 */
-        @media screen and (max-width: 540px){
-            
-        }
-        /* s 데스크 */
-        @media screen and (min-width: 1024px){
-          
-        }
-        /* l 데스크 */
-        @media screen and (min-width: 1700px){
-          font-size: 30px;
-        }
-`;
-
 
 
 export const ProfileIcon = () => {
@@ -170,16 +127,17 @@ export const ProfileIcon = () => {
           {isOpen && (
             isLogin ? (
               // 1. 로그인한  상태
-              <DropMenu>
-                <CateMenu onClick={onGoProfile}>마이프로필</CateMenu>
-                <CateMenu onClick={onNaverLogout}>로그아웃</CateMenu>
-              </DropMenu>
+              <ProandLogout/>
               
             ) : (
               // 2. 로그인 안한 상태
-              <ModalBackdrop onClick={openModalHandler}>
-                <LoginModal />
-              </ModalBackdrop>
+              //<ModalBackdrop onClick={openModalHandler}>
+              //  <LoginModal />
+              //</ModalBackdrop>
+              
+             
+                <ProandLogout/>
+              
             )
           )}
         </HomeWrap>

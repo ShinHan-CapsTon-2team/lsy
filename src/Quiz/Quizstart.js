@@ -1,5 +1,5 @@
  //import React, { useState } from 'react';
-import text from '../Images/image 21.png'
+//import text from '../Images/image 21.png'
 
 import styled from "styled-components";
 

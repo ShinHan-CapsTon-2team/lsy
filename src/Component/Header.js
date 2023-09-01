@@ -4,7 +4,7 @@ import {  useNavigate } from 'react-router-dom';
 
 import logo from '../Images/imagelogo.png';
 import styled from "styled-components";
-import homelogo from '../Images/homelogo.png'
+import homelogo from '../Images/hh.png'
 import { ProfileIcon } from './ProfileIcon';
 
 // 회원 아이콘 추가,,, 누를 시 1) 로그인 한 경우는 프로필 정보 페이지 2)로그인 x 로그인 페이지로 
@@ -35,10 +35,12 @@ const Header=() =>
         </LandingWrap> 
         
         <HomeWrap >
-
+            <div>
+                <HomeLogo src={homelogo} alt='homelogo' onClick={handleGohomeClick} />
+            </div>
+                
             
             <ProfileIcon/>
-            <HomeLogo src={homelogo} alt='homelogo' onClick={handleGohomeClick} />
         </HomeWrap>         
     </LogoWrap>
 
@@ -70,28 +72,30 @@ justify-content: center;
 `;
 
 const HomeLogo =styled.img`
-width:45.5px;
-height:45.5px;
+width:55px;
+height:55px;
+margin-right:30px;
 /* tablet 규격 */
-        @media screen and (max-width: 1024px){
-            
-        }
+@media screen and (max-width: 1024px){
+    
+}
 
-        /* mobile 규격 */
-        @media screen and (max-width: 540px){
-            width:38px;
-            height:38px;
-            
-        }
-        /* s 데스크 */
-        @media screen and (min-width: 1025px){
-            
-        }
-        /* l 데스크 */
-        @media screen and (min-width: 1700px){
-            width:70px
-            height:70px;
-        }
+/* mobile 규격 */
+@media screen and (max-width: 540px){
+    margin-right:10px;
+    width:41px;
+    height:41px;
+    
+}
+/* s 데스크 */
+@media screen and (min-width: 1025px){
+    
+}
+/* l 데스크 */
+@media screen and (min-width: 1700px){
+    width:70px;
+    height:70px;
+}
 `;
 
 const LandingLogo = styled.img`

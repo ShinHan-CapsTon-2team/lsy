@@ -189,7 +189,7 @@ const OutWrap = styled.div`
 
         @media screen and (max-width: 900px){
             width: 43vw;
-            height: 66vh;
+            height: 53vh;
             margin-right: 15px;
         }
 

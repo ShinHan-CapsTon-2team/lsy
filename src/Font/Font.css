@@ -1,18 +1,20 @@
 @font-face {
     font-family: 'NanumNormal';
-    font-style: normal;
-    font-weight: normal;
-    src: url(./AnyConv.com__NanumGothic-Regular.woff);
+    
+    src: url("./AnyConv.com__NanumGothic-Regular.woff") format('opentype');
 }
 @font-face {
     font-family: 'NanumBold';
-    font-style: normal;
-    font-weight: bold;
-    src: url(./AnyConv.com__NanumGothic-Bold.woff);
+
+    src: url("./AnyConv.com__NanumGothic-Bold.woff")format('opentype');
 }
 @font-face {
     font-family: 'NanumExtra';
-    font-style: normal;
-    font-weight: 800;
-    src: url(./AnyConv.com__NanumGothic-ExtraBold.woff);
+
+    src: url("./AnyConv.com__NanumGothic-ExtraBold.woff")format('opentype');
+    }
+@font-face {
+    font-family: "GmarketSansTTFBold";
+
+    src: url("./GmarketSansTTFBold.ttf") format("truetype");
 }

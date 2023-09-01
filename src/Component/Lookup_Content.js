@@ -1,7 +1,7 @@
 
 import styled from "styled-components";
 import  {useNavigate } from 'react-router-dom';
-import profilelogo from '../Images/profileimg.png'
+import profilelogo from '../Images/profilelogo.png'
 
 const Lookup_Content =({ title,name,imageurl,description,created_at,id }) => {
 
