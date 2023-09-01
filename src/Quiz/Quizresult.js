@@ -41,8 +41,6 @@ const Quizresult  = () => {
     const [copied, setCopied] = useState(false);
     const currentUrl = window.location.href;
     
-    
-
     const categoryName = params.get('name');
     const res = params.get('res');
     //확인해보기 
@@ -113,7 +111,7 @@ const Quizresult  = () => {
       
       setTimeout(() => {
         setCopied(false);
-      }, 2000); // 2초 후에 '복사되었습니다' 메시지가 사라지도록 설정
+      }, 1000); // 2초 후에 '복사되었습니다' 메시지가 사라지도록 설정
   
       // 복사 후 추가적인 작업을 수행하고 싶다면 여기에 코드를 추가할 수 있습니다.
     };

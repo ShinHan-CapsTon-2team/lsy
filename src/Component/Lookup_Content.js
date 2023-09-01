@@ -71,7 +71,7 @@ const At =styled.text`
 
     const InLayoutOne = styled.div`
     text-align:center;
-    width:65vw;
+    width:100%;
     margin-bottom:30px;
     /* tablet 규격 */
     @media screen and (max-width: 1023px){

@@ -1,11 +1,10 @@
-
-
 import React, {useParams ,useNavigate} from 'react-router-dom';
 import { useEffect,useState } from 'react'
 import Logo from "../Component/Header"
 import styled from "styled-components";
 import Lookup_Content from '../Component/Lookup_Content';
 import Loading from '../Component/Loading';
+import { Success } from '../Modal/Success';
 const SERVER_URL= 'http://localhost:4000/api/lookup';
 
 //const SERVER_URL= 'http://localhost:4000/api/post';
@@ -13,10 +12,16 @@ const SERVER_URL= 'http://localhost:4000/api/lookup';
 function Images_Lookup_Comtest() {
     const navigate = useNavigate();
 
-    const params = useParams(); // 1
-    const id = params.id; // 2
+    const params = useParams(); 
+    const id = params.id; 
+    //확인용
     console.log( 'params:',params);
     console.log('id:',id);
+
+
+    //삭제 성공/실패 모달창 
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+    const [showErrorMessage, setShowErrorMessage] = useState(false);
 
     // API로부터 받아온 데이터를 저장할 상태 변수
     const [user, setUser] = useState([]);
@@ -58,6 +63,48 @@ function Images_Lookup_Comtest() {
     const handelGoEdit = () => {
         navigate(`/postedit/${id}`); 
     };
+
+    const handleDelete = () => {
+        const confirmed = window.confirm('게시물을 삭제하시겠습니까?');
+        
+            if (confirmed) {
+            const reqOptions = {
+                method: 'delete',
+                headers: {
+                'Accept': 'application/json',
+                },
+            };
+        
+            fetch(`${SERVER_URL}/${id}`, reqOptions)
+                .then((res) => {
+                if (res.status === 204) {
+                    // 성공 메시지를 보여줍니다.
+                    setShowSuccessMessage(true);
+
+                    // 1초 후에 성공 메시지를 숨깁니다.
+                    setTimeout(() => {
+                    setShowSuccessMessage(false);
+                    navigate('/home');
+                    }, 1000);
+                    navigate('/home');
+
+                } else {
+                    // 실패 메시지를 보여줍니다.
+                    setShowErrorMessage(true);
+
+                    // 1초 후에 실패 메시지를 숨깁니다.
+                    setTimeout(() => {
+                    setShowErrorMessage(false);
+                    }, 1000);
+                }
+                })
+                .catch((error) => {
+                console.error('Error deleting data:', error);
+                });
+            }
+        };
+
+    
     return (  
         
         <OutWrap>
@@ -73,11 +120,18 @@ function Images_Lookup_Comtest() {
 
                         {/*  id={uu.id}  작성자 식별할 수 있는 걸로 고쳐야함 */}
                         return(
-                                <Lookup_Content title={uu.title} name={uu.name} imageurl={imageUrl} description ={uu.description}
-                                created_at={uu.created_at} id={uu.id} />    
+                                <Lookup_Content 
+                                title={uu.title} 
+                                name={uu.name} 
+                                imageurl={imageUrl} 
+                                description ={uu.description}
+                                created_at={uu.created_at} 
+                                id={uu.id} />    
                                 )
                             }
                         )} 
+
+
                     <InLayoutTwo> {/* 자기 게시글이면 보이게 처리하기  */}
                         <Buttons>
                             <Right> 
@@ -85,9 +139,14 @@ function Images_Lookup_Comtest() {
                                     수정  
                                 </EditButton>
 
-                                <DelectButton>
-                                    삭제  
-                                </DelectButton> 
+                                <DelectButton onClick={handleDelete}>
+                                    삭제
+                                </DelectButton>
+                                {/* 성공 메시지를 보여주는 부분 */}
+                                {showSuccessMessage && <Success text="게시물이 성공적으로 삭제되었습니다." />}
+
+                                {/* 실패 메시지를 보여주는 부분 */}
+                                {showErrorMessage && <Success text="게시물 삭제에 실패했습니다." />}
                             </Right>
                         </Buttons>
                     </InLayoutTwo>
@@ -128,6 +187,25 @@ display: flex;
 flex-direction: column;
 align-items: center;
 justify-content: center;
+width:80%;
+/* tablet 규격 */
+@media screen and (max-width: 1024px){
+  width:87%;
+}
+
+/* mobile 규격 */
+@media screen and (max-width: 540px){
+  width:95%;
+  
+}
+/* s 데스크 */
+@media screen and (min-width: 1025px){
+    
+}
+/* l 데스크 */
+@media screen and (min-width: 1700px){
+  width:75%;
+} 
 `;
 
 const Center = styled.div`
@@ -136,47 +214,23 @@ display: flex;
 flex-direction: column;
 align-items: center;
 
-`;
-
-const InLayoutOne = styled.div`
-text-align:center;
-width:65vw;
-margin-bottom:30px;
-/* tablet 규격 */
-@media screen and (max-width: 1023px){
-    
-}
-
-/* mobile 규격 */
-@media screen and (max-width: 540px){
-    
-}
-/* s 데스크 */
-@media screen and (min-width: 1024px){
-    
-}
-/* l 데스크 */
-@media screen and (min-width: 1700px){
-    width: 75vw;
-}
+width: 87%;
 
 `;
 
 
-
-
-
-
-const InLayoutTwo = styled(InLayoutOne)`
+const InLayoutTwo = styled.div`
 display: flex;
-width:65vw;
+
 //height:19vh;
 align-items: center;
 //justify-content: center;
 
+text-align:center;
+width:100%;
 margin-bottom:30px;
 @media screen and (min-width: 1700px) {
-    width: 75vw;
+    
     height:21vh;
 };
 `;
@@ -261,6 +315,5 @@ const ButtonLong = styled(Radius)`
 const EditButton =styled(ButtonLong)``;
 const DelectButton=styled(ButtonLong)`
 margin-left:20px;`;
-
 
 

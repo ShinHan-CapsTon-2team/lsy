@@ -1,4 +1,3 @@
-
 import React, { useState,useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import * as tf from '@tensorflow/tfjs'; //npm i @tensorflow/tfjs
@@ -11,12 +10,16 @@ import upload from '../Images/upload.png';
 import Loogo from '../Component/Header' 
 import styled from "styled-components";
 import Loading from '../Component/Loading';
-const SERVER_URL= 'http://localhost:4000/api/post';
+import Lookup_Content from '../Component/Lookup_Content';
+const SERVER_URL= 'http://localhost:4000/api/postedit';
 
 function PostEdit() {
+    const [post, setPost] = useState({});
+    const [updatedPost, setUpdatedPost] = useState([]);
+
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-   
+    const [user, setUser] = useState([]);
     const [category, setCategory] = useState('');
     const [name, setName] = useState('');
     const [profile, setProfile] = useState(''); 
@@ -25,11 +28,8 @@ function PostEdit() {
     const [previewImage, setPreviewImage] = useState(null); // 미리보기 이미지 URL 상태
     const [prediction, setPrediction] = useState(null);
     const [selectedClass, setSelectedClass] = useState(0); // 선택한 클래스의 인덱스
-    
     const [model, setModel] = useState(null);
-    const [board, setBoard] = useState([]);
-    
-    const [getloading, setGetLoading] = useState(true);
+    const [getloading, setGetLoading] = useState(false);
 
     const classLabels = [
       '바디프로필',
@@ -46,52 +46,59 @@ function PostEdit() {
         navigate('/home');
     };
 
+    //const { postId } = useParams();
+    //console.log( 'postId:',postId);
 
-    const { postId } = useParams();
-    console.log( 'postId:',postId);
-
-    useEffect(() => {
-    function getBoardList() {
-        let reqOption = {
-        method: 'get',
-        headers: {
-            //'content-type': 'application/json; charset=utf-8',
-            'Accept': 'application/json',
-        },
-        };
-
-        fetch(`${SERVER_URL}/${postId}`, reqOption)
-        .then((res) => res.json())
-        .then((data) => {
-            console.log(data);
-            setBoard(data); //가져온 데이터 확인용
-            setGetLoading(false); // 데이터를 가져왔으므로 로딩 상태를 false로 설정
-            
-        })
-        .catch((error) => {
-            console.error('Error fetching data:', error);
-            setGetLoading(false); 
-        });
-    }
     
-    getBoardList();
-    }, [postId]);
+    //데이터 가져오기 위해 
+    const params = useParams(); // 
+    const id = params.id; // 게시글 몇번인지 
+    //console.log( 'params:',params);
+    //console.log('id:',id); 
+
+     useEffect(() => {
+    const getBoard = async () => {
+      try {
+        const response = await fetch(`${SERVER_URL}/${id}`);
+        if (response.ok) {
+          const postData = await response.json();
+          console.log('Fetched data:', postData);
+          setPost(postData);
+          //console.log('post after setPost:', post);
+          
+          setUpdatedPost(postData);
+          console.log('Updated post data:', postData);
+        } else {
+          console.error('Failed to fetch data:', response.status);
+                  
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+  
+    getBoard();
+    //console.log(updatedPost.title);
+  }, [id]);
+
+
     /*
     if (getloading) { //데이터 가져오는 중 페이지 
         return <Loading
         what="Loading"/>; 
     } */ // 있음 실행 문제 생김 
 
-    useEffect(() => {
-    // 모델 로드
-    const modelUrl = './model_tfjs/model.json';
-    async function loadModel() {
-        const loadmodel = await tf.loadLayersModel(modelUrl);
-        setModel(loadmodel);
-        }
-        loadModel();
-    }, []);
+   
     
+    useEffect(() => {
+      // 모델 로드
+      const modelUrl = '../model_tfjs/model.json';
+      async function loadModel() {
+          const loadmodel = await tf.loadLayersModel(modelUrl);
+          setModel(loadmodel);
+          }
+          loadModel();
+      }, []);
     
     
     
@@ -161,44 +168,159 @@ function PostEdit() {
         reader.onerror = (error) => reject(error);
         reader.readAsDataURL(file);
     });
-    };
+    }; 
+
     
-    // 수정 버튼 
-    const handleUpdate = () => {
-        const data = {
-        title,
-        description,
-        //image_url: previewImage, //미리보기 이미지를 전송
-        category,
-        name,
-        profile,
-        //created_at : getCurrentTime(),
-        };
-        console.log(data.title);
-    // 이미지 파일을 FormData로 감싸서 서버로 전송
-        const formData = new FormData();
-        formData.append('data', JSON.stringify(data));
-        formData.append('image', imageFile);
-        
-    // fetch()를 이용하여 서버로 데이터를 전송
-        fetch(SERVER_URL, {
-        method: 'POST',
-        body: formData,
-        })
-        .then((response) => response.json())
-        .then((data) => {
-            console.log('서버 응답:', data);
-            handleGohomeClick();
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
+    //text들
+    const handleChange = (event, index, field)  => {
+      const { value } = event.target;
+      console.log(`handleChange - index: ${index}, field: ${field}, value: ${value}`);
+      setUpdatedPost((prevPosts) =>
+        prevPosts.map((post, i) =>
+          i === index ? { ...post, [field]: value } : post
+        )
+      );
+      console.log('Updated Post Array:', updatedPost);
+
     };
+
+
+    /*파일업로드*/
+const handleImageFileChange = async (event, index) => {
+  //console.log(`handleImageFileChange - index: ${index}`);
+  //이미지 파일 유효성 검사
+  const imageFile = event.target.files[0];
+  //console.log('Selected image file:', imageFile);
+  if (
+    imageFile &&
+    (imageFile.type === 'image/jpeg' ||
+      imageFile.type === 'image/png' ||
+      imageFile.type === 'image/jpg') &&
+    imageFile.size <= 30 * 1024 * 1024
+  ) {
+    // 이전에 생성된 URL 해제
+    if (updatedPost[index].imagePreviewUrl) {
+      URL.revokeObjectURL(updatedPost[index].imagePreviewUrl);
+    }
+
+    // 이미지 파일 업로드 및 미리보기 생성
+    const imageUrl = URL.createObjectURL(imageFile);
+    console.log('New image URL:', imageUrl); // imageUrl 값 확인
+    setPreviewImage(imageUrl);
+
+    // 이미지 예측 및 카테고리 설정
+    const classIndex = await classifyImage(imageFile, 0.8); //0.8프로의정확도가 임계값
+    setSelectedClass(classIndex); //인덱스를 기반으로 카테고리를 설정
+
+    let categoryToSet; //이미지 파일 업로드 및 분류 후 설정할 카테고리를 저장하는 변수
+    
+    if (classIndex === -1) {
+      categoryToSet = classLabels[5];
+    } else {
+      categoryToSet = classLabels[classIndex];
+    }
+
+    // 이미지의 카테고리를 화면에 띄우기 위해 해당 post 객체의 카테고리 정보를 업데이트
+    // 저장했던 이미지의 카테고리를 가져와 화면에 표시하는 역할
+    setUpdatedPost((prevPosts) => // 이전에 저장한 이미지의 post 객체를 업데이트
+      prevPosts.map((post, i) =>
+        i === index ? { 
+          ...post, 
+          imagePreviewUrl: imageUrl, 
+         newImageFile: imageFile, 
+          category: categoryToSet  
+        } : post
+      )
+    );
+   
+    // 카테고리 정보 설정
+    setCategory(categoryToSet);
+    console.log('Updated image:', imageFile);
+  } else {
+    //선택한 파일이 이미지 파일이 아니거나 크기가 유효하지 않을 경우, 이미지 관련 상태를 초기화
+    setImageFile(null);
+    setPreviewImage(null);
+  }
+};
+
+const handleCategorySelect = (selectedCategory, index) => {
+  console.log(`handleCategorySelect - index: ${index}, selectedCategory: ${selectedCategory}`);
+  setUpdatedPost((prevPosts) =>
+      prevPosts.map((post, i) =>
+          i === index ? { ...post, category: selectedCategory } : post
+      )
+  );
+  console.log('Updated Post Array:', updatedPost);
+
+};
+
+
+    // 수정 업로드 버튼 
+    const handleUpdate = (index) => {
+      if (updatedPost[index] && updatedPost[index].newImageFile) {
+      const updatedData = updatedPost[index]; // 업데이트된 데이터 가져오기
+      console.log('updatedData:', updatedData);
+      //updatedData.image_url = updatedData.image_url || '';
+      
+      //const requestData = {
+        //data: updatedData,
+        // Add any other properties you need to send
+      //};
+      //const data = {
+        //updatedData,
+        //};
+      
+      // 이미지 파일을 FormData로 감싸서 서버로 전송
+      const formData = new FormData();
+      formData.append('data', JSON.stringify({ updatedData  }));
+      formData.append('newImageFile', updatedData.newImageFile);
+      //console.log('전송할 데이터:', formData);
+
+      for (const entry of formData.entries()) {
+        const [key, value] = entry;
+        console.log(`Key: ${key}`, value);
+      }
+      
+      // 서버로 업데이트된 데이터와 이미지 함께 보내는 로직 추가
+      fetch(`${SERVER_URL}/${id}`, {
+        method: 'PUT',
+        body: formData,
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('서버 응답:', data);
+        //handleGohomeClick();
+
+        // 서버에서 받은 이미지 URL을 업데이트된 데이터에 반영
+        const updatedDataWithImageUrl = {
+        ...updatedData,
+        image_url: updatedData.image_url,
+        imagePreviewUrl: updatedData.image_url,
+      };
+
+      // 화면을 업데이트
+      const updatedPosts = [...updatedPost];
+      updatedPosts[index] = updatedDataWithImageUrl;
+      setUpdatedPost(updatedPosts);
+      console.log(updatedPosts);
+
+      handleGohomeClick();
+      console.log('전송할 데이터:', updatedData.newImageFile);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+    } else {
+      console.log("No new image file to upload.");
+    }
+  };
+  
 
     // 취소 버튼 
     const handleCancel =() => {
-        navigate(`/lookup/${postId}`);
+        navigate(`/lookup/${id}`);
     }
+
     
     const handleMenuToggle = () => { //메뉴열기/닫기
         setIsMenuOpen(!isMenuOpen);
@@ -206,41 +328,13 @@ function PostEdit() {
 
 
     /*카테고리*/
-    const handleCategorySelect = (selectedCategory) => {
-        setCategory(selectedCategory);
-    };
+    //const handleCategorySelect = (selectedCategory) => {
+    //    setCategory(selectedCategory);
+    //    console.log(selectedCategory);
+    //};
+
 
     
-
-/*파일업로드*/
-   const handleImageFileChange = async (event) => {
-    const imageFile = event.target.files[0];
-    if (
-      imageFile &&
-      (imageFile.type === 'image/jpeg' ||
-        imageFile.type === 'image/png' ||
-        imageFile.type === 'image/jpg') &&
-      imageFile.size <= 30 * 1024 * 1024
-    ) {
-      setImageFile(imageFile);
-      setPreviewImage(URL.createObjectURL(imageFile));
-      // 이미지 파일이 업로드되면 예측 수행
-      const classIndex = await classifyImage(imageFile, 0.8); //0.8프로의정확도가 임계값
-      setSelectedClass(classIndex);
-      if (classIndex === -1) {
-        setPrediction(classLabels[5]);
-        setCategory(classLabels[5]);
-      } else {
-        const predictedLabel = classLabels[classIndex];
-        setPrediction(predictedLabel);
-        setCategory(predictedLabel); // 카테고리를 예측된 클래스로 설정
-      }
-    } else {
-      setImageFile(null);
-      setPreviewImage(null);
-    }
-  };
-
     return (
         <>
         {getloading ? (
@@ -249,119 +343,124 @@ function PostEdit() {
         ) : (
             //로딩 끝나면 
             <OutWrap>
-                <InOutWrap>            
-                    {/* 로고 */}        
-                    <Loogo/>
-                    {/* 내용 */} 
+              <InOutWrap>            
+                  {/* 로고 */}        
+                 <Loogo/>
+                  {/* 내용 */} 
 
-                    <Center>                   
-                        <InLayoutOne>  
-                            <Content>
-
-                                <One> {/*제목*/}
+                  <Center>
+                    <InLayoutOne>
+                      <Content>
+                          {updatedPost && updatedPost.map((post, index) => {
+                            const imageUrl = post.image_url;
+                  
+                            return (
+                                <div key={index}>
+                                  <One>
                                     <WrapAuto>
                                         <InputBasic
                                             type="text"
-                                            value={title}
-                                            onChange={(e) => setTitle(e.target.value)}
-                                            placeholder="제목"
+                                            name="title"
+                                            value={post.title}
+                                            onChange={e => handleChange(e, index, "title")}
                                         />
                                     </WrapAuto>
-                                </One>
-                                
-                                <Two>{/*이름 */}
+                                  </One>
+
+                                  <Two>
                                     <WrapAuto>
-                                        <InputBasic 
+                                        <InputBasic
                                             type="text"
-                                            value={name}
-                                            onChange={(e) => setName(e.target.value)}
+                                            value={post.name}
+                                            onChange={e => handleChange(e, index, "name")}
                                             placeholder="이름"
                                         />
                                     </WrapAuto>
+                                  </Two>
 
-                                </Two>
-                                
-                                <Three>{/* 설명 */}
-                                    {/* 드래그 방지 추가하기 */}
+                                  <Three>
                                     <WrapPer>
-                                        <TextareaBasic
-                                            value={description}
-                                            onChange={(e) => setDescription(e.target.value)}
-                                            placeholder="설명" 
-                                        />
+                                      <TextareaBasic
+                                        value={post.description}
+                                        onChange={e =>
+                                          handleChange(e, index, "description")
+                                        }
+                                        placeholder="설명"
+                                      />
                                     </WrapPer>
-                                    
-                                </Three>                                        
-                                {/* 이미지 부분 수정해주삼 */}
-                                <Four>{/* 이미지 */}
-                                    {!previewImage && (
-                                        <EmptyImg src={upload} alt="upload" />
-                                    )} {/*빈 이미지로 사진 올리면 없어짐 */}
+                                  </Three>
 
+                                  <Four>
+                                    <SelectImg src={post.imagePreviewUrl || imageUrl} alt={`게시글 이미지`} />
+                     
                                     <FindImg >
-                                        <Menu onClick={() => document.getElementById('fileInput').click()}>파일 찾기</Menu>
+                                      <Menu onClick={() => document.getElementById('fileInput').click()}>파일 찾기</Menu>
                                     </FindImg>
 
                                     <FileBox 
                                         id="fileInput"
                                         type="file"
                                         accept="image/jpg, image/png ,image/jpeg"
-                                        onChange={handleImageFileChange} 
+                                        onChange={(e) => handleImageFileChange(e, index, 'image_url')}
                                     />
 
                                     {previewImage && 
-                                    <SelectImg src={previewImage} alt="Preview" />} 
-                                    
-                                </Four>
+                                    <SelectImg src={previewImage} alt="Preview" />}      
+                                  </Four>
 
-                            </Content>  
-                        </InLayoutOne>  
+                                </div>
+                            );
+                          })}
+                       </Content>
+                    </InLayoutOne>
 
-                        <InLayoutTwo>
-                        
-                            <Buttons>
-                                <Left>
-                                    <ButtonOne onClick={handleMenuToggle}> {/*카테고리 */}
-                                    
-                                    {category ? (
-                                        <Menu>{category}</Menu>
-                                    ) : (
-                                        <Menu>카테고리 선택</Menu>
+                    <InLayoutTwo>
+                        <Buttons>
+                          {updatedPost.map((post, index) => (
+                              <Left key={index}>
+                              <ButtonOne onClick={handleMenuToggle}>
+                                  {post.category ? (
+                                      <Menu>{post.category}</Menu>
+                                  ) : (
+                                      <Menu>카테고리 선택</Menu>
+                                  )}
+          
+         
+                                  <DropContainer>
+
+                                    {isMenuOpen && (
+                                     <DropMenu > {/* 스타일 수정 */}
+                                           
+                                        <CateMenu onClick={() => handleCategorySelect(classLabels[0], index)}>{classLabels[0]}</CateMenu>
+                                        <CateMenu onClick={() => handleCategorySelect(classLabels[1], index)}>{classLabels[1]}</CateMenu>
+                                        <CateMenu onClick={() => handleCategorySelect(classLabels[2], index)}>{classLabels[2]}</CateMenu>
+                                        <CateMenu onClick={() => handleCategorySelect(classLabels[3], index)}>{classLabels[3]}</CateMenu>
+                                        <CateMenu onClick={() => handleCategorySelect(classLabels[4], index)}>{classLabels[4]}</CateMenu>
+                                        <CateMenu onClick={() => handleCategorySelect(classLabels[5], index)}>{classLabels[5]}</CateMenu>
+                                    </DropMenu>
                                     )}
 
-                                    <DropContainer>
-                                    
-                                        {isMenuOpen && (
-                                        <DropMenu > {/* 스타일 수정 */}
-                                            <CateMenu onClick={() => handleCategorySelect(classLabels[0])}>{classLabels[0]}</CateMenu>
-                                            <CateMenu onClick={() => handleCategorySelect(classLabels[1])}>{classLabels[1]}</CateMenu>
-                                            <CateMenu onClick={() => handleCategorySelect(classLabels[2])}>{classLabels[2]}</CateMenu>
-                                            <CateMenu onClick={() => handleCategorySelect(classLabels[3])}>{classLabels[3]}</CateMenu>
-                                            <CateMenu onClick={() => handleCategorySelect(classLabels[4])}>{classLabels[4]}</CateMenu>
-                                            <CateMenu onClick={() => handleCategorySelect(classLabels[5])}>{classLabels[5]}</CateMenu>    
-                                        </DropMenu>
-                                        )}
+                                </DropContainer>
+                            </ButtonOne>
+                        </Left>
+                      ))}
 
-                                    </DropContainer>
+                        <Right>
+                        {updatedPost.map((post, index) => (
+                            <div key={post.id}>
+                              {/* 게시물 내용 렌더링 */}
+                               <EditButton onClick={() => handleUpdate(index)}>업로드</EditButton>
+  </div>
+))}
+                          <CancelButton onClick={handleCancel}>취소</CancelButton>
+                        </Right>
+                      </Buttons>
+                   </InLayoutTwo>
+                 </Center>
 
-                                    </ButtonOne>
-                                </Left>
-
-                                <Right> 
-                                    <EditButton onClick={handleUpdate}>
-                                        업로드
-                                    </EditButton>
-
-                                    <CancelButton onClick={handleCancel}>
-                                        취소  
-                                    </CancelButton> 
-                                </Right>
-                            </Buttons>
-                        </InLayoutTwo>               
-                    </Center>
-                    
-                </InOutWrap>
+              </InOutWrap>
             </OutWrap>
+            
             )}
         </>
     );

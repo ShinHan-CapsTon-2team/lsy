@@ -392,13 +392,12 @@ display: flex;
 flex-direction: column;
 align-items: center;
 justify-content: center;
-/* 헤더 간격 맞추기 
+/* 헤더 간격 맞추기 */
 width:80%;
 /* tablet 규격 */
 @media screen and (max-width: 1024px){
   width:87%;
 }
-
 
 /* mobile 규격 */
 @media screen and (max-width: 540px){
@@ -414,11 +413,10 @@ width:80%;
   width:75%;
 } 
 
-*/
 `;
 
 const Center = styled.div`
-//width: 65vw;
+width: 87%;
 //text-align: center;
 display: flex;
 flex-direction: column;
@@ -426,43 +424,24 @@ align-items: center;
 `;
 
 const InLayoutOne = styled.div`
-width:65vw;
+width:100%;
 
-/* tablet 규격 */
-        @media screen and (max-width: 1023px){
-            
-        }
-        @media screen and (max-width: 850px){
-          width: 80vw;
-      }
-        /* mobile 규격 */
-        @media screen and (max-width: 540px){
-          width: 90vw;
-        }
-        /* s 데스크 */
-        @media screen and (min-width: 1024px){
-            
-        }
-        /* l 데스크 */
-        @media screen and (min-width: 1700px){
-          width: 75vw;
-        }
 
 `;
 
 const InLayoutTwo = styled(InLayoutOne)`
 display: flex;
-width:65vw;
+width: 100%;
 height:12vh;
 align-items: center;
 margin-bottom:20px;
 /* mobile 규격 */
   @media screen and (max-width: 540px){
-    width: 90vw;
+    
     height:19vh;
   }
 @media screen and (min-width: 1700px) {
-    width: 75vw;
+    
     height:13vh;
 };
 `;
@@ -473,7 +452,7 @@ flex-direction: column;
 `;
 
 const ContentRadius = styled.div`
-border: 3px #3A76EF solid;
+//border: 3px #3A76EF solid;
 padding: 20px;
 word-wrap: break-word;
 border-radius: 31px;
@@ -484,61 +463,17 @@ margin-top: 20px;
   margin-top: 15px;
   
 };
-@media screen and (max-width: 850px) {
+@media screen and (max-width: 1499px) {
   //margin-top: 15px;
-  border: 2fgrttttttt
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  px #3A76EF solid;
+  border: 2px #3A76EF solid;
 };
-@media screen and (min-width: 900px) {
+@media screen and (max-width: 1600px) {
     margin-top: 30px;
-    border: 4px #3A76EF solid;
+    border: 3px #3A76EF solid;
+};
+@media screen and (min-width: 1601px) {
+  margin-top: 30px;
+  border: 4px #3A76EF solid;
 };
 `;
 
@@ -570,18 +505,18 @@ height:75vh;
 const Left = styled.div`
 display: flex;
 justify-content: center;
-margin-left:auto;
+//margin-left:auto;
+align-items:center;
+width:70%;
 `;
 
 const Right = styled.div`
 display: flex;
-flex-direction: column;
-margin-left: auto;
+//flex-direction: column;
+//margin-left: auto;
+justify-content: center;
+width:30%;
 
-/* s 데스크 */
-@media screen and (min-width: 1024px){
-  margin-right:auto;
-}
 `;
 
 const Radius = styled.button`
@@ -617,23 +552,33 @@ justify-content: center;
 
 cursor: pointer;
 position: relative;
-width: 40vw;
+width: 90%;
 height: 7vh;
 
-/* mobile 규격 */
-@media screen and (max-width: 540px){
-  width:80vw;
-  height: 7vh; 
-}
-@media screen and (min-width: 1700px) {
-    width: 50vw;
-    height: 7.5vh;
-};
+
 
 `;
 // 버튼투
 const ButtonTwo = styled(Radius)`
   background: #798BE6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left:auto;
+  text-aling:center;
+  position: relative;
+  cursor: pointer;
+  
+  margin-right:20px;
+  width:18vw;
+  height: 7vh; 
+  color: white;
+
+ `;
+//파일 찾기 
+
+const FindImg = styled(Radius)` 
+background: #798BE6;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -645,33 +590,10 @@ const ButtonTwo = styled(Radius)`
   height: 7vh; 
   color: white;
 
-  @media screen and (max-width: 1024px){
-    width:20vw;
-    height: 7vh; 
-
-  }
-  /* mobile 규격 */
-  @media screen and (max-width: 540px){
-    width:41vw;
-    height: 7vh; 
-
-  }
-
-  /* s 데스크 */
-  @media screen and (min-width: 1025px){
-      
-  }
-  @media screen and (min-width: 1700px) {
-    width:18vw;
-    height: 7.5vh; 
-  };
- `;
-//파일 찾기 
-
-const FindImg = styled(ButtonTwo)` 
+  
   position: absolute;
   bottom: 30px;
-  right: 10px;
+  right: 20px;
 
   /* tablet 규격 */
   @media screen and (max-width: 1023px){
@@ -760,7 +682,6 @@ const SelectImg = styled.img`
 const DropContainer = styled.div`
   z-index: 2;
   color: white;
-  //font-size: 33px;
   position: absolute;
   align-items: center;
 `;
@@ -801,7 +722,8 @@ const DropMenu = styled.div`
 `;
 
 const CateMenu = styled.div` 
-  font-size: 25px;
+        ${FontStyle};
+  //font-size: 25px;
   margin-top:5px;
 
   /* tablet 규격 */
@@ -819,7 +741,7 @@ const CateMenu = styled.div`
         }
         /* l 데스크 */
         @media screen and (min-width: 1700px){
-          font-size: 30px;
+          //font-size: 30px;
         }
 `;
 
