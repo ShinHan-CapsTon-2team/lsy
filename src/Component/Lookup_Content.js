@@ -73,23 +73,7 @@ const At =styled.text`
     text-align:center;
     width:100%;
     margin-bottom:30px;
-    /* tablet 규격 */
-    @media screen and (max-width: 1023px){
-        
-    }
-
-    /* mobile 규격 */
-    @media screen and (max-width: 540px){
-        
-    }
-    /* s 데스크 */
-    @media screen and (min-width: 1024px){
-        
-    }
-    /* l 데스크 */
-    @media screen and (min-width: 1700px){
-        width: 75vw;
-    }
+    
     `;
 
     const Content = styled.div`
@@ -157,23 +141,35 @@ const At =styled.text`
     height: 95px;
     `;
 
-    const FontStyle= {
-        fontSize: 33,
-
-        /* mobile 규격 */
-    '@media screen and (max-width: 540px)':
-        {
-            fontSize: 27,
-    },
-    '@media screen and (min-width: 1700px)': {
+    const FontStyle = {
+        '@media screen and (max-width: 1024px)':{
         
-            fontSize: 45,
+        fontSize: 22
         },
-    };
+        
+        '@media screen and (max-width: 850px)':{
+        fontSize: 21
+        
+        },
+        
+        /* mobile 규격 */
+        '@media screen and (max-width: 540px)':{
+        
+        fontSize: 19
+        },
+        /* tablet 규격 */
+        '@media screen and (min-width: 1025px)':{
+        
+        fontSize: 24
+        },
+        '@media screen and (min-width: 1700px)': {
+        
+        fontSize: 37
+        }
+        };
         
 
     const Font = styled.div`
     ${FontStyle};
     color: black;
-    //width: 100%;
     `;

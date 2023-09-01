@@ -327,13 +327,6 @@ const handleCategorySelect = (selectedCategory, index) => {
     };
 
 
-    /*카테고리*/
-    //const handleCategorySelect = (selectedCategory) => {
-    //    setCategory(selectedCategory);
-    //    console.log(selectedCategory);
-    //};
-
-
     
     return (
         <>
@@ -473,27 +466,42 @@ width: 100%;
 height: 97.6vh;
 
 position: relative;
-
 background: white;
-
 display: flex;
 flex-direction: column;
 // justify-content: center;
 align-items: center;
+@media screen and (max-width: 1024px)
+{
+  *{
+    font-size: 22px;
+  }
+}
 
-* {
-  font-size: 33px;
+@media screen and (max-width: 850px)
+{
+  *{
+    font-size: 21px;
+  }
 }
 /* mobile 규격 */
 @media screen and (max-width: 540px){
   * {
-  font-size: 27px;
+  font-size: 19px;
+  }
 }
     
+
+@media screen and (min-width: 1025px){
+  * {
+  font-size: 24px;
+  }
+}
+
 }
 @media screen and (min-width: 1700px) {
   * {
-    font-size: 45px;
+    font-size: 37px;
   }
 `;
 
@@ -503,10 +511,30 @@ display: flex;
 flex-direction: column;
 align-items: center;
 justify-content: center;
+
+width:80%;
+/* tablet 규격 */
+@media screen and (max-width: 1024px){
+  width:87%;
+}
+
+/* mobile 규격 */
+@media screen and (max-width: 540px){
+  width:95%;
+  
+}
+/* s 데스크 */
+@media screen and (min-width: 1025px){
+    
+}
+/* l 데스크 */
+@media screen and (min-width: 1700px){
+  width:75%;
+} 
 `;
 
 const Center = styled.div`
-//width: 65vw;
+width: 87%;
 //text-align: center;
 display: flex;
 flex-direction: column;
@@ -514,41 +542,24 @@ align-items: center;
 `;
 
 const InLayoutOne = styled.div`
-width:65vw;
+width:100%;
 
-/* tablet 규격 */
-        @media screen and (max-width: 1023px){
-            
-        }
-
-        /* mobile 규격 */
-        @media screen and (max-width: 540px){
-          width: 80vw;
-        }
-        /* s 데스크 */
-        @media screen and (min-width: 1024px){
-            
-        }
-        /* l 데스크 */
-        @media screen and (min-width: 1700px){
-          width: 75vw;
-        }
 
 `;
 
 const InLayoutTwo = styled(InLayoutOne)`
 display: flex;
-width:65vw;
+width:100%;
 //height:21vh;
 align-items: center;
 margin-bottom:20px;
 /* mobile 규격 */
   @media screen and (max-width: 540px){
-    width: 80vw;
+    //width: 80vw;
     height:19vh;
   }
 @media screen and (min-width: 1700px) {
-    width: 75vw;
+    //width: 75vw;
     height:21vh;
 };
 `;
@@ -642,28 +653,19 @@ const Buttons = styled.div`
   }
 `;
 
-const ButtonOne = styled(Radius)`
 
+const ButtonOne = styled(Radius)`
+background: #798BE6;
 display: flex;
 align-items: center;
 justify-content: center;
 
 cursor: pointer;
 position: relative;
-width: 40vw;
+width: 90%;
 height: 7vh;
-
-/* mobile 규격 */
-@media screen and (max-width: 540px){
-  width:80vw;
-  height: 7vh; 
-}
-@media screen and (min-width: 1700px) {
-    width: 50vw;
-    height: 7.5vh;
-};
-
 `;
+
 // 버튼투
 const ButtonTwo = styled(Radius)`
   background: #798BE6;

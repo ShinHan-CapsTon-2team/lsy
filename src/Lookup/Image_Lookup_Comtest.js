@@ -88,7 +88,7 @@ function Images_Lookup_Comtest() {
                     }, 1000);
                     navigate('/home');
 
-                } else {
+                } else { //여기가 맞나?
                     // 실패 메시지를 보여줍니다.
                     setShowErrorMessage(true);
 
@@ -109,8 +109,7 @@ function Images_Lookup_Comtest() {
         
         <OutWrap>
             <InOutWrap>
-            
-                {/* 홈페이지 로고 같*/}        
+                    
                 <Logo />
 
                 <Center>
@@ -121,16 +120,16 @@ function Images_Lookup_Comtest() {
                         {/*  id={uu.id}  작성자 식별할 수 있는 걸로 고쳐야함 */}
                         return(
                                 <Lookup_Content 
-                                title={uu.title} 
-                                name={uu.name} 
-                                imageurl={imageUrl} 
-                                description ={uu.description}
-                                created_at={uu.created_at} 
-                                id={uu.id} />    
+                                    title={uu.title} 
+                                    name={uu.name} 
+                                    imageurl={imageUrl} 
+                                    description ={uu.description}정
+                                    created_at={uu.created_at} 
+                                    id={uu.id} 
+                                />    
                                 )
                             }
                         )} 
-
 
                     <InLayoutTwo> {/* 자기 게시글이면 보이게 처리하기  */}
                         <Buttons>
@@ -142,6 +141,7 @@ function Images_Lookup_Comtest() {
                                 <DelectButton onClick={handleDelete}>
                                     삭제
                                 </DelectButton>
+
                                 {/* 성공 메시지를 보여주는 부분 */}
                                 {showSuccessMessage && <Success text="게시물이 성공적으로 삭제되었습니다." />}
 
@@ -187,6 +187,7 @@ display: flex;
 flex-direction: column;
 align-items: center;
 justify-content: center;
+
 width:80%;
 /* tablet 규격 */
 @media screen and (max-width: 1024px){
@@ -238,7 +239,6 @@ margin-bottom:30px;
 const Buttons = styled.div`
   text-align: center;
   display: flex;
-  
   flex-direction: row;
   width: 100%;
 `;
@@ -273,19 +273,32 @@ color: white;
 
 
 
-const FontStyle= {
-    fontSize: 33,
-
-    /* mobile 규격 */
-  '@media screen and (max-width: 540px)':
-    {
-        fontSize: 27,
-  },
-  '@media screen and (min-width: 1700px)': {
+const FontStyle = {
+    '@media screen and (max-width: 1024px)':{
     
-        fontSize: 45,
+    fontSize: 22
     },
-};
+    
+    '@media screen and (max-width: 850px)':{
+    fontSize: 21
+    
+    },
+    
+    /* mobile 규격 */
+    '@media screen and (max-width: 540px)':{
+    
+    fontSize: 19
+    },
+    /* tablet 규격 */
+    '@media screen and (min-width: 1025px)':{
+    
+    fontSize: 24
+    },
+    '@media screen and (min-width: 1700px)': {
+    
+    fontSize: 37
+    }
+    };
    
 
 

@@ -24,8 +24,9 @@ function Post() {
     const [previewImage, setPreviewImage] = useState(null); // 미리보기 이미지 URL 상태
     const [prediction, setPrediction] = useState(null);
     const [selectedClass, setSelectedClass] = useState(0); // 선택한 클래스의 인덱스
-    //const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false); 성공 모달 보이기 
-    
+
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false); // 업로드 성공 
+    const [showErrorMessage, setShowErrorMessage] = useState(false);// 업로드 실패 
     /*
     // 다음 이벤트 핸들러를 추가합니다.
     const handleSuccessModalClose = () => {
@@ -41,10 +42,7 @@ function Post() {
     ];
     const navigate = useNavigate();
   
-    //홈페이지
-    const handleGohomeClick = () => {
-        navigate('/home');
-    };
+    
     
     useEffect(() => {
         // 모델 로드
@@ -154,11 +152,26 @@ function Post() {
               console.log('서버 응답:', data);
               const postId = data.data.id; // Assuming your response includes the new post's ID
               navigate(`/lookup/${postId}`); 
-              //setIsSuccessModalOpen(true); // 성공 모달 열기
-              handleGohomeClick();
+
+              // 성공 메시지를 표시
+              setShowSuccessMessage(true);
+
+              // 2초 후에 성공 메시지를 숨기고 페이지를 이동
+              setTimeout(() => {
+                setShowSuccessMessage(false);
+                navigate(`/lookup/${postId}`);
+              }, 2000); // 2초를 기다립니다 (2000 밀리초)
+              
           })
           .catch((error) => {
-              console.error('Error:', error);
+              //console.error('Error:', error);
+              // 실패 메시지를 보여줍니다.
+              setShowErrorMessage(true);
+
+              // 1초 후에 실패 메시지를 숨깁니다.
+              setTimeout(() => {
+              setShowErrorMessage(false);
+              }, 1000);
           });
       };
 
@@ -300,6 +313,12 @@ function Post() {
                                     업로드  
                                 </ButtonTwo>
                             </Right>
+                            {/* 성공 메시지를 보여주는 부분 */}
+                            {showSuccessMessage && (
+                              <Success text="게시물이 성공적으로 업로드되었습니다." />
+                            )}
+                            {/* 실패 메시지를 보여주는 부분 */}
+                            {showErrorMessage && <Success text="게시물 업로드를 실패했습니다." />}
                         </Buttons>
                     </InLayoutTwo>               
                 </Center>
@@ -554,9 +573,6 @@ cursor: pointer;
 position: relative;
 width: 90%;
 height: 7vh;
-
-
-
 `;
 // 버튼투
 const ButtonTwo = styled(Radius)`
@@ -574,29 +590,23 @@ const ButtonTwo = styled(Radius)`
   height: 7vh; 
   color: white;
 
+  /* mobile 규격 */
+  @media screen and (max-width: 540px){
+    width:41vw;
+    height: 7vh; 
+
+  }
  `;
 //파일 찾기 
 
-const FindImg = styled(Radius)` 
-background: #798BE6;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  position: relative;
-  cursor: pointer;
-
-  width:18vw;
-  height: 7vh; 
-  color: white;
-
+const FindImg = styled(ButtonTwo)` 
   
   position: absolute;
   bottom: 30px;
   right: 20px;
 
   /* tablet 규격 */
-  @media screen and (max-width: 1023px){
+  @media screen and (max-width: 1024px){
     bottom: 20px;
   }
 
@@ -701,48 +711,31 @@ const DropMenu = styled.div`
 
 
   /* tablet 규격 */
-        @media screen and (max-width: 1023px){
-            
-        }
+  @media screen and (max-width: 1023px){
+      
+  }
 
-        /* mobile 규격 */
-        @media screen and (max-width: 540px){
-          width:45vw;
-          top: -157px;
-        }
-        /* s 데스크 */
-        @media screen and (min-width: 1024px){
-          width:25vw;
-        }
-        /* l 데스크 */
-        @media screen and (min-width: 1700px){
-          width:40vw;
-          top: -197px; // 1080 
-        }
+  /* mobile 규격 */
+  @media screen and (max-width: 540px){
+    width:45vw;
+    top: -157px;
+  }
+  /* s 데스크 */
+  @media screen and (min-width: 1024px){
+    width:25vw;
+  }
+  /* l 데스크 */
+  @media screen and (min-width: 1700px){
+    width:40vw;
+    top: -197px; // 1080 
+  }
 `;
 
 const CateMenu = styled.div` 
-        ${FontStyle};
-  //font-size: 25px;
+  ${FontStyle};
+  
   margin-top:5px;
 
-  /* tablet 규격 */
-        @media screen and (max-width: 1023px){
-            
-        }
-
-        /* mobile 규격 */
-        @media screen and (max-width: 540px){
-            
-        }
-        /* s 데스크 */
-        @media screen and (min-width: 1024px){
-          
-        }
-        /* l 데스크 */
-        @media screen and (min-width: 1700px){
-          //font-size: 30px;
-        }
 `;
 
 
