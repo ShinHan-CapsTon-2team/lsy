@@ -25,6 +25,7 @@ const Homepage = () => {
   const [pageNumber, setPageNumber] = useState(1);
   const limit = 20; // 한 페이지당 이미지 수 설정
   const [offset, setOffset] = useState(0); //offset 초기값
+  
 
  
   //버튼 

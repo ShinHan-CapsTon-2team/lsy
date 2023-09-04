@@ -117,6 +117,8 @@ function Images_Lookup_Comtest() {
                         let imageUrl = uu.image_url; // 이미지 URL 사용
                         console.log("url:", imageUrl);
 
+                        
+
                         {/*  id={uu.id}  작성자 식별할 수 있는 걸로 고쳐야함 */}
                         return(
                                 <Lookup_Content 
@@ -125,6 +127,9 @@ function Images_Lookup_Comtest() {
                                     imageurl={imageUrl} 
                                     description ={uu.description}정
                                     created_at={uu.created_at} 
+                                    //year={uu.year}
+                                    //month={uu.month}
+                                    //day={uu.day}
                                     id={uu.id} 
                                 />    
                                 )
@@ -303,27 +308,35 @@ const FontStyle = {
 
 
 const ButtonLong = styled(Radius)`
-  
-  width:18vw;
-  height: 7vh; 
-  ${FontStyle};
-
-  /* mobile 규격 */
-  @media screen and (max-width: 540px){
-    width:41vw;
-    height: 7vh; 
-
-  }
-
-  /* s 데스크 */
-  @media screen and (min-width: 1024px){
-      
-  }
-  @media screen and (min-width: 1700px) {
+    
     width:18vw;
-    height: 7.5vh; 
-  };
- `;
+    height: 7vh; 
+    ${FontStyle};
+
+    
+    /* s 데스크 */
+    @media screen and (max-width: 1024px){
+        
+    }
+    @media screen and (max-width: 850px){
+        width:21vw;
+    }
+    /* mobile 규격 */
+    @media screen and (max-width: 680px){
+        width:41vw;
+        height: 7vh; 
+    }
+
+    
+    /* s 데스크 */
+    @media screen and (min-width: 1025px){
+        
+    }
+    @media screen and (min-width: 1700px) {
+        width:18vw;
+        height: 7.5vh; 
+    };
+    `;
 
 const EditButton =styled(ButtonLong)``;
 const DelectButton=styled(ButtonLong)`

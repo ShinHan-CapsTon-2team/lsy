@@ -1,9 +1,9 @@
 
 import styled from "styled-components";
 import  {useNavigate } from 'react-router-dom';
-import profilelogo from '../Images/profilelogo.png'
+import profilelogo from '../Images/i2.png'
 
-const Lookup_Content =({ title,name,imageurl,description,created_at,id }) => {
+const Lookup_Content =({ title,name,imageurl,description,year,month,day,id }) => {
 
     //page 이동 
     const navigate = useNavigate();
@@ -21,7 +21,7 @@ const Lookup_Content =({ title,name,imageurl,description,created_at,id }) => {
                     </WrapBasic>
 
                     <WrapBasic> {/* 날짜 */}
-                        <At>{created_at || 'none'}</At>
+                        <At>{year || 'none'} {month} {day}</At>
                     </WrapBasic>
                 </ContentTitle>
 
@@ -53,13 +53,39 @@ const Lookup_Content =({ title,name,imageurl,description,created_at,id }) => {
 }; 
 export default Lookup_Content;
 
-
-const At =styled.text`
+const DayFontStyle = {
+    '@media screen and (max-width: 1024px)':{
+    
+    fontSize: 18
+    },
+    
+    '@media screen and (max-width: 850px)':{
+    fontSize: 17
+    
+    },
+    
+    /* mobile 규격 */
+    '@media screen and (max-width: 540px)':{
+    
+    fontSize: 15
+    },
+    /* tablet 규격 */
+    '@media screen and (min-width: 1025px)':{
+    
+    fontSize: 20
+    },
+    '@media screen and (min-width: 1700px)': {
+    
+    fontSize: 33
+    }
+    };
+    const At =styled.text`
     color:gray;
-    font-size:20px;`
+    ${DayFontStyle};
+    `;
+
     const BoxRadius = styled.div`
-        border-radius: 31px;
-        
+    border-radius: 31px;
             `;
 
     const Img = styled.img`
@@ -82,19 +108,25 @@ const At =styled.text`
     `;
 
     const ContentRadius = styled.div`
-    border: 3px #3A76EF solid;
     padding: 20px;
     word-wrap: break-word;
-    //opacity: 0.90;
     border-radius: 31px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
     margin-top: 20px;
 
-    @media screen and (min-height: 900px) {
-        margin-top: 30px;
+    @media screen and (max-width: 1600px) {
+        border: 3px #3A76EF solid;
+        };
+        
+        @media screen and (max-width: 540px) {
+        margin-top: 15px;
+        border: 2px #3A76EF solid;
+        };
+        
+        @media screen and (min-width: 1601px) {
         border: 4px #3A76EF solid;
-    };
+        };
     `;
 
     const ContentBasic = styled(ContentRadius)`
@@ -137,8 +169,28 @@ const At =styled.text`
     `;
 
     const ProfileImg = styled.img`
-    width: 95px;
-    height: 95px;
+    width:57px;
+    height:57px; //+2
+    /* tablet 규격 */
+    @media screen and (max-width: 1024px){
+        
+    }
+
+    /* mobile 규격 */
+    @media screen and (max-width: 540px){
+        width:43px;
+        height:43px;
+        
+    }
+    /* s 데스크 */
+    @media screen and (min-width: 1025px){
+        
+    }
+    /* l 데스크 */
+    @media screen and (min-width: 1700px){
+        width:70px;
+        height:70px;
+    }
     `;
 
     const FontStyle = {

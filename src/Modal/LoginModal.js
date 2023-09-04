@@ -30,12 +30,37 @@ role: 'dialog',
 
 border-radius: 20px;
 width: 35%;
-height: 30%;
+height: 28%;
 //height:8.5em;
 background-color: #ffffff;
 
 `;
-
+const FontStyle = {
+    '@media screen and (max-width: 1024px)':{
+    
+    fontSize: 22
+    },
+    
+    '@media screen and (max-width: 850px)':{
+    fontSize: 21
+    
+    },
+    
+    /* mobile 규격 */
+    '@media screen and (max-width: 540px)':{
+    
+    fontSize: 19
+    },
+    /* tablet 규격 */
+    '@media screen and (min-width: 1025px)':{
+    
+    fontSize: 24
+    },
+    '@media screen and (min-width: 1700px)': {
+    
+    fontSize: 37
+    }
+    };
 const TextWrap= styled.div`
 width: 100%;
 height: 100%;
@@ -47,14 +72,14 @@ flex-direction: column;
 justify-content: center;
 `;
 const Text= styled.div`
-font-size: 20px;
+${FontStyle};
 color: black;
 margin-bottom:5%;
 `;
 
 const BtnLoginWrap = styled.div`
-width:55%;
-height:30%;
+width:15vw;
+height:8vh;
 
 //height:1.5em;
 `;
@@ -75,7 +100,7 @@ return (
     <ModalView onClick={(e) => e.stopPropagation()}>
     
         <TextWrap>
-            <Text>로그인 또는 회원가입 하세요.</Text>
+            <Text>로그인 해주세요</Text>
             <BtnLoginWrap> 
                 <BtnNaver src={naverlogin}  onclick={onNaverLogin} alt=''></BtnNaver>
             </BtnLoginWrap>

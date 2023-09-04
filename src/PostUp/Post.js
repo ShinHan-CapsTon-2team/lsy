@@ -9,7 +9,7 @@ import upload from '../Images/upload.png';
 
 import Loogo from '../Component/Header' 
 import styled from "styled-components";
-import Success from '../Modal/Success';
+import { ModalBackdrop, ModalView, Success }  from '../Modal/Success';
 const SERVER_URL= 'http://localhost:4000/api/post';
 
 function Post() {
@@ -27,11 +27,7 @@ function Post() {
 
     const [showSuccessMessage, setShowSuccessMessage] = useState(false); // 업로드 성공 
     const [showErrorMessage, setShowErrorMessage] = useState(false);// 업로드 실패 
-    /*
-    // 다음 이벤트 핸들러를 추가합니다.
-    const handleSuccessModalClose = () => {
-      setIsSuccessModalOpen(false);
-    }; */
+   
     const classLabels = [
       '바디프로필',
       '반려동물',
@@ -151,7 +147,7 @@ function Post() {
           .then((data) => {
               console.log('서버 응답:', data);
               const postId = data.data.id; // Assuming your response includes the new post's ID
-              navigate(`/lookup/${postId}`); 
+              console.log('postId', postId);
 
               // 성공 메시지를 표시
               setShowSuccessMessage(true);
@@ -478,18 +474,17 @@ border-radius: 31px;
 box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 margin-top: 20px;
 
-@media screen and (max-width: 540px) {
-  margin-top: 15px;
-  
-};
-@media screen and (max-width: 1499px) {
-  //margin-top: 15px;
-  border: 2px #3A76EF solid;
-};
+
+
 @media screen and (max-width: 1600px) {
-    margin-top: 30px;
     border: 3px #3A76EF solid;
 };
+
+@media screen and (max-width: 540px) {
+  margin-top: 15px;
+  border: 2px #3A76EF solid;
+};
+
 @media screen and (min-width: 1601px) {
   margin-top: 30px;
   border: 4px #3A76EF solid;
@@ -527,14 +522,21 @@ justify-content: center;
 //margin-left:auto;
 align-items:center;
 width:70%;
+@media screen and (max-width: 680px){
+  width:100%;
+}
 `;
 
 const Right = styled.div`
 display: flex;
 //flex-direction: column;
 //margin-left: auto;
-justify-content: center;
-width:30%;
+justify-content: right;
+width:100%;
+@media screen and (min-width: 681px){
+  width:30%;
+  justify-content: center;
+}
 
 `;
 
@@ -555,7 +557,7 @@ const Buttons = styled.div`
   flex-direction: row;
   width: 100%;
 
-  /* tablet 규격 */
+  /* 메뉴 column*/
   @media screen and (max-width: 680px){
     flex-direction: column;
     align-items: center;
@@ -590,12 +592,28 @@ const ButtonTwo = styled(Radius)`
   height: 7vh; 
   color: white;
 
+  /* s 데스크 */
+  @media screen and (max-width: 1024px){
+      
+  }
+  @media screen and (max-width: 850px){
+    width:21vw;
+}
   /* mobile 규격 */
-  @media screen and (max-width: 540px){
+  @media screen and (max-width: 680px){
     width:41vw;
     height: 7vh; 
-
   }
+
+  
+  /* s 데스크 */
+  @media screen and (min-width: 1025px){
+      
+  }
+  @media screen and (min-width: 1700px) {
+    width:18vw;
+    height: 7.5vh; 
+  };
  `;
 //파일 찾기 
 
@@ -603,13 +621,29 @@ const FindImg = styled(ButtonTwo)`
   
   position: absolute;
   bottom: 30px;
-  right: 20px;
+  right: 10px;
 
   /* tablet 규격 */
   @media screen and (max-width: 1024px){
+    right: 0px; 
     bottom: 20px;
   }
 
+  @media screen and (max-width: 850px){
+    right: 0px; 
+}
+  /* mobile 규격 */
+  @media screen and (max-width: 540px){
+    right: 0px; 
+
+  }
+  /* s 데스크 */
+  @media screen and (min-width: 1025px){
+      
+  }
+  @media screen and (min-width: 1700px) {
+     
+  };
 `;
  // span 
 const Menu = styled.span`
@@ -660,7 +694,8 @@ left: 50%;
 transform: translate(-50%, -50%);
 /* tablet 규격 */
   @media screen and (max-width: 1023px){
-      
+    width: 150px;
+    height: 150px;
   }
 
   /* mobile 규격 */

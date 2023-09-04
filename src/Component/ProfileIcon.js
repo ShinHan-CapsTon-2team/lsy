@@ -20,8 +20,12 @@ margin-right:30px;
             //top:55px;
             //right:5px;
             margin-left:10px;
+            margin-right:10px;
         }
-  
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 `;
 
 const HomeLogo =styled.img`
@@ -47,6 +51,7 @@ height:57px; //+2
     width:70px;
     height:70px;
 }
+
 `;
 
 export const ModalBackdrop = styled.div`
@@ -86,21 +91,6 @@ export const ProfileBackdrop = styled.div`
 `;
 
 
-export const ModalView = styled.div.attrs((props) => ({
-  // attrs 메소드를 이용해서 아래와 같이 div 엘리먼트에 속성을 추가할 수 있다.
-  role: 'dialog',
-}))`
-  // Modal창 CSS를 구현합니다.
-  
-  border-radius: 20px;
-  width: 35%;
-  height: 30%;
-  //height:8.5em;
-  background-color: #ffffff;
-    
-`;
-
-
 export const ProfileIcon = () => {
     const [isOpen, setIsOpen] = useState(false); // 모달창때문에 있는거 삭제 노 
 
@@ -135,8 +125,7 @@ export const ProfileIcon = () => {
               //  <LoginModal />
               //</ModalBackdrop>
               
-             
-                <ProandLogout/>
+               <ProandLogout/>
               
             )
           )}
