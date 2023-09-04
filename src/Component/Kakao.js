@@ -38,15 +38,7 @@ function KaKao({_resulttype}) {
     }
     `;
     
-    const kakaoThimg = `${process.env.PUBLIC_URL}/Images/kakaoshareImg.jpg`;
-    //const imageUrl = process.env.PUBLIC_URL + '/Images/kakaoshareImg.jpg';
-
-    //const kakaoThimg= '../Images/kakaoshareImg.jpg'
-    let replaced_imageUrl = ''
-    
-        replaced_imageUrl = 'https://localhost:3000/' + kakaoThimg.replace('../', '');
-    
-
+   
     const onHandleShareKaKao = () => {
         
         if (!Kakao.isInitialized()) {
@@ -60,22 +52,22 @@ function KaKao({_resulttype}) {
             imageUrl:'https://postfiles.pstatic.net/MjAyMzA4MzBfMTEx/MDAxNjkzMzYxOTI0NjA2.d-OZdlkBE0kAfoghaQ8sIYzSLc1ZG1Ft7EN1tpUjYXsg.eV926-_YSewC2AZYYIbImZoYRPhO5IK3g4ohxj2DoWgg.JPEG.stpaq125/kakaoshareImg.jpg?type=w773',
             link: {
                 // [내 애플리케이션] > [플랫폼] 에서 등록한 사이트 도메인과 일치해야 함
-                mobileWebUrl: 'https://developers.kakao.com',
-                webUrl: 'https://developers.kakao.com',
+                mobileWebUrl: 'https://localhost:3000/',
+                webUrl: 'https://localhost:3000/',
                 },
             },
             buttons: [
                 {
-                    title: '결과 보기',
+                    title: '결과보기',
                     link: {
-                        mobileWebUrl: 'https://developers.kakao.com',
+                        mobileWebUrl: 'https://localhost:3000/quizresult'+_resulttype,
                         webUrl: 'https://localhost:3000/quizresult'+_resulttype
                     },
                 },
                     {
-                    title: '테스트 하기',
+                    title: '테스트하기',
                     link: {
-                        mobileWebUrl: 'https://developers.kakao.com',
+                        mobileWebUrl: 'https://localhost:3000/quizindex',
                         webUrl: 'https://localhost:3000/quizindex',
                     }
                 }

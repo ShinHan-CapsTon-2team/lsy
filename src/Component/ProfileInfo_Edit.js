@@ -139,31 +139,11 @@ border-radius: 31px;
 //overflow: hidden; 
 `;
 
-const SmallWrap = styled(Area)`
-//height: auto;
-//margin-top:20px;
 
-text-align: center;
-  display: flex;
-  align-items: center;
-
-
-
-`;
 const Wrap = styled(Area)`
 text-align: center;
   display: flex;
   align-items: center;
-`;
-
-
-const Font = styled.div`
-${FontStyle};
-color: black;
-
-
-width: 100%;
-
 `;
 
 const Left = styled.div`
