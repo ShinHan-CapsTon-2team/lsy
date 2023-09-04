@@ -132,7 +132,7 @@ function Post() {
           
           //created_at : getCurrentTime(),
           };
-          console.log(data.title);
+          
       // 이미지 파일을 FormData로 감싸서 서버로 전송
           const formData = new FormData();
           formData.append('data', JSON.stringify(data));
@@ -144,30 +144,34 @@ function Post() {
           body: formData,
           })
           .then((response) => response.json())
-          .then((data) => {
-              console.log('서버 응답:', data);
-              const postId = data.data.id; // Assuming your response includes the new post's ID
-              console.log('postId', postId);
-
+          .then((responseJson) => {
+              const { message, data: responseData } = responseJson; 
+              console.log('서버 응답:', message);
+              console.log('삽입된 게시글의 ID:', responseData.id);
+              
+              
               // 성공 메시지를 표시
               setShowSuccessMessage(true);
 
               // 2초 후에 성공 메시지를 숨기고 페이지를 이동
               setTimeout(() => {
                 setShowSuccessMessage(false);
-                navigate(`/lookup/${postId}`);
+                navigate(`/lookup/${responseData.id}`)
               }, 2000); // 2초를 기다립니다 (2000 밀리초)
               
-          })
-          .catch((error) => {
+              //아니면
+
               //console.error('Error:', error);
               // 실패 메시지를 보여줍니다.
-              setShowErrorMessage(true);
+              //setShowErrorMessage(true);
 
               // 1초 후에 실패 메시지를 숨깁니다.
-              setTimeout(() => {
-              setShowErrorMessage(false);
-              }, 1000);
+              //setTimeout(() => {
+              //setShowErrorMessage(false);
+              //}, 1000);
+          })
+          .catch((error) => {
+            console.error('Error deleting data:', error);
           });
       };
 

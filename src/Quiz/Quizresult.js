@@ -3,34 +3,11 @@ import React,{useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from "styled-components";
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import bodyResult from '../Datajson/bodyresult.json'
-import familyResult from '../Datajson/familyresult.json'
-import petResult from '../Datajson/petresult.json'
-import profileResult from '../Datajson/petresult.json'
-import weddingResult from '../Datajson/weddingresult.json'
+import AllDataResult from "../Datajson/AllDataResult.json"
 import btn_link from '../Images/btn_link.svg'
 import { Success } from '../Modal/Success';
 import KakaoShareBtn from '../Component/Kakao';
 
-
-const getResultbody = () => {
-    return bodyResult;
-};
-
-const getResultpet = () => {
-    return petResult;
-};
-
-const getResultwedding = () => {
-    return weddingResult;
-};
-
-const getResultfamily = () => {
-    return familyResult;
-};
-const getResultprofile = () => {
-    return profileResult;
-};
 
 const Quizresult  = () => {
     const location = useLocation();
@@ -47,6 +24,7 @@ const Quizresult  = () => {
     console.log('categoryName :',categoryName);
     console.log('res: ',res);
 
+    // 링크 
     const type= '?name='+categoryName+'&res='+res;
     console.log('type:',type);
     //페이지 이동 
@@ -66,53 +44,42 @@ const Quizresult  = () => {
         navigate(`/lookup/${id}`);
     };
 
-    // 데이터 가져오기
-    let result = [];
-    if (categoryName === 'body') {
-        result = getResultbody();
-    } else if (categoryName === 'pet') {
-        result = getResultpet();
-    }else if (categoryName === 'wedding') {
-        result = getResultwedding();
-    }else if (categoryName === 'family') {
-        result = getResultfamily();
-    }else if (categoryName === 'profile') {
-        result = getResultprofile();
-    }
-    
-    // 확인
-        // type 확인
-    const typeData = result.find((data) => data.type === res);
-    console.log("typeData:",typeData);
-
-    if (!typeData) {
+    //데이터 가져오기 
+        //카테고리 
+    const categoryData = AllDataResult.find((data) => data.categoryName === categoryName);
+    if (!categoryData) {
         return <div>No data available for the selected category.</div>;
     }
 
+        // categoryName에 해당하는 결과 데이터 중에서 res에 해당하는 데이터 찾기
+    const typeData = categoryData.results.find((data) => data.type === res);
+    if (!typeData) {
+        return <div>No data available for the selected type.</div>;
+    }
+
+    //console.log("categoryData:",categoryData);
+    //console.log("typeData:",typeData);
+    
         // img 파일이름 확인
     const imgPaths = typeData?.answer.map(answer => answer.img);
+
     console.log("imgPaths:",imgPaths)
     if (!imgPaths) {
         return <div>No data available for the selected type.</div>;
     }
+    
         // img id 확인
     const imgIds = typeData?.answer.map(answer => answer.id);
+
     console.log("imgIds:",imgIds)
 
-     // 대답 확인
-    const answers = typeData?.answer;
-    console.log("answers:",answers)
-
-    
-    
-  
     const handleCopy = () => {
-      setCopied(true);
-      
-      setTimeout(() => {
+    setCopied(true);
+    
+    setTimeout(() => {
         setCopied(false);
-      }, 1000); // 2초 후에 '복사되었습니다' 메시지가 사라지도록 설정
-  
+    }, 1000); // 2초 후에 '복사되었습니다' 메시지가 사라지도록 설정
+
       // 복사 후 추가적인 작업을 수행하고 싶다면 여기에 코드를 추가할 수 있습니다.
     };
     
@@ -131,31 +98,31 @@ const Quizresult  = () => {
                 
                 <Content  >
                     <Row>
-                        {answers && answers.slice(0, 2).map((answer, index) => (
+                        {typeData.answer && typeData.answer.slice(0, 2).map((answer, index) => (
                         <Img 
                             key={index}
                             src={`${process.env.PUBLIC_URL}/Images/questresult/${categoryName}/${answer.img}`}
                             alt={`Image ${index + 1}`}
                             onClick={() => handleImageClick(answer.id)}
-                            isNotLast={index !== 1}
+                            isnotlast={index !== 1}
                         />
                         ))}
                     </Row>
                     <Row>
-                        {answers && answers.slice(2, 4).map((answer, index) => (
+                        {typeData.answer && typeData.answer.slice(2, 4).map((answer, index) => (
                         <Img 
                             key={index + 2}
                             src={`${process.env.PUBLIC_URL}/Images/questresult/${categoryName}/${answer.img}`}
                             alt={`Image ${index + 3}`}
                             onClick={() => handleImageClick(answer.id)}
-                            isNotLast={index !== 1}
+                            isnotlast={index !== 1}
                         />
                         ))}
                     </Row>
                 </Content>
                 
                 </Direction>
-                
+                 
                 
                     <Twrap style={{flexDirection:'column'}}>
                         
@@ -171,7 +138,7 @@ const Quizresult  = () => {
                         </div>
                     </Twrap>
                 
-                
+
 
                 <InsideNextWrap> 
                     <ButtonTwo onClick={handleGoHomeClick}>                         
@@ -298,7 +265,7 @@ const OutWrap = styled.div`
     align-items: center; 
     overflow:hidden;
     cursor:pointer;
-    ${({ isNotLast }) => isNotLast && "margin-right: 20px;"}
+    ${({ isnotlast }) => isnotlast && "margin-right: 20px;"}
     
     width:350px;
     height:470px;
@@ -405,74 +372,87 @@ const OutWrap = styled.div`
     margin-top:20px;
     margin-bottom:25px;
     /* tablet 규격 */
-        @media screen and (max-width: 1023px){
-            width:75vw;
-            height: 9vh; 
-        }
+    @media screen and (max-width: 1023px){
+        width:75vw;
+        height: 9vh; 
+    }
 
-        /* mobile 규격 */
-        @media screen and (max-width: 540px){
-            width:85vw;
-            height: 9vh; 
-            margin-bottom:30px;
-        }
-        /* s 데스크 */
-        @media screen and (min-width: 1024px){
-            
-        }
-        /* l 데스크 */
-        @media screen and (min-width: 1700px){
-            height: 13vh; 
-        }
+    /* mobile 규격 */
+    @media screen and (max-width: 540px){
+        width:85vw;
+        height: 9vh; 
+        margin-bottom:30px;
+    }
+    /* s 데스크 */
+    @media screen and (min-width: 1024px){
+        
+    }
+    /* l 데스크 */
+    @media screen and (min-width: 1700px){
+        height: 13vh; 
+    }
 
-    `;
+`;
 
-    const Text1= styled.text`
-    font-size: 40px;
-    color:  #798BE6;
-    font-weight: 600;
-    margin-bottom:13px;
+const FontStyle = {
+    '@media screen and (max-width: 1024px)': {
+        fontSize: 22,
+    },
+    
+    '@media screen and (max-width: 850px)': {
+        fontSize: 21,
+    },
+    
+    /* mobile 규격 */
+    '@media screen and (max-width: 540px)': {
+        fontSize: 19,
+    },
     /* tablet 규격 */
-        @media screen and (max-width: 1023px){
-            
-        }
-
-        /* mobile 규격 */
-        @media screen and (max-width: 540px){
-            font-size: 30px;
-        }
-        /* s 데스크 */
-        @media screen and (min-width: 1024px){
-            
-        }
-        /* l 데스크 */
-        @media screen and (min-width: 1700px){
-            font-size: 45px;
-            margin-bottom:15px;
-        }
+    '@media screen and (min-width: 1025px)': {
+        fontSize: 24,
+    },
+    '@media screen and (min-width: 1700px)': {
+        fontSize: 37,
+    },
+    };
+    
+    const Text1FontStyle = {
+    '@media screen and (max-width: 1024px)': {
+        fontSize: 38,
+    },
+    
+    '@media screen and (max-width: 850px)': {
+        fontSize: 37,
+    },
+    
+    /* mobile 규격 */
+    '@media screen and (max-width: 540px)': {
+        fontSize: 35,
+    },
+    /* tablet 규격 */
+    '@media screen and (min-width: 1025px)': {
+        fontSize: 40,
+    },
+    '@media screen and (min-width: 1700px)': {
+        fontSize: 53,
+    },
+    };
+    
+    const Text1 = styled.text`
+    /* font-size: 40px; */
+    color: #798BE6;
+    font-weight: 600;
+    margin-bottom: 13px;
+    
+    ${Text1FontStyle};
     `;
+    
 
     const Text2= styled.text`
-    font-size: 23px;
+    ${FontStyle};
     color:  #798BE6;
     font-weight: 500;
-    /* tablet 규격 */
-        @media screen and (max-width: 1023px){
-            
-        }
-
-        /* mobile 규격 */
-        @media screen and (max-width: 540px){
-            font-size: 20px;
-        }
-        /* s 데스크 */
-        @media screen and (min-width: 1024px){
-            
-        }
-        /* l 데스크 */
-        @media screen and (min-width: 1700px){
-            font-size: 30px;
-        }
+    
     `;
 
 
@@ -495,16 +475,7 @@ const OutWrap = styled.div`
     margin-top:20px;
     margin-bottom:25px;
 
-    &::after {
-        content: "씨발"; // 원하는 텍스트를 입력하세요
-        position: absolute;
-        top: -20px; /* 텍스트가 테두리 위에 오도록 위치 조정 */
-        left: 50%;
-        transform: translateX(-50%);
-        background-color: #fff;
-        color:black;
-        padding: 0 10px;
-      }
+    
     /* tablet 규격 */
         @media screen and (max-width: 1023px){
             
@@ -536,7 +507,7 @@ justify-content: center;
 position: relative;
 cursor: pointer;
   
-font-size: 27px;
+${FontStyle};
 
 color: white;
 font-weight: 500;
@@ -558,7 +529,6 @@ font-weight: 500;
             width:42.2vw;
             height: 7vh; 
             margin-right:10px;
-            font-size: 22px;
         }
         /* s 데스크 */
         @media screen and (min-width: 1025px){
@@ -570,6 +540,5 @@ font-weight: 500;
         @media screen and (min-width: 1700px){
             width:26vw;
             height: 7vh;
-            font-size: 37px;
         }
  `;
