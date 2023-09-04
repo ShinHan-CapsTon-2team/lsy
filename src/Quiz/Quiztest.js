@@ -184,13 +184,13 @@ const OutWrap = styled.div`
     
     /* tablet 규격 */
         @media screen and (max-width: 1023px){
-            
+            margin-right: 15px;
         }
 
         @media screen and (max-width: 900px){
             width: 43vw;
             height: 53vh;
-            margin-right: 15px;
+            
         }
 
 

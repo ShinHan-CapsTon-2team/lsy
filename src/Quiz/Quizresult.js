@@ -47,15 +47,11 @@ const Quizresult  = () => {
     //데이터 가져오기 
         //카테고리 
     const categoryData = AllDataResult.find((data) => data.categoryName === categoryName);
-    if (!categoryData) {
-        return <div>No data available for the selected category.</div>;
-    }
+    
 
         // categoryName에 해당하는 결과 데이터 중에서 res에 해당하는 데이터 찾기
     const typeData = categoryData.results.find((data) => data.type === res);
-    if (!typeData) {
-        return <div>No data available for the selected type.</div>;
-    }
+    
 
     //console.log("categoryData:",categoryData);
     //console.log("typeData:",typeData);
@@ -64,9 +60,6 @@ const Quizresult  = () => {
     const imgPaths = typeData?.answer.map(answer => answer.img);
 
     console.log("imgPaths:",imgPaths)
-    if (!imgPaths) {
-        return <div>No data available for the selected type.</div>;
-    }
     
         // img id 확인
     const imgIds = typeData?.answer.map(answer => answer.id);
@@ -126,13 +119,13 @@ const Quizresult  = () => {
                 
                     <Twrap style={{flexDirection:'column'}}>
                         
-                        <Text2 style={{fontWeight:600 ,marginBottom:20,fontSize:29}}> 결과 공유하기</Text2>
+                        <Text2 style={{fontWeight:600 ,marginBottom:20,}}> 결과 공유하기</Text2>
                         <div style={{display:'flex',flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
                             <CopyToClipboard text={currentUrl} onCopy={handleCopy}>
                                 <BtnLink src = {btn_link}></BtnLink>
                             </CopyToClipboard>
                             {copied && <Success text="링크 복사가 완료되었습니다."/>}
-                        
+                            
                         
                             <KakaoShareBtn _resulttype={type}/>
                         </div>
@@ -146,7 +139,7 @@ const Quizresult  = () => {
                         홈페이지 방문하기 
                     </ButtonTwo>
                     <ButtonTwo style={{marginRight:0}} onClick={handleRetestdClick}>                         
-                        테스트 다시 하기  
+                        테스트 다시하기  
                     </ButtonTwo>
 
                 </InsideNextWrap>
@@ -362,8 +355,7 @@ const OutWrap = styled.div`
     border-radius: 21px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
-    width:58vw;
-    height:11vh; 
+    
     
     display: flex;
     align-items: center;
@@ -372,20 +364,21 @@ const OutWrap = styled.div`
     margin-top:20px;
     margin-bottom:25px;
     /* tablet 규격 */
-    @media screen and (max-width: 1023px){
-        width:75vw;
+    @media screen and (max-width: 1024px){
+        width:70vw;
         height: 9vh; 
     }
 
     /* mobile 규격 */
     @media screen and (max-width: 540px){
-        width:85vw;
-        height: 9vh; 
+        width:80vw;
+        height: 11.5vh; 
         margin-bottom:30px;
     }
     /* s 데스크 */
-    @media screen and (min-width: 1024px){
-        
+    @media screen and (min-width: 1025px){
+        width:58vw;
+        height:11vh; 
     }
     /* l 데스크 */
     @media screen and (min-width: 1700px){
@@ -394,37 +387,37 @@ const OutWrap = styled.div`
 
 `;
 
-const FontStyle = {
-    '@media screen and (max-width: 1024px)': {
-        fontSize: 22,
-    },
-    
-    '@media screen and (max-width: 850px)': {
-        fontSize: 21,
-    },
-    
-    /* mobile 규격 */
-    '@media screen and (max-width: 540px)': {
-        fontSize: 19,
-    },
-    /* tablet 규격 */
-    '@media screen and (min-width: 1025px)': {
-        fontSize: 24,
-    },
-    '@media screen and (min-width: 1700px)': {
-        fontSize: 37,
-    },
-    };
-    
+    const FontStyle = {
+        '@media screen and (max-width: 1024px)': {
+            fontSize: 22,
+        },
+        
+        '@media screen and (max-width: 850px)': {
+            fontSize: 21,
+        },
+        
+        /* mobile 규격 */
+        '@media screen and (max-width: 540px)': {
+            fontSize: 19,
+        },
+        /* tablet 규격 */
+        '@media screen and (min-width: 1025px)': {
+            fontSize: 24,
+        },
+        '@media screen and (min-width: 1700px)': {
+            fontSize: 37,
+        },
+        };
+        
     const Text1FontStyle = {
     '@media screen and (max-width: 1024px)': {
         fontSize: 38,
     },
-    
+
     '@media screen and (max-width: 850px)': {
         fontSize: 37,
     },
-    
+
     /* mobile 규격 */
     '@media screen and (max-width: 540px)': {
         fontSize: 35,
@@ -464,8 +457,8 @@ const FontStyle = {
     border-radius: 21px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
-    width:30vw;
-    height: 21vh; 
+    width:25vw;
+    height: 18vh; 
 
     display: flex;
     align-items: center;
@@ -475,27 +468,31 @@ const FontStyle = {
     margin-top:20px;
     margin-bottom:25px;
 
+    @media screen and (max-width: 1024px){
+
+    }
     
-    /* tablet 규격 */
-        @media screen and (max-width: 1023px){
-            
-        }
-
-        /* mobile 규격 */
-        @media screen and (max-width: 540px){
-            width:85vw;
-            height: 9vh; 
-            margin-bottom:30px;
-        }
-        /* s 데스크 */
-        @media screen and (min-width: 1024px){
-            
-        }
-        /* l 데스크 */
-        @media screen and (min-width: 1700px){
-            height: 11vh;
-        }
-
+    @media screen and (max-width: 850px){
+        width:30vw;
+        height:11vh; 
+    }
+    /* mobile 규격 */
+    @media screen and (max-width: 540px){
+        width:50vw;
+        height:14vh; 
+        margin-bottom:30px;
+    }
+    
+    /* s 데스크 */
+    @media screen and (min-width: 1025px){
+    
+    }
+    /* l 데스크 */
+    @media screen and (min-width: 1700px){
+        height: 14vh;
+    }
+    
+    
     `;
 
 const ButtonTwo = styled(Radius)`
@@ -510,24 +507,25 @@ cursor: pointer;
 ${FontStyle};
 
 color: white;
-font-weight: 500;
+//font-weight: 500;
 
   ;
   /* tablet 규격 */
         @media screen and (max-width: 1024px){
             width:33vw;
             height: 7vh;
-            font-size: 25px;
+            //font-size: 25px;
             margin-right:10px;
         }
 
         @media screen and (max-width: 850px){
-            font-size: 24px;
+            //font-size: 24px;
         }
         /* mobile 규격 */
         @media screen and (max-width: 540px){
-            width:42.2vw;
-            height: 7vh; 
+            
+            width:45.5vw;
+            height: 8vh; 
             margin-right:10px;
         }
         /* s 데스크 */

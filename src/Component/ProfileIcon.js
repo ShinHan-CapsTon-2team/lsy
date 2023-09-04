@@ -121,11 +121,11 @@ export const ProfileIcon = () => {
               
             ) : (
               // 2. 로그인 안한 상태
-              //<ModalBackdrop onClick={openModalHandler}>
-              //  <LoginModal />
-              //</ModalBackdrop>
+              <ModalBackdrop onClick={openModalHandler}>
+                <LoginModal />
+              </ModalBackdrop>
               
-               <ProandLogout/>
+              // <ProandLogout/>
               
             )
           )}

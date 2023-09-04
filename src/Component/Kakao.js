@@ -60,8 +60,8 @@ function KaKao({_resulttype}) {
                 {
                     title: '결과보기',
                     link: {
-                        mobileWebUrl: 'https://localhost:3000/quizresult'+_resulttype,
-                        webUrl: 'https://localhost:3000/quizresult'+_resulttype
+                        mobileWebUrl: 'http://localhost:3000/quizresult'+_resulttype,
+                        webUrl: 'http://localhost:3000/quizresult'+_resulttype
                     },
                 },
                     {

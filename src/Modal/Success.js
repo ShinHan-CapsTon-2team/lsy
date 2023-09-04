@@ -36,60 +36,66 @@ export const ModalView = styled.div.attrs((props) => ({
 
   justify-content: center;
 
-  
-	/* tablet 규격 */
-  @media screen and (max-width: 1023px){
-      
+  @media screen and (max-width: 1024px){
+    width: 35vw;
   }
-
+  
+  @media screen and (max-width: 850px){
+    width: 50vw;
+    height: 14vh;
+  }
   /* mobile 규격 */
   @media screen and (max-width: 540px){
-    width: 60vw;
+    width: 70vw;
     height: 19vh;
   }
+  
   /* s 데스크 */
-  @media screen and (min-width: 1024px){
-      
+  @media screen and (min-width: 1025px){
+  
   }
   /* l 데스크 */
   @media screen and (min-width: 1700px){
-      
+    width: 35vw;
+    height: 21vh;
   }
-    
+
+ 
 `;
 
-const TextWrap= styled.div`
-  width: 100%;
-  height: 100%;
-  padding:30px;
-  box-sizing:border-box;
-  display: flex;
-  align-items: center;
 
-  justify-content: center;
-`;
+const FontStyle = {
+  '@media screen and (max-width: 1024px)':{
+  
+  fontSize: 22
+  },
+  
+  '@media screen and (max-width: 850px)':{
+  fontSize: 21
+  
+  },
+  
+  /* mobile 규격 */
+  '@media screen and (max-width: 540px)':{
+  
+  fontSize: 19
+  },
+  /* tablet 규격 */
+  '@media screen and (min-width: 1025px)':{
+  
+  fontSize: 24
+  },
+  '@media screen and (min-width: 1700px)': {
+  
+  fontSize: 37
+  }
+  };
 const Text= styled.div`
-font-size: 25px;
+${FontStyle};
 color: black;
 
 
-/* tablet 규격 */
-@media screen and (max-width: 1023px){
-    
-}
 
-/* mobile 규격 */
-@media screen and (max-width: 540px){
-  font-size: 15px;
-}
-/* s 데스크 */
-@media screen and (min-width: 1024px){
-    
-}
-/* l 데스크 */
-@media screen and (min-width: 1700px){
-    
-}
 `;
 
 

@@ -23,18 +23,49 @@ bottom : 0;
 
 
 export const ModalView = styled.div.attrs((props) => ({
-// attrs 메소드를 이용해서 아래와 같이 div 엘리먼트에 속성을 추가할 수 있다.
-role: 'dialog',
-}))`
-// Modal창 CSS를 구현합니다.
-
-border-radius: 20px;
-width: 35%;
-height: 28%;
-//height:8.5em;
-background-color: #ffffff;
-
-`;
+    // attrs 메소드를 이용해서 아래와 같이 div 엘리먼트에 속성을 추가할 수 있다.
+    role: 'dialog',
+  }))`
+    // Modal창 CSS를 구현합니다.
+    
+    border-radius: 20px;
+  
+    width: 27vw;
+    height: 20vh;
+    //height:8.5em;
+    background-color: #ffffff;
+  
+    display: flex;
+    align-items: center;
+  
+    justify-content: center;
+  
+    @media screen and (max-width: 1024px){
+      width: 35vw;
+    }
+    
+    @media screen and (max-width: 850px){
+      width: 50vw;
+      height: 16vh;
+    }
+    /* mobile 규격 */
+    @media screen and (max-width: 540px){
+      width: 70vw;
+      height: 21vh;
+    }
+    
+    /* s 데스크 */
+    @media screen and (min-width: 1025px){
+    
+    }
+    /* l 데스크 */
+    @media screen and (min-width: 1700px){
+      width: 35vw;
+      height: 23vh;
+    }
+  
+   
+  `;
 const FontStyle = {
     '@media screen and (max-width: 1024px)':{
     
@@ -78,15 +109,37 @@ margin-bottom:5%;
 `;
 
 const BtnLoginWrap = styled.div`
-width:15vw;
-height:8vh;
+//width:15vw;
+width:100%;
+//height:8vh;
 
 //height:1.5em;
 `;
 
 const BtnNaver = styled.img`
-width:100%;
+width:50%;
 height:100%;
+
+@media screen and (max-width: 1024px){
+    width:60%;
+}
+
+@media screen and (max-width: 850px){
+    width:65%;
+}
+/* mobile 규격 */
+@media screen and (max-width: 540px){
+    width:70%;
+}
+
+/* s 데스크 */
+@media screen and (min-width: 1025px){
+
+}
+/* l 데스크 */
+@media screen and (min-width: 1700px){
+    width:49%;
+}
 `;
 export const LoginModal = () => {
 
