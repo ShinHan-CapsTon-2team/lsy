@@ -9,12 +9,12 @@ import QuizSelPhoto from './Quiz/Quiztest'
 import QuizReult from './Quiz/Quizresult'
 import Post from './PostUp/Post.js'
 import Home from './Home/homepage.js'
-import Reco from './PostUp/Reco.js'
+import Reco from './Recommend/Reco'
 import Lookup from './Lookup/Image_Lookup_Comtest'
 import  { createGlobalStyle } from "styled-components";  
 import ProfileLook from './Mypage/ProfileLook';
 import PostEdit from './PostUp/PostEdit';
-
+import RecoResult from './Recommend/RecoResult';
 
 const GlobalStyle = createGlobalStyle`
 
@@ -57,10 +57,11 @@ function App() {
                 
                 <Route path ='/quizindex' element={<QuizSelIndex />}/>
                 <Route path ='/quiztest' element={<QuizSelPhoto />}/>
-
-                <Route path ='/reco' element={<Reco/>}/>
                 <Route path ='/quizresult' element={<QuizReult />}/>
 
+                <Route path ='/reco' element={<Reco/>}/>
+                <Route path='/recoresult' element={<RecoResult/>}/>
+                
                 <Route path ='/home' element={<Home />}/>
                 <Route path ='/lookup/:id' element={<Lookup/>}/>
                 <Route path ='/postedit/:id' element={<PostEdit/>}/>

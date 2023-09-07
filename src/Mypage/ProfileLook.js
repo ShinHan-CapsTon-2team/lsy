@@ -51,7 +51,7 @@ function ProfileLook() {
                 <Center>
 
 
-                  <ProfileInfo_Edit/>
+                  <ProfileInfo/>
 
                   <ArticleWrap>
                       <Two >
@@ -295,8 +295,8 @@ text-align: center;
 display: flex;
 flex-direction: row;
 //align-items: center; 
-
-width: 90%;
+width: 100%;
+//width: 90%;
 //height:100%;
 margin-top:20px;
 //justify-content: space-between; //고려
@@ -310,16 +310,19 @@ margin-top:20px;
 `;
 
 const ContentRadius = styled.div`
-//border: 3px #3A76EF solid;
-padding: 40px;
 word-wrap: break-word;
 border-radius: 31px;
 box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
+
+padding: 40px;
 margin-bottom:20px;
 @media screen and (max-width: 850px){
   padding: 20px;
 }
+
+
+
 
 @media screen and (max-width: 1600px) {
   border: 3px #3A76EF solid;
@@ -346,16 +349,6 @@ align-items: center;
 height:auto;
 min-height:65vh;
 `;
-
-const Area = styled.div`
-display: flex;
-align-items: center;
-width: 100%;
-border-radius: 31px;
-overflow: hidden; 
-`;
-
-
 
 
 const PostWrap =styled.div`

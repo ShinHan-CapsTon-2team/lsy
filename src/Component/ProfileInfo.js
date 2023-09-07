@@ -56,7 +56,7 @@ margin-bottom:20px;
     }
     
     @media screen and (min-width: 1601px) {
-    border: 4px #3A76EF solid;
+    border: 3px #3A76EF solid;
     };
 
 
@@ -78,7 +78,7 @@ margin-bottom:20px;
 
 justify-content: center;
 
-width:65%;
+width:70%;
 @media screen and (max-width: 850px){
     width:75%;
 }
@@ -97,7 +97,7 @@ height:auto;
 min-height:30vh;
 flex-direction: column;
 
-width:65%;
+width:70%;
 @media screen and (max-width: 850px){
     width:75%;
 }
@@ -176,34 +176,24 @@ const Left = styled.div`
 `;
 
 const Radius = styled.button`
-//border: 3px #3A76EF solid;
-
 padding: 20px;
 word-wrap: break-word;
 border-radius: 40px;
 box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-
-//margin-top: 20px;
-border:none;
-`;
-
-  const ButtonShort =  styled(Radius)`
-  background: #798BE6;
-//width:17vw;
-height: 8.5vh; 
-//margin-left:20px;
 cursor: pointer;
 display: flex;
 align-items: center;
 justify-content: center;
-
-width:80%;
-
+border:none;
+background: #798BE6;
 position: relative;
 cursor: pointer;
 color: white;
+`;
+const ButtonShort =  styled(Radius)`
+height: 8.5vh; 
+width:80%;
 ${FontStyle};
-//margin-top:20px;
 margin-bottom:20px;
 &:hover {
   background:#5D6BB4;
@@ -220,7 +210,7 @@ margin-bottom:20px;
 }
 /* mobile 규격 */
 @media screen and (max-width: 540px){
-    
+    width:70%;
   //width:30vw;
   height: 7vh;
 }
@@ -325,7 +315,7 @@ const ProfileInfo = () => {
                             <NickName>김또잉</NickName>
                         </SmallWrap>                       
                         <Wrap>
-                            <Email>ddoing@gmail.comddoing@gmail.com</Email> {/* 링크 복사하게끔  */}
+                            <Email>ddoing@gmail.com</Email> {/* 링크 복사하게끔  */}
                         </Wrap>
                     
                 </One>

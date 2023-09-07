@@ -260,20 +260,20 @@ margin-right:10px;
 
 const Radius = styled.button`
 padding: 20px;
-word-wrap: break-word;
-border-radius: 40px;
-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
 margin-top: 20px;
+
 border:none;
 background: #798BE6;
 display: flex;
 align-items: center;
 justify-content: center;
-
 position: relative;
 cursor: pointer;
 color: white;
-
+word-wrap: break-word;
+border-radius: 40px;
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 `;
 
 

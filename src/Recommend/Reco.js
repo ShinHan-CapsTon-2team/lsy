@@ -163,7 +163,6 @@ const OutWrap = styled.div`
   }
 `;
 const InOutWrap = styled.div`
-//text-align: center;
 display: flex;
 flex-direction: column;
 align-items: center;
@@ -172,59 +171,36 @@ width: 65%;
 height:100%;
 
 /* tablet 규격 */
-        @media screen and (max-width: 1023px){
-          width: 75%;
-        }
+  @media screen and (max-width: 1023px){
+    width: 75%;
+  }
 /* mobile 규격 */
-        @media screen and (max-width: 540px){
-          width: 90%;
-        }
-        /* s 데스크 */
-        @media screen and (min-width: 1024px){
-            
-        }
-        /* l 데스크 */
-        @media screen and (min-width: 1700px){
-            
-        }
+  @media screen and (max-width: 540px){
+    width: 90%;
+  }
+  /* s 데스크 */
+  @media screen and (min-width: 1024px){
+      
+  }
+  /* l 데스크 */
+  @media screen and (min-width: 1700px){
+      
+  }
 `;
 
 
 const Center = styled.div`
 width: 100%;
 height:80%;
-//text-align: center;
 display: flex;
 flex-direction: column;
 align-items: center;
-/* tablet 규격 */
-        @media screen and (max-width: 1023px){
-          //height:80%;
-        }
-
-        /* mobile 규격 */
-        @media screen and (max-width: 540px){
-          height:83%;
-        }
-        /* s 데스크 */
-        @media screen and (min-width: 1024px){
-            
-        }
-        /* l 데스크 */
-        @media screen and (min-width: 1700px){
-            
-        }
-
 `;
 const InLayoutOne = styled.div`
-//text-align:center;
 width:100%;
 height:85%
-
-
 `;
 const Content = styled.div`
-//width:65vw;
 width:100%;
 height:100%;
 display: flex;
@@ -238,7 +214,6 @@ flex-direction: column;
   `;
 
   const EmptyImg = styled.img`
-  
   width: 150px;
   height: 150px;
   position: absolute;
@@ -247,23 +222,23 @@ flex-direction: column;
   transform: translate(-50%, -50%);
   
   /* tablet 규격 */
-        @media screen and (max-width: 1023px){
-            
-        }
+    @media screen and (max-width: 1023px){
+        
+    }
 
-        /* mobile 규격 */
-        @media screen and (max-width: 540px){
-            
-        }
-        /* s 데스크 */
-        @media screen and (min-width: 1024px){
-            
-        }
-        /* l 데스크 */
-        @media screen and (min-width: 1700px){
-          width: 200px;
-          height: 200px;
-        }
+    /* mobile 규격 */
+    @media screen and (max-width: 540px){
+        
+    }
+    /* s 데스크 */
+    @media screen and (min-width: 1024px){
+        
+    }
+    /* l 데스크 */
+    @media screen and (min-width: 1700px){
+      width: 200px;
+      height: 200px;
+    }
   `;
 
 const InLayoutTwo = styled(InLayoutOne)`
@@ -284,14 +259,24 @@ const ContentRadius = styled.div`
 border: 3px #3A76EF solid;
 padding: 20px;
 word-wrap: break-word;
-opacity: 0.90;
 border-radius: 31px;
 box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+
 box-sizing:border-box;
 
-@media screen and (min-height: 900px) {
-    border: 4px #3A76EF solid;
-};
+@media screen and (max-width: 1600px) {
+  border: 3px #3A76EF solid;
+  };
+  
+  @media screen and (max-width: 540px) {
+  margin-top: 15px;
+  border: 2px #3A76EF solid;
+  };
+  
+  @media screen and (min-width: 1601px) {
+  margin-top: 30px;
+  border: 4px #3A76EF solid;
 `;
 
 
@@ -303,27 +288,24 @@ height:100%;
 `;
   
 const Radius = styled.button`
-
 padding: 20px;
 word-wrap: break-word;
 border-radius: 40px;
 box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 border:none;
+background: #798BE6;
+display: flex;
+align-items: center;
+justify-content: center;
+position: relative;
+cursor: pointer;
+color: white;
 `;
 
 // 버튼투
 const ButtonTwo = styled(Radius)`
-  background: #798BE6;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  position: relative;
-  cursor: pointer;
-
   width:30%;
   height: 70%; 
-  color: white;
 
   /* tablet 규격 */
   @media screen and (max-width: 1023px){
@@ -333,8 +315,6 @@ const ButtonTwo = styled(Radius)`
   /* mobile 규격 */
   @media screen and (max-width: 540px){
     width:55%;
-     
-
   }
 
   /* s 데스크 */
@@ -342,7 +322,7 @@ const ButtonTwo = styled(Radius)`
       
   }
   @media screen and (min-width: 1700px) {
-     
+  
   };
  `;
 const FindImg = styled(ButtonTwo)` 

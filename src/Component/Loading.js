@@ -13,21 +13,14 @@ const override = {
 const OutWrap = styled.div`
   width: 100%;
   height: 100%;
-  //margin: 0 auto;
-  //box-sizing:border-box;
   padding: 0; margin: 0;
   overflow: hidden;
- // position: relative;
-
   background: white;
-
   position: absolute;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
- 
-
 `;
 const Tex = styled.text`
 color:#798BE6;

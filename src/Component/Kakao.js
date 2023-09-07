@@ -8,9 +8,9 @@ const { Kakao } = window;
 function KaKao({_resulttype}) {
     const Button = styled.button`
     cursor: pointer;
-  outline: none;
-  background: none;
-  border: none;
+    outline: none;
+    background: none;
+    border: none;
     `;
     const Img =styled.img`
     width:60px;

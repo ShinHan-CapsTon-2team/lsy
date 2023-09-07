@@ -87,14 +87,18 @@ const Quizstart = () => {
 
 
     const Radius = styled.button`
-    //border: 3px #3A76EF solid;
     padding: 20px;
     word-wrap: break-word;
-    border-radius: 20px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-
-    //margin-top: 20px;
     border:none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+    color: #798BE6;
+
+    border-radius: 20px;
     `;
     
     const ButtonWrap =styled.div`
@@ -104,13 +108,8 @@ const Quizstart = () => {
 
     
     const Textselect= styled(Radius)`
-    border: 3px #798BE6 solid;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    cursor: pointer;
-    color: #798BE6;
+    //border: 3px #798BE6 solid;
+    
     font-weight: bold;
     background:white;
     width: 100%;
@@ -147,23 +146,17 @@ const Quizstart = () => {
 
     `;
     const ButtonTwo = styled(Radius)`
-    background: #798BE6;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    cursor: pointer;
-    color: white;
-    font-weight: 500;
 
+    font-weight: 500;
     width: 100%;
     height: 80%;; 
     font-size: 40px;
-    pointer:cusor;
+
     &:hover{
         background:#5D6BB4;
     }
     margin-bottom:5px;
+
     /* tablet 규격 */
     @media screen and (max-width: 1024px){
         font-size: 30px;
@@ -172,9 +165,7 @@ const Quizstart = () => {
     
     @media screen and (max-width: 850px){
         font-size: 30px;
-        &:hover{
-            background:#798BE6;
-        }
+
     }
 
     /* mobile 규격 */
@@ -184,15 +175,13 @@ const Quizstart = () => {
     }
     /* s 데스크 */
     @media screen and (min-width: 1025px){
-        // width: 35vw;
-        //height: 9vh;; 
+ 
         font-size: 30px;
         
     }
     /* l 데스크 */
     @media screen and (min-width: 1700px){
-        //width: 40vw;
-        //height: 9vh;; 
+ 
         font-size: 40px;
         
     }
@@ -212,15 +201,13 @@ const Quizstart = () => {
                 <ImgWrap>
                     <ButtonWrap >
                         <ButtonTwo onClick={() => handleCategorySelect('body')}>
-                        바디프로필
+                            바디프로필
                         </ButtonTwo>
                     </ButtonWrap>
 
                     <ButtonWrap>
                         <ButtonTwo onClick={() => handleCategorySelect('pet')}>
-                            
-                                반려동물
-                            
+                            반려동물                         
                         </ButtonTwo>
                     </ButtonWrap>
 

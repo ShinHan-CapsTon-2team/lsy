@@ -20,6 +20,8 @@ const Homepage = () => {
   //데이터 불러오는 
   const [selectedCategory, setSelectedCategory] = useState('가족사진');
   // 버튼
+  const accessToken = localStorage.getItem('access_token'); // 로컬 스토리지에서 액세스 토큰 가져오기
+
   const [selectCategory, setSelectCategory] = useState('가족사진');
 
   const [pageNumber, setPageNumber] = useState(1);
@@ -342,23 +344,12 @@ const CategoryWrap = styled.div`
 
  
   const Radius = styled.button`
-//border: 3px #3A76EF solid;
-
 padding: 20px;
 word-wrap: break-word;
 border-radius: 40px;
 box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-
-//margin-top: 20px;
+background: #798BE6;
 border:none;
-`;
-
-  const ButtonShort =  styled(Radius)`
-  background: #798BE6;
-width:10vw;
-height: 7vh; 
-margin-left:20px;
-
 display: flex;
 align-items: center;
 justify-content: center;
@@ -366,6 +357,13 @@ justify-content: center;
 position: relative;
 cursor: pointer;
 color: white;
+
+`;
+
+  const ButtonShort =  styled(Radius)`
+width:10vw;
+height: 7vh; 
+margin-left:20px;
 
 &:hover {
   background:#5D6BB4;
@@ -400,17 +398,7 @@ color: white;
 
 // 버튼투
 const ButtonTwo = styled(Radius)`
-  //background: ${({ isSelected }) => isSelected ? '#5D6BB4' : '#798BE6'};
   background: ${({ isselected }) => (isselected === 'true' ? '#5D6BB4' : '#798BE6')};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  position: relative;
-  cursor: pointer;
-  color: white;
-  //flex-wrap: wrap;
-  
   width:18.5%;
   margin-right:15px;
   
@@ -436,7 +424,6 @@ const ButtonTwo = styled(Radius)`
 
   /* mobile 규격 */
   @media screen and (max-width: 540px){
-    //width:46vw;
     width:32%;
     height: 7vh; 
 
@@ -453,26 +440,19 @@ const ButtonTwo = styled(Radius)`
 
   /* ss 데스크 */
   @media screen and (min-width: 1025px){
-   // width:17.5vw;
-    //margin-right:6px;
+  
   }
   /* s 데스크 */
   @media screen and (min-width: 1210px){
-    //width:17vw;
-    //width:20%;
     height: 7.3vh; 
-   // height:4rem;
       
   }
   @media screen and (min-width: 1700px) {
-    //width:15vw;
-   height: 7vh; 
-    //margin-right:20px;
-    //height:2rem;
+    height: 7vh; 
   }
     
   };
- `;
+`;
 
 const PostWrap =styled.div`
 text-align: center;

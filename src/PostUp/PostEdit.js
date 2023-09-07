@@ -418,12 +418,11 @@ const handleCategorySelect = (selectedCategory, index) => {
                                       <Menu>카테고리 선택</Menu>
                                   )}
           
-         
                                   <DropContainer>
 
                                     {isMenuOpen && (
                                      <DropMenu > {/* 스타일 수정 */}
-                                           
+                                      
                                         <CateMenu onClick={() => handleCategorySelect(classLabels[0], index)}>{classLabels[0]}</CateMenu>
                                         <CateMenu onClick={() => handleCategorySelect(classLabels[1], index)}>{classLabels[1]}</CateMenu>
                                         <CateMenu onClick={() => handleCategorySelect(classLabels[2], index)}>{classLabels[2]}</CateMenu>
@@ -579,10 +578,18 @@ border-radius: 31px;
 box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 margin-top: 20px;
 
-@media screen and (min-height: 900px) {
-    margin-top: 30px;
-    border: 4px #3A76EF solid;
-};
+@media screen and (max-width: 1600px) {
+  border: 3px #3A76EF solid;
+  };
+  
+  @media screen and (max-width: 540px) {
+  margin-top: 15px;
+  border: 2px #3A76EF solid;
+  };
+  
+  @media screen and (min-width: 1601px) {
+  margin-top: 30px;
+  border: 4px #3A76EF solid;
 `;
 
 const One = styled(ContentRadius)`
@@ -627,19 +634,8 @@ margin-left: auto;
 }
 `;
 
-const Radius = styled.button`
-background: #798BE6;
-padding: 20px;
-word-wrap: break-word;
-border-radius: 40px;
-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
-margin-top: 20px;
-border:none;
-
-`;
 const Buttons = styled.div`
-  //text-align: center;
   display: flex;
   //justify-items: space-between;
   flex-direction: row;
@@ -653,32 +649,36 @@ const Buttons = styled.div`
   }
 `;
 
-
-const ButtonOne = styled(Radius)`
+const Radius = styled.button`
+background: #798BE6;
+padding: 20px;
+word-wrap: break-word;
+border-radius: 40px;
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+border:none;
 background: #798BE6;
 display: flex;
 align-items: center;
 justify-content: center;
-
 cursor: pointer;
 position: relative;
+
+margin-top: 20px;
+
+
+`;
+const ButtonOne = styled(Radius)`
+
 width: 90%;
 height: 7vh;
 `;
 
 // 버튼투
 const ButtonTwo = styled(Radius)`
-  background: #798BE6;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  position: relative;
-  cursor: pointer;
 
   width:18vw;
   height: 7vh; 
-  color: white;
+
 
   /* mobile 규격 */
   @media screen and (max-width: 540px){
@@ -846,15 +846,8 @@ const CateMenu = styled.div`
 
 
 const ButtonLong = styled(Radius)`
-  
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  cursor: pointer;
   width:18vw;
   height: 7vh; 
-  color:white;
 
   /* mobile 규격 */
   @media screen and (max-width: 540px){

@@ -25,8 +25,6 @@ const Header=() =>
 
 export default Header;
 
-
-
 const LogoWrap = styled.div`
     width: 100%; 
     display: flex;

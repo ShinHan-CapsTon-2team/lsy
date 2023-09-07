@@ -7,7 +7,6 @@ import styled from "styled-components";
 import homelogo from '../Images/hh.png'
 import { ProfileIcon } from './ProfileIcon';
 
-// 회원 아이콘 추가,,, 누를 시 1) 로그인 한 경우는 프로필 정보 페이지 2)로그인 x 로그인 페이지로 
 const Header=() => 
 {
     const navigate = useNavigate();
@@ -23,10 +22,6 @@ const Header=() =>
         navigate('/home');
     };
 
-    //프로필 페이지 
-    const handleGoProfileClick = () => {
-        navigate('/profile');
-    };
     return (
 
     <LogoWrap>                
@@ -60,8 +55,6 @@ margin-top:20px;
 
 
 const LandingWrap = styled.div`
-
-
 `;
 const HomeWrap = styled.div`
 display: flex;

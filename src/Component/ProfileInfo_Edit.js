@@ -189,33 +189,24 @@ min-height: 25vh;
 height:auto;
 `;
 const Radius = styled.button`
-//border: 3px #3A76EF solid;
-
 padding: 20px;
 word-wrap: break-word;
 border-radius: 40px;
 box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-
-//margin-top: 20px;
-border:none;
-`;
-const ButtonShort =  styled(Radius)`
-  background: #798BE6;
-//width:17vw;
-height: 8.5vh; 
-//margin-left:20px;
 cursor: pointer;
 display: flex;
 align-items: center;
 justify-content: center;
-
-width:80%;
-
+border:none;
+background: #798BE6;
 position: relative;
 cursor: pointer;
 color: white;
+`;
+const ButtonShort =  styled(Radius)`
+height: 8.5vh; 
+width:80%;
 ${FontStyle};
-//margin-top:20px;
 margin-bottom:20px;
 &:hover {
   background:#5D6BB4;
@@ -299,58 +290,83 @@ const ProfileInfo_Edit = () => {
     const [introduction, setintroduction] = useState('');
     const [career, setCareer] = useState('');
     
+    useEffect(() => {
+    const accessToken = localStorage.getItem("access_token");
+    if (accessToken) {
+        fetch('http://localhost:4001/api/user', {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ accessToken }),
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            setUser(data);
+            console.log("현재 접속중인 사용자 이메일:", data.email);
+            console.log("현재 접속중인 사용자 닉네임:", data.nickname);
+            // 서버로 이메일 정보를 보내어 프로필 정보를 가져옵니다.
+            fetch(`http://localhost:4002/api/profile?email=${data.email}`)
+            .then((response) => response.json())
+            .then((profileData) => {
+                setIntroduction(profileData.introduction);
+                setCareer(profileData.career);
+            })
+            .catch((error) => {
+                console.error('Error fetching profile:', error);
+            });
+        })
+        .catch((error) => {
+            console.error('Error fetching user email:', error);
+        });
+    }
+    }, []);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
-    const accessToken = localStorage.getItem("access_token");
-    // 프로필 정보를 서버에 보내는 로직
-    try {
-        const response = await fetch(SERVER_URL, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${accessToken}`, // 액세스 토큰을 헤더에 포함
-          },
-          body: JSON.stringify({
-            nickname,
-            introduction,
-            career,
-            // 필요한 다른 프로필 정보들 추가
-          }),
-        });
-  
-        if (response.ok) {
-          // 서버 응답이 정상인 경우 처리
-          console.log('프로필 정보 업데이트 성공');
-          navigate('/profile');
+        // 프로필 정보를 서버에 보내는 로직 
+        try {
+            const response = await fetch(
+                'http://localhost:4002/api/profileEdit',
+                {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    introduction,
+                    career,
+                    email: user.email,
+                }),
+                },
+            );
+            if (response.ok) {
+                // 서버 응답이 정상인 경우 처리
+                console.log('프로필 정보 업데이트 성공');
+                navigate('/profile');
+        
+            } else {
+                // 서버 응답이 실패한 경우 처리
+                console.error('프로필 정보 업데이트 실패');
+            }
+            } catch (error) {
+            console.error('에러 발생:', error);
+            }
+        };
 
-        } else {
-          // 서버 응답이 실패한 경우 처리
-          console.error('프로필 정보 업데이트 실패');
-        }
-      } catch (error) {
-        console.error('에러 발생:', error);
-      }
-    };
-  
 
     return(
         <ProfileWrap>
             
                 <One> {/* 이름 이메일  */}
                     
-                        <WrapAuto style={{marginBottom:10}}>
-                            <InputBasic
-                                type="text"
-                                value={nickname}
-                                onChange={(e) => setNickname(e.target.value)}
-                                placeholder="닉네임 "
-                            />
-                        </WrapAuto>
+                    <SmallWrap style={{marginBottom:10}}>
+                        <NickName>{user.nickname}</NickName>
+                    </SmallWrap> 
                         
-                        <Wrap>
-                            <Email>ddoing@gmail.com</Email> {/* 링크 복사하게끔  */}
-
-                        </Wrap>
+                    <Wrap>
+                        <Email>{user.email}</Email> {/* 링크 복사하게끔  */}
+                    </Wrap>
                     
 
                 </One>
@@ -376,7 +392,7 @@ const ProfileInfo_Edit = () => {
                     <div style={{display:'flex',flexDirection:'column',width:'100%',marginBottom:23}}>
                         
                         <Left >
-                            <div style={{fontSize:25,color:'gray'}}> 커리어</div>
+                            <Whatgray> 커리어</Whatgray>
                         </Left>
                         <Left style={{marginTop:10,width:'100%'}}>
                             <WrapPer>

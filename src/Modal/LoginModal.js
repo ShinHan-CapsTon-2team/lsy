@@ -17,10 +17,7 @@ top : 0;
 left : 0;
 right : 0;
 bottom : 0;
-
-
 `;
-
 
 export const ModalView = styled.div.attrs((props) => ({
     // attrs 메소드를 이용해서 아래와 같이 div 엘리먼트에 속성을 추가할 수 있다.
@@ -63,9 +60,8 @@ export const ModalView = styled.div.attrs((props) => ({
       width: 35vw;
       height: 23vh;
     }
-  
-   
   `;
+
 const FontStyle = {
     '@media screen and (max-width: 1024px)':{
     
@@ -92,6 +88,7 @@ const FontStyle = {
     fontSize: 37
     }
     };
+    
 const TextWrap= styled.div`
 width: 100%;
 height: 100%;
@@ -142,23 +139,34 @@ height:100%;
 }
 `;
 export const LoginModal = () => {
+  
 
-// 네이버 로그인 처리하기 
-const onNaverLogin = () => {
-    
-};
+  // 네이버 로그인 처리하기 
+  const onNaverLogin = async () => {
+    try {
+        const response = await fetch('http://localhost:4001/api/naver-login', {
+        method: 'POST', 
+        });
+        const data = await response.json();
+        console.log(data); // 네이버 로그인 페이지로 리다이렉트.
+        // 네이버 로그인 페이지로 리다이렉트
+        window.location.href = data.naverLoginUrl;
+    } catch (error) {
+        console.error('Error during Naver login:', error);
+    }
+    };
 
 
-return (
-    <ModalView onClick={(e) => e.stopPropagation()}>
-    
-        <TextWrap>
-            <Text>로그인 해주세요</Text>
-            <BtnLoginWrap> 
-                <BtnNaver src={naverlogin}  onclick={onNaverLogin} alt=''></BtnNaver>
-            </BtnLoginWrap>
-        </TextWrap>
+  return (
+      <ModalView onClick={(e) => e.stopPropagation()}>
+      
+          <TextWrap>
+              <Text>로그인 해주세요</Text>
+              <BtnLoginWrap> 
+                  <BtnNaver src={naverlogin}  onClick={onNaverLogin} alt=''></BtnNaver>
+              </BtnLoginWrap>
+          </TextWrap>
 
-    </ModalView>
-    );
+      </ModalView>
+      );
 };

@@ -1,4 +1,4 @@
-import { useLocation ,Link} from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import React,{useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from "styled-components";
@@ -330,21 +330,20 @@ const OutWrap = styled.div`
     
     
     const Radius = styled.button`
-    //border: 6px #798BE6 solid;
-    
     padding: 20px;
     word-wrap: break-word;
-    border-radius: 21px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
     cursor:pointer;
-    margin-bottom: 20px;
     border:none;
-    
-    
-    &:active {
-        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-        transform: translateY(4px);
-      }
+    background: #798BE6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+
+    margin-bottom: 20px;
+    border-radius: 21px;
     `;
 
     const TextWrap =styled.div`
@@ -496,47 +495,33 @@ const OutWrap = styled.div`
     `;
 
 const ButtonTwo = styled(Radius)`
-background: #798BE6;
-display: flex;
-align-items: center;
-justify-content: center;
-
-position: relative;
-cursor: pointer;
-  
 ${FontStyle};
 
-color: white;
-//font-weight: 500;
-
-  ;
   /* tablet 규격 */
-        @media screen and (max-width: 1024px){
-            width:33vw;
-            height: 7vh;
-            //font-size: 25px;
-            margin-right:10px;
-        }
-
-        @media screen and (max-width: 850px){
-            //font-size: 24px;
-        }
-        /* mobile 규격 */
-        @media screen and (max-width: 540px){
-            
-            width:45.5vw;
-            height: 8vh; 
-            margin-right:10px;
-        }
-        /* s 데스크 */
-        @media screen and (min-width: 1025px){
-            width:25vw;
-            height: 8vh;
-            margin-right:20px;
-        }
-        /* l 데스크 */
-        @media screen and (min-width: 1700px){
-            width:26vw;
-            height: 7vh;
-        }
+    @media screen and (max-width: 1024px){
+        width:33vw;
+        height: 7vh;
+        
+        margin-right:10px;
+    }
+    @media screen and (max-width: 850px){
+    }
+    /* mobile 규격 */
+    @media screen and (max-width: 540px){
+        
+        width:45.5vw;
+        height: 8vh; 
+        margin-right:10px;
+    }
+    /* s 데스크 */
+    @media screen and (min-width: 1025px){
+        width:25vw;
+        height: 8vh;
+        margin-right:20px;
+    }
+    /* l 데스크 */
+    @media screen and (min-width: 1700px){
+        width:26vw;
+        height: 7vh;
+    }
  `;

@@ -471,14 +471,11 @@ flex-direction: column;
 `;
 
 const ContentRadius = styled.div`
-//border: 3px #3A76EF solid;
 padding: 20px;
 word-wrap: break-word;
 border-radius: 31px;
 box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 margin-top: 20px;
-
-
 
 @media screen and (max-width: 1600px) {
     border: 3px #3A76EF solid;
@@ -500,12 +497,6 @@ display: flex;
 align-items: center;
 height:auto;
 
-`;
-
-const Two = styled(ContentRadius)`
-  display: flex;
-  //flex-wrap: wrap; /* 줄바꿈을 허용하여 가로 공간에 맞게 정렬될 수 있도록 설정 */
-  align-items: center; /* 수직 가운데 정렬 (선택 사항) *  
 `;
 
 
@@ -549,15 +540,18 @@ padding: 20px;
 word-wrap: break-word;
 border-radius: 40px;
 box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+border:none;
+background: #798BE6;
+display: flex;
+align-items: center;
+justify-content: center;
+cursor: pointer;
+position: relative;
 
 margin-top: 20px;
-border:none;
-
 `;
 const Buttons = styled.div`
-  //text-align: center;
   display: flex;
-  //justify-items: space-between;
   flex-direction: row;
   width: 100%;
 
@@ -570,31 +564,17 @@ const Buttons = styled.div`
 `;
 
 const ButtonOne = styled(Radius)`
-background: #798BE6;
-display: flex;
-align-items: center;
-justify-content: center;
-
-cursor: pointer;
-position: relative;
 width: 90%;
 height: 7vh;
 `;
-// 버튼투
-const ButtonTwo = styled(Radius)`
-  background: #798BE6;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+
+const ButtonTwo = styled(Radius)`-
   margin-left:auto;
   text-aling:center;
-  position: relative;
-  cursor: pointer;
-  
+
   margin-right:20px;
   width:18vw;
   height: 7vh; 
-  color: white;
 
   /* s 데스크 */
   @media screen and (max-width: 1024px){
@@ -739,7 +719,6 @@ const DropContainer = styled.div`
 const DropMenu = styled.div` 
   position: relative;
   background-color: #798BE6;
-  //border: 1px solid #ccc;
   padding: 10px;
   border-radius: 31px;
   z-index: 2;
