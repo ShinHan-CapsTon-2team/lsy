@@ -80,9 +80,9 @@ width:100%;
 export const InLayoutTwo = styled(InLayoutOne)`
 display: flex;
 width: 100%;
-height:12vh;
+height:16vh;
 align-items: center;
-margin-bottom:20px;
+//margin-bottom:20px;
 /* mobile 규격 */
   @media screen and (max-width: 540px){
     
@@ -175,14 +175,13 @@ align-items: center;
 justify-content: center;
 cursor: pointer;
 position: relative;
-
+${FontStyle};
 margin-top: 20px;
 `;
 export const Buttons = styled.div`
   display: flex;
   flex-direction: row;
   width: 100%;
-
   /* 메뉴 column*/
   @media screen and (max-width: 680px){
     flex-direction: column;
@@ -194,6 +193,7 @@ export const Buttons = styled.div`
 export const ButtonOne = styled(Radius)`
 width: 90%;
 height: 7vh;
+
 `;
 
 export const ButtonTwo = styled(Radius)`-
@@ -288,12 +288,14 @@ width: '100%'
 
 export const InputBasic = styled.input`
 ${inputStyle}
+${FontStyle};
 height: 6vh;
 `;
 
 export const TextareaBasic = styled.textarea`
 ${inputStyle}
 height: 100%;
+${FontStyle};
 `;
 
 export const EmptyImg = styled.img`
@@ -349,7 +351,7 @@ export const DropMenu = styled.div`
   padding: 10px;
   border-radius: 31px;
   z-index: 2;
-
+  ${FontStyle};
   //text-align: center;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   top: -167px; // 높 : 860 -167px; 
@@ -378,7 +380,7 @@ export const DropMenu = styled.div`
 
 export const CateMenu = styled.div` 
   ${FontStyle};
-  
+  cusor:pointer;
   margin-top:5px;
 
 `;
