@@ -3,30 +3,29 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import profilelogo from '../Images/pp.png'
 import { LoginModal } from '../Modal/LoginModal';
-import { ProandLogout } from '../Modal/ProandLogout';
+
+
 const HomeWrap = styled.div`
 margin-right:30px;
 
-//position: absolute;
-//right:225px;
 /* tablet 규격 */
-        @media screen and (max-width: 1023px){
-          right:5%;
-          top:5.5%;
+  @media screen and (max-width: 1023px){
+    right:5%;
+    top:5.5%;
 
-        }
+  }
 /* mobile 규격 */
-        @media screen and (max-width: 540px){
-            
-            //top:55px;
-            //right:5px;
-            margin-left:10px;
-            margin-right:10px;
-        }
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+  @media screen and (max-width: 540px){
+      
+      //top:55px;
+      //right:5px;
+      margin-left:10px;
+      margin-right:10px;
+  }
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const HomeLogo =styled.img`
@@ -73,23 +72,6 @@ export const ModalBackdrop = styled.div`
 
 `;
 
-export const ProfileBackdrop = styled.div`
-  // Modal이 떴을 때의 배경을 깔아주는 CSS를 구현
-  width:100%;
-  height:100%;
-
-  z-index: 1; //위치지정 요소
-  position: fixed;
-  display : flex;
-  justify-content : center;
-  align-items : center;
-  //background-color: rgba(0,0,0,0.4);
-  top : 0;
-  left : 0;
-  right : 0;
-  bottom : 0;
-
-`;
 const DropMenu = styled.div`
   position: absolute;
   background-color: white;

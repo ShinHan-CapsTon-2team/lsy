@@ -1,5 +1,5 @@
 import logo from '../Images/imagelogo.png'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,Link } from 'react-router-dom';
 import styled from "styled-components";
 import { useState ,useEffect} from 'react';
 import { LoginModal } from '../Modal/LoginModal';

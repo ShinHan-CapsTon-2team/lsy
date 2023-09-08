@@ -1,13 +1,12 @@
 import React, {useParams ,useNavigate} from 'react-router-dom';
 import { useEffect,useState } from 'react'
 import Logo from "../Component/Header"
-import styled from "styled-components";
 import Lookup_Content from '../Component/Lookup_Content';
 import Loading from '../Component/Loading';
 import { Success } from '../Modal/Success';
-const SERVER_URL= 'http://localhost:4000/api/lookup';
+import * as S from './LookupStyle'
 
-//const SERVER_URL= 'http://localhost:4000/api/post';
+const SERVER_URL= 'http://localhost:4000/api/lookup';
 
 function Images_Lookup_Comtest() {
     const navigate = useNavigate();
@@ -88,7 +87,7 @@ function Images_Lookup_Comtest() {
                     }, 1000);
                     navigate('/home');
 
-                } else { //여기가 맞나?
+                } else { 
                     // 실패 메시지를 보여줍니다.
                     setShowErrorMessage(true);
 
@@ -107,12 +106,12 @@ function Images_Lookup_Comtest() {
     
     return (  
         
-        <OutWrap>
-            <InOutWrap>
+        <S.OutWrap>
+            <S.InOutWrap>
                     
                 <Logo />
 
-                <Center>
+                <S.Center>
                     {user.map((uu)=>{
                         let imageUrl = uu.image_url; // 이미지 URL 사용
                         console.log("url:", imageUrl);
@@ -136,210 +135,35 @@ function Images_Lookup_Comtest() {
                             }
                         )} 
 
-                    <InLayoutTwo> {/* 자기 게시글이면 보이게 처리하기  */}
-                        <Buttons>
-                            <Right> 
-                                <EditButton onClick={handelGoEdit}>
+                    <S.InLayoutTwo> {/* 자기 게시글이면 보이게 처리하기  */}
+                        <S.Buttons>
+                            <S.Right> 
+                                <S.EditButton onClick={handelGoEdit}>
                                     수정  
-                                </EditButton>
+                                </S.EditButton>
 
-                                <DelectButton onClick={handleDelete}>
+                                <S.DelectButton onClick={handleDelete}>
                                     삭제
-                                </DelectButton>
+                                </S.DelectButton>
 
                                 {/* 성공 메시지를 보여주는 부분 */}
                                 {showSuccessMessage && <Success text="게시물이 성공적으로 삭제되었습니다." />}
 
                                 {/* 실패 메시지를 보여주는 부분 */}
                                 {showErrorMessage && <Success text="게시물 삭제에 실패했습니다." />}
-                            </Right>
-                        </Buttons>
-                    </InLayoutTwo>
+                            </S.Right>
+                        </S.Buttons>
+                    </S.InLayoutTwo>
 
                                     
-                </Center>
+                </S.Center>
                     
-            </InOutWrap>
-        </OutWrap>
+            </S.InOutWrap>
+        </S.OutWrap>
     );
 };
 
 export default Images_Lookup_Comtest;
 
-
-
-const OutWrap = styled.div`
-width: 100%;
-height: 97.6vh;
-
-position: relative;
-
-background: white;
-
-display: flex;
-flex-direction: column;
-// justify-content: center;
-align-items: center;
-
-//overflow: hidden;
-
-
-`;
-
-const InOutWrap = styled.div`
-text-align: center;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-
-width:80%;
-/* tablet 규격 */
-@media screen and (max-width: 1024px){
-  width:87%;
-}
-
-/* mobile 규격 */
-@media screen and (max-width: 540px){
-  width:95%;
-  
-}
-/* s 데스크 */
-@media screen and (min-width: 1025px){
-    
-}
-/* l 데스크 */
-@media screen and (min-width: 1700px){
-  width:75%;
-} 
-`;
-
-const Center = styled.div`
-text-align: center;
-display: flex;
-flex-direction: column;
-align-items: center;
-
-width: 87%;
-
-`;
-
-
-const InLayoutTwo = styled.div`
-display: flex;
-
-//height:19vh;
-align-items: center;
-//justify-content: center;
-
-text-align:center;
-width:100%;
-margin-bottom:30px;
-@media screen and (min-width: 1700px) {
-    
-    height:21vh;
-};
-`;
-
-const Buttons = styled.div`
-  text-align: center;
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-`;
-
-
-const Right = styled.div`
-display: flex;
-flex-direction: row;
-margin-left: auto;
-margin-right:10px;
-//flex:1
-`;
-
-
-const Radius = styled.button`
-padding: 20px;
-
-margin-top: 20px;
-
-border:none;
-background: #798BE6;
-display: flex;
-align-items: center;
-justify-content: center;
-position: relative;
-cursor: pointer;
-color: white;
-word-wrap: break-word;
-border-radius: 40px;
-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-`;
-
-
-
-const FontStyle = {
-    '@media screen and (max-width: 1024px)':{
-    
-    fontSize: 22
-    },
-    
-    '@media screen and (max-width: 850px)':{
-    fontSize: 21
-    
-    },
-    
-    /* mobile 규격 */
-    '@media screen and (max-width: 540px)':{
-    
-    fontSize: 19
-    },
-    /* tablet 규격 */
-    '@media screen and (min-width: 1025px)':{
-    
-    fontSize: 24
-    },
-    '@media screen and (min-width: 1700px)': {
-    
-    fontSize: 37
-    }
-    };
-   
-
-
-const ButtonLong = styled(Radius)`
-    
-    width:18vw;
-    height: 7vh; 
-    ${FontStyle};
-
-    
-    /* s 데스크 */
-    @media screen and (max-width: 1024px){
-        
-    }
-    @media screen and (max-width: 850px){
-        width:21vw;
-    }
-    /* mobile 규격 */
-    @media screen and (max-width: 680px){
-        width:41vw;
-        height: 7vh; 
-    }
-
-    
-    /* s 데스크 */
-    @media screen and (min-width: 1025px){
-        
-    }
-    @media screen and (min-width: 1700px) {
-        width:18vw;
-        height: 7.5vh; 
-    };
-    `;
-
-const EditButton =styled(ButtonLong)``;
-const DelectButton=styled(ButtonLong)`
-margin-left:20px;`;
 
 

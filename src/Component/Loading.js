@@ -28,9 +28,7 @@ margin-bottom:10px;
 font-size:20px;
 `;
 
-// text 코사인 유사도 : 계산중 ,,, 등 다른 보통 페이지에선 loading 
-// 안에 값을 주기로
-//              !
+
 const Loading = ({what}) => {
   return (
     <OutWrap>

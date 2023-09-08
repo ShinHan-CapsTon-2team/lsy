@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {  useNavigate } from 'react-router-dom';
+import {  useNavigate ,Link} from 'react-router-dom';
 
 import upload from '../Images/upload.png';
 
@@ -69,7 +69,7 @@ function Reco() {
         console.log('Image upload success!');
         
         // 업로드가 완료된 후 다른 페이지로 이동
-        navigate('/other-page');
+        navigate('/recoresult');
       } else {
         // 이미지 업로드 실패
         console.error('Image upload failed:', response.status);
@@ -117,11 +117,11 @@ function Reco() {
           </InLayoutOne>
 
           <InLayoutTwo>
-            
-            <ButtonTwo  style={{marginRight:10}}onClick={handleImageUploadAndNavigate}>
-              
+          <Link to="/quizresult">
+              <ButtonTwo  style={{marginRight:10}}onClick={handleImageUploadAndNavigate}>
                 결과보기 
-            </ButtonTwo>
+              </ButtonTwo>
+            </Link>
           </InLayoutTwo>
         </Center>
       </InOutWrap>

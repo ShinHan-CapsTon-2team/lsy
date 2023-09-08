@@ -205,19 +205,10 @@ const OutWrap = styled.div`
         text-align: center;
         display: flex;
         flex-direction: column;
-        //margin-top: 50px;
         align-items: center;
     `;
 
-    const Wrap = styled.div`
 
-        text-align: center;
-        display: flex;
-        //flex-direction: column;
-        //margin-top: 50px;
-        align-items: center;
-    `;
-    
     const Direction = styled.div`
         display: flex;
         flex-direction: row;
@@ -231,19 +222,8 @@ const OutWrap = styled.div`
     const Content = styled.div`
     display: flex;
     justify-content: center;
-    //flex-direction: column;
     align-items: center;
     flex-direction: column;
-
-    /* s 데스크 */
-        @media screen and (min-width: 1024px){
-            //margin-right:20px;
-        }
-        /* l 데스크 */
-        @media screen and (min-width: 1700px){
-            //margin-right:40px;
-        }
-
     `;
 
     const Row = styled.div`
@@ -260,32 +240,32 @@ const OutWrap = styled.div`
     cursor:pointer;
     ${({ isnotlast }) => isnotlast && "margin-right: 20px;"}
     
-    width:350px;
-    height:470px;
+    //width:350px;
+    //height:470px;
 
-    //width: 24vw;
-    //height: 63vh;
+    width: 24vw;
+    height: 63vh;
    
     &:hover {
         border: 5px #4E62C5 solid;
     }
     /* tablet 규격 */
         @media screen and (max-width: 1024px){
-           // width: 33vw;
-           // height: 31vh;
-            width:250px;
-            height:370px;
-            //margin-bottom:10px;
+            width: 33vw;
+            height: 31vh;
+            //width:250px;
+            //height:370px;
+            
             
             border: 4px #798BE6 solid;
         }
 
         /* mobile 규격 */
         @media screen and (max-width: 540px){
-            //width: 43vw;
-            //height: 36vh;
-            width:160px;
-            height:280px;
+            width: 43vw;
+            height: 36vh;
+            //width:160px;
+            //height:280px;
             //margin-bottom:10px;
            
             border: 4px #798BE6 solid;
@@ -296,10 +276,10 @@ const OutWrap = styled.div`
         }
         /* l 데스크 */
         @media screen and (min-width: 1700px){
-            //width: 26vw;
-            //height: 65vh;
-            width:470px;
-            height:590px;
+            width: 26vw;
+            height: 65vh;
+            //width:470px;
+            //height:590px;
             border: 8px #798BE6 solid;
             &:hover {
                 border: 8px #4E62C5 solid;
@@ -495,7 +475,7 @@ const OutWrap = styled.div`
     `;
 
 const ButtonTwo = styled(Radius)`
-${FontStyle};
+    ${FontStyle};
 
   /* tablet 규격 */
     @media screen and (max-width: 1024px){

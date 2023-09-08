@@ -1,5 +1,4 @@
 
-import { useNavigate  } from 'react-router-dom';
 import styled from 'styled-components';
 
 
@@ -120,9 +119,6 @@ const SmallWrap = styled(Area)`
 text-align: center;
   display: flex;
   align-items: center;
-
-
-
 `;
 const Wrap = styled(Area)`
 text-align: center;

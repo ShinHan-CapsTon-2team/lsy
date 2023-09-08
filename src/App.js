@@ -1,38 +1,32 @@
 import React ,{useEffect}from 'react';
 import {BrowserRouter, Routes, Route} from 'react-router-dom'; 
 import "./Font/Font.css"
-
+//import  { createGlobalStyle } from "styled-components"; 
 import GlobalStyles from "./GlobalStyles"; // GlobalStyles 불러오기
+
+
 import Landing from './pages/Landing';
-import QuizSelIndex from './Quiz/Quizstart'
-import QuizSelPhoto from './Quiz/Quiztest'
-import QuizReult from './Quiz/Quizresult'
-import Post from './PostUp/Post.js'
-import Home from './Home/homepage.js'
+import QuizSelIndex from './Quiz/Quizstart';
+import QuizSelPhoto from './Quiz/Quiztest';
+import QuizReult from './Quiz/Quizresult';
+import Post from './PostUp/Post.js';
+import Home from './Home/homepage.js';
 import Reco from './Recommend/Reco'
-import Lookup from './Lookup/Image_Lookup_Comtest'
-import  { createGlobalStyle } from "styled-components";  
+import RecoResult from './Recommend/RecoResult';
+import Lookup from './Lookup/Image_Lookup_Comtest' 
 import ProfileLook from './Mypage/ProfileLook';
 import PostEdit from './PostUp/PostEdit';
-import RecoResult from './Recommend/RecoResult';
 
+/*
 const GlobalStyle = createGlobalStyle`
-
-
   html, body {
-    height: 100%;
+    height: 50%;
     width: 100%;
     padding: 0;
     margin: 0;
-   // overflow: hidden;
-   //font-family: "GmarketSansTTFBold";
-   
   }
-  
-
-  
-  
 `;
+*/
 function App() {
     function setScreenSize() {
         let vh = window.innerHeight * 0.01;
@@ -52,6 +46,7 @@ function App() {
             <Routes>
                 
                 <Route path='/' element={<Landing />}/>
+                <Route path ='/home' element={<Home />}/>
 
                 <Route path ='/post' element={<Post />}/>
                 
@@ -62,7 +57,6 @@ function App() {
                 <Route path ='/reco' element={<Reco/>}/>
                 <Route path='/recoresult' element={<RecoResult/>}/>
                 
-                <Route path ='/home' element={<Home />}/>
                 <Route path ='/lookup/:id' element={<Lookup/>}/>
                 <Route path ='/postedit/:id' element={<PostEdit/>}/>
 

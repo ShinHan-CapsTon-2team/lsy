@@ -161,7 +161,7 @@ export const LoginModal = () => {
       <ModalView onClick={(e) => e.stopPropagation()}>
       
           <TextWrap>
-              <Text>로그인 해주세요</Text>
+              <Text>로그인 또는 회원가입 해주세요</Text>
               <BtnLoginWrap> 
                   <BtnNaver src={naverlogin}  onClick={onNaverLogin} alt=''></BtnNaver>
               </BtnLoginWrap>

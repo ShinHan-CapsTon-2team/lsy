@@ -139,7 +139,14 @@ border-radius: 31px;
 //overflow: hidden; 
 `;
 
+const SmallWrap = styled(Area)`
+//height: auto;
+//margin-top:20px;
 
+text-align: center;
+  display: flex;
+  align-items: center;
+`;
 const Wrap = styled(Area)`
 text-align: center;
   display: flex;
@@ -160,10 +167,7 @@ width: 100%;
 overflow: hidden; 
 `;
 
-const WrapAuto = styled(AreaInput)`
-height: auto;
 
-`;
 const WrapPer = styled(AreaInput)`
 height: 100%;
 `;
@@ -280,16 +284,54 @@ color:gray;
 margin-bottom:5px;
 `;
 
+const NickNameFontStyle = {
+    '@media screen and (max-width: 1024px)':{
+    
+    fontSize: 27
+    },
+    
+    '@media screen and (max-width: 850px)':{
+    fontSize: 26
+    
+    },
+    
+    /* mobile 규격 */
+    '@media screen and (max-width: 540px)':{
+    
+    fontSize: 24
+    },
+    /* tablet 규격 */
+    '@media screen and (min-width: 1025px)':{
+    
+    fontSize: 29
+    },
+    '@media screen and (min-width: 1700px)': {
+    
+    fontSize: 40
+    }
+    };
 
+const NickName = styled.div`
+${NickNameFontStyle};
+color:black;
+width:100%;
+overflow-wrap: break-word;
+`;
 
 //1. 프로필 정보 가져오기
 // 2/ 프로필 수정 완료 처리하기  
 const ProfileInfo_Edit = () => {
     const navigate = useNavigate();
     const [nickname, setNickname] = useState('');
-    const [introduction, setintroduction] = useState('');
+    const [introduction, setIntroduction] = useState('');
     const [career, setCareer] = useState('');
-    
+    const [user, setUser] = useState({
+        nickname: '',
+        introduction: '',
+        career: '',
+    });
+
+
     useEffect(() => {
     const accessToken = localStorage.getItem("access_token");
     if (accessToken) {
@@ -324,48 +366,48 @@ const ProfileInfo_Edit = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // 프로필 정보를 서버에 보내는 로직 
-        try {
-            const response = await fetch(
-                'http://localhost:4002/api/profileEdit',
-                {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    introduction,
-                    career,
-                    email: user.email,
-                }),
-                },
-            );
-            if (response.ok) {
-                // 서버 응답이 정상인 경우 처리
-                console.log('프로필 정보 업데이트 성공');
-                navigate('/profile');
-        
-            } else {
-                // 서버 응답이 실패한 경우 처리
-                console.error('프로필 정보 업데이트 실패');
-            }
-            } catch (error) {
-            console.error('에러 발생:', error);
-            }
-        };
+    const accessToken = localStorage.getItem("access_token");
+    // 프로필 정보를 서버에 보내는 로직
+    try {
+        const response = await fetch(SERVER_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`, // 액세스 토큰을 헤더에 포함
+          },
+          body: JSON.stringify({
+            nickname,
+            introduction,
+            career,
+            // 필요한 다른 프로필 정보들 추가
+          }),
+        });
+  
+        if (response.ok) {
+          // 서버 응답이 정상인 경우 처리
+          console.log('프로필 정보 업데이트 성공');
+          navigate('/profile');
+
+        } else {
+          // 서버 응답이 실패한 경우 처리
+          console.error('프로필 정보 업데이트 실패');
+        }
+      } catch (error) {
+        console.error('에러 발생:', error);
+      }
+    };
 
 
     return(
         <ProfileWrap>
             
-                <One> {/* 이름 이메일  */}
-                    
+                <One> {/* 이름 이메일  */}         
                     <SmallWrap style={{marginBottom:10}}>
                         <NickName>{user.nickname}</NickName>
                     </SmallWrap> 
                         
                     <Wrap>
-                        <Email>{user.email}</Email> {/* 링크 복사하게끔  */}
+                        <Email>{user.email}</Email>
                     </Wrap>
                     
 
@@ -382,7 +424,7 @@ const ProfileInfo_Edit = () => {
                                 <WrapPer>
                                         <TextareaBasic
                                             value={introduction}
-                                            onChange={(e) => setintroduction(e.target.value)}
+                                            onChange={(e) => setIntroduction(e.target.value)}
                                             placeholder="소개" 
                                         />
                                 </WrapPer>

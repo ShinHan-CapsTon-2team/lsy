@@ -1,8 +1,6 @@
 import React from 'react';
 import { styled } from 'styled-components';
-
 import kakaimg from '../Images/btn_kakao.svg'
-//import kakaoThimg from '../Images/kakaoshareImg.jpg'
 const { Kakao } = window;
 
 function KaKao({_resulttype}) {

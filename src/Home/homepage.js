@@ -276,7 +276,7 @@ const CategoryWrap = styled.div`
     gap: 15px;
     width: 90%;
     height: auto;
-    //min-height:80vh;
+    min-height:600vh;
     padding: 20px;
     margin-top:20px;
 
@@ -344,21 +344,21 @@ const CategoryWrap = styled.div`
 
  
   const Radius = styled.button`
-padding: 20px;
-word-wrap: break-word;
-border-radius: 40px;
-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-background: #798BE6;
-border:none;
-display: flex;
-align-items: center;
-justify-content: center;
+  padding: 20px;
+  word-wrap: break-word;
+  border-radius: 40px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  background: #798BE6;
+  border:none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-position: relative;
-cursor: pointer;
-color: white;
+  position: relative;
+  cursor: pointer;
+  color: white;
 
-`;
+  `;
 
   const ButtonShort =  styled(Radius)`
 width:10vw;
