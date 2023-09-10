@@ -92,14 +92,10 @@ const QuizTest = () => {
                         <ProgressBar total={questions.length} current={num + 1} />
                     </div>
                     
-                    
-                
                     <Ulstyle> 
                     
                     {questions[num].options.map((option, index) => (
-                        
 
-                        
                             <Img
                                 key={index}
                                 src={`${process.env.PUBLIC_URL}/Images/quest/${categoryName}/${option.img}`}
@@ -149,8 +145,6 @@ const OutWrap = styled.div`
    
 
     const Ulstyle = styled.div`
-    //width:50%;
-    //height:75%;
     display:flex;
     flex-direction:row;
     margin-top:40px;
@@ -170,7 +164,7 @@ const OutWrap = styled.div`
     
 
     const Img= styled.img`
-    border: 9px #798BE6 solid;
+    border: 9px #798BE6 solid; // ?????
     border-radius: 31px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     display: flex;

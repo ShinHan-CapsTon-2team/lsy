@@ -1,6 +1,7 @@
 import React from 'react';
 import { styled } from 'styled-components';
 import kakaimg from '../Images/btn_kakao.svg'
+import {BtnLink} from '../Recommend/ImgResultStyle'
 const { Kakao } = window;
 
 function KaKao({_resulttype}) {
@@ -10,31 +11,7 @@ function KaKao({_resulttype}) {
     background: none;
     border: none;
     `;
-    const Img =styled.img`
-    width:60px;
-    height:60px;
 
-    
-	/* tablet 규격 */
-    @media screen and (max-width: 1023px){
-        
-    }
-
-    /* mobile 규격 */
-    @media screen and (max-width: 540px){
-        width:50px;
-        height:50px;
-    }
-    /* s 데스크 */
-    @media screen and (min-width: 1024px){
-        
-    }
-    /* l 데스크 */
-    @media screen and (min-width: 1700px){
-        width:70px;
-        height:70px;
-    }
-    `;
     
    
     const onHandleShareKaKao = () => {
@@ -74,10 +51,10 @@ function KaKao({_resulttype}) {
     };
 
     return (
-        <Button value="KaKao" onClick={onHandleShareKaKao} >
-            <Img src={kakaimg} />
-        </Button>
+      <Button value="KaKao" onClick={onHandleShareKaKao}>
+        <BtnLink src={kakaimg} />
+      </Button>
     );
 }
 
-export default KaKao;
+export default KaKao; 

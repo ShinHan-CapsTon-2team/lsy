@@ -2,6 +2,7 @@
 import  {useNavigate } from 'react-router-dom';
 import profilelogo from '../Images/i2.png'
 import * as S from '../Lookup/LookupStyle'
+
 const Lookup_Content =({ title,name,imageurl,description,year,month,day,id }) => {
 
     //page 이동 

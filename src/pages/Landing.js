@@ -3,7 +3,7 @@ import { useNavigate,Link } from 'react-router-dom';
 import styled from "styled-components";
 import { useState ,useEffect} from 'react';
 import { LoginModal } from '../Modal/LoginModal';
-
+import { Success } from '../Modal/Success';
 
 function Landing(){
     const [access_Token, setAccessToken] = useState('');
@@ -74,6 +74,40 @@ function Landing(){
         setIsOpen(!isOpen) 
     };
 
+
+/*
+    //???
+    const onGoProfile = () => {
+        // 서버로 액세스 토큰을 보내서 사용자 이메일 정보를 요청
+        const accessToken = localStorage.getItem("access_token");
+
+        if (accessToken) {
+            fetch('http://localhost:4001/api/user', {
+            method: "POST",
+            headers: {
+            "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ accessToken }),
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                setUserinfo(data);
+                console.log("현재 접속중인 사용자 이메일:", data.email);
+                console.log("현재 접속중인 사용자 닉네임:", data.nickname);
+        
+                // 이메일 아이디 추출
+                const emailParts = data.email.split('@');
+                const emailId = emailParts[0];
+              // 이메일 아이디를 가지고 프로필 페이지로 이동
+                navigate(`/profile/${emailId}`);
+            })
+            .catch((error) => {
+                console.error('Error fetching user email:', error);
+            });
+        }
+    };
+    
+    */
     return (
 
         <OutWrap>
@@ -189,11 +223,6 @@ bottom : 0;
 
     width: 100%;
     height:100%;
-
-	@media screen and (max-width: 1023px){
-        width: 95%;
-    }
-	
 `;
 
     const InsideWrap = styled.div`

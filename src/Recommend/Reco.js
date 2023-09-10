@@ -117,11 +117,11 @@ function Reco() {
           </InLayoutOne>
 
           <InLayoutTwo>
-          <Link to="/quizresult">
+          
               <ButtonTwo  style={{marginRight:10}}onClick={handleImageUploadAndNavigate}>
                 결과보기 
               </ButtonTwo>
-            </Link>
+            
           </InLayoutTwo>
         </Center>
       </InOutWrap>
@@ -304,6 +304,7 @@ color: white;
 
 // 버튼투
 const ButtonTwo = styled(Radius)`
+
   width:30%;
   height: 70%; 
 
