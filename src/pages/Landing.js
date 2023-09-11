@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useState ,useEffect} from 'react';
 import { LoginModal } from '../Modal/LoginModal';
 import { Success } from '../Modal/Success';
-
+import Loading from '../Component/Loading';
 function Landing(){
     const [access_Token, setAccessToken] = useState('');
     const [userInfo, setUserInfo] = useState(null);
@@ -75,8 +75,7 @@ function Landing(){
     };
 
 
-/*
-    //???
+
     const onGoProfile = () => {
         // 서버로 액세스 토큰을 보내서 사용자 이메일 정보를 요청
         const accessToken = localStorage.getItem("access_token");
@@ -91,7 +90,7 @@ function Landing(){
         })
             .then((response) => response.json())
             .then((data) => {
-                setUserinfo(data);
+                setUserInfo(data);
                 console.log("현재 접속중인 사용자 이메일:", data.email);
                 console.log("현재 접속중인 사용자 닉네임:", data.nickname);
         
@@ -107,36 +106,33 @@ function Landing(){
         }
     };
     
-    */
+    
     return (
-
+        <><Loading what="loading" />
         <OutWrap>
             <InsideWrap>
-                
-                <LogoImg src={logo} alt=''/>
-                
-                
+
+                <LogoImg src={logo} alt='' />
+
+
                 <ImgWrap> {/* 말 줄이기 ... fontsize 높여야함  */}
-                    <Button onClick ={handleUploadPhotoClick}>매칭을 통해 추천받기 </Button>
+                    <Button onClick={handleUploadPhotoClick}>매칭을 통해 추천받기 </Button>
                     <Button onClick={handleFitPhotoClick}> 맞는 사진 추천받기</Button>
-                    <Button onClick={handleGohomeClick} > 홈페이지 방문하기</Button>
-                    <Button onClick={openModalHandler} >내 프로필 가기 </Button> 
-                    {isOpen && (
-                    <>
-                        {accessToken ? ( // 액세스 토큰이 있는 경우
-                            <Link to="/profile"/>
-                        ) : (
+                    <Button onClick={handleGohomeClick}> 홈페이지 방문하기</Button>
+
+                    <Button onClick={accessToken ? onGoProfile : openModalHandler}>내 프로필 가기 </Button>
+
+                    {isOpen ?
                         // 액세스 토큰이 없는 경우
                         <ModalBackdrop onClick={openModalHandler}>
                             <LoginModal />
                         </ModalBackdrop>
-                        )}
-                    </>
-                    )}
+                        : null}
+
                 </ImgWrap>
-                
+
             </InsideWrap>
-        </OutWrap>
+        </OutWrap></>
     
     );
 }
