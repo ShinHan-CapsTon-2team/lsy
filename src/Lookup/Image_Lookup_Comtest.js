@@ -114,11 +114,8 @@ function Images_Lookup_Comtest() {
                 <S.Center>
                     {user.map((uu)=>{
                         let imageUrl = uu.image_url; // 이미지 URL 사용
-                        console.log("url:", imageUrl);
-
+                        //console.log("url:", imageUrl);
                         
-
-                        {/*  id={uu.id}  작성자 식별할 수 있는 걸로 고쳐야함 */}
                         return(
                                 <Lookup_Content 
                                     title={uu.title} 
@@ -126,9 +123,6 @@ function Images_Lookup_Comtest() {
                                     imageurl={imageUrl} 
                                     description ={uu.description}정
                                     created_at={uu.created_at} 
-                                    //year={uu.year}
-                                    //month={uu.month}
-                                    //day={uu.day}
                                     id={uu.id} 
                                 />    
                                 )

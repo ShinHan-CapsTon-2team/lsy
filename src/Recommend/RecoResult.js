@@ -1,10 +1,7 @@
 import { React } from 'react';
 import styled from "styled-components";
 import { useNavigate, useLocation } from "react-router-dom";
-//import Loading from '../Component/Loading';
-import i1 from '../Images/b1.PNG'
-import i2 from '../Images/b2.PNG'
-import i3 from '../Images/b3.PNG'
+
 import * as S from './ImgResultStyle'
 
 const RecoResult = () => {
@@ -34,7 +31,7 @@ const RecoResult = () => {
                     
                 {topSimilarImages.map((image, index) => (
                     <Content key={index}>
-                    <Img src={image.imagePath} alt={`Similar Image ${index}`} width="378" height="482" />
+                    <Img src={image.imagePath} alt={`Similar Image ${index}`} />
                     </Content>
                 ))}
                     
