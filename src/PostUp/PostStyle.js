@@ -165,6 +165,7 @@ export const Radius = styled.button`
   position: relative;
   ${FontStyle};
   margin-top: 20px;
+  color:white;
 `;
 export const Buttons = styled.div`
   display: flex;

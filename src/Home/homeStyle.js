@@ -89,7 +89,7 @@ export const GridWrap = styled.div`
   gap: 15px;
   width: 90%;
   height: auto;
-  min-height: 600vh;
+  
   padding: 20px;
   margin-top: 20px;
 

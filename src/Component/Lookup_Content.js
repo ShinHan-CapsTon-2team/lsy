@@ -2,15 +2,68 @@
 import  {useNavigate } from 'react-router-dom';
 import profilelogo from '../Images/i2.png'
 import * as S from '../Lookup/LookupStyle'
-
-const Lookup_Content =({ title,name,imageurl,description,year,month,day,id }) => {
-
+import React, { useState } from 'react';
+const Lookup_Content =({ title,nickname,imageurl,description,created_at,id}) => {
     //page 이동 
     const navigate = useNavigate();
+    //const { id } = useParams();
+    const [otherUser, setOtherUser] = useState({});
+    const [loading, setLoading] = useState(true);
+    //const params = useParams(); // 1
+   // const id = params.id; // 2
+    const [Nickname, setNickname] = useState('');
 
-    const handleGoProfile = () => {
-        navigate(`/profile/${id}`); // 가져온 id(해당 게시글 작성자의 식별번호)
-    };
+    function displayText(text) {
+        // 개행 문자 (\n)를 <br> 태그로 변환
+        const lines = text.split('\n');
+        return lines.map((line, index) => (
+            <S.Font key={index} style={{marginBottom:5}}>
+                {line}
+                {index !== lines.length - 1 && <br />}
+            </S.Font>
+            ));
+        }
+
+    const handleGoProfile = async () => {
+        try {
+            setLoading(true);
+        
+            // POST 요청으로 서버에 데이터를 보냅니다.
+            const requestBody = { id: id }; // 수정해야 할 게시글 ID
+            const response = await fetch(`http://localhost:4003/api/profiles/${id}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(requestBody),
+            });
+        
+            if (!response.ok) {
+            throw new Error('Network response was not ok');
+            }
+        
+            const data = await response.json();
+            const userEmailFromServer = data.userEmail; // 서버에서 받은 이메일
+            const userNinameServer=data.nickname;
+            setOtherUser(data);
+            setLoading(false);
+            console.log(userEmailFromServer);
+            console.log(userNinameServer);
+
+            // 이메일 아이디 추출 (이메일에서 "@" 이후의 부분을 제외)
+            const emailId = userEmailFromServer.split('@')[0];
+            setNickname(userNinameServer); // 작성자의 닉네임을 설정
+            
+            // 여기서 navigate 함수 호출
+            navigate(`/profile/${emailId}`);
+            
+
+        } catch (error) {
+            console.error('Error fetching user profile:', error);
+            console.log('error');
+            setLoading(false);
+        }
+        };
 
     return (
         <S.InLayoutOne>  
@@ -21,7 +74,7 @@ const Lookup_Content =({ title,name,imageurl,description,year,month,day,id }) =>
                     </S.WrapBasic>
 
                     <S.WrapBasic> {/* 날짜 */}
-                        <S.At>{year || 'none'} {month} {day}</S.At>
+                        <S.At>{created_at || 'none'}</S.At>
                     </S.WrapBasic>
                 </S.ContentTitle>
 
@@ -31,7 +84,7 @@ const Lookup_Content =({ title,name,imageurl,description,year,month,day,id }) =>
                     </S.ProfileImgWrap>
                     <S.ContentBasic  style={{flex:1}}>{/*이름 */}
                         <S.WrapBasic>
-                            <S.Font>{name || 'none'}</S.Font>
+                            <S.Font>{nickname || 'none'}</S.Font>
                         </S.WrapBasic>
                     </S.ContentBasic>
                 </S.ContentProfile>
@@ -42,7 +95,7 @@ const Lookup_Content =({ title,name,imageurl,description,year,month,day,id }) =>
                     </S.BoxRadius>
                     
                     <S.BoxRadius> {/* 설명 */}
-                        <S.Font>{description || 'none'}</S.Font>
+                        {displayText(description)}
                     </S.BoxRadius>
                 </S.ContentImgDes>
                 

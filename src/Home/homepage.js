@@ -6,113 +6,125 @@ import * as S from "./homeStyle";
 import * as C from "../Style/CommonStyle";
 
 const categoriesData = [
-  { name: "바디프로필" },
-  { name: "반려동물" },
-  { name: "가족사진" },
-  { name: "증명사진" },
-  { name: "웨딩사진" },
+  { name: '바디프로필'},
+  { name: '반려동물' },
+  { name: '가족사진' },
+  { name: '증명사진' },
+  { name: '웨딩사진' },
 ];
 
+const categoryLabels  = {
+    '바디프로필': 'body',
+    '반려동물': 'dog',
+    '가족사진': 'family',
+    '증명사진': 'profile',
+    '웨딩사진': 'wedding',
+};
 const Homepage = () => {
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState("가족사진");
-  const accessToken = localStorage.getItem("access_token"); // 로컬 스토리지에서 액세스 토큰 가져오기
-  const [selectCategory, setSelectCategory] = useState("가족사진");
+  //데이터 불러오는 
+  const [selectedCategory, setSelectedCategory] = useState('family');
+  // 버튼
+  const [selectCategory, setSelectCategory] = useState('가족사진');
+  const [isOpen, setIsOpen] = useState(false); // 모달창때문에 있는거 삭제 노 
   const [pageNumber, setPageNumber] = useState(1);
   const limit = 20; // 한 페이지당 이미지 수 설정
   const [offset, setOffset] = useState(0); //offset 초기값
-
-  const [isOpen, setIsOpen] = useState(false); // 모달창때문에 있는거 삭제 노
-  const openModalHandler = () => {
-    // 모달창 관련임 자세히 알 필요 X
-    setIsOpen(!isOpen);
+  const accessToken = localStorage.getItem('access_token'); // 로컬 스토리지에서 액세스 토큰 가져오기
+  const openModalHandler = () => { // 모달창 관련임 자세히 알 필요 X 
+    setIsOpen(!isOpen) 
   };
+  //버튼 
+const selectCate = (categoryName) => {
+  setSelectCategory(categoryName);
+};
 
-  //버튼
-  const selectCate = (categoryName) => {
-    setSelectCategory(categoryName);
-  };
+const handleCategorySelect = useCallback((category, limit, offset) => {
+  //const queryString = new URLSearchParams({ category }).toString();
+  const queryString = new URLSearchParams({
+    category,
+    limit,
+    offset,
+  }).toString();
 
-  const handleCategorySelect = useCallback(
-    (category, limit, offset) => {
-      //const queryString = new URLSearchParams({ category }).toString();
-      const queryString = new URLSearchParams({
-        category,
-        limit,
-        offset,
-      }).toString();
+  console.log('Category value:', category);
+  
+  
+  fetch(`http://localhost:4000/api/home/${category}?${queryString}`) // 요청
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json(); // 반환
+  })
+  .then((data) => {
+    setUsers(data); // 데이터 저장
+    console.log(data); // 받아온 데이터를 콘솔에 출력하거나 원하는 로직으로 처리합니다.
+    navigate(`/home?${queryString}`);
+    setSelectedCategory(category);
+  })
+  .catch((error) => {
+    // 오류 처리
+    console.error(error);
+  });
+  
+ }, [navigate]);
 
-      console.log("Category value:", category);
-
-      fetch(`http://localhost:4000/api/home/${category}?${queryString}`) // 요청
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error("Network response was not ok");
-          }
-          return response.json(); // 반환
-        })
-        .then((data) => {
-          setUsers(data); // 데이터 저장
-          console.log(data); // 받아온 데이터를 콘솔에 출력하거나 원하는 로직으로 처리합니다.
-          navigate(`/home?${queryString}`);
-          setSelectedCategory(category);
-        })
-        .catch((error) => {
-          // 오류 처리
-          console.error(error);
-        });
-    },
-    [navigate]
-  );
 
   useEffect(() => {
     //컴포넌트가 마운트될 때 '가족사진' 데이터를 불러옵니다
-    handleCategorySelect(selectedCategory, limit, offset);
-  }, [selectedCategory, offset, handleCategorySelect]);
+  handleCategorySelect(selectedCategory, limit, offset);
+  }, [selectedCategory, offset, handleCategorySelect]); 
+
 
   // page
 
+  
   // lookup page
   const handleClick = (id) => {
-    console.log("Clicked with id:", id); // 확인용
+    console.log('Clicked with id:', id); // 확인용
     if (id !== undefined) {
+      
       navigate(`/lookup/${id}`);
     } else {
-      console.error("Invalid id:", id);
+      console.error('Invalid id:', id);
     }
   };
   // 다음페이지
   const movePage = (newPageNumber) => {
     //const newPageNumber = Math.max(1, pageNumber);
-
+    
     const newOffset = (newPageNumber - 1) * limit;
     setPageNumber(newPageNumber);
     setOffset(newOffset);
   };
 
-  // 이전페이지
-  const handleGoToPreviousPage = () => {
-    const newPageNumber = pageNumber - 1;
-    if (newPageNumber >= 1) {
-      const newOffset = (newPageNumber - 1) * limit;
-      setPageNumber(newPageNumber);
+    // 이전페이지
+    const handleGoToPreviousPage = () => {
+      const newPageNumber = pageNumber - 1;
+      if (newPageNumber >= 1) {
+        const newOffset  = (newPageNumber - 1) * limit;
+        setPageNumber(newPageNumber);
+        setOffset(newOffset);
+        handleCategorySelect(selectedCategory, limit, newOffset );
+      }
+    };
+
+    // 카테고리 클릭할 때마다 초기화
+    const handleCategoryClick = (newCategory) => {
+      const newOffset = 0; // 카테고리 클릭 시 offset 초기화
+      
+      const englishCategory = categoryLabels[newCategory]; // 한글 카테고리를 영어로 변환합니다.
+
       setOffset(newOffset);
-      handleCategorySelect(selectedCategory, limit, newOffset);
-    }
-  };
+      movePage(1); // 첫 페이지로 이동
+      handleCategorySelect(englishCategory, limit, newOffset);
+    };
 
-  // 카테고리 클릭할 때마다 초기화
-  const handleCategoryClick = (newCategory) => {
-    const newOffset = 0; // 카테고리 클릭 시 offset 초기화
-
-    setSelectedCategory(newCategory);
-    setOffset(newOffset);
-    movePage(1); // 첫 페이지로 이동
-  };
 
   const goToWorkUpload = () => {
-    if (accessToken) {
+    if ((accessToken==null) || (accessToken==undefined)) {
       openModalHandler(); // accessToken이 true인 경우 모달 열기
     } else {
       navigate("/post"); // accessToken이 false인 경우 /post로 이동

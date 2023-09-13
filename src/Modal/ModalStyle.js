@@ -20,7 +20,7 @@ export const ModalView = styled.div.attrs((props) => ({
 role: 'dialog',
 }))`
 border-radius: 20px;
-width: 30vw;
+width: 35vw;
 height: 23vh;
 background-color: #ffffff;
 display: flex;

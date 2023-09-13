@@ -14,8 +14,8 @@ function Images_Lookup_Comtest() {
     const params = useParams(); 
     const id = params.id; 
     //확인용
-    console.log( 'params:',params);
-    console.log('id:',id);
+    //console.log( 'params:',params);
+    //console.log('id:',id);
 
 
     //삭제 성공/실패 모달창 
@@ -25,6 +25,31 @@ function Images_Lookup_Comtest() {
     // API로부터 받아온 데이터를 저장할 상태 변수
     const [user, setUser] = useState([]);
     const [loading, setLoading] = useState(true);
+
+    const [userEmail, setUserEmail] = useState("");
+
+    useEffect(() => {
+        const accessToken = localStorage.getItem("access_token");
+
+    // 서버로 액세스 토큰을 보내서 사용자 이메일 정보를 요청
+    if (accessToken) {
+        fetch('http://localhost:4001/api/user', {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ accessToken }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            setUserEmail(data.email);
+            console.log("현재 접속중인 사용자 이메일:", data.email);
+          })
+          .catch((error) => {
+            console.error("Error fetching user email:", error);
+          });
+      }
+    }, []);
     
     useEffect(() => {
     function getUserList() {
@@ -41,7 +66,8 @@ function Images_Lookup_Comtest() {
         .then((data) => {
             console.log(data);
             setUser(data);
-            console.log('설명:',data.description)
+
+
             setLoading(false); // 데이터를 가져왔으므로 로딩 상태를 false로 설정
             
         })
@@ -63,6 +89,7 @@ function Images_Lookup_Comtest() {
         navigate(`/postedit/${id}`); 
     };
 
+    
     const handleDelete = () => {
         const confirmed = window.confirm('게시물을 삭제하시겠습니까?');
         
@@ -102,8 +129,6 @@ function Images_Lookup_Comtest() {
                 });
             }
         };
-
-    
     return (  
         
         <S.OutWrap>
@@ -118,8 +143,9 @@ function Images_Lookup_Comtest() {
                         
                         return(
                                 <Lookup_Content 
+                                    key={uu.id} 
                                     title={uu.title} 
-                                    name={uu.name} 
+                                    nickname={uu.nickname} 
                                     imageurl={imageUrl} 
                                     description ={uu.description}정
                                     created_at={uu.created_at} 
@@ -129,6 +155,7 @@ function Images_Lookup_Comtest() {
                             }
                         )} 
 
+                    {user.length > 0 && userEmail === user[0].email && (
                     <S.InLayoutTwo> {/* 자기 게시글이면 보이게 처리하기  */}
                         <S.Buttons>
                             <S.Right> 
@@ -139,6 +166,7 @@ function Images_Lookup_Comtest() {
                                 <S.DelectButton onClick={handleDelete}>
                                     삭제
                                 </S.DelectButton>
+                                
 
                                 {/* 성공 메시지를 보여주는 부분 */}
                                 {showSuccessMessage && <Success text="게시물이 성공적으로 삭제되었습니다." />}
@@ -148,6 +176,7 @@ function Images_Lookup_Comtest() {
                             </S.Right>
                         </S.Buttons>
                     </S.InLayoutTwo>
+                    )}
 
                                     
                 </S.Center>
