@@ -6,8 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import upload from '../Images/upload.png';
 import  * as S from './PostStyle'
 import Loogo from '../Component/Header' 
-import styled from "styled-components";
 import Loading from '../Component/Loading';
+import { Success } from "../Modal/Success";
 const SERVER_URL= 'http://localhost:4000/api/postedit';
 
 function PostEdit() {
@@ -62,6 +62,7 @@ function PostEdit() {
     //데이터 가져오기 위해 
     const params = useParams(); // 
     const id = params.id; // 게시글 몇번인지 
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false); // 수정 성공
 
     useEffect(() => {
     const getBoard = async () => {
@@ -280,7 +281,14 @@ const handleUpdate = (index) => {
       .then((response) => response.json())
       .then((data) => {
         console.log('서버 응답:', data);
-        //handleGohomeClick();
+        // 성공 메시지를 표시
+        setShowSuccessMessage(true);
+    
+        // 2초 후에 성공 메시지를 숨기고 페이지를 이동
+        setTimeout(() => {
+          setShowSuccessMessage(false);
+          navigate(`/lookup/${id}`);
+        }, 2000); 
 
         // 서버에서 받은 이미지 URL을 업데이트된 데이터에 반영
         const updatedDataWithImageUrl = {
@@ -294,8 +302,6 @@ const handleUpdate = (index) => {
       updatedPosts[index] = updatedDataWithImageUrl;
       setUpdatedPost(updatedPosts);
       console.log(updatedPosts);
-
-      handleGohomeClick();
       console.log('전송할 데이터:', updatedData.newImageFile);
       })
       .catch((error) => {
@@ -332,7 +338,7 @@ const handleUpdate = (index) => {
                       <S.Content>
                           {updatedPost && updatedPost.map((post, index) => {
                             const imageUrl = post.image_url;
-                  
+              
                             return (
                                 <div key={index}>
                                   <S.One>
@@ -382,7 +388,7 @@ const handleUpdate = (index) => {
                       </S.Content>
                     </S.InLayoutOne>
 
-                    <S.InLayoutTwo>
+                    <S.InLayoutTwoH>
                         <S.Buttons >
                           {updatedPost.map((post, index) => (
                               <S.Left key={index}>
@@ -416,10 +422,16 @@ const handleUpdate = (index) => {
                             // 게시물 내용 렌더링
                             <S.EditButton key={post.id} onClick={() => handleUpdate(index)}>수정</S.EditButton>
                           ))}
+                          {/* 성공 메시지를 보여주는 부분 */}
+                            {showSuccessMessage && (
+                              <Success text="게시물이 성공적으로 수정되었습니다." />
+                            )}
+
+
                             <S.CancelButton onClick={handleCancel}>취소</S.CancelButton>
                         </S.Right>
                       </S.Buttons>
-                  </S.InLayoutTwo>
+                  </S.InLayoutTwoH>
                 </S.Center>
 
               </S.InOutWrap>

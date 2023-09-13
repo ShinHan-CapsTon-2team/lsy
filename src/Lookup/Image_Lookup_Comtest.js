@@ -112,7 +112,6 @@ function Images_Lookup_Comtest() {
                     setShowSuccessMessage(false);
                     navigate('/home');
                     }, 1000);
-                    navigate('/home');
 
                 } else { 
                     // 실패 메시지를 보여줍니다.
@@ -147,7 +146,7 @@ function Images_Lookup_Comtest() {
                                     title={uu.title} 
                                     nickname={uu.nickname} 
                                     imageurl={imageUrl} 
-                                    description ={uu.description}정
+                                    description ={uu.description}
                                     created_at={uu.created_at} 
                                     id={uu.id} 
                                 />    

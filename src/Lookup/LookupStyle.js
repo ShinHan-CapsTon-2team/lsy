@@ -27,7 +27,7 @@ export const DayFontStyle = {
     fontSize: 33
     }
     };
-export const  At =styled.text`
+export const  At =styled.span`
 color:gray;
 ${DayFontStyle};
 `;

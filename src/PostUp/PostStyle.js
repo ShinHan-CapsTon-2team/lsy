@@ -83,6 +83,21 @@ export const InLayoutTwo = styled.div`
     height: 13vh;
   }
 `;
+export const InLayoutTwoH = styled.div`
+  margin-bottom:20px;
+  display: flex;
+  width: 100%;
+  height: 19vh;
+  align-items: center;
+  //margin-bottom:20px;
+  /* mobile 규격 */
+  @media screen and (max-width: 540px) {
+    height: 22vh;
+  }
+  @media screen and (min-width: 1700px) {
+    height: 19vh;
+  }
+`;
 
 export const Content = styled.div`
   display: flex;

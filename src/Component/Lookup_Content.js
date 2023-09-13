@@ -4,17 +4,13 @@ import profilelogo from '../Images/i2.png'
 import * as S from '../Lookup/LookupStyle'
 import React, { useState } from 'react';
 const Lookup_Content =({ title,nickname,imageurl,description,created_at,id}) => {
-    //page 이동 
+    
     const navigate = useNavigate();
-    //const { id } = useParams();
     const [otherUser, setOtherUser] = useState({});
     const [loading, setLoading] = useState(true);
-    //const params = useParams(); // 1
-   // const id = params.id; // 2
     const [Nickname, setNickname] = useState('');
 
-    function displayText(text) {
-        // 개행 문자 (\n)를 <br> 태그로 변환
+    function DisplayText(text) { // 설명에서 \n 처리  
         const lines = text.split('\n');
         return lines.map((line, index) => (
             <S.Font key={index} style={{marginBottom:5}}>
@@ -23,7 +19,24 @@ const Lookup_Content =({ title,nickname,imageurl,description,created_at,id}) => 
             </S.Font>
             ));
         }
+    //시간 처리하기
+    const timestamp = created_at; 
+    console.log("timestamp",timestamp);
+        // UTC Timestamp를 한국 시간대로 변환
+    const dateUTC = new Date(timestamp);
+    const offsetInMilliseconds = 9 * 60 * 60 * 1000;
+    const dateKST = new Date(dateUTC.getTime() + offsetInMilliseconds);
+    console.log("dateKST",dateKST);
+    
+    const year = dateKST.getFullYear(); // 연도 추출
+    const month = dateKST.getMonth() + 1; // 월 추출 (0부터 시작하므로 +1)
+    const day = dateKST.getDate(); // 일 추출
+    const hour= dateKST.getHours();
+    const min = dateKST.getMinutes();
+    const postdate= dateKST.getFullYear()+"-"+dateKST.getMonth() + 1+"-"+dateKST.getDate()+"  "+dateKST.getHours()+":"+dateKST.getMinutes();
+    console.log("postdate",postdate);
 
+    //console.log(`연도: ${year}, 월: ${month}, 일: ${day}`);
     const handleGoProfile = async () => {
         try {
             setLoading(true);
@@ -74,7 +87,7 @@ const Lookup_Content =({ title,nickname,imageurl,description,created_at,id}) => 
                     </S.WrapBasic>
 
                     <S.WrapBasic> {/* 날짜 */}
-                        <S.At>{created_at || 'none'}</S.At>
+                        <S.At>{postdate || 'none'}</S.At>
                     </S.WrapBasic>
                 </S.ContentTitle>
 
@@ -90,12 +103,12 @@ const Lookup_Content =({ title,nickname,imageurl,description,created_at,id}) => 
                 </S.ContentProfile>
 
                 <S.ContentImgDes>{/* 이미지/설명 */}
-                    <S.BoxRadius > {/* 이미지 */}
+                    <S.BoxRadius style={{padding:30}}> {/* 이미지 */}
                         <S.Img src={imageurl} alt='이미지' />
                     </S.BoxRadius>
                     
                     <S.BoxRadius> {/* 설명 */}
-                        {displayText(description)}
+                        {DisplayText(description)}
                     </S.BoxRadius>
                 </S.ContentImgDes>
                 
