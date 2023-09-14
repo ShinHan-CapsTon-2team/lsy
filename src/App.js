@@ -11,7 +11,7 @@ import Post from './PostUp/Post.js';
 import Home from './Home/homepage.js';
 import Reco from './Recommend/Reco'
 import RecoResult from './Recommend/RecoResult';
-import Lookup from './Lookup/Image_Lookup_Comtest' 
+import Lookup from './Lookup/Image_Lookup' 
 import ProfileLook from './Mypage/ProfileLook';
 import PostEdit from './PostUp/PostEdit';
 

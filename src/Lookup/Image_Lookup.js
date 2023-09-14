@@ -8,7 +8,7 @@ import * as S from './LookupStyle'
 
 const SERVER_URL= 'http://localhost:4000/api/lookup';
 
-function Images_Lookup_Comtest() {
+function Images_Lookup() {
     const navigate = useNavigate();
 
     const params = useParams(); 
@@ -185,7 +185,7 @@ function Images_Lookup_Comtest() {
     );
 };
 
-export default Images_Lookup_Comtest;
+export default Images_Lookup;
 
 
 

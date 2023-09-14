@@ -169,7 +169,7 @@ export const FontStyle = {
     };
     
 
-export const Font = styled.div`
+export const Font = styled.span`
 ${FontStyle};
 color: black;
 `;
