@@ -22,6 +22,7 @@ function Post() {
     const [selectedClass, setSelectedClass] = useState(0); // 선택한 클래스의 인덱스
     const [showSuccessMessage, setShowSuccessMessage] = useState(false); // 업로드 성공
     const [showErrorMessage, setShowErrorMessage] = useState(false); // 업로드 실패
+    
     const classLabels = [
       '바디프로필',
       '반려동물',
@@ -210,6 +211,14 @@ function Post() {
           })
           .catch((error) => {
               console.error('Error:', error);
+
+              // 실패 메시지를 보여줍니다.
+              setShowErrorMessage(true);
+
+              // 1초 후에 실패 메시지를 숨깁니다.
+              setTimeout(() => {
+              setShowErrorMessage(false);
+              }, 1000);
           });
       };
 
