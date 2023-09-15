@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import upload from "../Images/upload.png";
 import Loogo from "../Component/Header";
 import * as S from "./PostStyle";
-import { Success } from "../Modal/Success";
+import { Popup } from "../Modal/Popup";
 const SERVER_URL = "http://localhost:4000/api/post";
 
 function Post() {
@@ -215,10 +215,10 @@ function Post() {
               // 실패 메시지를 보여줍니다.
               setShowErrorMessage(true);
 
-              // 1초 후에 실패 메시지를 숨깁니다.
+              // 2초 후에 실패 메시지를 숨깁니다.
               setTimeout(() => {
               setShowErrorMessage(false);
-              }, 1000);
+              }, 2000);
           });
       };
 
@@ -319,11 +319,11 @@ function Post() {
               </S.Right>
               {/* 성공 메시지를 보여주는 부분 */}
               {showSuccessMessage && (
-                <Success text="게시물이 성공적으로 업로드되었습니다." />
+                <Popup text="게시물이 성공적으로 업로드되었습니다." />
               )}
               {/* 실패 메시지를 보여주는 부분 */}
               {showErrorMessage && (
-                <Success text="게시물 업로드를 실패했습니다." />
+                <Popup text="게시물 업로드를 실패했습니다." />
               )}
             </S.Buttons>
           </S.InLayoutTwo>

@@ -7,7 +7,7 @@ import upload from '../Images/upload.png';
 import  * as S from './PostStyle'
 import Loogo from '../Component/Header' 
 import Loading from '../Component/Loading';
-import { Success } from "../Modal/Success";
+import { Popup } from "../Modal/Popup";
 const SERVER_URL= 'http://localhost:4000/api/postedit';
 
 function PostEdit() {
@@ -266,8 +266,6 @@ const handleUpdate = (index) => {
     formData.append('data', JSON.stringify({ ...updatedData, category: englishCategory }));
     formData.append('newImageFile', updatedData.newImageFile);
 
-      //console.log('전송할 데이터:', formData);
-
       for (const entry of formData.entries()) {
         const [key, value] = entry;
         console.log(`Key: ${key}`, value);
@@ -424,7 +422,7 @@ const handleUpdate = (index) => {
                           ))}
                           {/* 성공 메시지를 보여주는 부분 */}
                             {showSuccessMessage && (
-                              <Success text="게시물이 성공적으로 수정되었습니다." />
+                              <Popup text="게시물이 성공적으로 수정되었습니다." />
                             )}
 
 

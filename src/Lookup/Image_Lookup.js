@@ -3,7 +3,7 @@ import { useEffect,useState } from 'react'
 import Logo from "../Component/Header"
 import Lookup_Content from '../Component/Lookup_Content';
 import Loading from '../Component/Loading';
-import { Success } from '../Modal/Success';
+import {Popup} from '../Modal/Popup';
 import * as S from './LookupStyle'
 
 const SERVER_URL= 'http://localhost:4000/api/lookup';
@@ -168,10 +168,10 @@ function Images_Lookup() {
                                 
 
                                 {/* 성공 메시지를 보여주는 부분 */}
-                                {showSuccessMessage && <Success text="게시물이 성공적으로 삭제되었습니다." />}
+                                {showSuccessMessage && <Popup text="게시물이 성공적으로 삭제되었습니다." />}
 
                                 {/* 실패 메시지를 보여주는 부분 */}
-                                {showErrorMessage && <Success text="게시물 삭제에 실패했습니다." />}
+                                {showErrorMessage && <Popup text="게시물 삭제에 실패했습니다." />}
                             </S.Right>
                         </S.Buttons>
                     </S.InLayoutTwo>

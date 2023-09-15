@@ -1,7 +1,7 @@
-import styled from 'styled-components';
+
 import * as S from './ModalStyle'
 
-export const Success = ({text}) => {
+export const Popup = ({text}) => {
 
     return (
 

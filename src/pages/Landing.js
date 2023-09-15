@@ -3,7 +3,6 @@ import { useNavigate,Link } from 'react-router-dom';
 import styled from "styled-components";
 import { useState ,useEffect} from 'react';
 import { LoginModal } from '../Modal/LoginModal';
-import { Success } from '../Modal/Success';
 import Loading from '../Component/Loading';
 function Landing(){
     const [access_Token, setAccessToken] = useState('');

@@ -3,7 +3,7 @@ import React,{useState} from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import AllDataResult from "../Datajson/AllDataResult.json"
 import btn_link from '../Images/btn_link.svg'
-import { Success } from '../Modal/Success';
+import { Popup } from '../Modal/Popup';
 import KakaoShareBtn from '../Component/Kakao';
 import * as S from '../Recommend/ImgResultStyle';
 
@@ -113,7 +113,7 @@ const Quizresult  = () => {
                         <CopyToClipboard text={currentUrl} onCopy={handleCopy}>
                             <S.BtnLink src = {btn_link}></S.BtnLink>
                         </CopyToClipboard>
-                        {copied && <Success text="링크 복사가 완료되었습니다."/>}
+                        {copied && <Popup text="링크 복사가 완료되었습니다."/>}
                         
                     
                         <KakaoShareBtn _resulttype={type}/>

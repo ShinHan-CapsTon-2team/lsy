@@ -1,26 +1,64 @@
-import { React } from 'react';
+import { React,useEffect,useState } from 'react';
 import styled from "styled-components";
 import { useNavigate, useLocation } from "react-router-dom";
-
+import { Popup } from "../Modal/Popup";
 import * as S from './ImgResultStyle'
-
+import Loading from '../Component/Loading';
 const RecoResult = () => {
     const location = useLocation();
     const params = new URLSearchParams(location.search);
     const topSimilarImages = location.state?.topSimilarImages || [];
+    const [showErrorMessage, setShowErrorMessage] = useState(false); // 업로드 실패
 
+    useEffect(() => {
+        console.log('topSimilarImages:', topSimilarImages);
+      }, [topSimilarImages]); // Add topSimilarImages as a dependency to trigger the log when it changes
+    
     const navigate = useNavigate();
 
     const handleGoHomeClick = () => {
-        navigate("/home");
+        navigate('/home');
     };
 
     const handleGoUploadClick = () => {
-        navigate("/reco");
+        navigate('/recoex');
     };
+
+    const handleImageClick = (imagePath) => {
+        // 이미지 상대 경로를 서버로 보내고 해당 게시물로 이동하는 로직을 구현
+        fetch('http://localhost:4000/api/lookupByImage', {
+          method: 'POST', // POST 요청 설정
+            headers: {
+                'Content-Type': 'application/json', // JSON 형태로 데이터 전송
+            },
+            body: JSON.stringify({ imageUrl: imagePath }), // 이미지 상대 경로를 JSON으로 변환하여 전송
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log("받은 아이디:", data.id);
+                if (data.id) {
+                // 조회된 ID 값을 사용하여 해당 게시물로 이동
+                navigate(`/lookup/${data.id}`);
+                } else {
+                // 실패 메시지를 보여줍니다.
+                setShowErrorMessage(true);
+
+                // 2초 후에 실패 메시지를 숨깁니다.
+                setTimeout(() => {
+                setShowErrorMessage(false);
+                }, 2000);
+                    }
+            })
+            .catch((error) => {
+                console.error('게시물 조회 중 오류:', error);
+            });
+        };
+        
     
     return (
-        <OutWrap>    
+        
+        <OutWrap> 
+             <Loading what="loading"/> 
             <S.InsideWrap>
                 <S.TextWrap>
                     <S.Text1> 추천 결과</S.Text1>
@@ -30,11 +68,14 @@ const RecoResult = () => {
 
                     
                 {topSimilarImages.map((image, index) => (
-                    <Content key={index}>
+                    <Content key={index} onClick={() => handleImageClick(image.imagePath)}>
                     <Img src={image.imagePath} alt={`Similar Image ${index}`} />
                     </Content>
                 ))}
-                    
+                    {/* 실패 메시지를 보여주는 부분 */}
+                {showErrorMessage && (
+                    <Popup text="게시물 업로드를 실패했습니다." />
+                )}
                 
                 <S.ButtonsWrap>
                     <S.ButtonTwo onClick={handleGoHomeClick}>홈페이지 방문하기</S.ButtonTwo>

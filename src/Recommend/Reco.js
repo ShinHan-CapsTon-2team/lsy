@@ -1,84 +1,280 @@
-import React, { useState } from 'react';
-import {  useNavigate ,Link} from 'react-router-dom';
-
-import upload from '../Images/upload.png';
 
 import styled from "styled-components";
 
+import React, { useState, useEffect ,useRef, useCallback } from 'react';
+import * as tf from '@tensorflow/tfjs'; //npm i @tensorflow/tfjs
+import '@tensorflow/tfjs-backend-webgl'; //npm i @tensorflow/tfjs-backend-webgl
+//useRef, useCallback
 import Logo from '../Component/Header' 
+import { useNavigate } from 'react-router-dom';
 
-function Reco() {
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [imageSrc, setImageSrc] = useState(null);
-  const navigate = useNavigate();
+import upload from '../Images/upload.png';
 
-  const handleFileSelect = (event) => {
-    const file = event.target.files[0];
-    const reader = new FileReader();
 
-    reader.onload = (e) => {
-      const img = new Image();
-      img.onload = () => {
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
-        const maxWidth = 500;
-        const maxHeight = 800;
+function Reco({ subfolder }) {
+  const [category, setCategory] = useState('');
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [imageFile, setImageFile] = useState(null);
+    const [previewImage, setPreviewImage] = useState(null); // 미리보기 이미지 URL 상태
+    const [prediction, setPrediction] = useState(null);
+    const [selectedClass, setSelectedClass] = useState(0); // 선택한 클래스의 인덱스
+    const [model, setModel] = useState(null);
+    const [imagePaths, setImagePaths] = useState([]); //이미지 경로 가져오기 
+    const [error, setError] = useState(null);
+    const imagePathsInFolder = imagePaths; 
+    const classLabels = [
+      'body',
+      'dog',
+      'family',
+      'profile',
+      'wedding',
+      'unknown'
+    ];
+ 
+    const navigate = useNavigate();
 
-        let width = img.width;
-        let height = img.height;
-
-        if (width > maxWidth || height > maxHeight) {
-          const ratio = Math.min(maxWidth / width, maxHeight / height);
-          width *= ratio;
-          height *= ratio;
+    useEffect(() => {
+        // 모델 로드
+        const modelUrl = './model_tfjs/model.json';
+        async function loadModel() {
+          const model = await tf.loadLayersModel(modelUrl);
+          setModel(model);
         }
+        loadModel();
+      }, []);
 
-        canvas.width = width;
-        canvas.height = height;
-        ctx.drawImage(img, 0, 0, width, height);
+      useEffect(() => {
+        fetch(`http://localhost:4004/api/${subfolder}`)
+          .then(response => response.json())
+          .then(data => {
+            setImagePaths(data.map(imagePath => `http://localhost:4004${imagePath}`));
+            console.log('Received image paths:', data);
+          })
+          .catch(error => {
+            console.error('Error fetching image paths:', error);
+            setError(error);
+          });
+      }, [subfolder]);
+    
+      
+     // 이미지 분류 함수 (소프트맥스 함수 사용)
+const classifyImageData  = async (img, threshold) => {
+  try {
+      if (!model) {
+          console.error('Model not loaded yet.');
+          return null;
+      }
 
-        const resizedImageSrc = canvas.toDataURL('image/jpeg');
+      const imageData = await getImageData(img);
+      const tensorImg = tf.browser.fromPixels(imageData).toFloat();
+      const resizedImg = tf.image.resizeBilinear(tensorImg, [500, 400]); 
+      const expandedImg = resizedImg.expandDims();
+      const normalizedImg = expandedImg.div(255.0);
+      const prediction = await model.predict(normalizedImg).array();
 
-        setSelectedFile(file);
-        setImageSrc(resizedImageSrc);
+      // 소프트맥스 함수 적용하여 확률로 변환
+      const softmaxPrediction = tf.softmax(tf.tensor(prediction)).arraySync()[0];
+
+      // 예측 확률 중 가장 높은 값과 해당 클래스 인덱스 가져오기
+      const maxProb = Math.max(...softmaxPrediction);
+      const classIndex = softmaxPrediction.indexOf(maxProb);
+
+      // 특정 임계값 이상인 경우 해당 클래스 레이블 반환, 그렇지 않으면 "해당없음"
+      if (maxProb >= threshold) {
+          // 각 클래스 레이블과 예측 확률을 함께 콘솔에 출력
+            console.log('Predictions with Softmax:');
+            softmaxPrediction.forEach((prob, classIndex) => {
+                console.log(`${classLabels[classIndex]}: ${prob * 100}%`);
+            });
+        return classIndex;
+    } else {
+        console.log('Predictions with Softmax:');
+        softmaxPrediction.forEach((prob, idx) => {
+            console.log(`${classLabels[idx]}: ${prob * 100}%`);
+        });
+        console.log(`Predicted as: 해당없음 (Threshold: ${threshold * 100}%)`);
+        return -1; // -1을 반환하여 "해당없음" 클래스를 나타냄
+    }
+  } catch (error) {
+      console.error('Error classifying the image:', error);
+      return null;
+  }
+};
+
+
+      
+    const getImageData = (file) => {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            const img = new Image();
+            img.crossOrigin = 'anonymous'; // 권한 설정
+            img.onload = () => {
+              const canvas = document.createElement('canvas');
+              canvas.width = img.width;
+              canvas.height = img.height;
+              const ctx = canvas.getContext('2d');
+              ctx.drawImage(img, 0, 0);
+              const imageData = ctx.getImageData(0, 0, img.width, img.height);
+              resolve(imageData);
+            };
+            img.src = event.target.result;
+          };
+          reader.onerror = (error) => reject(error);
+          reader.readAsDataURL(file);
+        });
       };
 
-      img.src = e.target.result;
-    };
 
-    reader.readAsDataURL(file);
-  };
-
-
-  const handleImageUploadAndNavigate = async () => {
-    if (!selectedFile) {
+// calculateCosineSimilarity 함수 내부
+const calculateCosineSimilarity = async () => {
+  try {
+    if (!model || !imageFile) {
+      console.error('모델 또는 이미지를 사용할 수 없습니다.');
       return;
     }
 
-    const formData = new FormData();
-    formData.append('image', selectedFile);
+    // 이미지 데이터를 캔버스에 로드
+    const canvas = document.createElement('canvas');
+    const imageData = await getImageData(imageFile);
+    canvas.width = imageData.width;
+    canvas.height = imageData.height;
+    const ctx = canvas.getContext('2d');
+    ctx.putImageData(imageData, 0, 0);
 
-    try {
-      const response = await fetch('http://example.com/upload', {
-        method: 'POST',
-        body: formData,
-      });
+    // 미리 학습된 모델을 사용하여 예측 벡터 계산
+    const tensorImg = tf.browser.fromPixels(imageData).toFloat();
+    const resizedImg = tf.image.resizeBilinear(tensorImg, [500, 400]);
+    const expandedImg = resizedImg.expandDims();
+    const normalizedImg = expandedImg.div(255.0);
+    const pretrainedPrediction = await model.predict(normalizedImg).array();
+    const pretrainedImageTensor = tf.tensor(pretrainedPrediction);
 
-      if (response.ok) {
-        // 이미지 업로드 성공
-        console.log('Image upload success!');
-        
-        // 업로드가 완료된 후 다른 페이지로 이동
-        navigate('/recoresult');
-      } else {
-        // 이미지 업로드 실패
-        console.error('Image upload failed:', response.status);
-      }
-    } catch (error) {
-      console.error('Image upload error:', error);
+    // 폴더 내에 있는 다른 이미지들과의 코사인 유사도 계산
+    const similarImages = [];
+    for (const imagePath of imagePathsInFolder) {
+      const folderImageData = await getImageDataFromPath(imagePath);
+      const folderTensorImg = tf.browser.fromPixels(folderImageData).toFloat();
+      const folderResizedImg = tf.image.resizeBilinear(folderTensorImg, [500, 400]);
+      const folderExpandedImg = folderResizedImg.expandDims();
+      const folderNormalizedImg = folderExpandedImg.div(255.0);
+      const folderPrediction = await model.predict(folderNormalizedImg).array();
+      const folderImageTensor = tf.tensor(folderPrediction);
+      const cosineSimilarity = calculateCosineSimilarityBetweenTensors(pretrainedImageTensor, folderImageTensor);
+      similarImages.push({ imagePath, cosineSimilarity });
     }
-  };
 
+    // 코사인 유사도에 따라 유사한 이미지 정렬
+    similarImages.sort((a, b) => b.cosineSimilarity - a.cosineSimilarity);
+
+    // 상위 3개 유사한 이미지 선택
+    const topSimilarImages = similarImages.slice(0, 3);
+
+    console.log("상위 유사한 이미지:", topSimilarImages);
+    return topSimilarImages; // 상위 유사한 이미지를 반환
+
+  } catch (error) {
+    console.error('코사인 유사도 계산 중 오류:', error);
+  }
+};
+
+//c-upload 선택시
+const handleCosineCalculation = async () => {
+  try {
+      const topSimilarImages = await calculateCosineSimilarity();
+
+      // 여기에서 유사한 이미지를 `/upload` 페이지로 전달하고 이동합니다.
+      if (topSimilarImages) { // 유사한 이미지가 존재할 경우에만 전달 및 이동
+         navigate('/recoresult', { state: { topSimilarImages } });
+      }
+
+  } catch (error) {
+      console.error('Error calculating cosine similarity:', error);
+  }
+};
+
+
+// 두 텐서 간의 코사인 유사도 계산
+const calculateCosineSimilarityBetweenTensors = (tensorA, tensorB) => {
+  const cosineSimilarity = tf.losses.cosineDistance(tensorA, tensorB).arraySync();
+  return 1 - cosineSimilarity; // 코사인 유사도를 유사도 점수로 변환
+};
+
+
+const getImageDataFromPath = async (imagePath) => {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.crossOrigin = 'anonymous'; // 권한 설정
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = img.width;
+      canvas.height = img.height;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0);
+      const imageData = ctx.getImageData(0, 0, img.width, img.height);
+      resolve(imageData);
+    };
+    img.onerror = (error) => {
+      console.error('Error loading image:', error);
+      reject(error);
+    };
+    img.src = imagePath;
+  });
+};
+
+    const handleImageFileChange = async (event) => {
+      const imageFile = event.target.files[0];
+      if (
+        imageFile &&
+        (imageFile.type === 'image/jpeg' ||
+          imageFile.type === 'image/png' ||
+          imageFile.type === 'image/jpg') &&
+        imageFile.size <= 30 * 1024 * 1024
+      ) {
+        const reader = new FileReader();
+        reader.onload = async (event) => {
+          const img = new Image();
+          img.crossOrigin = 'anonymous'; // 권한 설정
+          img.onload = async () => {
+            const canvas = document.createElement('canvas');
+            canvas.width = img.width;
+            canvas.height = img.height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0);
+    
+            setImageFile(imageFile);
+            setPreviewImage(URL.createObjectURL(imageFile));
+
+            const classIndex = await classifyImageData(imageFile, 0.8); //0.8프로의정확도가 임계값
+            setSelectedClass(classIndex);
+            const predictedLabel = classLabels[classIndex];
+            if (classIndex === -1) {
+              setPrediction(classLabels[5]); 
+            } else {
+              setPrediction(predictedLabel); 
+            }
+
+            // 이미지 경로를 서버에서 가져옴
+            fetch(`http://localhost:4004/api/${predictedLabel}`)
+                  .then(response => response.json())
+                  .then(data => {
+                      setImagePaths(data.map(imagePath => `http://localhost:4004${imagePath}`));
+                      console.log('Received image paths:', data);
+                    })
+            .catch(error => {
+                console.error('Error fetching image paths:', error);
+                setError(error);
+            });
+          };
+          img.src = event.target.result;
+        };
+        reader.readAsDataURL(imageFile);
+      } else {
+        setImageFile(null);
+        setPreviewImage(null);
+      }
+    };
+    
   return (
     <OutWrap>
       <InOutWrap>
@@ -90,11 +286,11 @@ function Reco() {
           <InLayoutOne>
             <Content>
               <Five> 
-                  {selectedFile && (
-                      <SelectImg src={imageSrc} alt="upload" />
+                  {previewImage && (
+                      <SelectImg src={previewImage} alt="upload" />
                       )}{/* 업르드시 보이는 사진 */}
               
-                  {!selectedFile && (
+                  {!previewImage && (
                       <EmptyImg src={upload} alt="up" />        
                   )}{/* 빈 이미지 로고 그림인데 업로드 하면 없어진 */}
 
@@ -108,7 +304,7 @@ function Reco() {
                       id="file-upload"
                       type="file"
                       accept="image/*"
-                      onChange={handleFileSelect}
+                      onChange={handleImageFileChange}
                   />
                   {/* 위 아래  파일찾기  버튼, 이미지 셀렉 하면 없어진다. */}
               </Five>
@@ -118,7 +314,7 @@ function Reco() {
 
           <InLayoutTwo>
           
-              <ButtonTwo  style={{marginRight:10}}onClick={handleImageUploadAndNavigate}>
+              <ButtonTwo  style={{marginRight:10}}onClick={handleCosineCalculation}>
                 결과보기 
               </ButtonTwo>
             
