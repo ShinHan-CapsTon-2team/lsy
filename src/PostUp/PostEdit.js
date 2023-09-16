@@ -420,7 +420,8 @@ const handleUpdate = (index) => {
                             // 게시물 내용 렌더링
                             <S.EditButton key={post.id} onClick={() => handleUpdate(index)}>수정</S.EditButton>
                           ))}
-                          {/* 성공 메시지를 보여주는 부분 */}
+                          
+                            {/* 성공 메시지를 보여주는 부분 */}
                             {showSuccessMessage && (
                               <Popup text="게시물이 성공적으로 수정되었습니다." />
                             )}

@@ -3,13 +3,14 @@ import styled from "styled-components";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Popup } from "../Modal/Popup";
 import * as S from './ImgResultStyle'
-import Loading from '../Component/Loading';
+
+
 const RecoResult = () => {
     const location = useLocation();
     const params = new URLSearchParams(location.search);
     const topSimilarImages = location.state?.topSimilarImages || [];
-    const [showErrorMessage, setShowErrorMessage] = useState(false); // 업로드 실패
-
+    const [showErrorMessage, setShowErrorMessage] = useState(false); // 게시글 조회 실패 
+    
     useEffect(() => {
         console.log('topSimilarImages:', topSimilarImages);
       }, [topSimilarImages]); // Add topSimilarImages as a dependency to trigger the log when it changes
@@ -21,9 +22,9 @@ const RecoResult = () => {
     };
 
     const handleGoUploadClick = () => {
-        navigate('/recoex');
+        navigate('/reco');
     };
-
+    
     const handleImageClick = (imagePath) => {
         // 이미지 상대 경로를 서버로 보내고 해당 게시물로 이동하는 로직을 구현
         fetch('http://localhost:4000/api/lookupByImage', {
@@ -36,10 +37,14 @@ const RecoResult = () => {
             .then((response) => response.json())
             .then((data) => {
                 console.log("받은 아이디:", data.id);
-                if (data.id) {
+                
                 // 조회된 ID 값을 사용하여 해당 게시물로 이동
                 navigate(`/lookup/${data.id}`);
-                } else {
+
+            })
+            .catch((error) => {
+                console.error('게시물 조회 중 오류:', error);
+
                 // 실패 메시지를 보여줍니다.
                 setShowErrorMessage(true);
 
@@ -47,44 +52,49 @@ const RecoResult = () => {
                 setTimeout(() => {
                 setShowErrorMessage(false);
                 }, 2000);
-                    }
-            })
-            .catch((error) => {
-                console.error('게시물 조회 중 오류:', error);
             });
         };
-        
-    
+
     return (
         
-        <OutWrap> 
-             <Loading what="loading"/> 
-            <S.InsideWrap>
-                <S.TextWrap>
-                    <S.Text1> 추천 결과</S.Text1>
-                    <S.Text2> 해당 사진과 비슷한 스타일인 다른 사진을 확인하세요</S.Text2>
-                    <S.Text2> 사진을 클릭하면 자세한 정보를 확인할 수 있습니다</S.Text2>
-                </S.TextWrap>
-
-                    
-                {topSimilarImages.map((image, index) => (
-                    <Content key={index} onClick={() => handleImageClick(image.imagePath)}>
-                    <Img src={image.imagePath} alt={`Similar Image ${index}`} />
-                    </Content>
-                ))}
-                    {/* 실패 메시지를 보여주는 부분 */}
-                {showErrorMessage && (
-                    <Popup text="게시물 업로드를 실패했습니다." />
-                )}
+            <OutWrap> 
                 
-                <S.ButtonsWrap>
-                    <S.ButtonTwo onClick={handleGoHomeClick}>홈페이지 방문하기</S.ButtonTwo>
-                    <S.ButtonTwo style={{ marginRight: 0 }} onClick={handleGoUploadClick}>다시 매칭해보기</S.ButtonTwo>
-                </S.ButtonsWrap>
-            </S.InsideWrap>
+                <S.InsideWrap>
+                    <S.TextWrap>
+                        <S.Text1> 추천 결과</S.Text1>
+                        <S.Text2> 해당 사진과 비슷한 스타일인 다른 사진을 확인하세요</S.Text2>
+                        <S.Text2> 사진을 클릭하면 자세하게 확인할 수 있습니다</S.Text2>
+                    </S.TextWrap>
+
+                        
+                    
+                    <Content >
+                        {/* 0916 수정 */}
+                    {topSimilarImages.map((image, index) => (
+                        
+                        <Img 
+                        src={image.imagePath} 
+                        alt={`Similar Image ${index}`}
+                        key={index} onClick={() => handleImageClick(image.imagePath)} 
+                        index={index} />
+                        
+                    ))}
+                    </Content>
+                    {/* 실패 메시지를 보여주는 부분 */}
+                    {showErrorMessage && (
+                        <Popup text="해당 게시물 조회를 실패했습니다." />
+                    )}
+                    
+                    <S.ButtonsWrap>
+                        <S.ButtonTwo onClick={handleGoHomeClick}>홈페이지 방문하기</S.ButtonTwo>
+                        <S.ButtonTwo style={{ marginRight: 0 }} onClick={handleGoUploadClick}>다시 매칭해보기</S.ButtonTwo>
+                    </S.ButtonsWrap>
+                </S.InsideWrap>
+                
+            </OutWrap>
             
-        </OutWrap>
     );
+
     };
 
     export default RecoResult;
@@ -128,73 +138,55 @@ const RecoResult = () => {
     align-items: center; 
     overflow:hidden;
     cursor:pointer;
-    //${({ isnotlast }) => isnotlast && "margin-right: 20px;"}
-    margin-right: 20px;
-    //width:350px;
-    //height:470px;
+    margin-right: ${({ index }) => (index === 2? '0px' : '20px')};
+    width:100%;
+    object-fit:cover;
+    margin-bottom:20px;
 
-    width: 24vw;
-    height: 63vh;
-   
     &:hover {
         border: 5px #4E62C5 solid;
     }
 
-    margin-bottom:20px;
+    
     /* tablet 규격 */
-        @media screen and (max-width: 1024px){
-            width: 33vw;
-            height: 49vh;
-            //width:250px;
-            //height:370px;
-            
-            
-            border: 4px #798BE6 solid;
-        }
-        @media screen and (max-width: 840px){
-            width: 40vw;
-            height: 45vh;
-        }
-        /* mobile 규격 */
-        @media screen and (max-width: 540px){
-            width: 83vw;
-            height: 58vh;
-            
-            border: 4px #798BE6 solid;
-        }
-        /* s 데스크 */
-        @media screen and (min-width: 1025px){
-            
-        }
-        /* l 데스크 */
-        @media screen and (min-width: 1700px){
-            width: 26vw;
-            height: 65vh;
-            //width:470px;
-            //height:590px;
-            border: 8px #798BE6 solid;
-            &:hover {
-                border: 8px #4E62C5 solid;
-              }
+    @media screen and (max-width: 1024px){
+        max-width: 33vw;
+        height: 49vh;
+        
+        margin-right: ${({ index }) => (index === 1 || index === 2 ? '0px' : '20px')};
+        border: 4px #798BE6 solid;
+    }
+    @media screen and (max-width: 840px){
+        max-width: 40vw;
+        height: 45vh;
+        margin-right: ${({ index }) => (index === 1 || index === 2 ? '0px' : '20px')};
+    }
+    /* mobile 규격 */
+    @media screen and (max-width: 540px){
+        max-width: 83vw;
+        height: 58vh;
+        
+        border: 4px #798BE6 solid;
+        
+        margin-right: 0px;
+    }
+    /* s 데스크 */
+    @media screen and (min-width: 1025px){
+        max-width: 24vw;
+        height: 63vh;
+    }
+    /* l 데스크 */
+    @media screen and (min-width: 1700px){
+        max-width: 26vw;
+        height: 65vh;
+        
+        border: 8px #798BE6 solid;
+        &:hover {
+            border: 8px #4E62C5 solid;
+            }
         }
     
     `;
-    const Img2= styled(Img)`
-    @media screen and (max-width: 840px){
-        margin-right:0px;
-    }
-    @media screen and (max-width: 540px){
-        margin-right:0px;
-    }
-    `;
-
-    const Img3= styled(Img)`
-    @media screen and (max-width: 840px){
-        margin-right:0px;
-    }
-    @media screen and (max-width: 540px){
-        margin-right:0px;
-    }
-    `;
+    
 
 

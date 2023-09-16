@@ -5,15 +5,16 @@ import { useNavigate } from "react-router-dom";
 import upload from "../Images/upload.png";
 import Loogo from "../Component/Header";
 import * as S from "./PostStyle";
+
 import { Popup } from "../Modal/Popup";
 const SERVER_URL = "http://localhost:4000/api/post";
 
 function Post() {
+
+ 
   const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-   
     const [category, setCategory] = useState('');
-    const [name, setName] = useState('');
     const [profile, setProfile] = useState(''); 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [imageFile, setImageFile] = useState(null);
@@ -22,7 +23,8 @@ function Post() {
     const [selectedClass, setSelectedClass] = useState(0); // 선택한 클래스의 인덱스
     const [showSuccessMessage, setShowSuccessMessage] = useState(false); // 업로드 성공
     const [showErrorMessage, setShowErrorMessage] = useState(false); // 업로드 실패
-    
+
+    const [showMessage, setShowMessage] = useState(false); {/* 0916 추가*/}
     const classLabels = [
       '바디프로필',
       '반려동물',
@@ -150,14 +152,26 @@ function Post() {
         ) {
           setImageFile(imageFile);
           setPreviewImage(URL.createObjectURL(imageFile));
+
+          
+          //카테고리 분류중
+          console.log("예측 수행");
+          setShowMessage(true);
+          
           // 이미지 파일이 업로드되면 예측 수행
           const classIndex = await classifyImage(imageFile, 0.8); //0.8프로의정확도가 임계값
+          
           setSelectedClass(classIndex);
+          setShowMessage(false);
+          //예측 결과 나옴 
+          console.log("예측결과 나옴");
+          
           if (classIndex === -1) {
             setPrediction(classLabels[5]);
             setCategory(classLabels[5]);
           } else {
             const predictedLabel = classLabels[classIndex];
+            
             setPrediction(predictedLabel);
             setCategory(predictedLabel); // 카테고리를 예측된 클래스로 설정
           }
@@ -167,7 +181,6 @@ function Post() {
         }
       };
 
-      console.log("getEnglishCategory(category) : ",getEnglishCategory(category));
       const handleSubmit = () => {
           const data = {
           title,
@@ -289,14 +302,18 @@ function Post() {
           <S.InLayoutTwo>
             <S.Buttons>
               <S.Left>
-                <S.ButtonOne onClick={handleMenuToggle}>
-                  {" "}
-                  {/*카테고리 */}
-                  {category ? (
-                    <S.Menu>{category}</S.Menu>
+                
+                <S.ButtonOne onClick={handleMenuToggle} show={showMessage}  >{/* 0916 추가 */}
+                  
+                  {/* 0916 추가 */}
+                  {showMessage ? (
+                    <S.Menu >카테고리 분류 중</S.Menu>
                   ) : (
-                    <S.Menu>카테고리 선택</S.Menu>
+                    <S.Menu >
+                      {category ? category : "카테고리 선택"}
+                    </S.Menu>
                   )}
+
                   <S.DropContainer>
                     {isMenuOpen && (
                       <S.DropMenu>
@@ -334,3 +351,4 @@ function Post() {
 }
 
 export default Post;
+

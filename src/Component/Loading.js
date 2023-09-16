@@ -1,6 +1,6 @@
 import React from "react";
-import { PropagateLoader } from "react-spinners";
-
+import { BeatLoader } from "react-spinners";
+import {FontStyle} from '../Style/CommonStyle'
 import styled from "styled-components";
 
 const override = {
@@ -9,23 +9,28 @@ const override = {
   borderColor: "#E50915",
   textAlign: "center",
   justifyContent: "center",
+  margin:100
 };
 const OutWrap = styled.div`
   width: 100%;
   height: 100%;
-  padding: 0; margin: 0;
-  overflow: hidden;
+  //padding: 0; margin: 0;
+  //overflow: hidden;
   background: white;
   position: absolute;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+ 
 `;
-const Tex = styled.text`
+
+
+const Tex = styled.span`
 color:#798BE6;
-margin-bottom:10px;
-font-size:20px;
+margin-bottom:15px;
+//font-size:20px;
+${FontStyle};
 `;
 
 
@@ -33,10 +38,12 @@ const Loading = ({what}) => {
   return (
     <OutWrap>
       <Tex>{what} </Tex> 
-      <PropagateLoader
+      <BeatLoader
         color="#798BE6"
-        cssOverride={override}
-        size={20}
+        //cssOverride={override}
+        size={40}
+        margin={10}
+        speedMultiplier={0.8}
       />
     </OutWrap>
   );

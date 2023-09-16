@@ -194,9 +194,10 @@ export const Buttons = styled.div`
   }
 `;
 
-export const ButtonOne = styled(Radius)`
+export const ButtonOne = styled(Radius)` // 0916 수정
   width: 90%;
   height: 7vh;
+  background-color: ${(props) => (props.show ? '#5d6bb4' : '#798be6')};
 `;
 
 export const ButtonTwo = styled(Radius)`-

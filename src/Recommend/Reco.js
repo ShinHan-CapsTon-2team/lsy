@@ -4,7 +4,7 @@ import styled from "styled-components";
 import React, { useState, useEffect ,useRef, useCallback } from 'react';
 import * as tf from '@tensorflow/tfjs'; //npm i @tensorflow/tfjs
 import '@tensorflow/tfjs-backend-webgl'; //npm i @tensorflow/tfjs-backend-webgl
-//useRef, useCallback
+import Loading from '../Component/Loading';
 import Logo from '../Component/Header' 
 import { useNavigate } from 'react-router-dom';
 
@@ -185,7 +185,7 @@ const handleCosineCalculation = async () => {
 
       // 여기에서 유사한 이미지를 `/upload` 페이지로 전달하고 이동합니다.
       if (topSimilarImages) { // 유사한 이미지가 존재할 경우에만 전달 및 이동
-         navigate('/recoresult', { state: { topSimilarImages } });
+        navigate('/recoresult', { state: { topSimilarImages } });
       }
 
   } catch (error) {
@@ -277,51 +277,49 @@ const getImageDataFromPath = async (imagePath) => {
     
   return (
     <OutWrap>
-      <InOutWrap>
-        {/* 로고 */}        
-        <Logo />
-        {/* 컨텐츠 */}
-        <Center>
-
-          <InLayoutOne>
-            <Content>
-              <Five> 
-                  {previewImage && (
-                      <SelectImg src={previewImage} alt="upload" />
-                      )}{/* 업르드시 보이는 사진 */}
-              
-                  {!previewImage && (
-                      <EmptyImg src={upload} alt="up" />        
-                  )}{/* 빈 이미지 로고 그림인데 업로드 하면 없어진 */}
-
-
-                  <FindImg onClick={() => document.getElementById('file-upload').click()}>
-                    파일 찾기
-                  </FindImg>
-                  
-
-                  <InputBox
-                      id="file-upload"
-                      type="file"
-                      accept="image/*"
-                      onChange={handleImageFileChange}
-                  />
-                  {/* 위 아래  파일찾기  버튼, 이미지 셀렉 하면 없어진다. */}
-              </Five>
-              
-            </Content>
-          </InLayoutOne>
-
-          <InLayoutTwo>
-          
-              <ButtonTwo  style={{marginRight:10}}onClick={handleCosineCalculation}>
-                결과보기 
-              </ButtonTwo>
-            
-          </InLayoutTwo>
-        </Center>
-      </InOutWrap>
-    </OutWrap>
+        <InOutWrap>
+          {/* 로고 */}        
+          <Logo />
+          {/* 컨텐츠 */}
+          <Center>
+  
+            <InLayoutOne>
+              <Content>
+                <Five> 
+                    {previewImage && (
+                        <SelectImg src={previewImage} alt="upload" />
+                        )}{/* 업르드시 보이는 사진 */}
+                
+                    {!previewImage && (
+                        <EmptyImg src={upload} alt="up" />        
+                    )}{/* 빈 이미지 로고 그림인데 업로드 하면 없어진 */}
+  
+  
+                    <FindImg onClick={() => document.getElementById('file-upload').click()}>
+                      파일 찾기
+                    </FindImg>
+                    
+  
+                    <InputBox
+                        id="file-upload"
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageFileChange}
+                    />
+                    {/* 위 아래  파일찾기  버튼, 이미지 셀렉 하면 없어진다. */}
+                </Five>
+                
+              </Content>
+            </InLayoutOne>
+  
+            <InLayoutTwo> 
+                <ButtonTwo  style={{marginRight:10}}onClick={handleCosineCalculation}>
+                  결과보기 
+                </ButtonTwo>
+            </InLayoutTwo>
+          </Center>
+        </InOutWrap>
+      </OutWrap>
   );
 }
 
@@ -481,6 +479,7 @@ const Five = styled(ContentRadius)`
 position: relative;
 width:100%;
 height:100%;
+overflow:hidden; // 0916 추가 
 `;
   
 const Radius = styled.button`
