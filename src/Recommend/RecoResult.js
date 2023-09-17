@@ -122,7 +122,7 @@ const RecoResult = () => {
     justify-content: center;
     align-items: center;
     flex-direction: row;
-    flex-wrap: wrap;
+    //flex-wrap: wrap;
 
     @media screen and (max-width: 600px){
         flex-direction: column;

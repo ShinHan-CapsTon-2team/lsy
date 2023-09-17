@@ -1,86 +1,94 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate  } from 'react-router-dom';
+import { useNavigate ,useParams } from 'react-router-dom';
 import * as S from './ProfileInfoStyle'
-const SERVER_URL= 'http://localhost:4002/api/profileEdit';
 
 
-const ProfileInfo_Edit = () => {
-    const navigate = useNavigate();
-    const [nickname, setNickname] = useState('');
-    const [introduction, setIntroduction] = useState('');
-    const [career, setCareer] = useState('');
-    const [user, setUser] = useState({
-        nickname: '',
-        introduction: '',
-        career: '',
-    });
+const ProfileInfo_Edit = ({ onEditComplete  }) => {
 
+  const [nickname, setNickname] = useState('');
+  const [introduction, setIntroduction] = useState('');
+  const [career, setCareer] = useState('');
+  const [user, setUser] = useState({
+    nickname: '',
+    introduction: '',
+    career: '',
+  });
+  const params = useParams(); // 1
+  const emailId = params.emailId; // 2
+  //const [editing, setEditing] = useState(false);
 
-    useEffect(() => {
+  //const gotoProfileEdit = () => {
+  //  setEditing(true); // 수정 모드로 전환
+  //};
+
+  useEffect(() => {
     const accessToken = localStorage.getItem("access_token");
     if (accessToken) {
-        fetch('http://localhost:4001/api/user', {
+      fetch('http://localhost:4001/api/user', {
         method: "POST",
         headers: {
-            "Content-Type": "application/json",
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ accessToken }),
-        })
+      })
         .then((response) => response.json())
         .then((data) => {
-            setUser(data);
-            console.log("현재 접속중인 사용자 이메일:", data.email);
-            console.log("현재 접속중인 사용자 닉네임:", data.nickname);
-            // 서버로 이메일 정보를 보내어 프로필 정보를 가져옵니다.
-            fetch(`http://localhost:4002/api/profile?email=${data.email}`)
+          setUser(data);
+          console.log("현재 접속중인 사용자 이메일:", data.email);
+          console.log("현재 접속중인 사용자 닉네임:", data.nickname);
+          // 서버로 이메일 정보를 보내어 프로필 정보를 가져옵니다.
+          fetch(`http://localhost:4002/api/profile?email=${data.email}`)
             .then((response) => response.json())
             .then((profileData) => {
-                setIntroduction(profileData.introduction);
-                setCareer(profileData.career);
+              setIntroduction(profileData.introduction);
+              setCareer(profileData.career);
             })
             .catch((error) => {
-                console.error('Error fetching profile:', error);
+              console.error('Error fetching profile:', error);
             });
         })
         .catch((error) => {
-            console.error('Error fetching user email:', error);
+          console.error('Error fetching user email:', error);
         });
     }
-    }, []);
+  }, []);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-    const accessToken = localStorage.getItem("access_token");
-    // 프로필 정보를 서버에 보내는 로직
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    // 프로필 정보를 서버에 보내는 로직 
     try {
-            const response = await fetch(SERVER_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${accessToken}`, // 액세스 토큰을 헤더에 포함
-            },
-            body: JSON.stringify({
-                nickname,
-                introduction,
-                career,
-                // 필요한 다른 프로필 정보들 추가
-            }),
-            });
-    
-            if (response.ok) {
-            // 서버 응답이 정상인 경우 처리
-            console.log('프로필 정보 업데이트 성공');
-            navigate('/profile');
-
-            } else {
-            // 서버 응답이 실패한 경우 처리
-            console.error('프로필 정보 업데이트 실패');
-            }
-        } catch (error) {
-            console.error('에러 발생:', error);
-        }
-    };
-
+      const response = await fetch(
+        'http://localhost:4002/api/profileEdit',
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            introduction,
+            career,
+            email: user.email,
+          }),
+        },
+      );
+      console.log("introduction",introduction);
+      console.log("career",career);
+      console.log("user.email",user.email);
+      if (response.ok) {
+        // 서버 응답이 정상인 경우 처리
+        console.log('프로필 정보 업데이트 성공');
+        
+         // 수정 완료 시 부모 컴포넌트에 알림
+        onEditComplete();
+      } else {
+        // 서버 응답이 실패한 경우 처리
+        console.error('프로필 정보 업데이트 실패');
+      }
+    } catch (error) {
+      console.error('에러 발생:', error);
+    }
+  };
 
     return(
         <>  

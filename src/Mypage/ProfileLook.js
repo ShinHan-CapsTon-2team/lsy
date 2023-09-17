@@ -18,93 +18,156 @@ function ProfileLook() {
   const [posts, setPosts] = useState([]);
   const [images, setImages] = useState([]);
   const [otherUserNickname, setOtherUserNickname] = useState('');
+  const [postemail, setPostEmail] = useState('');
   const [PostIds, setPostIds] = useState('');
+  const [email, setEmail] = useState('');
+  const [nickname, setNickname] = useState('');
   const [isEditing, setIsEditing] = useState(false);
+  const [TotalCount, setTotalCount] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [offset, setOffset] = useState(0);
+  const [currentPosts, setCurrentPosts] = useState([]);
+  const [page, setPage] = useState(1); 
 
- 
+  const [itsMe,setItsMe]= useState(''); // 나인지 여부 0917 추가 
+  const postsPerPage = 20; // 한 페이지에 보여줄 게시물 수
+  //const offset = (currentPage - 1) * postsPerPage;
+  //const currentPosts = posts.slice(offset, offset + postsPerPage);
+
   const navigate = useNavigate();
   const params = useParams(); // 1
   const emailId = params.emailId; // 사용자의 email
-
-  const isCurrentUsersProfile = userinfo.nickname === otherUserNickname;
-  
+ 
+  //const isCurrentUsersProfile = email === postemail;
+  //console.log("isCurrentUsersProfile:",isCurrentUsersProfile);
   const handleImageClick = (id) => {
-    navigate(`/lookup/${id}`);
-};
+        navigate(`/lookup/${id}`);
+    };
 
   const handleImagesClick = (postId) => {
-    navigate(`/lookup/${postId}`);
+      navigate(`/lookup/${postId}`);
   };
 
-  const goToWorkUpload =()=>{
-    navigate('/post');
-  };
-
-const gotoProfileEdit = () => {
-setIsEditing(true);
+  const gotoProfileEdit = () => {
+    setIsEditing(true);
 };
 
 const handleEditComplete = () => {
-setIsEditing(false); // 수정 완료 시 isEditing을 false로 변경하여 ProfileInfo로 전환
+  setIsEditing(false); // 수정 완료 시 isEditing을 false로 변경하여 ProfileInfo로 전환
 };
 
+const goToWorkUpload =()=>{
+  navigate('/post');
+};
+/*
 useEffect(() => {
-  const accessToken = localStorage.getItem("access_token");
-
-  if (accessToken) {
-    // 현재 사용자 정보 가져오기
-    fetch('http://localhost:4001/api/user', {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ accessToken }),
-    })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log("현재 접속중인 사용자 이메일:", data.email);
-      console.log("현재 접속중인 사용자 닉네임:", data.nickname);
-
-      if (data.email !== emailId) {
-        // 다른 사용자의 정보를 가져오기
-        fetch(`http://localhost:4003/api/profile/${emailId}`)
-          .then((response) => response.json())
-          .then((profileData) => {
-            setImages(profileData.images);
-            console.log("이미지 URL:", profileData.images); 
-            setPostIds(profileData.id);
-            console.log("게시글 ID:", profileData.id); 
-
-          })
-          .catch((error) => {
-            console.error('Error fetching profile data for other user:', error);
-          });
-      }
-    })
-    .catch((error) => {
-      console.error('Error fetching user email:', error);
-    });
-  }
-}, [emailId]);// emailId를 의존성 배열에 추가하여 URL 파라미터가 변경될 때만 실행
+  const currentPosts = posts.slice(offset, offset + postsPerPage);
+  console.log('currentPosts: ', currentPosts);
+}, [posts, offset, postsPerPage]);
 
 
-useEffect(() => {
-  async function fetchPosts() {
-    try {
-      const response = await fetch('http://localhost:4000/api/lookup');
-      const data = await response.json();
+const handlePageClick = async ({ selected }) => {
+  try {
+    console.log("페이지 클릭!");
+    const newPage = selected + 1;
+    const newOffset = (newPage - 1) * postsPerPage;
 
-      // 현재 사용자의 이메일과 일치하는 데이터만 필터링
-      const filteredData = data.filter(item => item.email === userinfo.email);
-      setPosts(filteredData);
-      
-      console.log("Filtered data:", filteredData);
-    } catch (error) {
-      console.error('Error fetching posts:', error);
+    setCurrentPage(newPage);
+    setOffset(newOffset);
+
+    console.log(`페이지 ${newPage}를 클릭했습니다.`);
+    const response = await fetch(
+      `http://localhost:4000/api/lookups/${email}?page=${newPage}&postsPerPage=${postsPerPage}`
+        
+      );
+    if (!response.ok) {
+      throw new Error("페이지를 불러오는 데 문제가 발생했습니다.");
     }
+    console.log("이메일아이디:", email);
+    const { data, totalCount } = await response.json();
+    console.log("데이터:", data);
+
+    if (data.length > 0) {
+      console.log("데이터:", data);
+      setCurrentPosts(data); // 이미지들만 업데이트
+      setTotalCount(totalCount);
+
+    }
+  } catch (error) {
+    console.error("게시물을 불러오는 중 에러 발생:", error);
   }
-  fetchPosts();
-}, [userinfo]);
+};
+console.log("glgl:", currentPosts);
+
+async function fetchPosts(email, page, postsPerPage) {
+  try {
+    const response = await fetch(`http://localhost:4000/api/lookups/${email}?page=${page}&postsPerPage=${postsPerPage}`);
+    const { data, totalCount } = await response.json();
+    
+    setTotalCount(totalCount);
+
+    if (data.length > 0) {
+      setPosts(data);
+      setCurrentPosts(data);
+      setTotalCount(totalCount);
+      //setPosts(prevPosts => [...prevPosts, ...data]); 
+    }
+    
+  } catch (error) {
+    console.error('Error fetching posts:', error);
+  }
+}
+
+const pageCount = Math.ceil(TotalCount / postsPerPage);
+*/
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem("access_token");
+  
+    if (accessToken) {
+      // 현재 사용자 정보 가져오기
+      fetch('http://localhost:4001/api/user', {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ accessToken }),
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("현재 접속중인 사용자 이메일:", data.email);
+        console.log("현재 접속중인 사용자 닉네임:", data.nickname);
+        setEmail(data.email);
+        setNickname(data.nickname);
+        setItsMe(true);
+        console.log("data",data);
+        /*
+        if (data.email !== emailId) {
+          // 다른 사용자의 정보를 가져오기
+          fetch(`http://localhost:4003/api/profile/${emailId}?page=${page}&postsPerPage=${postsPerPage}`)
+            .then((response) => response.json())
+            .then((profileData) => {
+              setImages(profileData.images);
+              setPostIds(profileData.id);
+              setPostEmail(profileData.email);
+              setTotalCount(profileData.totalCount);
+            })
+            .catch((error) => {
+              console.error('Error fetching profile data for other user:', error);
+            });
+            
+            fetchPosts(data.email, currentPage, postsPerPage);
+            console.log(data.email);
+            
+        }
+        */
+      })
+      .catch((error) => {
+        console.error('Error fetching user email:', error);
+      });
+    }
+  }, [emailId]);// emailId를 의존성 배열에 추가하여 URL 파라미터가 변경될 때만 실행
+    console.log("isEditing :",isEditing);
     
     return (
         <OutWrap>
@@ -115,17 +178,23 @@ useEffect(() => {
 
                 <Center>
                 <ProfileWrap>
-
-                {isEditing ? (
-                          <ProfileInfo_Edit onEditComplete={handleEditComplete}/>
-                        ) : (
-                          <><ProfileInfo /><ButtonShort onClick={gotoProfileEdit}>프로필 수정</ButtonShort></>
-                )}
+                  {itsMe ? (
+                    isEditing ? (
+                      <ProfileInfo_Edit onEditComplete={handleEditComplete} />
+                    ) : (
+                      <>
+                        <ProfileInfo />
+                        <ButtonShort onClick={gotoProfileEdit}>프로필 수정</ButtonShort>
+                      </>
+                    )
+                  ) : (
+                    <ProfileInfo />
+                  )}
                 </ProfileWrap>
                   <ArticleWrap>
                       <Two >
                         <>
-                        {isCurrentUsersProfile ? (
+                        {itsMe ? (
                          // 현재 사용자의 프로필을 보고 있다면 post를 렌더링합니다.
                           <GridWrap>
                             {posts.map((post, index) => (
@@ -154,11 +223,11 @@ useEffect(() => {
                 </Center>
             </InOutWrap>
 
-            {isCurrentUsersProfile && (
+            {itsMe ? (
               <PostWrap>
                 <StyledBsPlusCircleFill onClick={goToWorkUpload} />
               </PostWrap>
-            )}
+            ):(null)}
         </OutWrap>
 
     );

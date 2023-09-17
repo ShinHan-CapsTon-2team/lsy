@@ -49,7 +49,7 @@ function App() {
                 <Route path ='/lookup/:id' element={<Lookup/>}/>
                 <Route path ='/postedit/:id' element={<PostEdit/>}/>
 
-                <Route path='/profile' element={<ProfileLook/>}/> 
+                <Route path='/profile/:id' element={<ProfileLook/>}/> 
             </Routes>
             
         </div>
