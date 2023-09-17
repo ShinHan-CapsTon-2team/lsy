@@ -33,7 +33,7 @@ const Lookup_Content =({ title,nickname,imageurl,description,created_at,id}) => 
     const day = dateKST.getDate(); // 일 추출
     const hour= dateKST.getHours();
     const min = dateKST.getMinutes();
-    const postdate= dateKST.getFullYear()+"-"+dateKST.getMonth() + 1+"-"+dateKST.getDate()+"  "+dateKST.getHours()+":"+dateKST.getMinutes();
+    const postdate= dateKST.getFullYear()+"-"+(dateKST.getMonth() + 1)+"-"+dateKST.getDate()+"  "+dateKST.getHours()+":"+dateKST.getMinutes();
     console.log("postdate",postdate);
 
     //console.log(`연도: ${year}, 월: ${month}, 일: ${day}`);

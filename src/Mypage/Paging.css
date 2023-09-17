@@ -1,5 +1,7 @@
 .pagination, .pages.pagination {
-    display: inline-block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     list-style: none;
     padding: 0;
     text-align: center;
@@ -14,7 +16,7 @@
     color: #000;
     text-decoration: none;
     padding: 6px 12px;
-    border: 1px solid #ddd;
+    
     cursor: pointer;
   }
   
@@ -23,9 +25,11 @@
   }
   
   .pagination .active a, .pages.pagination .active a {
-    background-color: #007bff;
+    background-color: #798be6;
     color: #fff;
-    border: 1px solid #007bff;
+    border: 1px solid #798be6;
     cursor: default;
+    border-radius: 10px;
+    
   }
   

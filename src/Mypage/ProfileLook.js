@@ -201,32 +201,45 @@ const pageCount = Math.ceil(TotalCount / postsPerPage);
 
 
                 </ProfileWrap>
-                  <ArticleWrap>
-                      <Two >
-                        <>
-                        {isCurrentUsersProfile ? (
-                         // 현재 사용자의 프로필을 보고 있다면 post를 렌더링합니다.
-                          <GridWrap>
-                            {currentPosts.map((post, index) => (
-                              <GridDiv key={index}>
-                                <GridImg src={post.image_url} onClick={() => handleImageClick(post.id)} alt="사진"/>
-                              </GridDiv>
-                            ))}
-                        </GridWrap>
-                      ) : (
-                      // 다른 사용자의 프로필을 보고 있다면 images를 렌더링합니다.
-                      <GridWrap>
-                        {images.map((image, index) => (
-                          <GridDiv key={index}>
-                              <GridImg src={image} onClick={() => handleImagesClick(PostIds[index])}  alt="사진" />
-                              
-                          </GridDiv>
-                        ))}
+
+                <ArticleWrap>
+                    <Two style={{display:'flex',flexDirection:'column'}}>
+                      <>
+                      {isCurrentUsersProfile ? (
+                        // 현재 사용자의 프로필을 보고 있다면 post를 렌더링합니다.
+                        <GridWrap>
+                          {currentPosts.map((post, index) => (
+                            <GridDiv key={index}>
+                              <GridImg src={post.image_url} onClick={() => handleImageClick(post.id)} alt="사진"/>
+                            </GridDiv>
+                          ))}
                       </GridWrap>
-                      )}
-                        </>
-                      </Two>
-                  </ArticleWrap>
+                    ) : (
+                    // 다른 사용자의 프로필을 보고 있다면 images를 렌더링합니다.
+                    <GridWrap>
+                      {images.map((image, index) => (
+                        <GridDiv key={index}>
+                            <GridImg src={image} onClick={() => handleImagesClick(PostIds[index])}  alt="사진" />
+                            
+                        </GridDiv>
+                      ))}
+                    </GridWrap>
+                    )}
+                      </>
+
+                      <ReactPaginate
+                        previousLabel={<Button style={{marginRight:20}}>이전</Button>}
+                        nextLabel={<Button style={{marginLeft:20}}>다음</Button>}
+                        breakLabel={''}
+                        pageCount={pageCount}
+                        marginPagesDisplayed={0}
+                        pageRangeDisplayed={3}
+                        onPageChange={handlePageClick}
+                        containerClassName={'pagination'}
+                        activeClassName={'active'}
+                      />
+                    </Two>
+                </ArticleWrap>
                 
                 </Center>
             </InOutWrap>
@@ -237,17 +250,7 @@ const pageCount = Math.ceil(TotalCount / postsPerPage);
             </PostWrap> ) :(null) }
               
 
-              <ReactPaginate
-                previousLabel={'이전'}
-                nextLabel={'다음'}
-                breakLabel={''}
-                pageCount={pageCount}
-                marginPagesDisplayed={0}
-                pageRangeDisplayed={3}
-                onPageChange={handlePageClick}
-                containerClassName={'pagination'}
-                activeClassName={'active'}
-              />
+              
              
 
            
@@ -537,5 +540,73 @@ const StyledBsPlusCircleFill = styled(BsPlusCircleFill)`
       height:90px;
     }
     `;
+    export const FontStyle = {
+      "@media screen and (max-width: 1024px)": {
+        fontSize: 22,
+      },
+    
+      "@media screen and (max-width: 850px)": {
+        fontSize: 21,
+      },
+    
+      /* mobile 규격 */
+      "@media screen and (max-width: 540px)": {
+        fontSize: 19,
+      },
+      /* tablet 규격 */
+      "@media screen and (min-width: 1025px)": {
+        fontSize: 24,
+      },
+      "@media screen and (min-width: 1700px)": {
+        fontSize: 37,
+      },
+    };
+    export const Radius = styled.button`
+  padding: 20px;
+  word-wrap: break-word;
+  border-radius: 40px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  background: #798be6;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: relative;
+  cursor: pointer;
+  color: white;
+`;
+
+export const Button = styled(Radius)`
+  width: 10vw;
+  height: 7vh;
+  
+  ${FontStyle};
+  &:hover {
+    background: #5d6bb4;
+  }
+
+  /* tablet 규격 */
+  @media screen and (max-width: 1023px) {
+    width: 16vw;
+    height: 7vh;
+  }
+
+  @media screen and (max-width: 850px) {
+  }
+  /* mobile 규격 */
+  @media screen and (max-width: 540px) {
+    width: 30vw;
+    height: 7vh;
+  }
+  /* s 데스크 */
+  @media screen and (min-width: 1024px) {
+  }
+  /* l 데스크 */
+  @media screen and (min-width: 1700px) {
+    width: 10vw;
+    height: 7vh;
+  }
+`;
 
   
