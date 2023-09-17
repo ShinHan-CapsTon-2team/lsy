@@ -231,11 +231,11 @@ const pageCount = Math.ceil(TotalCount / postsPerPage);
                 </Center>
             </InOutWrap>
 
-            
-              <PostWrap>
-                
-                <StyledBsPlusCircleFill onClick={goToWorkUpload} />
-              </PostWrap>
+            {isCurrentUsersProfile ? ( <PostWrap>
+              
+              <StyledBsPlusCircleFill onClick={goToWorkUpload} />
+            </PostWrap> ) :(null) }
+              
 
               <ReactPaginate
                 previousLabel={'이전'}

@@ -156,7 +156,8 @@ const FontStyle = {
     }
     };
    
-const Font = styled.div`
+const Font = styled.span`
+
 ${FontStyle};
 color: black;
 
@@ -395,6 +396,17 @@ const ProfileInfo = () => {
           });
         }
       }, [emailId]);// emailId를 의존성 배열에 추가하여 URL 파라미터가 변경될 때만 실행
+
+      function DisplayText(text) { // 설명에서 \n 처리
+        const lines = text.split('\n');
+        return lines.map((line, index) => (
+            <Font key={index}>
+                {line}
+                {index !== lines.length - 1 && <br />}
+            </Font>
+            ));
+        } 
+
     
 
     return(
@@ -419,7 +431,7 @@ const ProfileInfo = () => {
                             <Whatgray> 소개</Whatgray>
                         </Left>
                         <Left style={{marginTop:10}}>
-                            <Font  style={{textAlign:'left'}}>{isCurrentUsersProfile ? introduction : otherIntrodution}</Font>
+                        {isCurrentUsersProfile ? DisplayText(introduction) : DisplayText(otherIntrodution)}
                         </Left>
                     </div>
                 
