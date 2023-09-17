@@ -2,18 +2,17 @@
 import { BsPlusCircleFill } from 'react-icons/bs'
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-
+import ReactPaginate from 'react-paginate';
 import ProfileInfo from '../Component/ProfileInfo';
 import ProfileInfo_Edit from '../Component/ProfileInfo_Edit';
 import Logo from "../Component/Header"
 import styled from "styled-components";
+import './Paging.css';
 
 import {ProfileWrap,ButtonShort} from '../Component/ProfileInfoStyle'
-const SERVER_URL= 'http://localhost:4000/api/lookup';
 
 
-function ProfileLook() { 
-
+function ProfileLook() {
   const [userinfo, setUserinfo] = useState([]);
   const [posts, setPosts] = useState([]);
   const [images, setImages] = useState([]);
@@ -29,17 +28,17 @@ function ProfileLook() {
   const [currentPosts, setCurrentPosts] = useState([]);
   const [page, setPage] = useState(1); 
 
-  const [itsMe,setItsMe]= useState(''); // 나인지 여부 0917 추가 
   const postsPerPage = 20; // 한 페이지에 보여줄 게시물 수
   //const offset = (currentPage - 1) * postsPerPage;
+
   //const currentPosts = posts.slice(offset, offset + postsPerPage);
 
   const navigate = useNavigate();
   const params = useParams(); // 1
   const emailId = params.emailId; // 사용자의 email
  
-  //const isCurrentUsersProfile = email === postemail;
-  //console.log("isCurrentUsersProfile:",isCurrentUsersProfile);
+  const isCurrentUsersProfile = email === postemail;
+
   const handleImageClick = (id) => {
         navigate(`/lookup/${id}`);
     };
@@ -59,46 +58,39 @@ const handleEditComplete = () => {
 const goToWorkUpload =()=>{
   navigate('/post');
 };
-/*
-useEffect(() => {
-  const currentPosts = posts.slice(offset, offset + postsPerPage);
-  console.log('currentPosts: ', currentPosts);
-}, [posts, offset, postsPerPage]);
 
 
 const handlePageClick = async ({ selected }) => {
+  const newPage = selected + 1;
+  setPage(newPage);
+
   try {
-    console.log("페이지 클릭!");
-    const newPage = selected + 1;
-    const newOffset = (newPage - 1) * postsPerPage;
-
-    setCurrentPage(newPage);
-    setOffset(newOffset);
-
-    console.log(`페이지 ${newPage}를 클릭했습니다.`);
     const response = await fetch(
       `http://localhost:4000/api/lookups/${email}?page=${newPage}&postsPerPage=${postsPerPage}`
-        
-      );
+    );
+
     if (!response.ok) {
       throw new Error("페이지를 불러오는 데 문제가 발생했습니다.");
     }
-    console.log("이메일아이디:", email);
+
     const { data, totalCount } = await response.json();
-    console.log("데이터:", data);
 
     if (data.length > 0) {
-      console.log("데이터:", data);
-      setCurrentPosts(data); // 이미지들만 업데이트
+      setCurrentPosts(data);
       setTotalCount(totalCount);
-
     }
   } catch (error) {
     console.error("게시물을 불러오는 중 에러 발생:", error);
   }
-};
-console.log("glgl:", currentPosts);
 
+  // 다른 사용자의 프로필 데이터 가져오기
+  if (email !== emailId) {
+    fetchProfileData(emailId, newPage, postsPerPage);
+  }
+};
+
+
+//내 프로필
 async function fetchPosts(email, page, postsPerPage) {
   try {
     const response = await fetch(`http://localhost:4000/api/lookups/${email}?page=${page}&postsPerPage=${postsPerPage}`);
@@ -118,8 +110,29 @@ async function fetchPosts(email, page, postsPerPage) {
   }
 }
 
+// 남의 프로필
+const fetchProfileData = async (email, currentPage, postsPerPage) => {
+  try {
+    const response = await fetch(`http://localhost:4003/api/profile/${email}?page=${currentPage}&postsPerPage=${postsPerPage}`);
+    const profileData = await response.json();
+
+    setImages(profileData.images);
+    setPostIds(profileData.id);
+    setPostEmail(profileData.email);
+    setTotalCount(profileData.totalCount);
+  } catch (error) {
+    console.error('Error fetching profile data for other user:', error);
+  }
+};
+//console.log("glgl:", images);
+
+
+//useEffect(() => {
+//  fetchPosts(emailId, currentPage, postsPerPage);
+//}, [emailId, currentPage, postsPerPage]);
+
 const pageCount = Math.ceil(TotalCount / postsPerPage);
-*/
+
 
   useEffect(() => {
     const accessToken = localStorage.getItem("access_token");
@@ -139,9 +152,7 @@ const pageCount = Math.ceil(TotalCount / postsPerPage);
         console.log("현재 접속중인 사용자 닉네임:", data.nickname);
         setEmail(data.email);
         setNickname(data.nickname);
-        setItsMe(true);
-        console.log("data",data);
-        /*
+  
         if (data.email !== emailId) {
           // 다른 사용자의 정보를 가져오기
           fetch(`http://localhost:4003/api/profile/${emailId}?page=${page}&postsPerPage=${postsPerPage}`)
@@ -160,14 +171,13 @@ const pageCount = Math.ceil(TotalCount / postsPerPage);
             console.log(data.email);
             
         }
-        */
       })
       .catch((error) => {
         console.error('Error fetching user email:', error);
       });
     }
-  }, [emailId]);// emailId를 의존성 배열에 추가하여 URL 파라미터가 변경될 때만 실행
-    console.log("isEditing :",isEditing);
+  }, [emailId, currentPage]);// emailId를 의존성 배열에 추가하여 URL 파라미터가 변경될 때만 실행
+  
     
     return (
         <OutWrap>
@@ -178,26 +188,26 @@ const pageCount = Math.ceil(TotalCount / postsPerPage);
 
                 <Center>
                 <ProfileWrap>
-                  {itsMe ? (
-                    isEditing ? (
-                      <ProfileInfo_Edit onEditComplete={handleEditComplete} />
-                    ) : (
-                      <>
-                        <ProfileInfo />
-                        <ButtonShort onClick={gotoProfileEdit}>프로필 수정</ButtonShort>
-                      </>
-                    )
-                  ) : (
+
+                
+                {isEditing ? (
+                <ProfileInfo_Edit onEditComplete={handleEditComplete}/>
+            ) : (
+                <>
                     <ProfileInfo />
-                  )}
+                    {isCurrentUsersProfile && <ButtonShort onClick={gotoProfileEdit}>프로필 수정</ButtonShort>}
+                </>
+            )}
+
+
                 </ProfileWrap>
                   <ArticleWrap>
                       <Two >
                         <>
-                        {itsMe ? (
+                        {isCurrentUsersProfile ? (
                          // 현재 사용자의 프로필을 보고 있다면 post를 렌더링합니다.
                           <GridWrap>
-                            {posts.map((post, index) => (
+                            {currentPosts.map((post, index) => (
                               <GridDiv key={index}>
                                 <GridImg src={post.image_url} onClick={() => handleImageClick(post.id)} alt="사진"/>
                               </GridDiv>
@@ -215,19 +225,32 @@ const pageCount = Math.ceil(TotalCount / postsPerPage);
                       </GridWrap>
                       )}
                         </>
-
                       </Two>
-
                   </ArticleWrap>
-                    
+                
                 </Center>
             </InOutWrap>
 
-            {itsMe ? (
+            
               <PostWrap>
+                
                 <StyledBsPlusCircleFill onClick={goToWorkUpload} />
               </PostWrap>
-            ):(null)}
+
+              <ReactPaginate
+                previousLabel={'이전'}
+                nextLabel={'다음'}
+                breakLabel={''}
+                pageCount={pageCount}
+                marginPagesDisplayed={0}
+                pageRangeDisplayed={3}
+                onPageChange={handlePageClick}
+                containerClassName={'pagination'}
+                activeClassName={'active'}
+              />
+             
+
+           
         </OutWrap>
 
     );
@@ -433,6 +456,13 @@ margin-bottom:20px;
   };
 `;
 
+const PaginationWrap = styled.div`
+      margin-top: 20px;
+      margin-bottom: 40px;
+      display: flex;
+      justify-content: center;
+  `;
+
 
 
 const Two = styled(ContentRadius)`
@@ -507,3 +537,5 @@ const StyledBsPlusCircleFill = styled(BsPlusCircleFill)`
       height:90px;
     }
     `;
+
+  
