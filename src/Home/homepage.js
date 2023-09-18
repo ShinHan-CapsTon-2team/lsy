@@ -20,6 +20,7 @@ const categoryLabels  = {
     '증명사진': 'profile',
     '웨딩사진': 'wedding',
 };
+
 const Homepage = () => {
   const navigate = useNavigate();
   const [users, setUsers] = useState([]);
@@ -35,45 +36,45 @@ const Homepage = () => {
   const openModalHandler = () => { // 모달창 관련임 자세히 알 필요 X 
     setIsOpen(!isOpen) 
   };
+
   //버튼 
 const selectCate = (categoryName) => {
   setSelectCategory(categoryName);
 };
 
 const handleCategorySelect = useCallback((category, limit, offset) => {
-  //const queryString = new URLSearchParams({ category }).toString();
+  // 영어 카테고리를 한글로 변환
+  const koreanCategory = categoryLabels[category] || category;
+  
   const queryString = new URLSearchParams({
-    category,
+    category: koreanCategory,
     limit,
     offset,
   }).toString();
 
-  console.log('Category value:', category);
-  
-  
-  fetch(`http://localhost:4000/api/home/${category}?${queryString}`) // 요청
-  .then((response) => {
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    return response.json(); // 반환
-  })
-  .then((data) => {
-    setUsers(data); // 데이터 저장
-    console.log(data); // 받아온 데이터를 콘솔에 출력하거나 원하는 로직으로 처리합니다.
-    navigate(`/home?${queryString}`);
-    setSelectedCategory(category);
-  })
-  .catch((error) => {
-    // 오류 처리
-    console.error(error);
-  });
-  
- }, [navigate]);
+  console.log('Category value:', koreanCategory); // 한글 카테고리
+
+  fetch(`http://localhost:4000/api/home/${koreanCategory}?${queryString}`)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then((data) => {
+      setUsers(data);
+      console.log(data);
+      navigate(`/home?${queryString}`);
+      setSelectedCategory(koreanCategory);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}, [navigate]);
 
 
   useEffect(() => {
-    //컴포넌트가 마운트될 때 '가족사진' 데이터를 불러옵니다
+   //컴포넌트가 마운트될 때 '가족사진' 데이터를 불러옵니다
   handleCategorySelect(selectedCategory, limit, offset);
   }, [selectedCategory, offset, handleCategorySelect]); 
 
@@ -91,6 +92,7 @@ const handleCategorySelect = useCallback((category, limit, offset) => {
       console.error('Invalid id:', id);
     }
   };
+
   // 다음페이지
   const movePage = (newPageNumber) => {
     //const newPageNumber = Math.max(1, pageNumber);
@@ -111,20 +113,18 @@ const handleCategorySelect = useCallback((category, limit, offset) => {
       }
     };
 
-    // 카테고리 클릭할 때마다 초기화
-    const handleCategoryClick = (newCategory) => {
-      const newOffset = 0; // 카테고리 클릭 시 offset 초기화
-      
-      const englishCategory = categoryLabels[newCategory]; // 한글 카테고리를 영어로 변환합니다.
-
-      setOffset(newOffset);
-      movePage(1); // 첫 페이지로 이동
-      handleCategorySelect(englishCategory, limit, newOffset);
-    };
+      // 카테고리 클릭할 때마다 초기화
+      const handleCategoryClick = (newCategory) => {
+        const newOffset = 0; // 카테고리 클릭 시 offset 초기화
+        
+        setSelectedCategory(newCategory);
+        setOffset(newOffset);
+        movePage(1); // 첫 페이지로 이동
+      };
 
 
   const goToWorkUpload = () => {
-    if ((accessToken==null) || (accessToken==undefined)) {
+    if ((accessToken === null) || (accessToken === undefined)) {
       openModalHandler(); // accessToken이 true인 경우 모달 열기
     } else {
       navigate("/post"); // accessToken이 false인 경우 /post로 이동
