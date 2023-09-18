@@ -43,18 +43,18 @@ function Reco({ subfolder }) {
         loadModel();
       }, []);
 
-      useEffect(() => {
-        fetch(`http://localhost:4004/api/${subfolder}`)
-          .then(response => response.json())
-          .then(data => {
-            setImagePaths(data.map(imagePath => `http://localhost:4004${imagePath}`));
-            console.log('Received image paths:', data);
-          })
-          .catch(error => {
-            console.error('Error fetching image paths:', error);
-            setError(error);
-          });
-      }, [subfolder]);
+    useEffect(() => {
+      fetch(`http://localhost:4004/api/${subfolder}`)
+        .then(response => response.json())
+        .then(data => {
+          setImagePaths(data.map(imagePath => `http://localhost:4004${imagePath}`));
+          console.log('Received image paths:', data);
+        })
+        .catch(error => {
+          console.error('Error fetching image paths:', error);
+          setError(error);
+        });
+    }, [subfolder]);
     
       
      // 이미지 분류 함수 (소프트맥스 함수 사용)
@@ -103,124 +103,127 @@ const classifyImageData  = async (img, threshold) => {
 
 
       
-    const getImageData = (file) => {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = (event) => {
-            const img = new Image();
-            img.crossOrigin = 'anonymous'; // 권한 설정
-            img.onload = () => {
-              const canvas = document.createElement('canvas');
-              canvas.width = img.width;
-              canvas.height = img.height;
-              const ctx = canvas.getContext('2d');
-              ctx.drawImage(img, 0, 0);
-              const imageData = ctx.getImageData(0, 0, img.width, img.height);
-              resolve(imageData);
-            };
-            img.src = event.target.result;
+  const getImageData = (file) => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+          const img = new Image();
+          img.crossOrigin = 'anonymous'; // 권한 설정
+          img.onload = () => {
+            const canvas = document.createElement('canvas');
+            canvas.width = img.width;
+            canvas.height = img.height;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0);
+            const imageData = ctx.getImageData(0, 0, img.width, img.height);
+            resolve(imageData);
           };
-          reader.onerror = (error) => reject(error);
-          reader.readAsDataURL(file);
-        });
-      };
+          img.src = event.target.result;
+        };
+        reader.onerror = (error) => reject(error);
+        reader.readAsDataURL(file);
+      });
+    };
 
 
-// calculateCosineSimilarity 함수 내부
-const calculateCosineSimilarity = async () => {
-  try {
-    if (!model || !imageFile) {
-      console.error('모델 또는 이미지를 사용할 수 없습니다.');
-      return;
-    }
-
-    // 이미지 데이터를 캔버스에 로드
-    const canvas = document.createElement('canvas');
-    const imageData = await getImageData(imageFile);
-    canvas.width = imageData.width;
-    canvas.height = imageData.height;
-    const ctx = canvas.getContext('2d');
-    ctx.putImageData(imageData, 0, 0);
-
-    // 미리 학습된 모델을 사용하여 예측 벡터 계산
-    const tensorImg = tf.browser.fromPixels(imageData).toFloat();
-    const resizedImg = tf.image.resizeBilinear(tensorImg, [500, 400]);
-    const expandedImg = resizedImg.expandDims();
-    const normalizedImg = expandedImg.div(255.0);
-    const pretrainedPrediction = await model.predict(normalizedImg).array();
-    const pretrainedImageTensor = tf.tensor(pretrainedPrediction);
-
-    // 폴더 내에 있는 다른 이미지들과의 코사인 유사도 계산
-    const similarImages = [];
-    for (const imagePath of imagePathsInFolder) {
-      const folderImageData = await getImageDataFromPath(imagePath);
-      const folderTensorImg = tf.browser.fromPixels(folderImageData).toFloat();
-      const folderResizedImg = tf.image.resizeBilinear(folderTensorImg, [500, 400]);
-      const folderExpandedImg = folderResizedImg.expandDims();
-      const folderNormalizedImg = folderExpandedImg.div(255.0);
-      const folderPrediction = await model.predict(folderNormalizedImg).array();
-      const folderImageTensor = tf.tensor(folderPrediction);
-      const cosineSimilarity = calculateCosineSimilarityBetweenTensors(pretrainedImageTensor, folderImageTensor);
-      similarImages.push({ imagePath, cosineSimilarity });
-    }
-
-    // 코사인 유사도에 따라 유사한 이미지 정렬
-    similarImages.sort((a, b) => b.cosineSimilarity - a.cosineSimilarity);
-
-    // 상위 3개 유사한 이미지 선택
-    const topSimilarImages = similarImages.slice(0, 3);
-
-    console.log("상위 유사한 이미지:", topSimilarImages);
-    return topSimilarImages; // 상위 유사한 이미지를 반환
-
-  } catch (error) {
-    console.error('코사인 유사도 계산 중 오류:', error);
-  }
-};
-
-//c-upload 선택시
-const handleCosineCalculation = async () => {
-  try {
-      const topSimilarImages = await calculateCosineSimilarity();
-
-      // 여기에서 유사한 이미지를 `/upload` 페이지로 전달하고 이동합니다.
-      if (topSimilarImages) { // 유사한 이미지가 존재할 경우에만 전달 및 이동
-        navigate('/recoresult', { state: { topSimilarImages } });
+  // calculateCosineSimilarity 함수 내부
+  const calculateCosineSimilarity = async () => {
+    try {
+      if (!model || !imageFile) {
+        console.error('모델 또는 이미지를 사용할 수 없습니다.');
+        return;
       }
 
-  } catch (error) {
-      console.error('Error calculating cosine similarity:', error);
-  }
-};
-
-
-// 두 텐서 간의 코사인 유사도 계산
-const calculateCosineSimilarityBetweenTensors = (tensorA, tensorB) => {
-  const cosineSimilarity = tf.losses.cosineDistance(tensorA, tensorB).arraySync();
-  return 1 - cosineSimilarity; // 코사인 유사도를 유사도 점수로 변환
-};
-
-
-const getImageDataFromPath = async (imagePath) => {
-  return new Promise((resolve, reject) => {
-    const img = new Image();
-    img.crossOrigin = 'anonymous'; // 권한 설정
-    img.onload = () => {
+      // 이미지 데이터를 캔버스에 로드
       const canvas = document.createElement('canvas');
-      canvas.width = img.width;
-      canvas.height = img.height;
+      const imageData = await getImageData(imageFile);
+      canvas.width = imageData.width;
+      canvas.height = imageData.height;
       const ctx = canvas.getContext('2d');
-      ctx.drawImage(img, 0, 0);
-      const imageData = ctx.getImageData(0, 0, img.width, img.height);
-      resolve(imageData);
-    };
-    img.onerror = (error) => {
-      console.error('Error loading image:', error);
-      reject(error);
-    };
-    img.src = imagePath;
-  });
-};
+      ctx.putImageData(imageData, 0, 0);
+
+      // 미리 학습된 모델을 사용하여 예측 벡터 계산
+      const tensorImg = tf.browser.fromPixels(imageData).toFloat();
+      const resizedImg = tf.image.resizeBilinear(tensorImg, [500, 400]);
+      const expandedImg = resizedImg.expandDims();
+      const normalizedImg = expandedImg.div(255.0);
+      const pretrainedPrediction = await model.predict(normalizedImg).array();
+      const pretrainedImageTensor = tf.tensor(pretrainedPrediction);
+
+      // 폴더 내에 있는 다른 이미지들과의 코사인 유사도 계산
+      const similarImages = [];
+      for (const imagePath of imagePathsInFolder) {
+        const folderImageData = await getImageDataFromPath(imagePath);
+        const folderTensorImg = tf.browser.fromPixels(folderImageData).toFloat();
+        const folderResizedImg = tf.image.resizeBilinear(folderTensorImg, [500, 400]);
+        const folderExpandedImg = folderResizedImg.expandDims();
+        const folderNormalizedImg = folderExpandedImg.div(255.0);
+        const folderPrediction = await model.predict(folderNormalizedImg).array();
+        const folderImageTensor = tf.tensor(folderPrediction);
+        // 두 텐서 간의 코사인 유사도 계산
+        const cosineSimilarity = calculateCosineSimilarityBetweenTensors(pretrainedImageTensor, folderImageTensor);
+        similarImages.push({ imagePath, cosineSimilarity });
+      }
+
+      // 코사인 유사도에 따라 유사한 이미지 정렬
+      similarImages.sort((a, b) => b.cosineSimilarity - a.cosineSimilarity);
+
+      // 상위 3개 유사한 이미지 선택
+      const topSimilarImages = similarImages.slice(0, 3);
+
+      console.log("상위 유사한 이미지:", topSimilarImages);
+      return topSimilarImages; // 상위 유사한 이미지를 반환
+
+    } catch (error) {
+      console.error('코사인 유사도 계산 중 오류:', error);
+    }
+  };
+
+  //결과보기 누를 시 
+  const handleCosineCalculation = async () => {
+    try {
+      // 두 텐서 간의 코사인 유사도 계산
+        const topSimilarImages = await calculateCosineSimilarity();
+
+        // 여기에서 유사한 이미지를 `/upload` 페이지로 전달하고 이동합니다.
+        if (topSimilarImages) { // 유사한 이미지가 존재할 경우에만 전달 및 이동
+          navigate('/recoresult', { state: { topSimilarImages } });
+        }
+
+    } catch (error) {
+        console.error('Error calculating cosine similarity:', error);
+    }
+  };
+
+
+  // 두 텐서 간의 코사인 유사도 계산
+  const calculateCosineSimilarityBetweenTensors = (tensorA, tensorB) => {
+    const cosineSimilarity = tf.losses.cosineDistance(tensorA, tensorB).arraySync();
+    return 1 - cosineSimilarity; // 코사인 유사도를 유사도 점수로 변환
+  };
+
+
+
+  const getImageDataFromPath = async (imagePath) => {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.crossOrigin = 'anonymous'; // 권한 설정
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+        const imageData = ctx.getImageData(0, 0, img.width, img.height);
+        resolve(imageData);
+      };
+      img.onerror = (error) => {
+        console.error('Error loading image:', error);
+        reject(error);
+      };
+      img.src = imagePath;
+    });
+  };
 
     const handleImageFileChange = async (event) => {
       const imageFile = event.target.files[0];
@@ -244,7 +247,10 @@ const getImageDataFromPath = async (imagePath) => {
     
             setImageFile(imageFile);
             setPreviewImage(URL.createObjectURL(imageFile));
-
+            
+            //카테고리 분류중
+            console.log("예측 수행");
+            console.log("imageFile : ",imageFile);
             const classIndex = await classifyImageData(imageFile, 0.8); //0.8프로의정확도가 임계값
             setSelectedClass(classIndex);
             const predictedLabel = classLabels[classIndex];
