@@ -253,62 +253,63 @@ const handleCategorySelect = (selectedCategory, index) => {
 
 
  // 수정 업로드 버튼
-const handleUpdate = (index) => {
-  if (updatedPost[index] && updatedPost[index].newImageFile) {
-    const updatedData = updatedPost[index];
-    console.log('updatedData:', updatedData);
+ const handleUpdate = async (index) => {
+  const updatedData = updatedPost[index];
+  console.log('updatedData:', updatedData);
 
-    // 이미지 파일을 FormData로 감싸서 서버로 전송
-    const formData = new FormData();
+  // 이미지 파일을 FormData로 감싸서 서버로 전송
+  const formData = new FormData();
 
-    // 서버로 보낼 때는 영어 category 값을 사용
-    const englishCategory = categoryLabel[updatedData.category] || updatedData.category;
-    formData.append('data', JSON.stringify({ ...updatedData, category: englishCategory }));
-    formData.append('newImageFile', updatedData.newImageFile);
+  // 서버로 보낼 때는 영어 category 값을 사용
+  const englishCategory = categoryLabel[updatedData.category] || updatedData.category;
+  formData.append('data', JSON.stringify({ ...updatedData, category: englishCategory }));
+  formData.append('newImageFile', updatedData.newImageFile);
 
-      for (const entry of formData.entries()) {
-        const [key, value] = entry;
-        console.log(`Key: ${key}`, value);
-      }
-      
-      // 서버로 업데이트된 데이터와 이미지 함께 보내는 로직 추가
-      fetch(`${SERVER_URL}/${id}`, {
-        method: 'PUT',
-        body: formData,
-      })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log('서버 응답:', data);
-        // 성공 메시지를 표시
-        setShowSuccessMessage(true);
-    
-        // 2초 후에 성공 메시지를 숨기고 페이지를 이동
-        setTimeout(() => {
-          setShowSuccessMessage(false);
-          navigate(`/lookup/${id}`);
-        }, 2000); 
+  for (const entry of formData.entries()) {
+    const [key, value] = entry;
+    console.log(`Key: ${key}`, value);
+  }
 
-        // 서버에서 받은 이미지 URL을 업데이트된 데이터에 반영
-        const updatedDataWithImageUrl = {
-        ...updatedData,
-        image_url: updatedData.image_url,
-        imagePreviewUrl: updatedData.image_url,
-      };
+  try {
+    const response = await fetch(`${SERVER_URL}/${id}`, {
+      method: 'PUT',
+      body: formData,
+    });
 
-      // 화면을 업데이트
-      const updatedPosts = [...updatedPost];
-      updatedPosts[index] = updatedDataWithImageUrl;
-      setUpdatedPost(updatedPosts);
-      console.log(updatedPosts);
-      console.log('전송할 데이터:', updatedData.newImageFile);
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-    } else {
-      console.log("No new image file to upload.");
+    if (!response.ok) {
+      throw new Error(`Server response was not ok: ${response.statusText}`);
     }
-  };
+
+    const data = await response.json();
+    console.log('서버 응답:', data);
+
+    // 성공 메시지를 표시
+    setShowSuccessMessage(true);
+
+    // 2초 후에 성공 메시지를 숨기고 페이지를 이동
+    setTimeout(() => {
+      setShowSuccessMessage(false);
+      navigate(`/lookup/${id}`);
+    }, 2000);
+
+    // 서버에서 받은 이미지 URL을 업데이트된 데이터에 반영
+    const updatedDataWithImageUrl = {
+      ...updatedData,
+      image_url: updatedData.image_url,
+      imagePreviewUrl: updatedData.image_url,
+    };
+
+    // 화면을 업데이트
+    const updatedPosts = [...updatedPost];
+    updatedPosts[index] = updatedDataWithImageUrl;
+    setUpdatedPost(updatedPosts);
+    console.log(updatedPosts);
+    console.log('전송할 데이터:', updatedData.newImageFile);
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
+
   
 
     // 취소 버튼 
