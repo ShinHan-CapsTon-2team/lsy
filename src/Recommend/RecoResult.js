@@ -28,32 +28,37 @@ const RecoResult = () => {
     const handleImageClick = (imagePath) => {
         // 이미지 상대 경로를 서버로 보내고 해당 게시물로 이동하는 로직을 구현
         fetch('http://localhost:4000/api/lookupByImage', {
-          method: 'POST', // POST 요청 설정
+            method: 'POST', 
             headers: {
-                'Content-Type': 'application/json', // JSON 형태로 데이터 전송
+                'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ imageUrl: imagePath }), // 이미지 상대 경로를 JSON으로 변환하여 전송
-            })
-            .then((response) => response.json())
-            .then((data) => {
+            body: JSON.stringify({ imageUrl: imagePath }),
+        })
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then((data) => {
+            if (data.id !== undefined) {
                 console.log("받은 아이디:", data.id);
-                
-                // 조회된 ID 값을 사용하여 해당 게시물로 이동
                 navigate(`/lookup/${data.id}`);
+            } 
+        })
+        .catch((error) => {
+            console.error('게시물 조회 중 오류:', error);
 
-            })
-            .catch((error) => {
-                console.error('게시물 조회 중 오류:', error);
+            // 실패 메시지를 보여줍니다.
+            setShowErrorMessage(true);
 
-                // 실패 메시지를 보여줍니다.
-                setShowErrorMessage(true);
-
-                // 2초 후에 실패 메시지를 숨깁니다.
-                setTimeout(() => {
+            // 2초 후에 실패 메시지를 숨깁니다.
+            setTimeout(() => {
                 setShowErrorMessage(false);
-                }, 2000);
-            });
-        };
+            }, 2000);
+        });
+
+    }
 
     return (
         
