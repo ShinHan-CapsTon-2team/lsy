@@ -216,7 +216,7 @@ export const OutWrap = styled.div`
     },
     };
     
-    export const Text1 = styled.text`
+    export const Text1 = styled.span`
     /* font-size: 40px; */
     color: #798BE6;
     font-weight: 600;
@@ -225,7 +225,7 @@ export const OutWrap = styled.div`
     ${Text1FontStyle};
     `;
     
-    export const Text2= styled.text`
+    export const Text2= styled.span`
     ${FontStyle};
     color:  #798BE6;
     margin-bottom: 13px;

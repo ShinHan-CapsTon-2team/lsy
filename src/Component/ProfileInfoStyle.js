@@ -127,7 +127,7 @@ export const Wrap = styled(Area)`
   text-align: center;
   border-radius: 31px;
 `;
-export const Font = styled.div`
+export const Font = styled.span`
   ${FontStyle};
   color: black;
   width: 100%;
