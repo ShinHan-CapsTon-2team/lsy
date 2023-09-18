@@ -188,17 +188,21 @@ const pageCount = Math.ceil(TotalCount / postsPerPage);
 
                 <Center>
                 <ProfileWrap>
-
-                
-                {isEditing ? (
-                <ProfileInfo_Edit onEditComplete={handleEditComplete}/>
-            ) : (
-                <>
+              
+                {isCurrentUsersProfile ? (
+                    <>
+                      {isEditing ? (
+                        <ProfileInfo_Edit onEditComplete={handleEditComplete} />
+                      ) : (
+                        <>
+                          <ProfileInfo />
+                          {isCurrentUsersProfile && <ButtonShort onClick={gotoProfileEdit}>프로필 수정</ButtonShort>}
+                        </>
+                      )}
+                    </>
+                  ) : (
                     <ProfileInfo />
-                    {isCurrentUsersProfile && <ButtonShort onClick={gotoProfileEdit}>프로필 수정</ButtonShort>}
-                </>
-            )}
-
+                  )}
 
                 </ProfileWrap>
 

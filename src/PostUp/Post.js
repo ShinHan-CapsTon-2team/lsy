@@ -336,11 +336,11 @@ function Post() {
               </S.Right>
               {/* 성공 메시지를 보여주는 부분 */}
               {showSuccessMessage && (
-                <Popup text="게시물이 성공적으로 업로드되었습니다." />
+                <Popup text="게시물이 성공적으로 업로드되었습니다" />
               )}
               {/* 실패 메시지를 보여주는 부분 */}
               {showErrorMessage && (
-                <Popup text="게시물 업로드를 실패했습니다." />
+                <Popup text="게시물 업로드를 실패했습니다" />
               )}
             </S.Buttons>
           </S.InLayoutTwo>

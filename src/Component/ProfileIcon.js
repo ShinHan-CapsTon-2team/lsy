@@ -4,11 +4,14 @@ import profilelogo from "../Images/pp.png";
 import { LoginModal } from "../Modal/LoginModal";
 import * as S from "./ProfileWrapStyle";
 import { ModalBackdrop } from "../Modal/ModalStyle";
-
+import { Popup } from "../Modal/Popup";
 export const ProfileIcon = () => {
   const [userinfo, setUserinfo] = useState([]);
   const [isOpen, setIsOpen] = useState(false); // 모달창때문에 있는거 삭제 노
+  
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false); // 로그아웃 성공 여부 
   const accessToken = localStorage.getItem("access_token"); // 로컬 스토리지에서 액세스 토큰 가져오기
+  console.log("accessToken:",accessToken);
   const openModalHandler = () => {
     // 모달창 관련임 자세히 알 필요 X
     setIsOpen(!isOpen);
@@ -51,7 +54,13 @@ export const ProfileIcon = () => {
   const onNaverLogout = () => {
     //로그아웃 처리 코드
     localStorage.removeItem("access_token");
-    //setIsOpen(false); // 로그아웃 후 모달 닫음 --- 의미없음
+    setShowSuccessMessage(true); // 로그아웃 후 모달 닫음 --- 의미없음
+
+    // 2초 후에 성공 메시지를 숨김
+    setTimeout(() => {
+      setShowSuccessMessage(false);
+    }, 2000); // 2초를 기다립니다 (2000 밀리초)
+    setIsOpen(!isOpen);
     console.log("로그아웃 되었습니다.");
   };
   return (
@@ -73,6 +82,12 @@ export const ProfileIcon = () => {
             )}
           </>
         )}
+
+        {/* 성공 메시지를 보여주는 부분 */}
+        {showSuccessMessage && (
+          <Popup text="로그아웃 되었습니다"/>
+        )}
+        
       </S.ProfileWrap>
     </>
   );

@@ -24,7 +24,8 @@ function PostEdit() {
     const [selectedClass, setSelectedClass] = useState(0); // 선택한 클래스의 인덱스
     const [model, setModel] = useState(null);
     const [getloading, setGetLoading] = useState(false);
-
+    const [showErrorMessage, setShowErrorMessage] = useState(false); // 수정 실패
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false); // 수정 성공
     const classLabels = [
       '바디프로필',
       '반려동물',
@@ -62,7 +63,7 @@ function PostEdit() {
     //데이터 가져오기 위해 
     const params = useParams(); // 
     const id = params.id; // 게시글 몇번인지 
-    const [showSuccessMessage, setShowSuccessMessage] = useState(false); // 수정 성공
+    
 
     useEffect(() => {
     const getBoard = async () => {
@@ -307,6 +308,13 @@ const handleCategorySelect = (selectedCategory, index) => {
     console.log('전송할 데이터:', updatedData.newImageFile);
   } catch (error) {
     console.error('Error:', error);
+    // 실패 메시지를 보여줍니다.
+    setShowErrorMessage(true);
+
+    // 2초 후에 실패 메시지를 숨깁니다.
+    setTimeout(() => {
+    setShowErrorMessage(false);
+    }, 2000);
   }
 };
 
@@ -425,6 +433,10 @@ const handleCategorySelect = (selectedCategory, index) => {
                             {/* 성공 메시지를 보여주는 부분 */}
                             {showSuccessMessage && (
                               <Popup text="게시물이 성공적으로 수정되었습니다." />
+                            )}
+                            {/* 실패 메시지를 보여주는 부분 */}
+                            {showErrorMessage && (
+                              <Popup text="게시물 수정 실패했습니다" />
                             )}
 
 
