@@ -9,6 +9,8 @@ function Landing(){
     const [userInfo, setUserInfo] = useState(null);
     const accessToken = localStorage.getItem('access_token'); // 로컬 스토리지에서 액세스 토큰 가져오기
 
+    let currentEmail; //현재 접속중인지
+  let isLogin // 로그인되어있는지
     useEffect(() => {
         const urlParams = new URLSearchParams(window.location.search);
         const code = urlParams.get('code');
@@ -78,27 +80,49 @@ function Landing(){
     const onGoProfile = () => {
         // 서버로 액세스 토큰을 보내서 사용자 이메일 정보를 요청
         const accessToken = localStorage.getItem("access_token");
-
         if (accessToken) {
             fetch('http://localhost:4001/api/user', {
             method: "POST",
             headers: {
-            "Content-Type": "application/json",
+                "Content-Type": "application/json",
             },
             body: JSON.stringify({ accessToken }),
-        })
+            })
             .then((response) => response.json())
             .then((data) => {
+    
+                if (data.email) {
                 setUserInfo(data);
                 console.log("현재 접속중인 사용자 이메일:", data.email);
                 console.log("현재 접속중인 사용자 닉네임:", data.nickname);
-        
+                currentEmail=data.email;
                 // 이메일 아이디 추출
                 const emailParts = data.email.split('@');
                 const emailId = emailParts[0];
-              // 이메일 아이디를 가지고 프로필 페이지로 이동
+        
+                // 이메일 아이디를 가지고 프로필 페이지로 이동
                 navigate(`/profile/${emailId}`);
-            })
+            } else {
+                // "email" 필드가 없는 경우
+                console.log("이메일 정보가 없습니다.");
+                currentEmail=false;
+            }
+    
+            let token =accessToken !== null;
+            console.log("accessToken !== null :",token);
+            
+            console.log("currentEmail :",currentEmail);
+            isLogin = token && currentEmail;
+            
+            
+            if (isLogin) {
+            console.log('사용자는 로그인되었습니다.');
+            } else {
+            console.log('사용자는 로그인되지 않았습니다.');
+            }
+            }
+            )
+            
             .catch((error) => {
                 console.error('Error fetching user email:', error);
             });
@@ -119,7 +143,7 @@ function Landing(){
                     <Button onClick={handleFitPhotoClick}> 맞는 사진 추천받기</Button>
                     <Button onClick={handleGohomeClick}> 홈페이지 방문하기</Button>
 
-                    <Button onClick={accessToken ? onGoProfile : openModalHandler}>내 프로필 가기 </Button>
+                    <Button onClick={isLogin ? onGoProfile : openModalHandler}>내 프로필 가기 </Button>
 
                     {isOpen ?
                         // 액세스 토큰이 없는 경우

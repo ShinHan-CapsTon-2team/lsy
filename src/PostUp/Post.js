@@ -24,7 +24,7 @@ function Post() {
     const [showSuccessMessage, setShowSuccessMessage] = useState(false); // 업로드 성공
     const [showErrorMessage, setShowErrorMessage] = useState(false); // 업로드 실패
 
-    const [showMessage, setShowMessage] = useState(false); {/* 0916 추가*/}
+    const [showMessage, setShowMessage] = useState(false); // 카테고리 분류 중 
     const classLabels = [
       '바디프로필',
       '반려동물',

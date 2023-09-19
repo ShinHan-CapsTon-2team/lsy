@@ -21,22 +21,15 @@ const Lookup_Content =({ title,nickname,imageurl,description,created_at,id}) => 
         }
     //시간 처리하기
     const timestamp = created_at; 
-    console.log("timestamp",timestamp);
+    //console.log("timestamp",timestamp);
         // UTC Timestamp를 한국 시간대로 변환
     const dateUTC = new Date(timestamp);
     const offsetInMilliseconds = 9 * 60 * 60 * 1000;
     const dateKST = new Date(dateUTC.getTime() + offsetInMilliseconds);
-    console.log("dateKST",dateKST);
-    
-    const year = dateKST.getFullYear(); // 연도 추출
-    const month = dateKST.getMonth() + 1; // 월 추출 (0부터 시작하므로 +1)
-    const day = dateKST.getDate(); // 일 추출
-    const hour= dateKST.getHours();
-    const min = dateKST.getMinutes();
+    //console.log("dateKST",dateKST);
     const postdate= dateKST.getFullYear()+"-"+(dateKST.getMonth() + 1)+"-"+dateKST.getDate()+"  "+dateKST.getHours()+":"+dateKST.getMinutes();
-    console.log("postdate",postdate);
+    //console.log("postdate",postdate);
 
-    //console.log(`연도: ${year}, 월: ${month}, 일: ${day}`);
     const handleGoProfile = async () => {
         try {
             setLoading(true);

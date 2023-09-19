@@ -26,6 +26,7 @@ function PostEdit() {
     const [getloading, setGetLoading] = useState(false);
     const [showErrorMessage, setShowErrorMessage] = useState(false); // 수정 실패
     const [showSuccessMessage, setShowSuccessMessage] = useState(false); // 수정 성공
+    const [showMessage, setShowMessage] = useState(false); // 카테고리 분류 중 
     const classLabels = [
       '바디프로필',
       '반려동물',
@@ -63,7 +64,6 @@ function PostEdit() {
     //데이터 가져오기 위해 
     const params = useParams(); // 
     const id = params.id; // 게시글 몇번인지 
-    
 
     useEffect(() => {
     const getBoard = async () => {
@@ -207,10 +207,13 @@ const handleImageFileChange = async (event, index) => {
     console.log('New image URL:', imageUrl); // imageUrl 값 확인
     setPreviewImage(imageUrl);
 
+    
+    //카테고리 분류중
+    setShowMessage(true);
     // 이미지 예측 및 카테고리 설정
     const classIndex = await classifyImage(imageFile, 0.8); //0.8프로의정확도가 임계값
     setSelectedClass(classIndex); //인덱스를 기반으로 카테고리를 설정
-
+    setShowMessage(false);
     let categoryToSet; //이미지 파일 업로드 및 분류 후 설정할 카테고리를 저장하는 변수
     
     if (classIndex === -1) {
@@ -399,12 +402,18 @@ const handleCategorySelect = (selectedCategory, index) => {
                         <S.Buttons >
                           {updatedPost.map((post, index) => (
                               <S.Left key={index}>
-                              <S.ButtonOne onClick={handleMenuToggle}>
-                                  {post.category ? (
-                                        <S.Menu>{categoryLabels[post.category] || post.category}</S.Menu>
-                                  ) : (
-                                      <S.Menu>카테고리 선택</S.Menu>
-                                  )}
+                              <S.ButtonOne onClick={handleMenuToggle} show={showMessage}>
+
+                              {showMessage ? (
+                                <S.Menu>카테고리 분류 중</S.Menu>
+                              ) : (
+                                (post.category && categoryLabels[post.category]) ? (
+                                  <S.Menu>{categoryLabels[post.category]}</S.Menu>
+                                ) : (
+                                  <S.Menu>{post.category}</S.Menu>
+                                )
+                              )}
+
                                   <S.DropContainer>
 
                                     {isMenuOpen && (
