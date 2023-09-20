@@ -189,7 +189,7 @@ function Images_Lookup() {
                                 <S.DelectButton onClick={openModalHandler}>
                                     삭제
                                 </S.DelectButton>
-                                {isOpen ? (<DeleteModal isId={id} isOpenModal={isOpen}/>):(null)}
+                                {isOpen ? (<DeleteModal isId={id} openModalHandler={openModalHandler}/>):(null)}
 
                             </S.Right>
                         </S.Buttons>

@@ -6,7 +6,7 @@ import {Popup} from '../Modal/Popup';
 const SERVER_URL= 'http://localhost:4000/api/lookup';
 
 
-export const DeleteModal = ({isId,onCloseModal}) => {
+export const DeleteModal = ({isId,openModalHandler}) => {
     //삭제 성공/실패 모달창 
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
     const [showErrorMessage, setShowErrorMessage] = useState(false);
@@ -51,14 +51,13 @@ export const DeleteModal = ({isId,onCloseModal}) => {
         };
 
     const handleCancle =()=>{
-        onCloseModal();
-
+        openModalHandler();
     };
     return (
         <>
         <ModalBackdrop>         
             <ModalView onClick={(e) => e.stopPropagation()}>
-                <Text>게시물을 삭제 하겠습니까?</Text>
+                <Text>게시물을 삭제하겠습니까?</Text>
                 <div style={{marginTop:15}}>
                     <DeleteButton onClick={handleDelete}>삭제</DeleteButton>
                     <CancleButton onClick={handleCancle}>취소</CancleButton>
