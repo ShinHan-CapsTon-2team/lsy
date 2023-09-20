@@ -74,7 +74,7 @@ function Post() {
 
             const imageData = await getImageData(img);
             const tensorImg = tf.browser.fromPixels(imageData).toFloat();
-            const resizedImg = tf.image.resizeBilinear(tensorImg, [500, 400]); 
+            const resizedImg = tf.image.resizeBilinear(tensorImg, [350, 250]); 
             const expandedImg = resizedImg.expandDims();
             const normalizedImg = expandedImg.div(255.0);
             const prediction = await model.predict(normalizedImg).array();
