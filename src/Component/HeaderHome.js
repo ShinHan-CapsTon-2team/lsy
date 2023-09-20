@@ -10,7 +10,7 @@ const Header = () => {
   const handleGoLandingClick = () => {
     navigate("/");
   };
-
+  
   return (
     <LogoWrap>
       <LandingLogo src={logo} alt="" onClick={handleGoLandingClick} />

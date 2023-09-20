@@ -32,7 +32,14 @@ const Homepage = () => {
   const [pageNumber, setPageNumber] = useState(1);
   const limit = 20; // 한 페이지당 이미지 수 설정
   const [offset, setOffset] = useState(0); //offset 초기값
+
   const accessToken = localStorage.getItem('access_token'); // 로컬 스토리지에서 액세스 토큰 가져오기
+  let currentEmail; //현재 접속중인지
+  let isLogin // 로그인되어있는지
+  const [itsLogin,setItsLogin]=useState(false); // 로그인 여부 상태 
+  const [userinfo, setUserinfo] = useState([]);
+  let emailId;
+
   const openModalHandler = () => { // 모달창 관련임 자세히 알 필요 X 
     setIsOpen(!isOpen) 
   };
@@ -72,6 +79,57 @@ const handleCategorySelect = useCallback((category, limit, offset) => {
     });
 }, [navigate]);
 
+useEffect(() => {
+  const accessToken = localStorage.getItem("access_token");
+  console.log("home accessToken:",accessToken);
+  // 서버로 액세스 토큰을 보내서 사용자 이메일 정보를 요청
+  if (accessToken) {
+  fetch('http://localhost:4001/api/user', {
+      method: "POST",
+      headers: {
+          "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ accessToken }),
+      })
+      .then((response) => response.json())
+      .then((data) => {
+
+        if (data.email) {
+          setUserinfo(data);
+          console.log("home 현재 접속중인 사용자 이메일:", data.email);
+          console.log("home 현재 접속중인 사용자 닉네임:", data.nickname);
+          currentEmail=true;
+          // 이메일 아이디 추출
+          const emailParts = data.email.split('@');
+          emailId = emailParts[0];
+  
+          
+      } else {
+          // "email" 필드가 없는 경우
+          console.log("이메일 정보가 없습니다.");
+          currentEmail=false;
+      }
+
+      let token =accessToken !== null;
+      console.log("home accessToken !== null :",token);
+      
+      console.log("home currentEmail :",currentEmail);
+      isLogin = token && currentEmail;
+      
+
+      if (isLogin) {
+      console.log('home 사용자는 로그인되었습니다.');
+      setItsLogin(true);
+      } else {
+      console.log('home 사용자는 로그인되지 않았습니다.');
+      }
+
+      })
+      .catch((error) => {
+          console.error("Error fetching user email:", error);
+      });
+  }
+}, []);
 
   useEffect(() => {
    //컴포넌트가 마운트될 때 '가족사진' 데이터를 불러옵니다
@@ -122,9 +180,10 @@ const handleCategorySelect = useCallback((category, limit, offset) => {
         movePage(1); // 첫 페이지로 이동
       };
 
-
+      console.log("accessToken:",accessToken);
+      console.log("!accessToken:",(!accessToken));
   const goToWorkUpload = () => {
-    if ((accessToken === null) || (accessToken === undefined)) {
+    if (!itsLogin)  {
       openModalHandler(); // accessToken이 true인 경우 모달 열기
     } else {
       navigate("/post"); // accessToken이 false인 경우 /post로 이동

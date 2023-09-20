@@ -22,15 +22,15 @@ export const LoginModal = () => {
     };
 
 
-  return (
-      <S.ModalView onClick={(e) => e.stopPropagation()}>
-          <S.TextWrap>
-              <S.Text1>로그인 또는 회원가입 해주세요</S.Text1>
-              <S.BtnLoginWrap> 
-                  <S.BtnNaver src={naverlogin}  onClick={onNaverLogin} alt=''></S.BtnNaver>
-              </S.BtnLoginWrap>
-          </S.TextWrap>
+return (
+    <S.ModalView onClick={(e) => e.stopPropagation()}>
+        <S.TextWrap>
+            <S.Text1>로그인 또는 회원가입 해주세요</S.Text1>
+            <S.BtnLoginWrap> 
+                <S.BtnNaver src={naverlogin}  onClick={onNaverLogin} alt=''></S.BtnNaver>
+            </S.BtnLoginWrap>
+        </S.TextWrap>
 
-      </S.ModalView>
-      );
+    </S.ModalView>
+    );
 };

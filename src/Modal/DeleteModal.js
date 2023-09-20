@@ -6,7 +6,7 @@ import {Popup} from '../Modal/Popup';
 const SERVER_URL= 'http://localhost:4000/api/lookup';
 
 
-export const DeleteModal = ({isId,isOpenModal, onCloseModal}) => {
+export const DeleteModal = ({isId,onCloseModal}) => {
     //삭제 성공/실패 모달창 
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
     const [showErrorMessage, setShowErrorMessage] = useState(false);
