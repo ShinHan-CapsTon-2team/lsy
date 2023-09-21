@@ -187,7 +187,7 @@ function Landing(){
     
     
     return (
-        <><Loading what="loading" />
+        
         <OutWrap>
             <InsideWrap>
 
@@ -209,9 +209,11 @@ function Landing(){
                         : null}
 
                 </ImgWrap>
+                <text style={{position:'absolute',left:20,bottom:17,fontWeight:600,fontSize:15,color:'gray'}}>📢 저작권 문제 인지하고 있으며
+                끝나고 바로 삭제하겠습니다.</text>
 
             </InsideWrap>
-        </OutWrap></>
+        </OutWrap>
     
     );
 }
