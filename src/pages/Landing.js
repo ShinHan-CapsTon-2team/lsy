@@ -196,7 +196,7 @@ function Landing(){
 
                 <ImgWrap> {/* 말 줄이기 ... fontsize 높여야함  */}
                     <Button onClick={handleUploadPhotoClick}>매칭을 통해 추천받기 </Button>
-                    <Button onClick={handleFitPhotoClick}> 맞는 사진 추천받기</Button>
+                    <Button onClick={handleFitPhotoClick}> 테스트를 통해 추천받기</Button>
                     <Button onClick={handleGohomeClick}> 홈페이지 방문하기</Button>
 
                     <Button onClick={itsLogin ? onGoProfile : openModalHandler}>내 프로필 가기 </Button>

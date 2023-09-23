@@ -1,24 +1,24 @@
-
-import styled from "styled-components";
-
 import React, { useState, useEffect ,useRef, useCallback } from 'react';
 import * as tf from '@tensorflow/tfjs'; //npm i @tensorflow/tfjs
 import '@tensorflow/tfjs-backend-webgl'; //npm i @tensorflow/tfjs-backend-webgl
-import Loading from '../Component/Loading';
+//useRef, useCallback
 import Logo from '../Component/Header' 
 import { useNavigate } from 'react-router-dom';
+import Loading from '../Component/Loading';
+import upload from '../Images/upload.png'; 
+  
+//수정된곳(0917)
+//모델파일 사용함 
+//거리 기반 유사도(유클리디안 유사도)
+import styled from "styled-components";
 
-import upload from '../Images/upload.png';
-
-
-function Reco() {
-    const [imageFile, setImageFile] = useState(null);
+function Reco() { 
+  const [imageFile, setImageFile] = useState(null);
     const [previewImage, setPreviewImage] = useState(null); // 미리보기 이미지 URL 상태
     const [model, setModel] = useState(null);
     const [imagePaths, setImagePaths] = useState([]); //이미지 경로 가져오기 
     const imagePathsInFolder = imagePaths; 
-
-    // 로딩 상태를 관리하는 상태 변수
+      // 로딩 상태를 관리하는 상태 변수
     const [isLoading, setIsLoading] = useState(false);
     const classLabels = [
       'body',
@@ -31,6 +31,7 @@ function Reco() {
  
     const navigate = useNavigate();
 
+    
     useEffect(() => {
         // 모델 로드
         const modelUrl = './model_tfjs/model.json';
@@ -41,9 +42,8 @@ function Reco() {
         loadModel();
       }, []);
 
- 
-    
       
+
      // 이미지 분류 함수 (소프트맥스 함수 사용)
 const classifyImageData  = async (img, threshold) => {
   try {
@@ -54,7 +54,7 @@ const classifyImageData  = async (img, threshold) => {
 
       const imageData = await getImageData(img);
       const tensorImg = tf.browser.fromPixels(imageData).toFloat();
-      const resizedImg = tf.image.resizeBilinear(tensorImg, [500, 400]); 
+      const resizedImg = tf.image.resizeBilinear(tensorImg, [350, 250]); 
       const expandedImg = resizedImg.expandDims();
       const normalizedImg = expandedImg.div(255.0);
       const prediction = await model.predict(normalizedImg).array();
@@ -88,7 +88,58 @@ const classifyImageData  = async (img, threshold) => {
   }
 };
 
+const getImageDataFromPath = async (imagePath) => {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.crossOrigin = 'anonymous'; // 권한 설정
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = img.width;
+      canvas.height = img.height;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0);
+      const imageData = ctx.getImageData(0, 0, img.width, img.height);
+      resolve(imageData);
+    };
+    img.onerror = (error) => {
+      console.error('Error loading image:', error);
+      reject(error);
+    };
+    img.src = imagePath;
+  });
+};
 
+const handleImageFileChange = async (event) => {
+  const imageFile = event.target.files[0];
+  if (
+    imageFile &&
+    (imageFile.type === 'image/jpeg' ||
+      imageFile.type === 'image/png' ||
+      imageFile.type === 'image/jpg') &&
+    imageFile.size <= 30 * 1024 * 1024
+  ) {
+    const reader = new FileReader();
+    reader.onload = async (event) => {
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = async () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+
+        setImageFile(imageFile);
+        setPreviewImage(URL.createObjectURL(imageFile));
+      };
+      img.src = event.target.result;
+    };
+    reader.readAsDataURL(imageFile);
+  } else {
+    setImageFile(null);
+    setPreviewImage(null);
+  }
+};
       
     const getImageData = (file) => {
       return new Promise((resolve, reject) => {
@@ -113,16 +164,54 @@ const classifyImageData  = async (img, threshold) => {
       };
 
 
-// calculateCosineSimilarity 함수 내부
-const calculateCosineSimilarity = async () => {
+//업로드 버튼 
+const handleCosineCalculation = async () => {
   try {
     if (!model || !imageFile) {
+      console.error('모델 또는 이미지를 사용할 수 없습니다.');
+      setIsLoading(false);
+      return;
+    }
+
+    const classIndex = await classifyImageData(imageFile, 0.8);
+
+    if (classIndex !== -1) {
+      const categoryName = classLabels[classIndex];
+
+      const imagePathsResponse = await fetch(`http://localhost:4004/api/${categoryName}`);
+      if (imagePathsResponse.ok) {
+        const data = await imagePathsResponse.json();
+        const updatedImagePaths = data.map((imagePath) => `http://localhost:4004${imagePath}`);
+        
+        // calculateEuclideanSimilarity 함수 내부에서 바로 사용할 수 있도록 전달
+        const topSimilarImages=await calculateEuclideanSimilarity(updatedImagePaths);
+
+        setIsLoading(false); // 로딩 상태를 해제
+
+        navigate('/recoresult', { state: { topSimilarImages } });
+      } else {
+        console.error('Failed to fetch image paths:', imagePathsResponse.status);
+      }
+    } else {
+      console.log('이미지가 분류되지 않았습니다.');
+    }
+  } catch (error) {
+    console.error('Error calculating cosine similarity:', error);
+  }
+};
+
+
+
+// calculateCosineSimilarity 함수 내부
+const calculateEuclideanSimilarity = async (imagePaths) => {
+  try {
+    console.log("비었나?",imagePaths.length);
+    if (!model || !imageFile || imagePaths.length === 0) {
       console.error('모델 또는 이미지를 사용할 수 없습니다.');
       return;
     }
     // 로딩 상태를 true로 설정하여 로딩 표시를 활성화
     setIsLoading(true);
-
     // 이미지 데이터를 캔버스에 로드
     const canvas = document.createElement('canvas');
     const imageData = await getImageData(imageFile);
@@ -133,421 +222,336 @@ const calculateCosineSimilarity = async () => {
 
     // 미리 학습된 모델을 사용하여 예측 벡터 계산
     const tensorImg = tf.browser.fromPixels(imageData).toFloat();
-    const resizedImg = tf.image.resizeBilinear(tensorImg, [500, 400]);
+    const resizedImg = tf.image.resizeBilinear(tensorImg, [350, 250]);
     const expandedImg = resizedImg.expandDims();
     const normalizedImg = expandedImg.div(255.0);
     const pretrainedPrediction = await model.predict(normalizedImg).array();
     const pretrainedImageTensor = tf.tensor(pretrainedPrediction);
 
-    // 폴더 내에 있는 다른 이미지들과의 코사인 유사도 계산
+    // 폴더 내에 있는 다른 이미지들과의 유클리디안 거리 계산
     const similarImages = [];
-    for (const imagePath of imagePathsInFolder) {
-      const folderImageData = await getImageDataFromPath(imagePath);
-      const folderTensorImg = tf.browser.fromPixels(folderImageData).toFloat();
-      const folderResizedImg = tf.image.resizeBilinear(folderTensorImg, [500, 400]);
-      const folderExpandedImg = folderResizedImg.expandDims();
-      const folderNormalizedImg = folderExpandedImg.div(255.0);
-      const folderPrediction = await model.predict(folderNormalizedImg).array();
-      const folderImageTensor = tf.tensor(folderPrediction);
-      const cosineSimilarity = calculateCosineSimilarityBetweenTensors(pretrainedImageTensor, folderImageTensor);
-      similarImages.push({ imagePath, cosineSimilarity });
+    for (const imagePath of imagePaths) {
+      try {
+        const folderImageData = await getImageDataFromPath(imagePath);
+        const folderTensorImg = tf.browser.fromPixels(folderImageData).toFloat();
+        const folderResizedImg = tf.image.resizeBilinear(folderTensorImg, [350, 250]);
+        const folderExpandedImg = folderResizedImg.expandDims();
+        const folderNormalizedImg = folderExpandedImg.div(255.0);
+        const folderPrediction = await model.predict(folderNormalizedImg).array();
+        const folderImageTensor = tf.tensor(folderPrediction);
+        const euclideanDistance = calculateEuclideanDistanceBetweenTensors(pretrainedImageTensor, folderImageTensor);
+        console.log('Euclidean Distance:', euclideanDistance);
+        similarImages.push({ imagePath, euclideanDistance });
+      } catch (imageError) {
+        console.error('이미지 처리 중 오류:', imageError);
+      }
     }
 
-    // 코사인 유사도에 따라 유사한 이미지 정렬
-    similarImages.sort((a, b) => b.cosineSimilarity - a.cosineSimilarity);
+    // 유클리디안 거리에 따라 유사한 이미지 정렬
+    similarImages.sort((a, b) => a.euclideanDistance - b.euclideanDistance);
 
     // 상위 3개 유사한 이미지 선택
     const topSimilarImages = similarImages.slice(0, 3);
 
     console.log("상위 유사한 이미지:", topSimilarImages);
-    // 처리가 완료되면 로딩 상태를 false로 설정하여 로딩 표시를 비활성화
     setIsLoading(false);
     return topSimilarImages; // 상위 유사한 이미지를 반환
-    
-    
 
   } catch (error) {
-    console.error('코사인 유사도 계산 중 오류:', error);
+    console.error('유클리디안 거리 계산 중 오류:', error);
   }
 };
 
 
 
-
-// 두 텐서 간의 코사인 유사도 계산
-const calculateCosineSimilarityBetweenTensors = (tensorA, tensorB) => {
-  const cosineSimilarity = tf.losses.cosineDistance(tensorA, tensorB).arraySync();
-  return 1 - cosineSimilarity; // 코사인 유사도를 유사도 점수로 변환
+// 두 텐서 간의 유클리디안 거리 계산
+const calculateEuclideanDistanceBetweenTensors = (tensorA, tensorB) => {
+  const squaredDifferences = tf.square(tf.sub(tensorA, tensorB));
+  const sumSquaredDifferences = tf.sum(squaredDifferences);
+  const euclideanDistance = tf.sqrt(sumSquaredDifferences).arraySync();
+  return euclideanDistance;
 };
 
 
-const getImageDataFromPath = async (imagePath) => {
-  return new Promise((resolve, reject) => {
-    const img = new Image();
-    img.crossOrigin = 'anonymous'; // 권한 설정
-    img.onload = () => {
-      const canvas = document.createElement('canvas');
-      canvas.width = img.width;
-      canvas.height = img.height;
-      const ctx = canvas.getContext('2d');
-      ctx.drawImage(img, 0, 0);
-      const imageData = ctx.getImageData(0, 0, img.width, img.height);
-      resolve(imageData);
-    };
-    img.onerror = (error) => {
-      console.error('Error loading image:', error);
-      reject(error);
-    };
-    img.src = imagePath;
-  });
-};
-
-    const handleImageFileChange = async (event) => {
-      const imageFile = event.target.files[0];
-      if (
-        imageFile &&
-        (imageFile.type === 'image/jpeg' ||
-          imageFile.type === 'image/png' ||
-          imageFile.type === 'image/jpg') &&
-        imageFile.size <= 30 * 1024 * 1024
-      ) {
-        const reader = new FileReader();
-        reader.onload = async (event) => {
-          const img = new Image();
-          img.crossOrigin = 'anonymous'; // 권한 설정
-          img.onload = async () => {
-            const canvas = document.createElement('canvas');
-            canvas.width = img.width;
-            canvas.height = img.height;
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(img, 0, 0);
+    return (
+      <>
+        {isLoading ?(
+          <Loading what="유사한 이미지를 찾고 있습니다" />
+        ):(<OutWrap>
+          
+          <InOutWrap>
+            {/* 로고 */}        
+            <Logo />
+            {/* 컨텐츠 */}
+            <Center>
     
-            setImageFile(imageFile);
-            setPreviewImage(URL.createObjectURL(imageFile));
-
-            const classIndex = await classifyImageData(imageFile, 0.8); //0.8프로의정확도가 임계값
-            const predictedLabel = classLabels[classIndex];
-
-
-            // 이미지 경로를 서버에서 가져옴
-            fetch(`http://localhost:4004/api/${predictedLabel}`)
-                  .then(response => response.json())
-                  .then(data => {
-                      setImagePaths(data.map(imagePath => `http://localhost:4004${imagePath}`));
-                      console.log('Received image paths:', data);
-                    })
-            .catch(error => {
-                console.error('Error fetching image paths:', error);
-            });
-          };
-          img.src = event.target.result;
-        };
-        reader.readAsDataURL(imageFile);
-      } else {
-        setImageFile(null);
-        setPreviewImage(null);
-      }
-    };
+              <InLayoutOne>
+                <Content>
+                  <Five> 
+                      {previewImage && (
+                          <SelectImg src={previewImage} alt="upload" />
+                          )}{/* 업르드시 보이는 사진 */}
+                  
+                      {!previewImage && (
+                          <EmptyImg src={upload} alt="up" />        
+                      )}{/* 빈 이미지 로고 그림인데 업로드 하면 없어진 */}
     
-
-
-    //c-upload 선택시
-    const handleCosineCalculation = async () => {
-      try {
-        
-  
-        const topSimilarImages = await calculateCosineSimilarity();
-  
-        // 여기에서 유사한 이미지를 `/upload` 페이지로 전달하고 이동합니다.
-        if (topSimilarImages) { // 유사한 이미지가 존재할 경우에만 전달 및 이동
-          navigate('/recoresult', { state: { topSimilarImages } });
-        }
-      } catch (error) {
-        console.error('Error calculating cosine similarity:', error);
-      } 
-    };
-
-
-  return (
-    <>
-      {isLoading ?(
-        <Loading what="유사한 이미지를 찾고 있습니다" />
-      ):(<OutWrap>
-        
-        <InOutWrap>
-          {/* 로고 */}        
-          <Logo />
-          {/* 컨텐츠 */}
-          <Center>
-  
-            <InLayoutOne>
-              <Content>
-                <Five> 
-                    {previewImage && (
-                        <SelectImg src={previewImage} alt="upload" />
-                        )}{/* 업르드시 보이는 사진 */}
-                
-                    {!previewImage && (
-                        <EmptyImg src={upload} alt="up" />        
-                    )}{/* 빈 이미지 로고 그림인데 업로드 하면 없어진 */}
-  
-  
-                    <FindImg onClick={() => document.getElementById('file-upload').click()}>
-                      파일 찾기
-                    </FindImg>
-                    
-  
-                    <InputBox
-                        id="file-upload"
-                        type="file"
-                        accept="image/*"
-                        onChange={handleImageFileChange}
-                    />
-                    {/* 위 아래  파일찾기  버튼, 이미지 셀렉 하면 없어진다. */}
-                </Five>
-                
-              </Content>
-            </InLayoutOne>
-  
-            <InLayoutTwo> 
-                <ButtonTwo  style={{marginRight:10}}onClick={handleCosineCalculation}>
-                  결과보기 
-                </ButtonTwo>
-                
-            </InLayoutTwo>
-          </Center>
-        </InOutWrap>
-    </OutWrap>)}
-      
-    </>
-  );
-}
-
-export default Reco;
-
-const OutWrap = styled.div`
-  width: 100%;
-  height: 100%;
-  background: white;
-  //position: relative;
-  align-items: center;
-  display: flex;
-  flex-direction: column;
- // justify-content: center;
-
-// 가운데로 
- position: absolute;
-   // top: 50%;
-    //left: 50%;
-    //transform: translate(-50%, -50%);
- 
-  * {
-  font-size: 33px;
-  }
-  /* mobile 규격 */
-  @media screen and (max-width: 540px){
-  * {
-  font-size: 27px;
-  }
     
-  }
-  @media screen and (min-width: 1700px) {
-  * {
-    font-size: 45px;
-  }
-`;
-const InOutWrap = styled.div`
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-width: 65%;
-height:100%;
-
-/* tablet 규격 */
-  @media screen and (max-width: 1023px){
-    width: 75%;
-  }
-/* mobile 규격 */
-  @media screen and (max-width: 540px){
-    width: 90%;
-  }
-  /* s 데스크 */
-  @media screen and (min-width: 1024px){
-      
-  }
-  /* l 데스크 */
-  @media screen and (min-width: 1700px){
-      
-  }
-`;
-
-
-const Center = styled.div`
-width: 100%;
-height:80%;
-display: flex;
-flex-direction: column;
-align-items: center;
-`;
-const InLayoutOne = styled.div`
-width:100%;
-height:85%
-`;
-const Content = styled.div`
-width:100%;
-height:100%;
-display: flex;
-flex-direction: column;
-`;
-
-  const SelectImg = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  `;
-
-  const EmptyImg = styled.img`
-  width: 150px;
-  height: 150px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  
-  /* tablet 규격 */
-    @media screen and (max-width: 1023px){
-        
-    }
-
-    /* mobile 규격 */
-    @media screen and (max-width: 540px){
-        
-    }
-    /* s 데스크 */
-    @media screen and (min-width: 1024px){
-        
-    }
-    /* l 데스크 */
-    @media screen and (min-width: 1700px){
-      width: 200px;
-      height: 200px;
-    }
-  `;
-
-const InLayoutTwo = styled(InLayoutOne)`
-display: flex;
-width:100%;
-height:15%;
-justify-content: flex-end;
-align-items: center;
-
-`;
-
-const InputBox = styled.input`
-display: none;
-`;
-
-
-const ContentRadius = styled.div`
-border: 3px #3A76EF solid;
-padding: 20px;
-word-wrap: break-word;
-border-radius: 31px;
-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-
-
-box-sizing:border-box;
-
-@media screen and (max-width: 1600px) {
-  border: 3px #3A76EF solid;
-  };
-  
-  @media screen and (max-width: 540px) {
-  margin-top: 15px;
-  border: 2px #3A76EF solid;
-  };
-  
-  @media screen and (min-width: 1601px) {
-  margin-top: 30px;
-  border: 4px #3A76EF solid;
-`;
-
-
-
-const Five = styled(ContentRadius)`
-position: relative;
-width:100%;
-height:100%;
-overflow:hidden; // 0916 추가 
-`;
-  
-const Radius = styled.button`
-padding: 20px;
-word-wrap: break-word;
-border-radius: 40px;
-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-border:none;
-background: #798BE6;
-display: flex;
-align-items: center;
-justify-content: center;
-position: relative;
-cursor: pointer;
-color: white;
-`;
-
-// 버튼투
-const ButtonTwo = styled(Radius)`
-
-  width:30%;
-  height: 70%; 
-
-  /* tablet 규격 */
-  @media screen and (max-width: 1023px){
-    width:40%;
+                      <FindImg onClick={() => document.getElementById('file-upload').click()}>
+                        파일 찾기
+                      </FindImg>
+                      
     
-  }
-  /* mobile 규격 */
-  @media screen and (max-width: 540px){
-    width:55%;
-  }
-
-  /* s 데스크 */
-  @media screen and (min-width: 1024px){
-      
-  }
-  @media screen and (min-width: 1700px) {
-  
-  };
- `;
-const FindImg = styled(ButtonTwo)` 
-  position: absolute;
-  bottom: 30px;
-  right: 10px;
-
-  width:30%;
-  height:12.5%;
-
-  /* tablet 규격 */
-  @media screen and (max-width: 1023px){
-    width:40%;
+                      <InputBox
+                          id="file-upload"
+                          type="file"
+                          accept="image/*"
+                          onChange={handleImageFileChange}
+                      />
+                      {/* 위 아래  파일찾기  버튼, 이미지 셀렉 하면 없어진다. */}
+                  </Five>
+                  
+                </Content>
+              </InLayoutOne>
     
+              <InLayoutTwo> 
+                  <ButtonTwo  style={{marginRight:10}}onClick={handleCosineCalculation}>
+                    결과보기 
+                  </ButtonTwo>
+                  
+              </InLayoutTwo>
+            </Center>
+          </InOutWrap>
+      </OutWrap>)}
+        
+      </>
+    );
   }
-  /* mobile 규격 */
-  @media screen and (max-width: 540px){
-    width:55%;
-    height: 13%; 
-    bottom: 20px;
-
-  }
-
-  /* s 데스크 */
-  @media screen and (min-width: 1024px){
-      
-  }
-  @media screen and (min-width: 1700px) {
      
-  };
-
-`;
+export default Reco;
+     
+     const OutWrap = styled.div`
+       width: 100%;
+       height: 100%;
+       background: white;
+       //position: relative;
+       align-items: center;
+       display: flex;
+       flex-direction: column;
+      // justify-content: center;
+     
+     // 가운데로 
+      position: absolute;
+        // top: 50%;
+         //left: 50%;
+         //transform: translate(-50%, -50%);
+      
+       * {
+       font-size: 33px;
+       }
+       /* mobile 규격 */
+       @media screen and (max-width: 540px){
+       * {
+       font-size: 27px;
+       }
+         
+       }
+       @media screen and (min-width: 1700px) {
+       * {
+         font-size: 45px;
+       }
+     `;
+     const InOutWrap = styled.div`
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     justify-content: center;
+     width: 65%;
+     height:100%;
+     
+     /* tablet 규격 */
+       @media screen and (max-width: 1023px){
+         width: 75%;
+       }
+     /* mobile 규격 */
+       @media screen and (max-width: 540px){
+         width: 90%;
+       }
+       /* s 데스크 */
+       @media screen and (min-width: 1024px){
+           
+       }
+       /* l 데스크 */
+       @media screen and (min-width: 1700px){
+           
+       }
+     `;
+     
+     
+     const Center = styled.div`
+     width: 100%;
+     height:80%;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     `;
+     const InLayoutOne = styled.div`
+     width:100%;
+     height:85%
+     `;
+     const Content = styled.div`
+     width:100%;
+     height:100%;
+     display: flex;
+     flex-direction: column;
+     `;
+     
+       const SelectImg = styled.img`
+       width: 100%;
+       height: 100%;
+       object-fit: contain;
+       `;
+     
+       const EmptyImg = styled.img`
+       width: 150px;
+       height: 150px;
+       position: absolute;
+       top: 50%;
+       left: 50%;
+       transform: translate(-50%, -50%);
+       
+       /* tablet 규격 */
+         @media screen and (max-width: 1023px){
+             
+         }
+     
+         /* mobile 규격 */
+         @media screen and (max-width: 540px){
+             
+         }
+         /* s 데스크 */
+         @media screen and (min-width: 1024px){
+             
+         }
+         /* l 데스크 */
+         @media screen and (min-width: 1700px){
+           width: 200px;
+           height: 200px;
+         }
+       `;
+     
+     const InLayoutTwo = styled(InLayoutOne)`
+     display: flex;
+     width:100%;
+     height:15%;
+     justify-content: flex-end;
+     align-items: center;
+     
+     `;
+     
+     const InputBox = styled.input`
+     display: none;
+     `;
+     
+     
+     const ContentRadius = styled.div`
+     border: 3px #3A76EF solid;
+     padding: 20px;
+     word-wrap: break-word;
+     border-radius: 31px;
+     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+     
+     
+     box-sizing:border-box;
+     
+     @media screen and (max-width: 1600px) {
+       border: 3px #3A76EF solid;
+       };
+       
+       @media screen and (max-width: 540px) {
+       margin-top: 15px;
+       border: 2px #3A76EF solid;
+       };
+       
+       @media screen and (min-width: 1601px) {
+       margin-top: 30px;
+       border: 4px #3A76EF solid;
+     `;
+     
+     
+     
+     const Five = styled(ContentRadius)`
+     position: relative;
+     width:100%;
+     height:100%;
+     `;
+       
+     const Radius = styled.button`
+     padding: 20px;
+     word-wrap: break-word;
+     border-radius: 40px;
+     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+     border:none;
+     background: #798BE6;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     position: relative;
+     cursor: pointer;
+     color: white;
+     `;
+     
+     // 버튼투
+     const ButtonTwo = styled(Radius)`
+       width:30%;
+       height: 70%; 
+     
+       /* tablet 규격 */
+       @media screen and (max-width: 1023px){
+         width:40%;
+         
+       }
+       /* mobile 규격 */
+       @media screen and (max-width: 540px){
+         width:55%;
+       }
+     
+       /* s 데스크 */
+       @media screen and (min-width: 1024px){
+           
+       }
+       @media screen and (min-width: 1700px) {
+       
+       };
+      `;
+     const FindImg = styled(ButtonTwo)` 
+       position: absolute;
+       bottom: 30px;
+       right: 10px;
+     
+       width:30%;
+       height:12.5%;
+     
+       /* tablet 규격 */
+       @media screen and (max-width: 1023px){
+         width:40%;
+         
+       }
+       /* mobile 규격 */
+       @media screen and (max-width: 540px){
+         width:55%;
+         height: 13%; 
+         bottom: 20px;
+     
+       }
+     
+       /* s 데스크 */
+       @media screen and (min-width: 1024px){
+           
+       }
+       @media screen and (min-width: 1700px) {
+          
+       };
+     
+     `;
+     
