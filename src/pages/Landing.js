@@ -91,7 +91,7 @@ function Landing(){
                 console.error("Error fetching user email:", error);
             });
         }
-    }, []); 
+    }, [access_Token]); 
         
 
     const navigate = useNavigate();

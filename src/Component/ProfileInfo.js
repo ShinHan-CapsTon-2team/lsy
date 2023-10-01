@@ -102,11 +102,11 @@ const ProfileInfo = () => {
                 <S.One> {/* 이름 이메일  */}
                    
                         <S.Wrap style={{marginBottom:10}}>
-                            <S.NickName>{isCurrentUsersProfile ? userinfo.nickname : otherUserNickname}</S.NickName>
+                            <S.NickName>{isCurrentUsersProfile ? userinfo.nickname ||'': (otherUserNickname || '')}</S.NickName>
                         </S.Wrap>
                         
                         <S.Wrap>
-                            <S.Email>{isCurrentUsersProfile ? userinfo.email : otherUserEmail}</S.Email> {/* 링크 복사하게끔  */}
+                            <S.Email>{isCurrentUsersProfile ? userinfo.email ||' ': (otherUserEmail || ' ')}</S.Email> {/* 링크 복사하게끔  */}
                         </S.Wrap>
                    
                 </S.One>

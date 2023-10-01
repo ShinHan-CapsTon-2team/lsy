@@ -38,7 +38,7 @@ function ProfileLook() {
   const navigate = useNavigate();
   const params = useParams(); // 1
   const emailId = params.emailId; // 사용자의 email
- 
+ const isMe = dataFromChild.emailid; // 로그인한 사용자
   const isCurrentUsersProfile = email === postemail;
 
   const handleImageClick = (id) => {
