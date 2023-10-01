@@ -36,8 +36,6 @@ const Header  = props => {
   const [isOpen, setIsOpen] = useState(false); // 모달창때문에 있는거 삭제 노
   
   const accessToken = localStorage.getItem("access_token");
-  //const [isaccessToken, setIsAccessToken] = useState(null); //
-  //const [itsLogin,setItsLogin]=useState(false); // 로그인 여부 상태 
   const [showSuccessMessage, setShowSuccessMessage] = useState(false); // 로그아웃 성공 여부 
   let emailId;
   const { onData } = props;
@@ -45,20 +43,16 @@ const Header  = props => {
   // currentPath 상태 정의 및 초기화
   const [currentPath, setCurrentPath] = useState(location.pathname);
 
-  //console.log("기본 isaccessToken :",isaccessToken);
   const onGoProfile = () => {
     navigate(`/profile/${emailId}`);
     
   };
   
   
-
   useEffect(() => {
-
     setCurrentPath(location.pathname);
     console.log("현재 주소 : ", currentPath);
     console.log("accessToken:",accessToken);
-    
     
     // 서버로 액세스 토큰을 보내서 사용자 이메일 정보를 요청
     if (accessToken) {
@@ -97,16 +91,13 @@ const Header  = props => {
             localStorage.removeItem("access_token");// 만료된 토큰 처리하기 
             
             navigate(currentPath); // 다시 현재 페이지로 새로고침 
-
-
         }
-
         })
         .catch((error) => {
             console.error("Error fetching user email:", error);
         });
     }
-}, [location.pathname]); // !! accessToken 값이 변경될때마다 렌더링 
+}, [location.pathname]); 
 
   // 자기 프로필 가는거 처리하기 App js 참고  
   const openModalHandler = () => {

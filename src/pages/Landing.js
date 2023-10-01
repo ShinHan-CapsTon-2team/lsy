@@ -1,5 +1,5 @@
 import logo from '../Images/imagelogo.png'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,useLocation } from 'react-router-dom';
 import styled from "styled-components";
 import { useState ,useEffect} from 'react';
 import { LoginModal } from '../Modal/LoginModal';
@@ -8,7 +8,9 @@ function Landing(){
     const [access_Token, setAccessToken] = useState('');
     const [userInfo, setUserInfo] = useState(null);
     const accessToken = localStorage.getItem('access_token'); // 로컬 스토리지에서 액세스 토큰 가져오기
-
+    const location = useLocation();
+    const currentPath = location.pathname;
+    let emailId;
     console.log("accessToken:",accessToken);
     
     useEffect(() => {
@@ -51,7 +53,46 @@ function Landing(){
         }
         }, []);
     
+    useEffect(() => {
+        console.log("현재 주소 : ", currentPath);
+        console.log("accessToken:",accessToken);
+        
+        // 서버로 액세스 토큰을 보내서 사용자 이메일 정보를 요청
+        if (accessToken) {
+        fetch('http://localhost:4001/api/user', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ accessToken }),
+            })
+            .then((response) => response.json())
+            .then((data) => {
+    
+            if (data.email) {
 
+                console.log(" 현재 접속중인 사용자 이메일:", data.email);
+                console.log(" 현재 접속중인 사용자 닉네임:", data.nickname);
+    
+                // 이메일 아이디 추출
+                const emailParts = data.email.split('@');
+                emailId = emailParts[0];
+                
+            } else {
+                // "email" 필드가 없는 경우
+                console.log("header 이메일 정보가 없습니다.");
+                
+                localStorage.removeItem("access_token");// 만료된 토큰 처리하기 
+                
+                navigate(currentPath); // 다시 현재 페이지로 새로고침 
+            }
+            })
+            .catch((error) => {
+                console.error("Error fetching user email:", error);
+            });
+        }
+    }, []); 
+        
 
     const navigate = useNavigate();
     
@@ -77,44 +118,7 @@ function Landing(){
     
     
     const onGoProfile = () => {
-        // 서버로 액세스 토큰을 보내서 사용자 이메일 정보를 요청
-        if (accessToken) {
-            fetch('http://localhost:4001/api/user', {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ accessToken }),
-            })
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                    
-                }
-                return response.json();
-            })
-            .then((data) => {
-                if (data.email) {
-                    setUserInfo(data);
-                    console.log("현재 접속중인 사용자 이메일:", data.email);
-                    console.log("현재 접속중인 사용자 닉네임:", data.nickname);
-                    
-                    // 이메일 아이디 추출
-                    const emailParts = data.email.split('@');
-                    const emailId = emailParts[0];
-        
-                    // 이메일 아이디를 가지고 프로필 페이지로 이동
-                    navigate(`/profile/${emailId}`);
-                } else {
-                    // "email" 필드가 없는 경우
-                    console.log("이메일 정보가 없습니다.");
-                }
-            })
-            .catch((error) => {
-                console.error('Error fetching user email:', error);
-            });
-        }
-        
+        navigate(`/profile/${emailId}`);  
     };
     
     

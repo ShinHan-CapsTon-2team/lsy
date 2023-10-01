@@ -5,7 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 import ProfileInfo from '../Component/ProfileInfo';
 import ProfileInfo_Edit from '../Component/ProfileInfo_Edit';
-import Logo from "../Component/Header"
+import Header from '../Component/Header';
 import styled from "styled-components";
 import './Paging.css';
 
@@ -27,11 +27,13 @@ function ProfileLook() {
   const [offset, setOffset] = useState(0);
   const [currentPosts, setCurrentPosts] = useState([]);
   const [page, setPage] = useState(1); 
+  const [dataFromChild, setDataFromChild] = useState({}); 
 
+  const handleChildData = (data) => {
+    // 자식 컴포넌트로부터 받은 데이터를 처리
+    setDataFromChild(data);
+  };
   const postsPerPage = 20; // 한 페이지에 보여줄 게시물 수
-  //const offset = (currentPage - 1) * postsPerPage;
-
-  //const currentPosts = posts.slice(offset, offset + postsPerPage);
 
   const navigate = useNavigate();
   const params = useParams(); // 1
@@ -124,12 +126,6 @@ const fetchProfileData = async (email, currentPage, postsPerPage) => {
     console.error('Error fetching profile data for other user:', error);
   }
 };
-//console.log("glgl:", images);
-
-
-//useEffect(() => {
-//  fetchPosts(emailId, currentPage, postsPerPage);
-//}, [emailId, currentPage, postsPerPage]);
 
 const pageCount = Math.ceil(TotalCount / postsPerPage);
 
@@ -182,9 +178,7 @@ const pageCount = Math.ceil(TotalCount / postsPerPage);
     return (
         <OutWrap>
             <InOutWrap>
-            
-                {/* 홈페이지 로고 같*/}        
-                <Logo />
+                <Header onData={handleChildData}/>
 
                 <Center>
                 <ProfileWrap>
