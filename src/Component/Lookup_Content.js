@@ -3,13 +3,10 @@ import  {useNavigate } from 'react-router-dom';
 import profilelogo from '../Images/i2.png'
 import * as S from '../Lookup/LookupStyle'
 import React, { useState } from 'react';
-const Lookup_Content =({ title,nickname,imageurl,description,created_at,id}) => {
+const Lookup_Content =({ title,nickname,imageurl,description,created_at,id,writer}) => {
     
     const navigate = useNavigate();
-    const [otherUser, setOtherUser] = useState({});
-    const [loading, setLoading] = useState(true);
-    const [Nickname, setNickname] = useState('');
-
+    
     function DisplayText(text) { // 설명에서 \n 처리  
         const lines = text.split('\n');
         return lines.map((line, index) => (
@@ -28,46 +25,9 @@ const Lookup_Content =({ title,nickname,imageurl,description,created_at,id}) => 
     const postdate= dateKST.getFullYear()+"-"+(dateKST.getMonth() + 1)+"-"+dateKST.getDate()+"  "+dateKST.getHours()+":"+dateKST.getMinutes();
     
 
-    const handleGoProfile = async () => {
-        try {
-            setLoading(true);
-        
-            // POST 요청으로 서버에 데이터를 보냅니다.
-            const requestBody = { id: id }; 
-            const response = await fetch(`http://localhost:4003/api/profiles/${id}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(requestBody),
-            });
-        
-            if (!response.ok) {
-            throw new Error('Network response was not ok');
-            }
-        
-            const data = await response.json();
-            const userEmailFromServer = data.userEmail; // 서버에서 받은 이메일
-            const userNinameServer=data.nickname;
-            setOtherUser(data);
-            setLoading(false);
-            console.log(userEmailFromServer);
-            console.log(userNinameServer);
-
-            // 이메일 아이디 추출 (이메일에서 "@" 이후의 부분을 제외)
-            const emailId = userEmailFromServer.split('@')[0];
-            setNickname(userNinameServer); // 작성자의 닉네임을 설정
-            
-            // 여기서 navigate 함수 호출
-            navigate(`/profile/${emailId}`);
-            
-
-        } catch (error) {
-            console.error('Error fetching user profile:', error);
-            console.log('error');
-            setLoading(false);
-        }
-        };
+    const handleGoProfile = () => {
+        navigate(`/profile/${writer}`);
+      };
 
     return (
         <S.InLayoutOne>  

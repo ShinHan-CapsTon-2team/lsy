@@ -5,7 +5,7 @@ import '@tensorflow/tfjs-backend-webgl'; //npm i @tensorflow/tfjs-backend-webgl
 import { useNavigate } from 'react-router-dom';
 import upload from '../Images/upload.png';
 import  * as S from './PostStyle'
-import Loogo from '../Component/Header' 
+import Header from '../Component/Header';
 import Loading from '../Component/Loading';
 import { Popup } from "../Modal/Popup";
 const SERVER_URL= 'http://localhost:4000/api/postedit';
@@ -27,6 +27,7 @@ function PostEdit() {
     const [showErrorMessage, setShowErrorMessage] = useState(false); // 수정 실패
     const [showSuccessMessage, setShowSuccessMessage] = useState(false); // 수정 성공
     const [showMessage, setShowMessage] = useState(false); // 카테고리 분류 중 
+    const [dataFromChild, setDataFromChild] = useState({});
     const classLabels = [
       '바디프로필',
       '반려동물',
@@ -54,13 +55,14 @@ function PostEdit() {
       '웨딩사진': 'wedding',
   };
 
+  const handleChildData = (data) => {
+    // 자식 컴포넌트로부터 받은 데이터를 처리
+    setDataFromChild(data);
+  };
+
     const navigate = useNavigate();
   
-    //홈페이지
-    const handleGohomeClick = () => {
-        navigate('/home');
-    };
-
+ 
     //데이터 가져오기 위해 
     const params = useParams(); // 
     const id = params.id; // 게시글 몇번인지 
@@ -341,7 +343,7 @@ const handleCategorySelect = (selectedCategory, index) => {
             <S.OutWrap>
               <S.InOutWrap>            
                   {/* 로고 */}        
-                  <Loogo/>
+                  <Header onData={handleChildData}/>
                   {/* 내용 */} 
                   <S.Center>
                     <S.InLayoutOne>

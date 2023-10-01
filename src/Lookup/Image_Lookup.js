@@ -35,6 +35,7 @@ function Images_Lookup() {
     console.log("지금 로그인 한 사람 누구야 :",isMe);
 
     
+    
     const openModalHandler = () => {
         // 모달창 관련임 자세히 알 필요 X
         setIsOpen(!isOpen);
@@ -42,59 +43,54 @@ function Images_Lookup() {
 
     useEffect(() => {
         const fetchData = async () => {
-          try {
-            // POST 요청으로 서버에 데이터를 보냅니다.
-            const requestBody = { id: id };
-            const response = await fetch(`http://localhost:4003/api/profiles/${id}`, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(requestBody),
-            });
-      
-            if (!response.ok) {
-              throw new Error('Network response was not ok');
+            try {
+                // POST 요청으로 서버에 데이터를 보냅니다.
+                const requestBody = { id: id };
+                const response = await fetch(`http://localhost:4003/api/profiles/${id}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(requestBody),
+                });
+        
+                if (!response.ok) {
+                throw new Error('Network response was not ok');
+                }
+        
+                const data = await response.json();
+                const userEmailFromServer = data.userEmail; // 서버에서 받은 이메일
+                const userNicknameFromServer = data.nickname;
+        
+                //console.log(userEmailFromServer);
+                //console.log("닉네임:",userNicknameFromServer);
+        
+                // 이메일 아이디 추출 (이메일에서 "@" 이후의 부분을 제외)
+                const emailId = userEmailFromServer.split('@')[0];
+        
+                console.log("emailId:",emailId);
+                setUserEmail(emailId);
+                
+                if(isMe === emailId)
+                {
+                    console.log("내꺼")
+                    setIsMine(true);
+                }
+                else{
+                    console.log("내꺼아님")
+                    setIsMine(false);
+                }
+                
+            } catch (error) {
+                console.error('Error fetching user profile:', error);
+                console.log('error');
             }
-      
-            const data = await response.json();
-            const userEmailFromServer = data.userEmail; // 서버에서 받은 이메일
-            const userNicknameFromServer = data.nickname;
-      
-            console.log(userEmailFromServer);
-            console.log("닉네임:",userNicknameFromServer);
-      
-
-            
-
-
-            // 이메일 아이디 추출 (이메일에서 "@" 이후의 부분을 제외)
-            const emailId = userEmailFromServer.split('@')[0];
-      
-            console.log("emailId:",emailId);
-            
-            console.log("작성자 누구야 :",emailId);
-            console.log("내꺼인가? : ",(isMe === emailId ));
-            if(isMe === emailId)
-            {
-                console.log("내꺼")
-                setIsMine(true);
-            }
-            else{
-                console.log("내꺼아님")
-                setIsMine(false);
-            }
-            
-          } catch (error) {
-            console.error('Error fetching user profile:', error);
-            console.log('error');
-          }
-        };
-      
-        fetchData(); // fetchData 함수 호출
-      
-      }, [isMe]);
-      
+            };
+        
+            fetchData(); 
+        
+        }, [isMe]);
+        
         
     
 
@@ -130,6 +126,7 @@ function Images_Lookup() {
         navigate(`/postedit/${id}`); 
     };
   
+    console.log("userEmail:",userEmail);
     return (  
         
         <S.OutWrap>
@@ -151,13 +148,14 @@ function Images_Lookup() {
                                     description ={uu.description}
                                     created_at={uu.created_at} 
                                     id={uu.id} 
+                                    writer={userEmail}
                                 />    
                                 )
                             }
                         )} 
 
                     {isMine && (
-                    <S.InLayoutTwo> {/* 자기 게시글이면 보이게 처리하기  */}
+                    <S.InLayoutTwo> 
                         <S.Buttons>
                             <S.Right> 
                                 <S.EditButton  onClick={handelGoEdit}>

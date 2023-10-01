@@ -1,8 +1,7 @@
 import React, { useState, useEffect ,useRef, useCallback } from 'react';
 import * as tf from '@tensorflow/tfjs'; //npm i @tensorflow/tfjs
 import '@tensorflow/tfjs-backend-webgl'; //npm i @tensorflow/tfjs-backend-webgl
-//useRef, useCallback
-import Logo from '../Component/Header' 
+import Header from '../Component/Header';
 import { useNavigate } from 'react-router-dom';
 import Loading from '../Component/Loading';
 import upload from '../Images/upload.png'; 
@@ -28,10 +27,14 @@ function Reco() {
       'wedding',
       'unknown'
     ];
- 
+
+    const [dataFromChild, setDataFromChild] = useState({})
+    const handleChildData = (data) => {
+      // 자식 컴포넌트로부터 받은 데이터를 처리
+      setDataFromChild(data);
+    };
     const navigate = useNavigate();
 
-    
     useEffect(() => {
         // 모델 로드
         const modelUrl = './model_tfjs/model.json';
@@ -201,25 +204,24 @@ const handleCosineCalculation = async () => {
 };
 
 
- 
 // 히스토그램 계산 함수
 const calculateHistogram = (imageData) => {
          const histogram = Array(256).fill(0); // 히스토그램 배열 초기화
-       
-         for (let i = 0; i < imageData.data.length; i += 4) {
-           const pixelValue = Math.floor(imageData.data[i] * 0.299 + imageData.data[i + 1] * 0.587 + imageData.data[i + 2] * 0.114);
-           histogram[pixelValue] += 1; // 픽셀 값의 빈도수 증가
-         }
-       
-         return histogram;
-       };
-       
+      
+        for (let i = 0; i < imageData.data.length; i += 4) {
+          const pixelValue = Math.floor(imageData.data[i] * 0.299 + imageData.data[i + 1] * 0.587 + imageData.data[i + 2] * 0.114);
+          histogram[pixelValue] += 1; // 픽셀 값의 빈도수 증가
+        }
+      
+        return histogram;
+      };
+      
 // 히스토그램 기반 메트릭스 계산 함수
 const calculateHistogramBasedSimilarity = (histogramA, histogramB) => {
 let sum = 0;
 
 for (let i = 0; i < histogramA.length; i++) {
-         sum += Math.min(histogramA[i], histogramB[i]);
+        sum += Math.min(histogramA[i], histogramB[i]);
 }
 
 // 히스토그램 유사성 계산
@@ -227,61 +229,60 @@ const similarity = sum / Math.max(histogramA.reduce((a, b) => a + b, 0), histogr
 
 return similarity;
 };
-       
+      
 // 이미지 간의 유사성 메트릭스 계산 함수 (히스토그램 기반)
 const calculateImageSimilarityMatrix = async (imagePaths) => {
 try {
-         if (!model || !imageFile || imagePaths.length === 0) {
-         console.error('모델 또는 이미지를 사용할 수 없습니다.');
-         return;
-         }
+        if (!model || !imageFile || imagePaths.length === 0) {
+        console.error('모델 또는 이미지를 사용할 수 없습니다.');
+        return;
+        }
 
-         // 로딩 상태를 true로 설정하여 로딩 표시를 활성화
-         setIsLoading(true);
+        // 로딩 상태를 true로 설정하여 로딩 표시를 활성화
+        setIsLoading(true);
 
-         // 입력 이미지의 특성 추출
-         const inputImageData = await getImageData(imageFile);
-         const inputHistogram = calculateHistogram(inputImageData);
+        // 입력 이미지의 특성 추출
+        const inputImageData = await getImageData(imageFile);
+        const inputHistogram = calculateHistogram(inputImageData);
 
-         console.log('Input Image Histogram:', inputHistogram); // 입력 이미지 히스토그램 출력
+        console.log('Input Image Histogram:', inputHistogram); // 입력 이미지 히스토그램 출력
 
-         // 각 이미지의 유사성 메트릭스 계산
-         const similarityMatrix = [];
-         for (const imagePath of imagePaths) {
-         try {
-         const folderImageData = await getImageDataFromPath(imagePath);
-         const folderHistogram = calculateHistogram(folderImageData);
+        // 각 이미지의 유사성 메트릭스 계산
+        const similarityMatrix = [];
+        for (const imagePath of imagePaths) {
+        try {
+        const folderImageData = await getImageDataFromPath(imagePath);
+        const folderHistogram = calculateHistogram(folderImageData);
 
          console.log('Folder Image Histogram for', imagePath, ':', folderHistogram); // 폴더 이미지 히스토그램 출력
 
          // 이미지 간의 유사성 메트릭스 계산 (히스토그램 기반)
-         const similarity = calculateHistogramBasedSimilarity(inputHistogram, folderHistogram);
+        const similarity = calculateHistogramBasedSimilarity(inputHistogram, folderHistogram);
 
-         console.log('Histogram-Based Similarity for', imagePath, ':', similarity); // 유사성 메트릭스 출력
+        console.log('Histogram-Based Similarity for', imagePath, ':', similarity); // 유사성 메트릭스 출력
 
-         similarityMatrix.push({ imagePath, similarity });
-         } catch (imageError) {
-         console.error('이미지 처리 중 오류:', imageError);
-         }
-         }
+        similarityMatrix.push({ imagePath, similarity });
+        } catch (imageError) {
+        console.error('이미지 처리 중 오류:', imageError);
+        }
+        }
 
-         // 유사성 메트릭스를 기준으로 이미지 정렬
-         similarityMatrix.sort((a, b) => b.similarity - a.similarity);
+        // 유사성 메트릭스를 기준으로 이미지 정렬
+        similarityMatrix.sort((a, b) => b.similarity - a.similarity);
 
-         // 상위 3개 유사한 이미지 선택
-         const topSimilarImages = similarityMatrix.slice(0, 3);
+        // 상위 3개 유사한 이미지 선택
+        const topSimilarImages = similarityMatrix.slice(0, 3);
 
-         console.log("상위 유사한 이미지:", topSimilarImages);
-         setIsLoading(false);
+        console.log("상위 유사한 이미지:", topSimilarImages);
+        setIsLoading(false);
 
          return topSimilarImages; // 상위 유사한 이미지를 반환
 
 } catch (error) {
-         console.error('이미지 유사성 메트릭스 계산 중 오류:', error);
+        console.error('이미지 유사성 메트릭스 계산 중 오류:', error);
 }
 };
-       
-       
+
 
 
     return (
@@ -292,7 +293,7 @@ try {
           
           <InOutWrap>
             {/* 로고 */}        
-            <Logo />
+            <Header onData={handleChildData}/>
             {/* 컨텐츠 */}
             <Center>
     
