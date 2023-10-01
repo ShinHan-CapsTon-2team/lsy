@@ -6,11 +6,13 @@ import * as S from "./ProfileWrapStyle";
 import { ModalBackdrop } from "../Modal/ModalStyle";
 import { Popup } from "../Modal/Popup";
 export const ProfileIcon = () => {
+  
   const [userinfo, setUserinfo] = useState([]);
   const [isOpen, setIsOpen] = useState(false); // 모달창때문에 있는거 삭제 노
-  let currentEmail; //현재 접속중인지
-  let isLogin // 로그인되어있는지
-  const [itsLogin,setItsLogin]=useState(false); // 로그인 여부 상태 
+  
+  const accessToken = localStorage.getItem("access_token");
+  const [isaccessToken, setIsAccessToken] = useState(null);
+  //const [itsLogin,setItsLogin]=useState(false); // 로그인 여부 상태 
   const [showSuccessMessage, setShowSuccessMessage] = useState(false); // 로그아웃 성공 여부 
   let emailId;
   const navigate = useNavigate();
@@ -22,7 +24,6 @@ export const ProfileIcon = () => {
   
   
   useEffect(() => {
-    const accessToken = localStorage.getItem("access_token");
     console.log("accessToken:",accessToken);
     // 서버로 액세스 토큰을 보내서 사용자 이메일 정보를 요청
     if (accessToken) {
@@ -40,7 +41,7 @@ export const ProfileIcon = () => {
             setUserinfo(data);
             console.log("현재 접속중인 사용자 이메일:", data.email);
             console.log("현재 접속중인 사용자 닉네임:", data.nickname);
-            currentEmail=true;
+      
             // 이메일 아이디 추출
             const emailParts = data.email.split('@');
             emailId = emailParts[0];
@@ -49,21 +50,7 @@ export const ProfileIcon = () => {
         } else {
             // "email" 필드가 없는 경우
             console.log("이메일 정보가 없습니다.");
-            currentEmail=false;
-        }
-
-        let token =accessToken !== null;
-        console.log("accessToken !== null :",token);
-        
-        console.log("currentEmail :",currentEmail);
-        isLogin = token && currentEmail;
-        
-
-        if (isLogin) {
-        console.log('사용자는 로그인되었습니다.');
-        setItsLogin(true);
-        } else {
-        console.log('사용자는 로그인되지 않았습니다.');
+            
         }
 
         })
@@ -71,7 +58,7 @@ export const ProfileIcon = () => {
             console.error("Error fetching user email:", error);
         });
     }
-}, []);
+}, []); // !! accessToken 값이 변경될때마다 렌더링 
 
   // 자기 프로필 가는거 처리하기 App js 참고  
   const openModalHandler = () => {
@@ -80,7 +67,10 @@ export const ProfileIcon = () => {
 
   const onNaverLogout = () => {
     //로그아웃 처리 코드
-    localStorage.removeItem("access_token");
+    localStorage.removeItem("access_token"); // 토큰 살아있음 
+    console.log("removeItem :",accessToken);
+    accessToken = null;
+    console.log("삭제 후 :",accessToken);
     setShowSuccessMessage(true); // 로그아웃 후 모달 닫음 --- 의미없음
 
     // 2초 후에 성공 메시지를 숨김
@@ -97,7 +87,7 @@ export const ProfileIcon = () => {
         <S.ProfileLogo src={profilelogo} onClick={openModalHandler} />
         {isOpen && (
           <>
-            {itsLogin ? ( // 액세스 토큰이 있는 경우
+            {accessToken ? ( // 액세스 토큰이 있는 경우
               <S.DropMenu>
                 <S.CateMenu onClick={onGoProfile}>마이프로필</S.CateMenu>
                 <S.CateMenu onClick={onNaverLogout}>로그아웃</S.CateMenu>

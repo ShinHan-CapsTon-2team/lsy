@@ -3,23 +3,18 @@ import { useNavigate } from 'react-router-dom';
 import styled from "styled-components";
 import { useState ,useEffect} from 'react';
 import { LoginModal } from '../Modal/LoginModal';
-import Loading from '../Component/Loading';
+
 function Landing(){
     const [access_Token, setAccessToken] = useState('');
     const [userInfo, setUserInfo] = useState(null);
     const accessToken = localStorage.getItem('access_token'); // 로컬 스토리지에서 액세스 토큰 가져오기
 
+    console.log("accessToken:",accessToken);
     
-    let currentEmail; //현재 접속중인지
-    let isLogin // 로그인되어있는지
-    const [itsLogin,setItsLogin]=useState(false); // 로그인 여부 상태 
-    const [userinfo, setUserinfo] = useState([]);
-    let emailId;
-
     useEffect(() => {
         const urlParams = new URLSearchParams(window.location.search);
         const code = urlParams.get('code');
-        console.log(code);
+        console.log("CODE:",code);
         
         if (code) {
             fetch('http://localhost:4001/api/example', {
@@ -56,58 +51,7 @@ function Landing(){
         }
         }, []);
     
-    
-        useEffect(() => {
-            const accessToken = localStorage.getItem("access_token");
-            console.log("home accessToken:",accessToken);
-            // 서버로 액세스 토큰을 보내서 사용자 이메일 정보를 요청
-            if (accessToken) {
-            fetch('http://localhost:4001/api/user', {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ accessToken }),
-                })
-                .then((response) => response.json())
-                .then((data) => {
-          
-                  if (data.email) {
-                    setUserinfo(data);
-                    console.log(" 현재 접속중인 사용자 이메일:", data.email);
-                    console.log(" 현재 접속중인 사용자 닉네임:", data.nickname);
-                    currentEmail=true;
-                    // 이메일 아이디 추출
-                    const emailParts = data.email.split('@');
-                    emailId = emailParts[0];
-            
-                    
-                } else {
-                    // "email" 필드가 없는 경우
-                    console.log("이메일 정보가 없습니다.");
-                    currentEmail=false;
-                }
-          
-                let token =accessToken !== null;
-                console.log(" accessToken !== null :",token);
-                
-                console.log(" currentEmail :",currentEmail);
-                isLogin = token && currentEmail;
-                
-          
-                if (isLogin) {
-                console.log(' 사용자는 로그인되었습니다.');
-                setItsLogin(true);
-                } else {
-                console.log(' 사용자는 로그인되지 않았습니다.');
-                }
-          
-                })
-                .catch((error) => {
-                    console.error("Error fetching user email:", error);
-                });
-            }
-          }, []);
+
 
     const navigate = useNavigate();
     
@@ -130,59 +74,47 @@ function Landing(){
     const openModalHandler = () => { // 모달창 관련임 자세히 알 필요 X 
         setIsOpen(!isOpen) 
     };
-
-
-
+    
+    
     const onGoProfile = () => {
         // 서버로 액세스 토큰을 보내서 사용자 이메일 정보를 요청
-        const accessToken = localStorage.getItem("access_token");
         if (accessToken) {
             fetch('http://localhost:4001/api/user', {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ accessToken }),
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ accessToken }),
             })
-            .then((response) => response.json())
+            .then((response) => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                    
+                }
+                return response.json();
+            })
             .then((data) => {
-    
                 if (data.email) {
-                setUserInfo(data);
-                console.log("현재 접속중인 사용자 이메일:", data.email);
-                console.log("현재 접속중인 사용자 닉네임:", data.nickname);
-                currentEmail=data.email;
-                // 이메일 아이디 추출
-                const emailParts = data.email.split('@');
-                const emailId = emailParts[0];
+                    setUserInfo(data);
+                    console.log("현재 접속중인 사용자 이메일:", data.email);
+                    console.log("현재 접속중인 사용자 닉네임:", data.nickname);
+                    
+                    // 이메일 아이디 추출
+                    const emailParts = data.email.split('@');
+                    const emailId = emailParts[0];
         
-                // 이메일 아이디를 가지고 프로필 페이지로 이동
-                navigate(`/profile/${emailId}`);
-            } else {
-                // "email" 필드가 없는 경우
-                console.log("이메일 정보가 없습니다.");
-                currentEmail=false;
-            }
-    
-            let token =accessToken !== null;
-            console.log("accessToken !== null :",token);
-            
-            console.log("currentEmail :",currentEmail);
-            isLogin = token && currentEmail;
-            
-            
-            if (isLogin) {
-            console.log('사용자는 로그인되었습니다.');
-            } else {
-            console.log('사용자는 로그인되지 않았습니다.');
-            }
-            }
-            )
-            
+                    // 이메일 아이디를 가지고 프로필 페이지로 이동
+                    navigate(`/profile/${emailId}`);
+                } else {
+                    // "email" 필드가 없는 경우
+                    console.log("이메일 정보가 없습니다.");
+                }
+            })
             .catch((error) => {
                 console.error('Error fetching user email:', error);
             });
         }
+        
     };
     
     
@@ -199,8 +131,8 @@ function Landing(){
                     <Button onClick={handleFitPhotoClick}> 테스트를 통해 추천받기</Button>
                     <Button onClick={handleGohomeClick}> 홈페이지 방문하기</Button>
 
-                    <Button onClick={itsLogin ? onGoProfile : openModalHandler}>내 프로필 가기 </Button>
-
+                    <Button onClick={accessToken ? onGoProfile : openModalHandler}>내 프로필 가기 </Button>
+                    
                     {isOpen ?
                         // 액세스 토큰이 없는 경우
                         <ModalBackdrop onClick={openModalHandler}>
@@ -209,8 +141,8 @@ function Landing(){
                         : null}
 
                 </ImgWrap>
-                <text style={{position:'absolute',left:20,bottom:17,fontWeight:600,fontSize:15,color:'gray'}}>📢 저작권 문제 인지하고 있으며
-                끝나고 바로 삭제하겠습니다.</text>
+                <span style={{position:'absolute',left:20,bottom:17,fontWeight:600,fontSize:15,color:'gray'}}>📢 저작권 문제 인지하고 있으며
+                끝나고 바로 삭제하겠습니다.</span>
 
             </InsideWrap>
         </OutWrap>
@@ -221,32 +153,6 @@ function Landing(){
 export default  Landing;
 
 
-const FontStyle = {
-  '@media screen and (max-width: 1024px)':{
-  
-  fontSize: 22
-  },
-  
-  '@media screen and (max-width: 850px)':{
-  fontSize: 21
-  
-  },
-  
-  /* mobile 규격 */
-  '@media screen and (max-width: 540px)':{
-  
-  fontSize: 19
-  },
-  /* tablet 규격 */
-  '@media screen and (min-width: 1025px)':{
-  
-  fontSize: 24
-  },
-  '@media screen and (min-width: 1700px)': {
-  
-  fontSize: 37
-  }
-  };
 
 
 export const ModalBackdrop = styled.div`

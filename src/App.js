@@ -1,6 +1,5 @@
 import React ,{useEffect}from 'react';
 import {BrowserRouter, Routes, Route} from 'react-router-dom'; 
-import "./Font/Font.css"
 import GlobalStyles from "./Style/GlobalStyles"; // GlobalStyles 불러오기
 
 import Landing from './pages/Landing';
@@ -20,11 +19,12 @@ function App() {
     function setScreenSize() {
         let vh = window.innerHeight * 0.01;
         document.documentElement.style.setProperty("--vh", `${vh}px`);
-      }
-      useEffect(() => {
-        setScreenSize();
-      });
+    }
+    useEffect(() => {
+    setScreenSize();
+    });
 
+    
     return (
     
 
@@ -35,7 +35,7 @@ function App() {
             <Routes>
                 
                 <Route path='/' element={<Landing />}/>
-                <Route path ='/home' element={<Home />}/>
+                <Route path ='/home' element={<Home/>}/>
 
                 <Route path ='/post' element={<Post />}/>
                 

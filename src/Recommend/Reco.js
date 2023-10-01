@@ -7,9 +7,9 @@ import { useNavigate } from 'react-router-dom';
 import Loading from '../Component/Loading';
 import upload from '../Images/upload.png'; 
   
-//수정된곳(0917)
-//모델파일 사용함 
-//거리 기반 유사도(유클리디안 유사도)
+//모델파일 사용안함
+//히스토그램 기반 메트릭스 
+//  두 이미지 간의 히스토그램 오버랩을 계산하는 
 import styled from "styled-components";
 
 function Reco() { 
@@ -184,7 +184,7 @@ const handleCosineCalculation = async () => {
         const updatedImagePaths = data.map((imagePath) => `http://localhost:4004${imagePath}`);
         
         // calculateEuclideanSimilarity 함수 내부에서 바로 사용할 수 있도록 전달
-        const topSimilarImages=await calculateEuclideanSimilarity(updatedImagePaths);
+        const topSimilarImages=await calculateImageSimilarityMatrix (updatedImagePaths);
 
         setIsLoading(false); // 로딩 상태를 해제
 
@@ -201,76 +201,87 @@ const handleCosineCalculation = async () => {
 };
 
 
+ 
+// 히스토그램 계산 함수
+const calculateHistogram = (imageData) => {
+         const histogram = Array(256).fill(0); // 히스토그램 배열 초기화
+       
+         for (let i = 0; i < imageData.data.length; i += 4) {
+           const pixelValue = Math.floor(imageData.data[i] * 0.299 + imageData.data[i + 1] * 0.587 + imageData.data[i + 2] * 0.114);
+           histogram[pixelValue] += 1; // 픽셀 값의 빈도수 증가
+         }
+       
+         return histogram;
+       };
+       
+// 히스토그램 기반 메트릭스 계산 함수
+const calculateHistogramBasedSimilarity = (histogramA, histogramB) => {
+let sum = 0;
 
-// calculateCosineSimilarity 함수 내부
-const calculateEuclideanSimilarity = async (imagePaths) => {
-  try {
-    console.log("비었나?",imagePaths.length);
-    if (!model || !imageFile || imagePaths.length === 0) {
-      console.error('모델 또는 이미지를 사용할 수 없습니다.');
-      return;
-    }
-    // 로딩 상태를 true로 설정하여 로딩 표시를 활성화
-    setIsLoading(true);
-    // 이미지 데이터를 캔버스에 로드
-    const canvas = document.createElement('canvas');
-    const imageData = await getImageData(imageFile);
-    canvas.width = imageData.width;
-    canvas.height = imageData.height;
-    const ctx = canvas.getContext('2d');
-    ctx.putImageData(imageData, 0, 0);
+for (let i = 0; i < histogramA.length; i++) {
+         sum += Math.min(histogramA[i], histogramB[i]);
+}
 
-    // 미리 학습된 모델을 사용하여 예측 벡터 계산
-    const tensorImg = tf.browser.fromPixels(imageData).toFloat();
-    const resizedImg = tf.image.resizeBilinear(tensorImg, [350, 250]);
-    const expandedImg = resizedImg.expandDims();
-    const normalizedImg = expandedImg.div(255.0);
-    const pretrainedPrediction = await model.predict(normalizedImg).array();
-    const pretrainedImageTensor = tf.tensor(pretrainedPrediction);
+// 히스토그램 유사성 계산
+const similarity = sum / Math.max(histogramA.reduce((a, b) => a + b, 0), histogramB.reduce((a, b) => a + b, 0));
 
-    // 폴더 내에 있는 다른 이미지들과의 유클리디안 거리 계산
-    const similarImages = [];
-    for (const imagePath of imagePaths) {
-      try {
-        const folderImageData = await getImageDataFromPath(imagePath);
-        const folderTensorImg = tf.browser.fromPixels(folderImageData).toFloat();
-        const folderResizedImg = tf.image.resizeBilinear(folderTensorImg, [350, 250]);
-        const folderExpandedImg = folderResizedImg.expandDims();
-        const folderNormalizedImg = folderExpandedImg.div(255.0);
-        const folderPrediction = await model.predict(folderNormalizedImg).array();
-        const folderImageTensor = tf.tensor(folderPrediction);
-        const euclideanDistance = calculateEuclideanDistanceBetweenTensors(pretrainedImageTensor, folderImageTensor);
-        console.log('Euclidean Distance:', euclideanDistance);
-        similarImages.push({ imagePath, euclideanDistance });
-      } catch (imageError) {
-        console.error('이미지 처리 중 오류:', imageError);
-      }
-    }
-
-    // 유클리디안 거리에 따라 유사한 이미지 정렬
-    similarImages.sort((a, b) => a.euclideanDistance - b.euclideanDistance);
-
-    // 상위 3개 유사한 이미지 선택
-    const topSimilarImages = similarImages.slice(0, 3);
-
-    console.log("상위 유사한 이미지:", topSimilarImages);
-    setIsLoading(false);
-    return topSimilarImages; // 상위 유사한 이미지를 반환
-
-  } catch (error) {
-    console.error('유클리디안 거리 계산 중 오류:', error);
-  }
+return similarity;
 };
+       
+// 이미지 간의 유사성 메트릭스 계산 함수 (히스토그램 기반)
+const calculateImageSimilarityMatrix = async (imagePaths) => {
+try {
+         if (!model || !imageFile || imagePaths.length === 0) {
+         console.error('모델 또는 이미지를 사용할 수 없습니다.');
+         return;
+         }
 
+         // 로딩 상태를 true로 설정하여 로딩 표시를 활성화
+         setIsLoading(true);
 
+         // 입력 이미지의 특성 추출
+         const inputImageData = await getImageData(imageFile);
+         const inputHistogram = calculateHistogram(inputImageData);
 
-// 두 텐서 간의 유클리디안 거리 계산
-const calculateEuclideanDistanceBetweenTensors = (tensorA, tensorB) => {
-  const squaredDifferences = tf.square(tf.sub(tensorA, tensorB));
-  const sumSquaredDifferences = tf.sum(squaredDifferences);
-  const euclideanDistance = tf.sqrt(sumSquaredDifferences).arraySync();
-  return euclideanDistance;
+         console.log('Input Image Histogram:', inputHistogram); // 입력 이미지 히스토그램 출력
+
+         // 각 이미지의 유사성 메트릭스 계산
+         const similarityMatrix = [];
+         for (const imagePath of imagePaths) {
+         try {
+         const folderImageData = await getImageDataFromPath(imagePath);
+         const folderHistogram = calculateHistogram(folderImageData);
+
+         console.log('Folder Image Histogram for', imagePath, ':', folderHistogram); // 폴더 이미지 히스토그램 출력
+
+         // 이미지 간의 유사성 메트릭스 계산 (히스토그램 기반)
+         const similarity = calculateHistogramBasedSimilarity(inputHistogram, folderHistogram);
+
+         console.log('Histogram-Based Similarity for', imagePath, ':', similarity); // 유사성 메트릭스 출력
+
+         similarityMatrix.push({ imagePath, similarity });
+         } catch (imageError) {
+         console.error('이미지 처리 중 오류:', imageError);
+         }
+         }
+
+         // 유사성 메트릭스를 기준으로 이미지 정렬
+         similarityMatrix.sort((a, b) => b.similarity - a.similarity);
+
+         // 상위 3개 유사한 이미지 선택
+         const topSimilarImages = similarityMatrix.slice(0, 3);
+
+         console.log("상위 유사한 이미지:", topSimilarImages);
+         setIsLoading(false);
+
+         return topSimilarImages; // 상위 유사한 이미지를 반환
+
+} catch (error) {
+         console.error('이미지 유사성 메트릭스 계산 중 오류:', error);
+}
 };
+       
+       
 
 
     return (
