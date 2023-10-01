@@ -2,10 +2,7 @@ import React,{useState,useEffect} from "react";
 import { useNavigate ,useLocation} from "react-router-dom";
 import logo from "../Images/imagelogo.png";
 import homelogo from "../Images/hh.png";
-
 import * as S from "./HeaderStyle";
-
-
 import profilelogo from "../Images/pp.png";
 import { LoginModal } from "../Modal/LoginModal";
 import * as P from "./ProfileWrapStyle";
@@ -13,16 +10,15 @@ import { ModalBackdrop } from "../Modal/ModalStyle";
 import { Popup } from "../Modal/Popup";
 
 
-const Header = () => {
+const Header  = props => {
+  const [childData, setChildData] = useState(''); 
+
   const location = useLocation();
 
   // 현재 주소가 "/home"인 경우에만 요소를 숨깁니다.
   const isHomeRoute = location.pathname === "/home";
 
-  // 현재 주소 가져오기
-  const currentPath = location.pathname;
-  console.log("현재 주소 : ",currentPath);
-
+  
   const navigate = useNavigate();
 
   // landing page
@@ -40,21 +36,27 @@ const Header = () => {
   const [isOpen, setIsOpen] = useState(false); // 모달창때문에 있는거 삭제 노
   
   const accessToken = localStorage.getItem("access_token");
-  const [isaccessToken, setIsAccessToken] = useState(null); //
+  //const [isaccessToken, setIsAccessToken] = useState(null); //
   //const [itsLogin,setItsLogin]=useState(false); // 로그인 여부 상태 
   const [showSuccessMessage, setShowSuccessMessage] = useState(false); // 로그아웃 성공 여부 
   let emailId;
-  
+  const { onData } = props;
 
-  console.log("기본 isaccessToken :",isaccessToken);
+  // currentPath 상태 정의 및 초기화
+  const [currentPath, setCurrentPath] = useState(location.pathname);
+
+  //console.log("기본 isaccessToken :",isaccessToken);
   const onGoProfile = () => {
     navigate(`/profile/${emailId}`);
     
   };
-  //console.log("받아온 accesToken 중간 과정인 midacces:",midacces);
   
   
+
   useEffect(() => {
+
+    setCurrentPath(location.pathname);
+    console.log("현재 주소 : ", currentPath);
     console.log("accessToken:",accessToken);
     
     
@@ -72,29 +74,31 @@ const Header = () => {
 
           if (data.email) {
             setUserinfo(data);
+
             console.log("header 현재 접속중인 사용자 이메일:", data.email);
             console.log("header 현재 접속중인 사용자 닉네임:", data.nickname);
       
-            setIsAccessToken(accessToken); // 
-            console.log("setIsAccessToken(accessToken): ",setIsAccessToken(accessToken));
-            console.log("setIsAccessToken(accessToken)인 isaccessToken : ",isaccessToken);
 
             // 이메일 아이디 추출
             const emailParts = data.email.split('@');
             emailId = emailParts[0];
     
+            const senddata = {
+              accesstoken: accessToken ,
+              emailid: emailId,
+            };
+            console.log("senddata: ",senddata);
+            onData(senddata);
             
         } else {
             // "email" 필드가 없는 경우
             console.log("header 이메일 정보가 없습니다.");
             
             localStorage.removeItem("access_token");// 만료된 토큰 처리하기 
+            
             navigate(currentPath); // 다시 현재 페이지로 새로고침 
 
-            //필요한가? 없는것같음 
-            setIsAccessToken(null); // 
-            console.log("setIsAccessToken(null): ",setIsAccessToken(null));
-            console.log("setIsAccessToken(null)인 isaccessToken : ",isaccessToken);
+
         }
 
         })
@@ -102,7 +106,7 @@ const Header = () => {
             console.error("Error fetching user email:", error);
         });
     }
-}, []); // !! accessToken 값이 변경될때마다 렌더링 
+}, [location.pathname]); // !! accessToken 값이 변경될때마다 렌더링 
 
   // 자기 프로필 가는거 처리하기 App js 참고  
   const openModalHandler = () => {

@@ -21,21 +21,19 @@ const Lookup_Content =({ title,nickname,imageurl,description,created_at,id}) => 
         }
     //시간 처리하기
     const timestamp = created_at; 
-    //console.log("timestamp",timestamp);
         // UTC Timestamp를 한국 시간대로 변환
     const dateUTC = new Date(timestamp);
     const offsetInMilliseconds = 9 * 60 * 60 * 1000;
     const dateKST = new Date(dateUTC.getTime() + offsetInMilliseconds);
-    //console.log("dateKST",dateKST);
     const postdate= dateKST.getFullYear()+"-"+(dateKST.getMonth() + 1)+"-"+dateKST.getDate()+"  "+dateKST.getHours()+":"+dateKST.getMinutes();
-    //console.log("postdate",postdate);
+    
 
     const handleGoProfile = async () => {
         try {
             setLoading(true);
         
             // POST 요청으로 서버에 데이터를 보냅니다.
-            const requestBody = { id: id }; // 수정해야 할 게시글 ID
+            const requestBody = { id: id }; 
             const response = await fetch(`http://localhost:4003/api/profiles/${id}`, {
             method: 'POST',
             headers: {

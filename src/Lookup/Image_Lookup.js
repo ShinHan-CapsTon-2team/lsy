@@ -1,8 +1,7 @@
 import React, {useParams ,useNavigate} from 'react-router-dom';
 import { useEffect,useState } from 'react'
-import Logo from "../Component/Header"
+import Header from '../Component/Header';
 import Lookup_Content from '../Component/Lookup_Content';
-import Loading from '../Component/Loading';
 import {Popup} from '../Modal/Popup';
 import * as S from './LookupStyle'
 
@@ -15,14 +14,26 @@ function Images_Lookup() {
     const params = useParams(); 
     const id = params.id; 
     const [isOpen, setIsOpen] = useState(false); // 모달창때문에 있는거 삭제 노
-    let currentEmail; //현재 접속중인지
-    let isLogin // 로그인되어있는지
-    const [itsLogin,setItsLogin]=useState(false); // 로그인 여부 상태 
+    
 
-    // API로부터 받아온 데이터를 저장할 상태 변수
+    
     const [user, setUser] = useState([]);
-    const [loading, setLoading] = useState(true);
     const [userEmail, setUserEmail] = useState("");
+    
+    const [dataFromChild, setDataFromChild] = useState({}); 
+    const handleChildData = (data) => {
+        // 자식 컴포넌트로부터 받은 데이터를 처리
+        setDataFromChild(data);
+    };
+
+    
+    
+    const [isMine,setIsMine]= useState(false); // 현 게시글이 내꺼인지 
+
+    const access = dataFromChild.accesstoken;
+    const isMe= dataFromChild.emailid;
+    console.log("지금 로그인 한 사람 누구야 :",isMe);
+
     
     const openModalHandler = () => {
         // 모달창 관련임 자세히 알 필요 X
@@ -30,53 +41,63 @@ function Images_Lookup() {
     };
 
     useEffect(() => {
-        const accessToken = localStorage.getItem("access_token");
-        console.log("accessToken:",accessToken);
-    // 서버로 액세스 토큰을 보내서 사용자 이메일 정보를 요청
-    if (accessToken) {
-        fetch('http://localhost:4001/api/user', {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ accessToken }),
-            })
-            .then((response) => response.json())
-            .then((data) => {
-
-                if (data.email) {
-                    // "email" 필드가 존재하는 경우
-                    setUserEmail(data.email);
-                    console.log("현재 접속중인 사용자 이메일:", data.email);
-                    currentEmail=true;
-
-                } else {
-                    // "email" 필드가 없는 경우
-                    console.log("이메일 정보가 없습니다.");
-                    currentEmail=false;
-                }
-
-            let token =accessToken !== null;
-            console.log("accessToken !== null :",token);
-            
-            console.log("currentEmail :",currentEmail);
-            isLogin = token && currentEmail;
-            
-
-            if (isLogin) {
-            console.log('사용자는 로그인되었습니다.');
-            setItsLogin(true);
-            } else {
-            console.log('사용자는 로그인되지 않았습니다.');
-            }
-
-            })
-            .catch((error) => {
-                console.error("Error fetching user email:", error);
+        const fetchData = async () => {
+          try {
+            // POST 요청으로 서버에 데이터를 보냅니다.
+            const requestBody = { id: id };
+            const response = await fetch(`http://localhost:4003/api/profiles/${id}`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(requestBody),
             });
-        }
-    }, []);
+      
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+      
+            const data = await response.json();
+            const userEmailFromServer = data.userEmail; // 서버에서 받은 이메일
+            const userNicknameFromServer = data.nickname;
+      
+            console.log(userEmailFromServer);
+            console.log("닉네임:",userNicknameFromServer);
+      
+
+            
+
+
+            // 이메일 아이디 추출 (이메일에서 "@" 이후의 부분을 제외)
+            const emailId = userEmailFromServer.split('@')[0];
+      
+            console.log("emailId:",emailId);
+            
+            console.log("작성자 누구야 :",emailId);
+            console.log("내꺼인가? : ",(isMe === emailId ));
+            if(isMe === emailId)
+            {
+                console.log("내꺼")
+                setIsMine(true);
+            }
+            else{
+                console.log("내꺼아님")
+                setIsMine(false);
+            }
+            
+          } catch (error) {
+            console.error('Error fetching user profile:', error);
+            console.log('error');
+          }
+        };
+      
+        fetchData(); // fetchData 함수 호출
+      
+      }, [isMe]);
+      
+        
     
+
     useEffect(() => {
     function getUserList() {
         let reqOption = {
@@ -92,72 +113,29 @@ function Images_Lookup() {
         .then((data) => {
             console.log(data);
             setUser(data);
-            setLoading(false); // 데이터를 가져왔으므로 로딩 상태를 false로 설정
+            
         })
         .catch((error) => {
             console.error('Error fetching data:', error);
-            setLoading(false); 
+            
         });
     }
 
     getUserList();
     }, [id]);
     
-    if (loading) {
-        <Loading
-        what="Loading"/>;
-    }
+
 
     const handelGoEdit = () => {
         navigate(`/postedit/${id}`); 
     };
-    
-    /*
-    const handleDelete = () => {
-        const confirmed = window.confirm('게시물을 삭제하시겠습니까?');
-        
-            if (confirmed) {
-            const reqOptions = {
-                method: 'delete',
-                headers: {
-                'Accept': 'application/json',
-                },
-            };
-        
-            fetch(`${SERVER_URL}/${id}`, reqOptions)
-                .then((res) => {
-                if (res.status === 204) {
-                    // 성공 메시지를 보여줍니다.
-                    setShowSuccessMessage(true);
-
-                    // 1초 후에 성공 메시지를 숨깁니다.
-                    setTimeout(() => {
-                    setShowSuccessMessage(false);
-                    navigate('/home');
-                    }, 1000);
-
-                } else { 
-                    // 실패 메시지를 보여줍니다.
-                    setShowErrorMessage(true);
-
-                    // 1초 후에 실패 메시지를 숨깁니다.
-                    setTimeout(() => {
-                    setShowErrorMessage(false);
-                    }, 1000);
-                }
-                })
-                .catch((error) => {
-                console.error('Error deleting data:', error);
-                });
-            }
-        };*/
-        
+  
     return (  
         
         <S.OutWrap>
             <S.InOutWrap>
                     
-                <Logo />
+                <Header onData={handleChildData}/>
 
                 <S.Center>
                     {user.map((uu)=>{
@@ -178,7 +156,7 @@ function Images_Lookup() {
                             }
                         )} 
 
-                    {itsLogin && (
+                    {isMine && (
                     <S.InLayoutTwo> {/* 자기 게시글이면 보이게 처리하기  */}
                         <S.Buttons>
                             <S.Right> 

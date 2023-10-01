@@ -3,7 +3,7 @@ import * as tf from "@tensorflow/tfjs"; //npm i @tensorflow/tfjs
 import "@tensorflow/tfjs-backend-webgl"; //npm i @tensorflow/tfjs-backend-webgl
 import { useNavigate } from "react-router-dom";
 import upload from "../Images/upload.png";
-import Loogo from "../Component/Header";
+import Header from "../Component/Header";
 import * as S from "./PostStyle";
 
 import { Popup } from "../Modal/Popup";
@@ -11,7 +11,6 @@ const SERVER_URL = "http://localhost:4000/api/post";
 
 function Post() {
 
- 
   const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [category, setCategory] = useState('');
@@ -240,11 +239,20 @@ function Post() {
         setIsMenuOpen(!isMenuOpen);
     };
 
+    //여긴 필요없음 
+  const [dataFromChild, setDataFromChild] = useState(null); //!!!
+
+  const handleChildData = (data) => {
+    // 자식 컴포넌트로부터 받은 데이터를 처리
+    setDataFromChild(data);
+  };
+
+
   return (
     <S.OutWrap>
       <S.InOutWrap>
         {/* 로고 */}
-        <Loogo />
+        <Header onData={handleChildData} />
         {/* 내용 */}
 
         <S.Center>

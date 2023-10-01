@@ -34,21 +34,19 @@ const Homepage = () => {
   const limit = 20; // 한 페이지당 이미지 수 설정
   const [offset, setOffset] = useState(0); //offset 초기값
 
- 
-  const [itsLogin,setItsLogin]=useState(false); // 로그인 여부 상태 
   const [userinfo, setUserinfo] = useState([]);
-  let emailId;
+  
 
-  const [dataFromChild, setDataFromChild] = useState(""); // 자식 컴포넌트로부터 받은 데이터 상태
+  const [dataFromChild, setDataFromChild] = useState({}); //!!!
 
-  // 자식 컴포넌트에서 받은 데이터를 처리하는 함수
-  const handleDataFromChild = (data) => {
-    setDataFromChild(data); // 데이터를 상태에 저장
+  const handleChildData = (data) => {
+    // 자식 컴포넌트로부터 받은 데이터를 처리
+    setDataFromChild(data);
   };
 
-  let accessToken = localStorage.getItem("access_token");
-
-
+  console.log("헤더에서 온 액세스 토큰 값 : ",dataFromChild.accesstoken);
+  const access = dataFromChild.accesstoken;
+  console.log("헤더에서 온 이메일 아이디 값 : ",dataFromChild.emailid);
   const openModalHandler = () => { // 모달창 관련임 자세히 알 필요 X 
     setIsOpen(!isOpen) 
   };
@@ -90,47 +88,6 @@ const handleCategorySelect = useCallback((category, limit, offset) => {
     });
 }, [navigate]);
 
-useEffect(() => {
-  
-  console.log("home accessToken:",accessToken);
-  
-  // 서버로 액세스 토큰을 보내서 사용자 이메일 정보를 요청
-  if (accessToken) {
-  fetch('http://localhost:4001/api/user', {
-      method: "POST",
-      headers: {
-          "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ accessToken }),
-      })
-      .then((response) => response.json())
-      .then((data) => {
-
-        if (data.email) {
-          setUserinfo(data);
-          console.log("home 현재 접속중인 사용자 이메일:", data.email);
-          console.log("home 현재 접속중인 사용자 닉네임:", data.nickname);
-          
-          // 이메일 아이디 추출
-          const emailParts = data.email.split('@');
-          emailId = emailParts[0];
-  
-          
-      } else {
-          // "email" 필드가 없는 경우
-          console.log("home 이메일 정보가 없습니다.");
-          //localStorage.removeItem("access_token");
-          
-          
-      }
-
-
-      })
-      .catch((error) => {
-          console.error("Error fetching user email:", error);
-      });
-  }
-}, [accessToken]);
 
   useEffect(() => {
    //컴포넌트가 마운트될 때 '가족사진' 데이터를 불러옵니다
@@ -138,9 +95,6 @@ useEffect(() => {
   }, [selectedCategory, offset, handleCategorySelect]); 
 
 
-  // page
-
-  
   // lookup page
   const handleClick = (id) => {
     console.log('Clicked with id:', id); // 확인용
@@ -191,7 +145,7 @@ useEffect(() => {
     <S.OutWrap>
       <S.InsideWrap>
         {/* 로고 */}
-        <Header midacces={accessToken}/>
+        <Header onData={handleChildData}/>
 
         <S.CategoryWrap>
           {categoriesData &&
@@ -246,11 +200,11 @@ useEffect(() => {
       </S.InsideWrap>
 
       <S.PostWrap>
-      <C.StyledBsPlusCircleFill onClick={accessToken ? goToWorkUpload : openModalHandler} />
+      <C.StyledBsPlusCircleFill onClick={dataFromChild ? goToWorkUpload : openModalHandler} />
 
       {/* isOpen이 true인 경우에만 ModalBackdrop과 LoginModal을 렌더링합니다. */}
       {isOpen && (
-        accessToken ? ( // 액세스 토큰이 있는 경우
+        access ? ( // 액세스 토큰이 있는 경우
           <>
             {/* 추가적인 내용을 여기에 추가할 수 있습니다. */}
           </>
