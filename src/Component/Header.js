@@ -49,6 +49,7 @@ const Header  = props => {
   };
   
   
+  
   useEffect(() => {
     setCurrentPath(location.pathname);
     console.log("현재 주소 : ", currentPath);
@@ -113,7 +114,9 @@ const Header  = props => {
     // 2초 후에 성공 메시지를 숨김
     setTimeout(() => {
       setShowSuccessMessage(false);
-      navigate(currentPath); // 현재 주소로 이동
+     // navigate(currentPath); // 현재 주소로 이동
+     // 페이지를 리프레시합니다.
+window.location.reload();
     }, 2000); // 2초를 기다립니다 (2000 밀리초)
     setIsOpen(!isOpen);
     console.log("로그아웃 되었습니다.");

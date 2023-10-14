@@ -46,6 +46,7 @@ const Homepage = () => {
 
   console.log("헤더에서 온 액세스 토큰 값 : ",dataFromChild.accesstoken);
   const access = dataFromChild.accesstoken;
+  console.log("access:",access);
   console.log("헤더에서 온 이메일 아이디 값 : ",dataFromChild.emailid);
   const openModalHandler = () => { // 모달창 관련임 자세히 알 필요 X 
     setIsOpen(!isOpen) 
@@ -200,7 +201,7 @@ const handleCategorySelect = useCallback((category, limit, offset) => {
       </S.InsideWrap>
 
       <S.PostWrap>
-      <C.StyledBsPlusCircleFill onClick={dataFromChild ? goToWorkUpload : openModalHandler} />
+      <C.StyledBsPlusCircleFill onClick={access ? goToWorkUpload : openModalHandler} />
 
       {/* isOpen이 true인 경우에만 ModalBackdrop과 LoginModal을 렌더링합니다. */}
       {isOpen && (
