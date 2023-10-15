@@ -6,11 +6,8 @@ import quizbody from '../Datajson/bodydata.json';
 import quizpet from '../Datajson/petdata.json';
 import quizwedding from '../Datajson/weddingdata.json';
 import quizfamily from '../Datajson/familydata.json';
-import quizprofile from '../Datajson/profiledata.json';
 
 import styled from "styled-components";
-
-import ProgressBar from './ProgressBar';
 
 const getQuizbody = () => {
     return quizbody;
@@ -27,9 +24,6 @@ const getQuizwedding = () => {
 const getQuizfamily = () => {
     return quizfamily;
 };
-const getQuizprofile = () => {
-    return quizprofile;
-};
 
 const QuizTest = () => {
 
@@ -37,7 +31,8 @@ const QuizTest = () => {
     const params = new URLSearchParams(location.search);
     const categoryName = params.get('name');
 
-    console.log("cate:",categoryName);
+    //console.log("cate:",categoryName);
+
     const navigate = useNavigate();
     const [searchParams, setSearchParams] = useSearchParams();
 
@@ -50,71 +45,130 @@ const QuizTest = () => {
         questions = getQuizwedding();
     }else if (categoryName === 'family') {
         questions = getQuizfamily();
-    }else if (categoryName === 'profile') {
-        questions = getQuizprofile();
     }
     
+
+
     const [answers, setAnswers] = useState([]);
-    const [num, setNum] = useState(searchParams.get("res")?.length ?? 0);
-
-
-
+    const [content, setContent] = useState(null);
+    const [quiz, setQuiz] = useState(null);
+    const  [selects,setSelects] = useState(null);
+    const  [select,setSelect] = useState(null);
     useEffect(() => {
-        const len = searchParams.get("res")?.length ?? 0;
-        setAnswers(searchParams.get("res")?.split('') ?? []);
+        
+        const  selects = params.get('res');
+        console.log("selects",selects);
+        setSelects(selects);
 
-        if (len >= 4) {
+        const content= questions.find((item) =>
+        item.options.find((option) => option.beforeselec === selects));
+
+        if(!content)
+        {
             navigate("/quizresult?" + searchParams.toString());
-        }
 
-    }, [searchParams, navigate]);
+        }
+        const quiz = content?.options.find((option) => option.beforeselec === selects)?.quiz; // 이거다 
+        console.log("quiz",quiz);
+
+        const select = quiz && quiz[0]?.select;
+        console.log("select", select);
+        
+        setContent(content);
+        setQuiz(quiz);
+        setSelect(select);
+    }, [selects,searchParams, navigate]);
 
     const handleAnswer = (option) => {
         const a = [...answers, option.type];
         setAnswers(a);
         searchParams.set("res", a.join(''));
         setSearchParams(searchParams);
-        setNum(a.length);
     };
 
-    if (questions.length === 0) {
-        return <div>선택한 카테고리에 대한 질문이 없습니다.</div>;
-        }
-        
-    if (num >= questions.length) {
-        return <div>모든 질문에 답변하셨습니다.</div>;
-        }
-        
-    return (
-        <OutWrap>
-            
-                    <div>
-                        <ProgressBar total={questions.length} current={num + 1} />
-                    </div>
-                    
-                    <Ulstyle> 
-                    
-                    {questions[num].options.map((option, index) => (
 
-                            <Img
-                                key={index}
-                                src={`${process.env.PUBLIC_URL}/Images/quest/${categoryName}/${option.img}`}
-                                alt={`Option ${index + 1}`}
-                                onClick={() => handleAnswer(option)}
-                                style={{ marginRight: index === 1 ? 0 : null }}
-                            />
-                        
-                        
-                    ))}
-                    </Ulstyle>
+    return (
+    <OutWrap>
+        {quiz && quiz.map((item) => (
+            <Textselect>{item.selectCriteria}</Textselect>
+        ))}
+        <Ulstyle>
             
-        </OutWrap>
+            {select && select.map((item, index) => (
+            <div key={index}>
+                <Textimgselect>#{item.name}</Textimgselect>
+                <Img
+                src={`${process.env.PUBLIC_URL}/Images/quest/${categoryName}/${item.img}`}
+                alt={`Option ${item.name}`}
+                onClick={() => handleAnswer(item)}
+                style={{ marginRight: index === 1 ? 0 : null }}
+                />
+            </div>
+            ))}
+        </Ulstyle>
+    </OutWrap>
+
     );
 };
 
 export default QuizTest;
 
 
+const FontStyle = {
+    '@media screen and (max-width: 1024px)':{
+    
+    fontSize: 30
+    },
+    /* mobile 규격 */
+    '@media screen and (max-width: 540px)':{
+    
+    fontSize: 25
+    },
+    /* tablet 규격 */
+    '@media screen and (min-width: 1025px)':{
+    
+    fontSize: 30
+    },
+    '@media screen and (min-width: 1700px)': {
+    
+    fontSize: 40
+    }
+    };
+
+const Textselect= styled.div`
+color: #798BE6;
+font-weight: bold;
+
+${FontStyle};
+`;
+
+const FontsmallStyle = {
+    '@media screen and (max-width: 1024px)':{
+    
+    fontSize: 25
+    },
+    /* mobile 규격 */
+    '@media screen and (max-width: 540px)':{
+    
+    fontSize: 20
+    },
+    /* tablet 규격 */
+    '@media screen and (min-width: 1025px)':{
+    
+    fontSize: 25
+    },
+    '@media screen and (min-width: 1700px)': {
+    
+    fontSize: 35
+    }
+    };
+
+const Textimgselect= styled.div`
+color: #798BE6;
+font-weight: bold;
+margin-bottom:5px;
+${FontsmallStyle};
+`;
 const OutWrap = styled.div`
     width: 100%;
     height: 97.6vh;

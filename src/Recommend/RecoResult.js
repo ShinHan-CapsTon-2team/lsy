@@ -67,7 +67,7 @@ const RecoResult = () => {
                 <S.InsideWrap>
                     <S.TextWrap>
                         <S.Text1> 추천 결과</S.Text1>
-                        <S.Text2> 해당 사진과 비슷한 스타일인 다른 사진을 확인하세요</S.Text2>
+                        <S.Text2> 해당 사진과 비슷한 색감의 다른 사진을 확인하세요</S.Text2>
                         <S.Text2> 사진을 클릭하면 자세하게 확인할 수 있습니다</S.Text2>
                     </S.TextWrap>
 

@@ -7,6 +7,7 @@ import { Popup } from '../Modal/Popup';
 import KakaoShareBtn from '../Component/Kakao';
 import * as S from '../Recommend/ImgResultStyle';
 
+import styled from "styled-components";
 const Quizresult  = () => {
     const location = useLocation();
     const params = new URLSearchParams(location.search);
@@ -81,30 +82,19 @@ const Quizresult  = () => {
                 </S.TextWrap>
                 
                 
-                <S.Content>
-                    <S.Direction>
-                        {typeData.answer && typeData.answer.slice(0, 2).map((answer, index) => (
-                        <S.Img 
+                <Content>
+                    
+                        {typeData.answer && typeData.answer.map((answer, index) => (
+                        <Img 
                             key={index}
                             src={`${process.env.PUBLIC_URL}/Images/questresult/${categoryName}/${answer.img}`}
                             alt={`Image ${index + 1}`}
                             onClick={() => handleImageClick(answer.id)}
-                            isnotlast={index !== 1}
+                            index={index}
                         />
                         ))}
-                    </S.Direction>
-                    <S.Direction>
-                        {typeData.answer && typeData.answer.slice(2, 4).map((answer, index) => (
-                        <S.Img 
-                            key={index + 2}
-                            src={`${process.env.PUBLIC_URL}/Images/questresult/${categoryName}/${answer.img}`}
-                            alt={`Image ${index + 3}`}
-                            onClick={() => handleImageClick(answer.id)}
-                            isnotlast={index !== 1}
-                        />
-                        ))}
-                    </S.Direction>
-                </S.Content>           
+                    
+                </Content>           
                 
 
                 <S.Sharewrap>
@@ -139,3 +129,77 @@ const Quizresult  = () => {
 };
 
 export default Quizresult;
+
+
+
+const Img= styled.img`
+border: 5px #798BE6 solid;
+border-radius: 31px;
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+display: flex;
+align-items: center; 
+overflow:hidden;
+cursor:pointer;
+margin-right: ${({ index }) => (index === 2? '0px' : '20px')};
+width:100%;
+object-fit:cover;
+margin-bottom:20px;
+
+&:hover {
+    border: 5px #4E62C5 solid;
+}
+
+
+/* tablet 규격 */
+@media screen and (max-width: 1024px){
+    max-width: 33vw;
+    height: 49vh;
+    
+    margin-right: ${({ index }) => (index === 1 || index === 2 ? '0px' : '20px')};
+    border: 4px #798BE6 solid;
+}
+@media screen and (max-width: 840px){
+    max-width: 40vw;
+    height: 45vh;
+    margin-right: ${({ index }) => (index === 1 || index === 2 ? '0px' : '20px')};
+}
+/* mobile 규격 */
+@media screen and (max-width: 540px){
+    max-width: 83vw;
+    height: 58vh;
+    
+    border: 4px #798BE6 solid;
+    
+    margin-right: 0px;
+}
+/* s 데스크 */
+@media screen and (min-width: 1025px){
+    max-width: 24vw;
+    height: 63vh;
+}
+/* l 데스크 */
+@media screen and (min-width: 1700px){
+    max-width: 26vw;
+    height: 65vh;
+    
+    border: 8px #798BE6 solid;
+    &:hover {
+        border: 8px #4E62C5 solid;
+        }
+    }
+
+`;
+
+
+
+const Content = styled.div`
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: row;
+//flex-wrap: wrap;
+
+@media screen and (max-width: 600px){
+    flex-direction: column;
+}
+`;

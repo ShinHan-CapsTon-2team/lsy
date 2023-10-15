@@ -1,0 +1,46 @@
+[
+    {
+        "questions": "body",
+        "options":
+        [
+            {
+                
+                "selectCriteria":"장소",
+                "select": [
+                    {
+                        "type":"a",
+                        "name":"실내",
+                        "img":"1.jpg"
+                    },
+                    {
+                        "type":"b",
+                        "name":"야외",
+                        "img":"2.jpg"
+                    }
+                ]  
+            }
+        ]
+        },
+        {
+            "questions": "wedding",
+            "options":
+            [
+                {
+                    
+                    "selectCriteria":"장소",
+                    "select": [
+                        {
+                            "type":"a",
+                            "name":"실내",
+                            "img":"1.jpg"
+                        },
+                        {
+                            "type":"b",
+                            "name":"야외",
+                            "img":"2.jpg"
+                        }
+                    ]  
+                }
+            ]
+            }
+]

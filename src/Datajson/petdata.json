@@ -1,55 +1,223 @@
 [
     {
         "questions": "1",
-        "options": [
+        "options":
+        [
             {
-                "type":"a",
-                "img":"pet1.jpg"
-            },
+                "beforeselec":"a",
+                "quiz":[
+                    {
+                        "selectCriteria":"공간",
+                        "select":
+                        [
+                            {
+                                "type":"a",
+                                "name":"스튜디오",
+                                "img":"3.png"
+                            },
+                            {
+                                "type":"b",
+                                "name":"웨딩홀",
+                                "img":"4.jpg"
+                            }
+                        ]  
+                    }
+                ]
+            } ,
             {
-                "type":"b",
-                "img":"/pet2.jpg"
-            }
+                "beforeselec":"b", 
+                "quiz":[
+                    {
+                    "selectCriteria":"환경",
+                    "select": [
+                        {
+                            "type":"a",
+                            "name":"도시",
+                            "img":"11.jpg"
+                        },
+                        {
+                            "type":"b",
+                            "name":"자연",
+                            "img":"12.jpg"
+                        }
+                    ] 
+                } 
+                ]
+            } 
         ]
-        },
-    {
-            "questions": "2",
-            "options": [
-                {
-                    "type":"a",
-                    "img":"/pet3.jpg"
-                },
-                {
-                    "type":"b",
-                    "img":"/pet4.jpg"
-                }
-            ]
+            
     },
 
+    {
+        "questions": "2",
+        "options": [
+            {
+                "beforeselec":"aa",
+                "quiz":[
+                    {
+                        "selectCriteria":"소품 유무",
+                        "select": [
+                            {
+                                "type":"a",
+                                "name":"",
+                                "img":"5.jpg"
+                            },
+                            {
+                                "type":"b",
+                                "name":"",
+                                "img":"6.jpg"
+                            }
+                        ]  
+                    }
+                ]
+            },
+            {
+                "beforeselec":"ab", 
+                "quiz":[
+                    { 
+                        "selectCriteria":"밝기를 선택해주세요",
+                        "select": [
+                            {
+                                "type":"a",
+                                "name":"밝은",
+                                "img":"20.jpg"
+                            },
+                            {
+                                "type":"b",
+                                "name":"어두운",
+                                "img":"21.jpg"
+                            }
+                        ] 
+                    }
+                ]    
+            } ,
+            {
+                "beforeselec":"ba", 
+                "quiz":[
+                    {
+                        "selectCriteria":"원하는 시간대를 선택해주세요 ",
+                        "select": [
+                            {
+                                "type":"a",
+                                "name":"낮",
+                                "img":"13.jpg"
+                            },
+                            {
+                                "type":"b",
+                                "name":"밤",
+                                "img":"14.jpg"
+                            }
+                        ]  
+                    }
+                ]
+            },
+            {
+                "beforeselec":"bb",
+                "quiz":[
+                    {
+                        "selectCriteria":"자연환경 선택해주세요",
+                        "select": [
+                            {
+                                "type":"a",
+                                "name":"바다",
+                                "img":"15.jpg"
+                            },
+                            {
+                                "type":"b",
+                                "name":"산",
+                                "img":"16.jpg"
+                            }
+                        ] 
+                    }
+                ] 
+            }
+        ]
+    },
     {
         "questions": "3",
         "options": [
             {
-                "type":"a",
-                "img":"pet5.jpg"
+                "beforeselec":"aaa",
+                "quiz":[
+                    {
+                        "selectCriteria":"포즈를 선택해주세요",
+                        "select": [
+                            {
+                                "type":"a",
+                                "name":"",
+                                "img":"9.jpg"
+                            },
+                            {
+                                "type":"b",
+                                "name":"",
+                                "img":"10.jpg"
+                            }
+                        ]
+                    }
+                ]
+            },{
+                "beforeselec":"aab",
+                "quiz":[
+                    {
+                        "selectCriteria":"포즈를 선택해주세요",
+                        "select": [
+                            {
+                                "type":"a",
+                                "name":"",
+                                "img":"7.jpg"
+                            },
+                            {
+                                "type":"b",
+                                "name":"",
+                                "img":"8.jpg"
+                            }
+                        ]  
+                    }
+                ]
             },
             {
-                "type":"b",
-                "img":"pet6.jpg"
-            }
-        ]
-    },
-    {
-        "questions": "4",
-        "options": [
-            {
-                "type":"a",
-                "img":"pet7.png"
+                "beforeselec":"bba",
+                "quiz":[
+                    {
+                        "selectCriteria":"시간대를 선택해주세요",
+                        "select": [
+                            {
+                                "type":"a",
+                                "name":"낮",
+                                "img":"17.jpg"
+                            },
+                            {
+                                "type":"b",
+                                "name":"해질녘",
+                                "img":"18.jpg"
+                            }
+                        ] 
+                    }
+                ] 
             },
             {
-                "type":"b",
-                "img":"pet8.png"
+                "beforeselec":"bbb",
+                "quiz":[
+                    {
+                        "selectCriteria":"시간대를 선택해주세요",
+                        "select": [
+                            {
+                                "type":"a",
+                                "name":"낮",
+                                "img":"19.jpg"
+                            },
+                            {
+                                "type":"b",
+                                "name":"해질녘",
+                                "img":"20.jpg"
+                            }
+                        ]  
+                    }
+                ]
+
             }
         ]
     }
+
+
 ]

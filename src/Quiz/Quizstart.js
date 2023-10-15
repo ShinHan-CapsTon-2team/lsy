@@ -10,7 +10,7 @@ const Quizstart = () => {
 
     const handleCategorySelect = (category) => {
         const queryString = new URLSearchParams({ name: category }).toString();
-        navigate(`/quiztest?${queryString}`);
+        navigate(`/quizfrist?${queryString}`);
     };
 
     
@@ -40,11 +40,7 @@ const Quizstart = () => {
                         </ButtonTwo>
                     </ButtonWrap>
 
-                    <ButtonWrap>
-                        <ButtonTwo  onClick={() => handleCategorySelect('profile')} >
-                            증명사진
-                        </ButtonTwo>
-                    </ButtonWrap>
+                    
 
                     <ButtonWrap>
                         <ButtonTwo onClick={() => handleCategorySelect('family')}>
@@ -105,7 +101,7 @@ const OutWrap = styled.div`
 
     const TextWrap = styled.div`
     width: 100%;
-    height: 20%;
+    height: 26%;
     display:flex;
     align-items:flex-start;
     `;
@@ -140,7 +136,7 @@ const OutWrap = styled.div`
     
     const ButtonWrap =styled.div`
     width:100%;
-    height:20%;
+    height:25%;
     `;
     //다른 FontStyle
     const FontStyle = {

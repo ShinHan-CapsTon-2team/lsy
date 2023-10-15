@@ -13,7 +13,7 @@ import RecoResult from './Recommend/RecoResult';
 import Lookup from './Lookup/Image_Lookup' 
 import ProfileLook from './Mypage/ProfileLook';
 import PostEdit from './PostUp/PostEdit';
-
+import QuizFrist from'./Quiz/Quizfirst';
 
 function App() {
     function setScreenSize() {
@@ -40,9 +40,10 @@ function App() {
                 <Route path ='/post' element={<Post />}/>
                 
                 <Route path ='/quizindex' element={<QuizSelIndex />}/>
+
                 <Route path ='/quiztest' element={<QuizSelPhoto />}/>
                 <Route path ='/quizresult' element={<QuizReult />}/>
-
+                <Route path='/quizfrist' element={<QuizFrist/>}/>
                 <Route path ='/reco' element={<Reco/>}/>
                 <Route path='/recoresult' element={<RecoResult/>}/>
                 
