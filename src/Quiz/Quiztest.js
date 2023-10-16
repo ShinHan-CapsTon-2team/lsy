@@ -55,12 +55,14 @@ const QuizTest = () => {
     const  [selects,setSelects] = useState(null);
     const  [select,setSelect] = useState(null);
     useEffect(() => {
-        
+        setAnswers(searchParams.get("res")?.split('') ?? []);
+
         const  selects = params.get('res');
         console.log("selects",selects);
         setSelects(selects);
 
         const content= questions.find((item) =>
+
         item.options.find((option) => option.beforeselec === selects));
 
         if(!content)
@@ -79,10 +81,12 @@ const QuizTest = () => {
         setSelect(select);
     }, [selects,searchParams, navigate]);
 
+
     const handleAnswer = (option) => {
+        console.log("option.type",option.type);
         const a = [...answers, option.type];
         setAnswers(a);
-        searchParams.set("res", a.join(''));
+        searchParams.set("res",  a.join(''));
         setSearchParams(searchParams);
     };
 
