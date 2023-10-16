@@ -100,7 +100,7 @@ const QuizTest = () => {
             
             {select && select.map((item, index) => (
             <div key={index}>
-                <Textimgselect>#{item.name}</Textimgselect>
+                <Textimgselect>{item.name}</Textimgselect>
                 <Img
                 src={`${process.env.PUBLIC_URL}/Images/quest/${categoryName}/${item.img}`}
                 alt={`Option ${item.name}`}

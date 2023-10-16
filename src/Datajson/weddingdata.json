@@ -7,17 +7,17 @@
                 "beforeselec":"a",
                 "quiz":[
                     {
-                        "selectCriteria":"공간",
+                        "selectCriteria":"원하는 공간을 선택해주세요",
                         "select":
                         [
                             {
                                 "type":"a",
-                                "name":"스튜디오",
+                                "name":"#스튜디오",
                                 "img":"3.png"
                             },
                             {
                                 "type":"b",
-                                "name":"웨딩홀",
+                                "name":"#웨딩홀",
                                 "img":"4.jpg"
                             }
                         ]  
@@ -28,16 +28,16 @@
                 "beforeselec":"b", 
                 "quiz":[
                     {
-                    "selectCriteria":"환경",
+                    "selectCriteria":"원하는 환경을 선택해주세요",
                     "select": [
                         {
                             "type":"a",
-                            "name":"도시",
+                            "name":"#도시",
                             "img":"11.jpg"
                         },
                         {
                             "type":"b",
-                            "name":"자연",
+                            "name":"#자연",
                             "img":"12.jpg"
                         }
                     ] 
@@ -55,7 +55,7 @@
                 "beforeselec":"aa",
                 "quiz":[
                     {
-                        "selectCriteria":"소품 유무",
+                        "selectCriteria":"소품 여부를 선택해주세요",
                         "select": [
                             {
                                 "type":"a",
@@ -75,16 +75,16 @@
                 "beforeselec":"ab", 
                 "quiz":[
                     { 
-                        "selectCriteria":"밝기를 선택해주세요",
+                        "selectCriteria":"원하는 밝기를 선택해주세요",
                         "select": [
                             {
                                 "type":"a",
-                                "name":"밝은",
+                                "name":"#밝은",
                                 "img":"20.jpg"
                             },
                             {
                                 "type":"b",
-                                "name":"어두운",
+                                "name":"#어두운",
                                 "img":"21.jpg"
                             }
                         ] 
@@ -99,12 +99,12 @@
                         "select": [
                             {
                                 "type":"a",
-                                "name":"낮",
+                                "name":"#낮",
                                 "img":"13.jpg"
                             },
                             {
                                 "type":"b",
-                                "name":"밤",
+                                "name":"#밤",
                                 "img":"14.jpg"
                             }
                         ]  
@@ -115,16 +115,16 @@
                 "beforeselec":"bb",
                 "quiz":[
                     {
-                        "selectCriteria":"자연환경 선택해주세요",
+                        "selectCriteria":"원하는 자연환경 선택해주세요",
                         "select": [
                             {
                                 "type":"a",
-                                "name":"바다",
+                                "name":"#바다",
                                 "img":"15.jpg"
                             },
                             {
                                 "type":"b",
-                                "name":"산",
+                                "name":"#산",
                                 "img":"16.jpg"
                             }
                         ] 
@@ -140,7 +140,7 @@
                 "beforeselec":"aaa",
                 "quiz":[
                     {
-                        "selectCriteria":"포즈를 선택해주세요",
+                        "selectCriteria":"원하는 포즈를 선택해주세요",
                         "select": [
                             {
                                 "type":"a",
@@ -159,7 +159,7 @@
                 "beforeselec":"aab",
                 "quiz":[
                     {
-                        "selectCriteria":"포즈를 선택해주세요",
+                        "selectCriteria":"원하는 포즈를 선택해주세요",
                         "select": [
                             {
                                 "type":"a",
@@ -179,16 +179,16 @@
                 "beforeselec":"bba",
                 "quiz":[
                     {
-                        "selectCriteria":"시간대를 선택해주세요",
+                        "selectCriteria":"원하는 시간대를 선택해주세요",
                         "select": [
                             {
                                 "type":"a",
-                                "name":"낮",
+                                "name":"#낮",
                                 "img":"17.jpg"
                             },
                             {
                                 "type":"b",
-                                "name":"해질녘",
+                                "name":"#해질녘",
                                 "img":"18.jpg"
                             }
                         ] 
@@ -199,16 +199,16 @@
                 "beforeselec":"bbb",
                 "quiz":[
                     {
-                        "selectCriteria":"시간대를 선택해주세요",
+                        "selectCriteria":"원하는 시간대를 선택해주세요",
                         "select": [
                             {
                                 "type":"a",
-                                "name":"낮",
+                                "name":"#낮",
                                 "img":"19.jpg"
                             },
                             {
                                 "type":"b",
-                                "name":"해질녘",
+                                "name":"#해질녘",
                                 "img":"20.jpg"
                             }
                         ]  
