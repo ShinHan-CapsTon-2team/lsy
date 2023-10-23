@@ -4,6 +4,7 @@ import Header from "../Component/Header";
 import { LoginModal } from "../Modal/LoginModal";
 import * as S from "./homeStyle";
 import * as C from "../Style/CommonStyle";
+import { Link } from 'react-scroll';
 
 const categoriesData = [
   { name: '바디프로필'},
@@ -35,10 +36,9 @@ const Homepage = () => {
   const [offset, setOffset] = useState(0); //offset 초기값
 
   const [userinfo, setUserinfo] = useState([]);
-  
-
   const [dataFromChild, setDataFromChild] = useState({}); //!!!
 
+  
   const handleChildData = (data) => {
     // 자식 컴포넌트로부터 받은 데이터를 처리
     setDataFromChild(data);
@@ -58,6 +58,7 @@ const selectCate = (categoryName) => {
 };
 
 
+  
 
 const handleCategorySelect = useCallback((category, limit, offset) => {
   // 영어 카테고리를 한글로 변환
@@ -90,9 +91,19 @@ const handleCategorySelect = useCallback((category, limit, offset) => {
 }, [navigate]);
 
 
+function scrollToTop() {
+  const currentY = window.scrollY;
+  if (currentY > 0) {
+    window.requestAnimationFrame(scrollToTop);
+    window.scrollTo(0, currentY - 60); // 20은 스크롤 속도를 조절하는 값입니다.
+  }
+}
+
   useEffect(() => {
    //컴포넌트가 마운트될 때 '가족사진' 데이터를 불러옵니다
   handleCategorySelect(selectedCategory, limit, offset);
+
+  scrollToTop();
   }, [selectedCategory, offset, handleCategorySelect]); 
 
 
@@ -141,17 +152,22 @@ const handleCategorySelect = useCallback((category, limit, offset) => {
       navigate("/post"); // accessToken이 false인 경우 /post로 이동
     
   };
+    //console.log("page",pageNumber );
+
 
   return (
     <S.OutWrap>
       <S.InsideWrap>
         {/* 로고 */}
+        
         <Header onData={handleChildData}/>
-
-        <S.CategoryWrap>
+        
+        
+        <S.CategoryWrap >
+          
           {categoriesData &&
             categoriesData.map((category, index) => (
-              <S.CategoryMenu
+              <S.CategoryMenu 
                 key={index}
                 isselected={selectCategory === category.name ? "true" : "false"}
                 onClick={() => {
@@ -165,12 +181,14 @@ const handleCategorySelect = useCallback((category, limit, offset) => {
                 {category.name}
               </S.CategoryMenu>
             ))}
+            
         </S.CategoryWrap>
-
+        
         <S.GridWrap>
           {users &&
             users.map((user) => {
               const imageUrl = user.image; // 이미지 URL 사용
+              console.log("users.length < limit ", users.length);
               //console.log("url:", imageUrl);
               return (
                 <S.GridDiv key={user.id}>
@@ -185,19 +203,32 @@ const handleCategorySelect = useCallback((category, limit, offset) => {
         </S.GridWrap>
 
         <S.PaginationWrap>
-          <S.ButtonShort
-            onClick={handleGoToPreviousPage}
-            disabled={pageNumber === 1}
-          >
-            이전
-          </S.ButtonShort>
-          <S.ButtonShort
-            onClick={() => movePage(pageNumber + 1)}
-            disabled={!users || users.length < limit}
-          >
-            다음
-          </S.ButtonShort>
+          {!(users.length < limit && pageNumber === 1) &&  (
+            <>
+            {!(pageNumber === 1) &&
+              <S.ButtonShort
+              onClick={() => {
+                handleGoToPreviousPage();
+                
+              }}
+                disabled={pageNumber === 1}
+              >
+                이전
+              </S.ButtonShort>
+              }     
+              <S.ButtonShort
+                onClick={() => {
+                  movePage(pageNumber + 1);
+                }}
+                disabled={!users || users.length < limit}
+                
+              >
+                다음
+              </S.ButtonShort>
+            </>
+          )}
         </S.PaginationWrap>
+
       </S.InsideWrap>
 
       <S.PostWrap>

@@ -2,8 +2,10 @@ import React,{useState,useEffect} from "react";
 import { useNavigate ,useLocation} from "react-router-dom";
 import logo from "../Images/imagelogo.png";
 import homelogo from "../Images/hh.png";
+import loginlogo from "../Images/loginBefor.png";
+import profilelogo from "../Images/loginFin.jpg";
+
 import * as S from "./HeaderStyle";
-import profilelogo from "../Images/pp.png";
 import { LoginModal } from "../Modal/LoginModal";
 import * as P from "./ProfileWrapStyle";
 import { ModalBackdrop } from "../Modal/ModalStyle";
@@ -11,60 +13,29 @@ import { Popup } from "../Modal/Popup";
 
 
 const Header  = props => {
-  const [emailId, setemailId] = useState('');
+  
   const location = useLocation();
-  // 현재 주소가 "/home"인 경우에만 요소를 숨깁니다.
-  const isHomeRoute = location.pathname === "/home";
-  const navigate = useNavigate();
-  const [userinfo, setUserinfo] = useState([]);
-  const [isOpen, setIsOpen] = useState(false); // 모달창때문에 있는거 삭제 노
+  
+  const isHomeRoute = location.pathname === "/home";// 현재 주소가 "/home"인 경우에만 요소를 숨깁니다.
+  
   const accessToken = localStorage.getItem("access_token");
-  const [showSuccessMessage, setShowSuccessMessage] = useState(false); // 로그아웃 성공 여부 
-  const { onData } = props;
-  // currentPath 상태 정의 및 초기화
-  const [currentPath, setCurrentPath] = useState(location.pathname);
-/*
-  useEffect(() => {
-    console.log("accessToken:",accessToken);
-    
-    // 서버로 액세스 토큰을 보내서 사용자 이메일 정보를 요청
-    if (accessToken) {
-    fetch('http://localhost:4001/api/user', {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ accessToken }),
-        })
-        .then((response) => response.json())
-        .then((data) => {
 
-        if (data.email) {
-            console.log(" 현재 접속중인 사용자 이메일:", data.email);
-            console.log(" 현재 접속중인 사용자 닉네임:", data.nickname);
-            // 이메일 아이디 추출
-            const emailParts = data.email.split('@');
-          
-            setemailId(emailParts[0]);
-        } else {
-            // "email" 필드가 없는 경우
-            console.log("header 이메일 정보가 없습니다.");
-            localStorage.removeItem("access_token");// 만료된 토큰 처리하기          
-        }
-        })
-        .catch((error) => {
-            console.error("Error fetching user email:", error);
-        });
-    }
-}, [location.pathname]); 
-*/
+  const navigate = useNavigate();
+
+  const [emailId, setemailId] = useState('');
+  const [userinfo, setUserinfo] = useState([]);
+  const [nickname, setNickname] = useState('');
+  const [isOpen, setIsOpen] = useState(false); // 모달창때문에 있는거 삭제 노
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false); // 로그아웃 성공 여부 
+  const [currentPath, setCurrentPath] = useState(location.pathname);// currentPath 상태 정의 및 초기화
+ 
+  const { onData } = props;
 
 useEffect(() => {
   setCurrentPath(location.pathname);
   console.log("현재 주소 : ", currentPath);
   console.log("accessToken:",accessToken);
   
-  // 서버로 액세스 토큰을 보내서 사용자 이메일 정보를 요청
   if (accessToken) {
   fetch('http://localhost:4001/api/user', {
       method: "POST",
@@ -81,7 +52,7 @@ useEffect(() => {
 
           console.log("header 현재 접속중인 사용자 이메일:", data.email);
           console.log("header 현재 접속중인 사용자 닉네임:", data.nickname);
-    
+          setNickname(data.nickname)
 
           // 이메일 아이디 추출
           const emailParts = data.email.split('@');
@@ -135,13 +106,13 @@ const onGoProfile = () => {
     // 2초 후에 성공 메시지를 숨김
     setTimeout(() => {
       setShowSuccessMessage(false);
-     // navigate(currentPath); // 현재 주소로 이동
-     // 페이지를 리프레시합니다.
-window.location.reload();
-    }, 2000); // 2초를 기다립니다 (2000 밀리초)
+    }, 2000); 
+    window.location.reload();
     setIsOpen(!isOpen);
     console.log("로그아웃 되었습니다.");
   };
+
+
   
   return (
     <S.LogoWrap>
@@ -153,7 +124,7 @@ window.location.reload();
       {isHomeRoute ? null :
         <div>
           <S.HomeLogo
-            src={homelogo}
+            src= {homelogo}
             alt="homelogo"
             onClick={handleGohomeClick}
           />
@@ -161,7 +132,11 @@ window.location.reload();
 }
 
       <P.ProfileWrap>
-        <P.ProfileLogo src={profilelogo} onClick={openModalHandler} />
+      <div style={{display:'felx',marginTop:20,flexDirection:'column'}}>
+        <P.ProfileLogo src={accessToken ? profilelogo : loginlogo} onClick={openModalHandler} />
+        <div style={{marginTop:5}}>{accessToken && <span>{nickname}</span>}</div>
+      </div> 
+
         {isOpen && (
           <>
             {accessToken ? ( // 액세스 토큰이 있는 경우 , 만료된 토큰에 대해 처리했기 때문에 
