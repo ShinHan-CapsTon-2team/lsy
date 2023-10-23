@@ -1,0 +1,33 @@
+.colormatching-toolstyle {
+    
+    background-color: #798BE6  !important;
+    font-size: 20px !important; /* 글꼴 크기 변경 */
+    color: #333; /* 글꼴 색상 변경 */
+    width: 25vw  !important;
+    height: 23vh !important;
+    padding:20px !important;
+    text-align: left !important;
+    z-index: 9999px !important;
+    margin-left: 30px !important;
+    /*font-weight: bold;*/
+    line-height: 125%;
+    letter-spacing: 2px;
+    border-radius: 3.5% !important;
+  }
+
+  .testmatching-toolstyle {
+    
+    background-color: #798BE6  !important;
+    font-size: 20px !important; /* 글꼴 크기 변경 */
+    color: #333; /* 글꼴 색상 변경 */
+    width: 25vw  !important;
+    height: 23vh !important;
+    padding:20px !important;
+    text-align: left !important;
+    z-index: 9999px !important;
+    margin-left: 30px !important;
+    /*font-weight: bold;*/
+    line-height: 125%;
+    letter-spacing: 2px;
+    border-radius: 3.5% !important;
+  }
