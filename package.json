@@ -48,5 +48,9 @@
   "devDependencies": {
     "@babel/core": "^7.22.9",
     "@babel/preset-react": "^7.22.5"
-  }
+  },
+  "description": "npm i",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC"
 }

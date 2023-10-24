@@ -154,23 +154,22 @@ function Images_Lookup() {
                             }
                         )} 
 
-                    {isMine && (
-                    <S.InLayoutTwo> 
-                        <S.Buttons>
-                            <S.Right> 
-                                <S.EditButton  onClick={handelGoEdit}>
-                                    수정  
-                                </S.EditButton>
+            {isMine|| isMe ===  'zxcva98657'  ? ( //수정된 부분 1017, 관리자 수정, 삭제버튼 보이도록 
+                <S.InLayoutTwo> 
+                    <S.Buttons>
+                    <S.Right> 
+                        <S.EditButton  onClick={handelGoEdit}>
+                        수정  
+                        </S.EditButton>
 
-                                <S.DelectButton onClick={openModalHandler}>
-                                    삭제
-                                </S.DelectButton>
-                                {isOpen ? (<DeleteModal isId={id} openModalHandler={openModalHandler}/>):(null)}
-
-                            </S.Right>
-                        </S.Buttons>
-                    </S.InLayoutTwo>
-                    )}
+                        <S.DelectButton onClick={openModalHandler}>
+                        삭제
+                        </S.DelectButton>
+                        {isOpen ? (<DeleteModal isId={id} openModalHandler={openModalHandler}/>) : null}
+                    </S.Right>
+                    </S.Buttons>
+                </S.InLayoutTwo>
+                ) : null}
 
                 </S.Center>
                     

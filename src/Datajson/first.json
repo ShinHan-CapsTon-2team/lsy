@@ -10,12 +10,12 @@
                     {
                         "type":"a",
                         "name":"실내",
-                        "img":"1.jpg"
+                        "img":"a.jpg"
                     },
                     {
                         "type":"b",
                         "name":"야외",
-                        "img":"2.jpg"
+                        "img":"b.jpg"
                     }
                 ]  
             }
@@ -27,7 +27,7 @@
             [
                 {
                     
-                    "selectCriteria":"장소",
+                    "selectCriteria":"원하는 장소를 선택해주세요",
                     "select": [
                         {
                             "type":"a",
@@ -42,5 +42,50 @@
                     ]  
                 }
             ]
-            }
+        },
+        {
+            "questions": "pet",
+            "options":
+            [
+                {
+                    
+                    "selectCriteria":"원하는 장소를 선택해주세요",
+                    "select": [
+                        {
+                            "type":"a",
+                            "name":"실내",
+                            "img":"1.jpg"
+                        },
+                        {
+                            "type":"b",
+                            "name":"야외",
+                            "img":"2.jpg"
+                        }
+                    ]  
+                }
+            ]
+        },
+        {
+            "questions": "family",
+            "options":
+            [
+                {
+                    
+                    "selectCriteria":"가족의 형태를 선택해주세요",
+                    "select": [
+                        {
+                            "type":"a",
+                            "name":"대가족",
+                            "img":"a.jpg"
+                        },
+                        {
+                            "type":"b",
+                            "name":"소가족",
+                            "img":"b.PNG"
+                        }
+                    ]  
+                }
+            ]
+        }
+
 ]

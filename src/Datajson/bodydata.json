@@ -7,18 +7,18 @@
                 "beforeselec":"a",
                 "quiz":[
                     {
-                        "selectCriteria":"공간",
+                        "selectCriteria":"분위기",
                         "select":
                         [
                             {
                                 "type":"a",
-                                "name":"스튜디오",
-                                "img":"3.png"
+                                "name":"단색",
+                                "img":"aa.jpg"
                             },
                             {
                                 "type":"b",
-                                "name":"웨딩홀",
-                                "img":"4.jpg"
+                                "name":"화려한",
+                                "img":"ab.png"
                             }
                         ]  
                     }
@@ -32,13 +32,13 @@
                     "select": [
                         {
                             "type":"a",
-                            "name":"도시",
-                            "img":"11.jpg"
+                            "name":"바다",
+                            "img":"ba.jpg"
                         },
                         {
                             "type":"b",
                             "name":"자연",
-                            "img":"12.jpg"
+                            "img":"bb.jpg"
                         }
                     ] 
                 } 
@@ -48,6 +48,7 @@
             
     },
 
+    
     {
         "questions": "2",
         "options": [
@@ -55,17 +56,17 @@
                 "beforeselec":"aa",
                 "quiz":[
                     {
-                        "selectCriteria":"소품 유무",
+                        "selectCriteria":"",
                         "select": [
                             {
                                 "type":"a",
-                                "name":"",
-                                "img":"5.jpg"
+                                "name":"컬러",
+                                "img":"aaa.jpg"
                             },
                             {
                                 "type":"b",
-                                "name":"",
-                                "img":"6.jpg"
+                                "name":"흑백",
+                                "img":"aab.jpg"
                             }
                         ]  
                     }
@@ -75,17 +76,17 @@
                 "beforeselec":"ab", 
                 "quiz":[
                     { 
-                        "selectCriteria":"밝기를 선택해주세요",
+                        "selectCriteria":"",
                         "select": [
                             {
                                 "type":"a",
-                                "name":"밝은",
-                                "img":"20.jpg"
+                                "name":"컬러",
+                                "img":"aba.png"
                             },
                             {
                                 "type":"b",
-                                "name":"어두운",
-                                "img":"21.jpg"
+                                "name":"흑백",
+                                "img":"abb.png"
                             }
                         ] 
                     }
@@ -95,17 +96,17 @@
                 "beforeselec":"ba", 
                 "quiz":[
                     {
-                        "selectCriteria":"원하는 시간대를 선택해주세요 ",
+                        "selectCriteria":"",
                         "select": [
                             {
                                 "type":"a",
-                                "name":"낮",
-                                "img":"13.jpg"
+                                "name":"솔로",
+                                "img":"baa.jpg"
                             },
                             {
                                 "type":"b",
-                                "name":"밤",
-                                "img":"14.jpg"
+                                "name":"커플",
+                                "img":"bab.jpg"
                             }
                         ]  
                     }
@@ -115,17 +116,17 @@
                 "beforeselec":"bb",
                 "quiz":[
                     {
-                        "selectCriteria":"자연환경 선택해주세요",
+                        "selectCriteria":"",
                         "select": [
                             {
                                 "type":"a",
-                                "name":"바다",
-                                "img":"15.jpg"
+                                "name":"솔로",
+                                "img":"bba.jpg"
                             },
                             {
                                 "type":"b",
-                                "name":"산",
-                                "img":"16.jpg"
+                                "name":"커플",
+                                "img":"bbb.jpg"
                             }
                         ] 
                     }
@@ -133,6 +134,7 @@
             }
         ]
     },
+
     {
         "questions": "3",
         "options": [
@@ -145,12 +147,12 @@
                             {
                                 "type":"a",
                                 "name":"",
-                                "img":"9.jpg"
+                                "img":"aaaa.jpg"
                             },
                             {
                                 "type":"b",
                                 "name":"",
-                                "img":"10.jpg"
+                                "img":"aaab.jpg"
                             }
                         ]
                     }
@@ -164,58 +166,139 @@
                             {
                                 "type":"a",
                                 "name":"",
-                                "img":"7.jpg"
+                                "img":"aaba.png"
                             },
                             {
                                 "type":"b",
                                 "name":"",
-                                "img":"8.jpg"
+                                "img":"aabb.jpg"
                             }
                         ]  
                     }
                 ]
             },
             {
-                "beforeselec":"bba",
+                "beforeselec":"aba",
                 "quiz":[
                     {
-                        "selectCriteria":"시간대를 선택해주세요",
+                        "selectCriteria":"포즈를 선택해주세요",
                         "select": [
                             {
                                 "type":"a",
-                                "name":"낮",
-                                "img":"17.jpg"
+                                "name":"",
+                                "img":"abaa.png"
                             },
                             {
                                 "type":"b",
-                                "name":"해질녘",
-                                "img":"18.jpg"
+                                "name":"",
+                                "img":"abab.jpg"
                             }
                         ] 
                     }
                 ] 
             },
             {
-                "beforeselec":"bbb",
+                "beforeselec":"abb",
                 "quiz":[
                     {
-                        "selectCriteria":"시간대를 선택해주세요",
+                        "selectCriteria":"포즈를 선택해주세요",
                         "select": [
                             {
                                 "type":"a",
-                                "name":"낮",
-                                "img":"19.jpg"
+                                "name":"",
+                                "img":"abba.jpg"
                             },
                             {
                                 "type":"b",
-                                "name":"해질녘",
-                                "img":"20.jpg"
+                                "name":"",
+                                "img":"abbb.png"
+                            }
+                        ]  
+                    }
+                ]
+
+            },            {
+                "beforeselec":"baa",
+                "quiz":[
+                    {
+                        "selectCriteria":"원하는 사진을 선택해 주세요",
+                        "select": [
+                            {
+                                "type":"a",
+                                "name":"컬러",
+                                "img":"baaa.png"
+                            },
+                            {
+                                "type":"b",
+                                "name":"흑백",
+                                "img":"baab.png"
+                            }
+                        ]  
+                    }
+                ]
+
+            },            {
+                "beforeselec":"bab",
+                "quiz":[
+                    {
+                        "selectCriteria":"원하는 사진을 선택해 주세요",
+                        "select": [
+                            {
+                                "type":"a",
+                                "name":"컬러",
+                                "img":"baba.png"
+                            },
+                            {
+                                "type":"b",
+                                "name":"흑백",
+                                "img":"babb.png"
+                            }
+                        ]  
+                    }
+                ]
+
+            },            {
+                "beforeselec":"bba",
+                "quiz":[
+                    {
+                        "selectCriteria":"원하는 사진을 선택해 주세요",
+                        "select": [
+                            {
+                                "type":"a",
+                                "name":"컬러",
+                                "img":"bbaa.jpg"
+                            },
+                            {
+                                "type":"b",
+                                "name":"흑백",
+                                "img":"bbab.jpg"
+                            }
+                        ]  
+                    }
+                ]
+
+            },            {
+                "beforeselec":"bbb",
+                "quiz":[
+                    {
+                        "selectCriteria":"원하는 사진을 선택해 주세요",
+                        "select": [
+                            {
+                                "type":"a",
+                                "name":"컬러",
+                                "img":"bbba.jpg"
+                            },
+                            {
+                                "type":"b",
+                                "name":"흑백",
+                                "img":"bbbb.jpg"
                             }
                         ]  
                     }
                 ]
 
             }
+            
         ]
     }
 

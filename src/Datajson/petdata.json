@@ -7,38 +7,40 @@
                 "beforeselec":"a",
                 "quiz":[
                     {
-                        "selectCriteria":"공간",
+                        "selectCriteria":"원하시는 스타일을 선택해주세요",
                         "select":
                         [
                             {
                                 "type":"a",
-                                "name":"스튜디오",
-                                "img":"3.png"
+                                "name":"소품이 있는 사진",
+                                "img":"4.jpg"
                             },
                             {
                                 "type":"b",
-                                "name":"웨딩홀",
-                                "img":"4.jpg"
+                                "name":"소품이 없는 사진",
+                                "img":"3.jpg"
                             }
                         ]  
                     }
                 ]
             } ,
+
             {
                 "beforeselec":"b", 
                 "quiz":[
                     {
-                    "selectCriteria":"환경",
-                    "select": [
+                    "selectCriteria":"원하시는 환경을 선택해주세요",
+                    "select": 
+                    [
                         {
                             "type":"a",
-                            "name":"도시",
-                            "img":"11.jpg"
+                            "name":"산",
+                            "img":"10.jpg"
                         },
                         {
                             "type":"b",
-                            "name":"자연",
-                            "img":"12.jpg"
+                            "name":"바다",
+                            "img":"9.jpg"
                         }
                     ] 
                 } 
@@ -55,37 +57,38 @@
                 "beforeselec":"aa",
                 "quiz":[
                     {
-                        "selectCriteria":"소품 유무",
+                        "selectCriteria":"원하시는 배경을 선택해주세요",
                         "select": [
                             {
                                 "type":"a",
-                                "name":"",
+                                "name":"배경색이 있는 사진",
                                 "img":"5.jpg"
                             },
                             {
                                 "type":"b",
-                                "name":"",
+                                "name":"배경색이 없는 사진",
                                 "img":"6.jpg"
                             }
                         ]  
                     }
                 ]
             },
+
             {
                 "beforeselec":"ab", 
                 "quiz":[
                     { 
-                        "selectCriteria":"밝기를 선택해주세요",
+                        "selectCriteria":"원하시는 배경을 선택해주세요",
                         "select": [
                             {
                                 "type":"a",
-                                "name":"밝은",
-                                "img":"20.jpg"
+                                "name":"배경색이 있는 사진",
+                                "img":"8.jpg"
                             },
                             {
                                 "type":"b",
-                                "name":"어두운",
-                                "img":"21.jpg"
+                                "name":"배경색이 없는 사진",
+                                "img":"7.png"
                             }
                         ] 
                     }
@@ -95,17 +98,17 @@
                 "beforeselec":"ba", 
                 "quiz":[
                     {
-                        "selectCriteria":"원하는 시간대를 선택해주세요 ",
+                        "selectCriteria":"원하시는 포즈를 선택해주세요 ",
                         "select": [
                             {
                                 "type":"a",
-                                "name":"낮",
-                                "img":"13.jpg"
+                                "name":"가만히 있는 모습",
+                                "img":"11.png"
                             },
                             {
                                 "type":"b",
-                                "name":"밤",
-                                "img":"14.jpg"
+                                "name":"활동적으로 뛰어다니는 모습",
+                                "img":"12.jpg"
                             }
                         ]  
                     }
@@ -115,109 +118,24 @@
                 "beforeselec":"bb",
                 "quiz":[
                     {
-                        "selectCriteria":"자연환경 선택해주세요",
+                        "selectCriteria":"원하시는 포즈를 선택해주세요 ",
                         "select": [
                             {
                                 "type":"a",
-                                "name":"바다",
-                                "img":"15.jpg"
+                                "name":"가만히 있는 모습",
+                                "img":"13.jpg"
                             },
                             {
                                 "type":"b",
-                                "name":"산",
-                                "img":"16.jpg"
+                                "name":"활동적으로 뛰어다니는 모습",
+                                "img":"14.jpg"
                             }
                         ] 
                     }
                 ] 
-            }
-        ]
-    },
-    {
-        "questions": "3",
-        "options": [
-            {
-                "beforeselec":"aaa",
-                "quiz":[
-                    {
-                        "selectCriteria":"포즈를 선택해주세요",
-                        "select": [
-                            {
-                                "type":"a",
-                                "name":"",
-                                "img":"9.jpg"
-                            },
-                            {
-                                "type":"b",
-                                "name":"",
-                                "img":"10.jpg"
-                            }
-                        ]
-                    }
-                ]
-            },{
-                "beforeselec":"aab",
-                "quiz":[
-                    {
-                        "selectCriteria":"포즈를 선택해주세요",
-                        "select": [
-                            {
-                                "type":"a",
-                                "name":"",
-                                "img":"7.jpg"
-                            },
-                            {
-                                "type":"b",
-                                "name":"",
-                                "img":"8.jpg"
-                            }
-                        ]  
-                    }
-                ]
-            },
-            {
-                "beforeselec":"bba",
-                "quiz":[
-                    {
-                        "selectCriteria":"시간대를 선택해주세요",
-                        "select": [
-                            {
-                                "type":"a",
-                                "name":"낮",
-                                "img":"17.jpg"
-                            },
-                            {
-                                "type":"b",
-                                "name":"해질녘",
-                                "img":"18.jpg"
-                            }
-                        ] 
-                    }
-                ] 
-            },
-            {
-                "beforeselec":"bbb",
-                "quiz":[
-                    {
-                        "selectCriteria":"시간대를 선택해주세요",
-                        "select": [
-                            {
-                                "type":"a",
-                                "name":"낮",
-                                "img":"19.jpg"
-                            },
-                            {
-                                "type":"b",
-                                "name":"해질녘",
-                                "img":"20.jpg"
-                            }
-                        ]  
-                    }
-                ]
-
             }
         ]
     }
-
+   
 
 ]

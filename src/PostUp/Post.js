@@ -147,7 +147,7 @@ function Post() {
           (imageFile.type === 'image/jpeg' ||
             imageFile.type === 'image/png' ||
             imageFile.type === 'image/jpg') &&
-          imageFile.size <= 30 * 1024 * 1024
+          imageFile.size <= 30 * 1024 * 1024 //30 메가바이트를 바이트로 환산
         ) {
           setImageFile(imageFile);
           setPreviewImage(URL.createObjectURL(imageFile));

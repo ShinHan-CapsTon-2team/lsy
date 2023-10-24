@@ -1,55 +1,223 @@
 [
     {
         "questions": "1",
-        "options": [
+        "options":
+        [
             {
-                "type":"a",
-                "img":"wedding1.jpg"
-            },
+                "beforeselec":"a",
+                "quiz":[
+                    {
+                        "selectCriteria":"원하는 공간을 선택해주세요",
+                        "select":
+                        [
+                            {
+                                "type":"a",
+                                "name":"#스튜디오",
+                                "img":"3.png"
+                            },
+                            {
+                                "type":"b",
+                                "name":"#웨딩홀",
+                                "img":"4.jpg"
+                            }
+                        ]  
+                    }
+                ]
+            } ,
             {
-                "type":"b",
-                "img":"wedding2.jpg"
-            }
+                "beforeselec":"b", 
+                "quiz":[
+                    {
+                    "selectCriteria":"원하는 환경을 선택해주세요",
+                    "select": [
+                        {
+                            "type":"a",
+                            "name":"#도시",
+                            "img":"11.jpg"
+                        },
+                        {
+                            "type":"b",
+                            "name":"#자연",
+                            "img":"12.jpg"
+                        }
+                    ] 
+                } 
+                ]
+            } 
         ]
-        },
-    {
-            "questions": "2",
-            "options": [
-                {
-                    "type":"a",
-                    "img":"wedding3.jpg"
-                },
-                {
-                    "type":"b",
-                    "img":"wedding4.jpg"
-                }
-            ]
+            
     },
 
+    {
+        "questions": "2",
+        "options": [
+            {
+                "beforeselec":"aa",
+                "quiz":[
+                    {
+                        "selectCriteria":"소품 여부를 선택해주세요",
+                        "select": [
+                            {
+                                "type":"a",
+                                "name":"",
+                                "img":"5.jpg"
+                            },
+                            {
+                                "type":"b",
+                                "name":"",
+                                "img":"6.jpg"
+                            }
+                        ]  
+                    }
+                ]
+            },
+            {
+                "beforeselec":"ab", 
+                "quiz":[
+                    { 
+                        "selectCriteria":"원하는 밝기를 선택해주세요",
+                        "select": [
+                            {
+                                "type":"a",
+                                "name":"#밝은",
+                                "img":"21.jpg"
+                            },
+                            {
+                                "type":"b",
+                                "name":"#어두운",
+                                "img":"22.jpg"
+                            }
+                        ] 
+                    }
+                ]    
+            } ,
+            {
+                "beforeselec":"ba", 
+                "quiz":[
+                    {
+                        "selectCriteria":"원하는 시간대를 선택해주세요 ",
+                        "select": [
+                            {
+                                "type":"a",
+                                "name":"#낮",
+                                "img":"13.jpg"
+                            },
+                            {
+                                "type":"b",
+                                "name":"#밤",
+                                "img":"14.jpg"
+                            }
+                        ]  
+                    }
+                ]
+            },
+            {
+                "beforeselec":"bb",
+                "quiz":[
+                    {
+                        "selectCriteria":"원하는 자연환경 선택해주세요",
+                        "select": [
+                            {
+                                "type":"a",
+                                "name":"#바다",
+                                "img":"15.jpg"
+                            },
+                            {
+                                "type":"b",
+                                "name":"#산",
+                                "img":"16.jpg"
+                            }
+                        ] 
+                    }
+                ] 
+            }
+        ]
+    },
     {
         "questions": "3",
         "options": [
             {
-                "type":"a",
-                "img":"wedding5.png"
+                "beforeselec":"aaa",
+                "quiz":[
+                    {
+                        "selectCriteria":"원하는 포즈를 선택해주세요",
+                        "select": [
+                            {
+                                "type":"a",
+                                "name":"",
+                                "img":"9.jpg"
+                            },
+                            {
+                                "type":"b",
+                                "name":"",
+                                "img":"10.jpg"
+                            }
+                        ]
+                    }
+                ]
+            },{
+                "beforeselec":"aab",
+                "quiz":[
+                    {
+                        "selectCriteria":"원하는 포즈를 선택해주세요",
+                        "select": [
+                            {
+                                "type":"a",
+                                "name":"",
+                                "img":"7.jpg"
+                            },
+                            {
+                                "type":"b",
+                                "name":"",
+                                "img":"8.jpg"
+                            }
+                        ]  
+                    }
+                ]
             },
             {
-                "type":"b",
-                "img":"wedding6.jpg"
-            }
-        ]
-    },
-    {
-        "questions": "4",
-        "options": [
-            {
-                "type":"a",
-                "img":"wedding7.png"
+                "beforeselec":"bba",
+                "quiz":[
+                    {
+                        "selectCriteria":"원하는 시간대를 선택해주세요",
+                        "select": [
+                            {
+                                "type":"a",
+                                "name":"#낮",
+                                "img":"17.jpg"
+                            },
+                            {
+                                "type":"b",
+                                "name":"#해질녘",
+                                "img":"18.jpg"
+                            }
+                        ] 
+                    }
+                ] 
             },
             {
-                "type":"b",
-                "img":"wedding8.jpg"
+                "beforeselec":"bbb",
+                "quiz":[
+                    {
+                        "selectCriteria":"원하는 시간대를 선택해주세요",
+                        "select": [
+                            {
+                                "type":"a",
+                                "name":"#낮",
+                                "img":"19.jpg"
+                            },
+                            {
+                                "type":"b",
+                                "name":"#해질녘",
+                                "img":"20.jpg"
+                            }
+                        ]  
+                    }
+                ]
+
             }
         ]
     }
+
+
 ]
