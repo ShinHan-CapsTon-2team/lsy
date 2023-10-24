@@ -2,9 +2,10 @@ import React,{useState,useEffect} from "react";
 import { useNavigate ,useLocation} from "react-router-dom";
 import logo from "../Images/imagelogo.png";
 import homelogo from "../Images/hh.png";
-import loginlogo from "../Images/login.png";
+import loginlogo from "../Images/loginBefor.png";
+import profilelogo from "../Images/loginFin.jpg";
+
 import * as S from "./HeaderStyle";
-import profilelogo from "../Images/pp.png";
 import { LoginModal } from "../Modal/LoginModal";
 import * as P from "./ProfileWrapStyle";
 import { ModalBackdrop } from "../Modal/ModalStyle";
@@ -12,26 +13,29 @@ import { Popup } from "../Modal/Popup";
 
 
 const Header  = props => {
-  const [emailId, setemailId] = useState('');
+  
   const location = useLocation();
-  // 현재 주소가 "/home"인 경우에만 요소를 숨깁니다.
-  const isHomeRoute = location.pathname === "/home";
+  
+  const isHomeRoute = location.pathname === "/home";// 현재 주소가 "/home"인 경우에만 요소를 숨깁니다.
+  
+  const accessToken = localStorage.getItem("access_token");
+
   const navigate = useNavigate();
+
+  const [emailId, setemailId] = useState('');
   const [userinfo, setUserinfo] = useState([]);
   const [nickname, setNickname] = useState('');
   const [isOpen, setIsOpen] = useState(false); // 모달창때문에 있는거 삭제 노
-  const accessToken = localStorage.getItem("access_token");
   const [showSuccessMessage, setShowSuccessMessage] = useState(false); // 로그아웃 성공 여부 
-  const { onData } = props;
-  // currentPath 상태 정의 및 초기화
-  const [currentPath, setCurrentPath] = useState(location.pathname);
+  const [currentPath, setCurrentPath] = useState(location.pathname);// currentPath 상태 정의 및 초기화
  
+  const { onData } = props;
+
 useEffect(() => {
   setCurrentPath(location.pathname);
   console.log("현재 주소 : ", currentPath);
   console.log("accessToken:",accessToken);
   
-  // 서버로 액세스 토큰을 보내서 사용자 이메일 정보를 요청
   if (accessToken) {
   fetch('http://localhost:4001/api/user', {
       method: "POST",
@@ -102,13 +106,13 @@ const onGoProfile = () => {
     // 2초 후에 성공 메시지를 숨김
     setTimeout(() => {
       setShowSuccessMessage(false);
-     // navigate(currentPath); // 현재 주소로 이동
-     // 페이지를 리프레시합니다.
-    }, 2000); // 2초를 기다립니다 (2000 밀리초)
+    }, 2000); 
     window.location.reload();
     setIsOpen(!isOpen);
     console.log("로그아웃 되었습니다.");
   };
+
+
   
   return (
     <S.LogoWrap>
@@ -128,13 +132,10 @@ const onGoProfile = () => {
 }
 
       <P.ProfileWrap>
-      <div>
+      <div style={{display:'felx',marginTop:20,flexDirection:'column'}}>
         <P.ProfileLogo src={accessToken ? profilelogo : loginlogo} onClick={openModalHandler} />
-        <div>{accessToken && <span>{nickname}</span>}</div>
+        <div style={{marginTop:5}}>{accessToken && <span>{nickname}</span>}</div>
       </div> 
-
-      {/* 추가된부분 로그인 시 아이콘 변경 및 닉네임 표시1017 */}
-
 
         {isOpen && (
           <>

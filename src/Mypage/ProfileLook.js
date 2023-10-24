@@ -8,9 +8,9 @@ import Header from '../Component/Header';
 import styled from "styled-components";
 import './Paging.css';
 
-import {ProfileWrap,ButtonShort} from '../Component/ProfileInfoStyle'
-import { post } from 'jquery';
-
+import {ProfileWrap,ButtonShort, Email} from '../Component/ProfileInfoStyle'
+ 
+import { UserDelModal } from '../Modal/UserDelModal'
 
 function ProfileLook() {
   const [userinfo, setUserinfo] = useState([]);
@@ -25,8 +25,13 @@ function ProfileLook() {
   const [dataFromChild, setDataFromChild] = useState({}); 
   const [introduction, setIntroduction] = useState('');
   const [career, setCareer] = useState('');
-  
-  
+  const [isOpen, setIsOpen] = useState(false);// 모달창때문에 있는거 삭제 노
+
+  const openModalHandler = () => {
+    // 모달창 관련임 자세히 알 필요 X
+    setIsOpen(!isOpen);
+  };
+
   const handleChildData = (data) => {
     // 자식 컴포넌트로부터 받은 데이터를 처리
     setDataFromChild(data);
@@ -38,12 +43,12 @@ function ProfileLook() {
   const params = useParams(); // 1
   const emailId = params.emailId; // 사용자의 email
   const isMe = dataFromChild.emailid; // 로그인한 사용자
-
+  
   const handleImagesClick = (postId) => {
       navigate(`/lookup/${postId}`);
       
   };
-
+  
   const gotoProfileEdit = () => {
     setIsEditing(true);
 };
@@ -63,6 +68,8 @@ useEffect(() => {
 const goToWorkUpload =()=>{
   navigate('/post');
 };
+
+
 
 //페이지
 const handlePageClick = async ({ selected }) => {
@@ -110,8 +117,31 @@ const fetchProfileData = () => {
     .catch((error) => {
       console.error('Error fetching profile data for other user:', error);
     });
+};  
+
+// 계정삭제
+const handleDelete = async () => {
+try {
+  const response = await fetch('http://localhost:4001/api/userDel', {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify( {email} ), // PostIds 값을 JSON 형식으로 본문에 추가
+  });
+  if (response.status === 200) {
+    console.log("탈퇴 성공");
+    // 리다이렉트 또는 다른 처리를 수행할 수 있음
+  } else {
+    console.error("탈퇴 실패");
+    // 탈퇴 처리 실패
+  }
+} catch (error) {
+  console.error('에러 발생:', error);
+}
 };
- 
+
+
   
     return (
         <OutWrap>
@@ -134,13 +164,21 @@ const fetchProfileData = () => {
                     email={email}
                     nickname={nickname}
                 />
-                
-                            
+                    
 
                              
-                {(isMe === emailId || isMe === 'zxcva98657') && ( //수정됨. 수정버튼 보이는 유무와 현재 사용자에 따른 ..
+                {(isMe === emailId) && ( //수정됨. 수정버튼 보이는 유무와 현재 사용자에 따른 ..
                     <ButtonShort onClick={gotoProfileEdit}>프로필 수정</ButtonShort> 
                   )}
+
+               {(isMe === 'zxcva98657') && (
+                  <>
+                    <ButtonShort onClick={openModalHandler}>사용자 삭제</ButtonShort>
+                    {isOpen ? (<UserDelModal email={email} openModalHandler={openModalHandler}/>) : null}
+                  </>
+                )}
+
+
                 </>
                 )}
                 </>

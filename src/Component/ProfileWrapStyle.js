@@ -21,7 +21,7 @@ export const ProfileWrap = styled.div`
 
 export const ProfileLogo = styled.img`
   width: 57px;
-  height: 57px; //+2
+  height: 57px; 
   /* tablet 규격 */
   @media screen and (max-width: 1024px) {
   }
@@ -54,7 +54,7 @@ export const DropMenu = styled.div`
   border-radius: 30px;
   z-index: 9999;
   box-shadow: 7px 7px 5px rgba(0, 0, 0, 0.25);
-  top: 70px;
+  top: 80px;
   height: 15vh;
 
   @media screen and (max-width: 1024px) {

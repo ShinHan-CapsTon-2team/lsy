@@ -342,7 +342,7 @@ try {
      
 export default Reco;
      
-     const OutWrap = styled.div`
+const OutWrap = styled.div`
        width: 100%;
        height: 100%;
        background: white;
@@ -496,6 +496,7 @@ export default Reco;
      position: relative;
      width:100%;
      height:100%;
+     overflow:hidden;
      `;
        
      const Radius = styled.button`

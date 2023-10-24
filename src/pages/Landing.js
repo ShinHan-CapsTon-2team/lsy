@@ -3,6 +3,10 @@ import { useNavigate,useLocation } from 'react-router-dom';
 import styled from "styled-components";
 import { useState ,useEffect} from 'react';
 import { LoginModal } from '../Modal/LoginModal';
+import { AiFillQuestionCircle } from 'react-icons/ai';
+import { Tooltip } from 'react-tooltip'
+import "./Tooltipstyle.css";
+
 
 function Landing(){
     const [access_Token, setAccessToken] = useState('');
@@ -130,12 +134,47 @@ function Landing(){
                 <LogoImg src={logo} alt='' />
 
 
-                <ImgWrap> {/* 말 줄이기 ... fontsize 높여야함  */}
-                    <Button onClick={handleUploadPhotoClick}>매칭을 통해 추천받기 </Button>
-                    <Button onClick={handleFitPhotoClick}> 테스트를 통해 추천받기</Button>
-                    <Button onClick={handleGohomeClick}> 홈페이지 방문하기</Button>
+                <ImgWrap> {/* 홈페이지 방문하기 말 바꾸기   */}
+                    
+                    <Button onClick={handleUploadPhotoClick}>🎨 색감 매칭을 통해 추천받기 
+                        <AiFillQuestionCircle  data-tooltip-id="colormatching-tooltip"
+                            
+                            style={{position:'absolute',right:25, width:30,height:30}}/>
 
-                    <Button onClick={accessToken ? onGoProfile : openModalHandler}>내 프로필 가기 </Button>
+                        </Button>
+                        <Tooltip 
+                            id="colormatching-tooltip" 
+                            className="colormatching-toolstyle"
+                            place="right" >
+                                우리의 색감 매칭 기능을 통해 여러분의 사진과 유사한 색감을 가진 다른 사진을 찾아보세요. <br/>
+                                다섯 가지 다양한 카테고리 중 하나의 사진을 올리면, 그와 맞는 카테고리의 사진에서 색감 기반으로 유사한 이미지를 찾아 드립니다.
+                                
+                        </Tooltip> 
+                    
+
+
+                    <Button onClick={handleFitPhotoClick}> 🔍테스트를 통해 추천받기
+                        <AiFillQuestionCircle
+                            data-tooltip-id="testmatching-tooltip"
+                            style={{position:'absolute',right:30}}/>       
+                    </Button>
+                    <Tooltip 
+                            id="testmatching-tooltip" 
+                            className="testmatching-toolstyle"
+                            place="right" >
+                                사진 취향을 발견하고 원하는 사진을 찾기 위한 흥미로운 테스트를 시작하세요. <br/>
+                                선택한 카테고리에 따라 원하는 스타일과 옵션을 선택하세요.<br/>
+                                선택지 기반으로 맞춤형 사진을 찾아 드립니다.
+                                
+                    </Tooltip>
+                    
+                    <Button onClick={handleGohomeClick}>🖼️ 모든 게시글 보러가기 </Button>
+
+                    {accessToken ?
+                        <Button onClick={accessToken ? onGoProfile : openModalHandler}>📁 내 프로필 가기 </Button>
+                        :null    
+                }
+                    
                     
                     {isOpen ?
                         // 액세스 토큰이 없는 경우
@@ -154,7 +193,7 @@ function Landing(){
     );
 }
 
-export default  Landing;
+export default Landing;
 
 
 
@@ -279,11 +318,14 @@ bottom : 0;
     font-weight: 500;
 
     
-    width: 100%;
+    width: 85%;
     height: 9.6vh;; 
     font-size: 35px;
     margin-bottom:15px;
     //height:18.5%;
+    &:hover {
+        background: #5d6bb4;
+      }
 
 
     @media screen and (max-width: 1024px){
