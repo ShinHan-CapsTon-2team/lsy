@@ -207,10 +207,7 @@ function scrollToTop() {
             <>
             {!(pageNumber === 1) &&
               <S.ButtonShort
-              onClick={() => {
-                handleGoToPreviousPage();
-                
-              }}
+                onClick={handleGoToPreviousPage}
                 disabled={pageNumber === 1}
               >
                 이전

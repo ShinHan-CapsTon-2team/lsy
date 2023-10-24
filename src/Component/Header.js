@@ -28,7 +28,7 @@ const Header  = props => {
   const [isOpen, setIsOpen] = useState(false); // 모달창때문에 있는거 삭제 노
   const [showSuccessMessage, setShowSuccessMessage] = useState(false); // 로그아웃 성공 여부 
   const [currentPath, setCurrentPath] = useState(location.pathname);// currentPath 상태 정의 및 초기화
- 
+
   const { onData } = props;
 
 useEffect(() => {
@@ -112,8 +112,6 @@ const onGoProfile = () => {
     console.log("로그아웃 되었습니다.");
   };
 
-
-  
   return (
     <S.LogoWrap>
       <S.LandingWrap>
@@ -132,10 +130,10 @@ const onGoProfile = () => {
 }
 
       <P.ProfileWrap>
-      <div style={{display:'felx',marginTop:20,flexDirection:'column'}}>
+      <P.ProfileShow style={accessToken ? {}:{marginTop:0}}>
         <P.ProfileLogo src={accessToken ? profilelogo : loginlogo} onClick={openModalHandler} />
-        <div style={{marginTop:5}}>{accessToken && <span>{nickname}</span>}</div>
-      </div> 
+        {accessToken && <P.Profilename>{nickname}</P.Profilename>}
+      </P.ProfileShow> 
 
         {isOpen && (
           <>

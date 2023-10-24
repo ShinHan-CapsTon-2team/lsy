@@ -3,6 +3,7 @@ import  {useNavigate } from 'react-router-dom';
 import profilelogo from '../Images/i2.png'
 import * as S from '../Lookup/LookupStyle'
 import React, { useState } from 'react';
+
 const Lookup_Content =({ title,nickname,imageurl,description,created_at,id,writer}) => {
     
     const navigate = useNavigate();

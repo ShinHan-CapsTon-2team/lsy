@@ -114,7 +114,7 @@ const Quizresult  = () => {
 
                 <S.ButtonsWrap> 
                     <S.ButtonTwo onClick={handleGoHomeClick}>                                        
-                        홈페이지 방문하기 
+                    모든 게시글 보러가기 
                     </S.ButtonTwo>
 
                     <S.ButtonTwo style={{marginRight:0}} onClick={handleRetestdClick}>                         

@@ -1,4 +1,3 @@
-
 import { BsPlusCircleFill } from 'react-icons/bs'
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -9,66 +8,77 @@ import Header from '../Component/Header';
 import styled from "styled-components";
 import './Paging.css';
 
-import {ProfileWrap,ButtonShort} from '../Component/ProfileInfoStyle'
-
+import {ProfileWrap,ButtonShort, Email} from '../Component/ProfileInfoStyle'
+ 
+import { UserDelModal } from '../Modal/UserDelModal'
 
 function ProfileLook() {
   const [userinfo, setUserinfo] = useState([]);
-  const [posts, setPosts] = useState([]);
   const [images, setImages] = useState([]);
-  const [otherUserNickname, setOtherUserNickname] = useState('');
-  const [postemail, setPostEmail] = useState('');
   const [PostIds, setPostIds] = useState('');
   const [email, setEmail] = useState('');
   const [nickname, setNickname] = useState('');
   const [isEditing, setIsEditing] = useState(false);
   const [TotalCount, setTotalCount] = useState('');
-  const [currentPage, setCurrentPage] = useState(1);
-  const [offset, setOffset] = useState(0);
   const [currentPosts, setCurrentPosts] = useState([]);
   const [page, setPage] = useState(1); 
   const [dataFromChild, setDataFromChild] = useState({}); 
+  const [introduction, setIntroduction] = useState('');
+  const [career, setCareer] = useState('');
+  const [isOpen, setIsOpen] = useState(false);// 모달창때문에 있는거 삭제 노
+
+  const openModalHandler = () => {
+    // 모달창 관련임 자세히 알 필요 X
+    setIsOpen(!isOpen);
+  };
 
   const handleChildData = (data) => {
     // 자식 컴포넌트로부터 받은 데이터를 처리
     setDataFromChild(data);
   };
+   console.log("헤더에서 온 이메일 아이디 값 : ",dataFromChild.emailid);
   const postsPerPage = 20; // 한 페이지에 보여줄 게시물 수
 
   const navigate = useNavigate();
   const params = useParams(); // 1
   const emailId = params.emailId; // 사용자의 email
- const isMe = dataFromChild.emailid; // 로그인한 사용자
-  const isCurrentUsersProfile = email === postemail;
-
-  const handleImageClick = (id) => {
-        navigate(`/lookup/${id}`);
-    };
-
+  const isMe = dataFromChild.emailid; // 로그인한 사용자
+  
   const handleImagesClick = (postId) => {
       navigate(`/lookup/${postId}`);
+      
   };
-
+  
   const gotoProfileEdit = () => {
     setIsEditing(true);
 };
 
+// 수정됨
 const handleEditComplete = () => {
   setIsEditing(false); // 수정 완료 시 isEditing을 false로 변경하여 ProfileInfo로 전환
+  fetchProfileData();
 };
+
+//수정됨
+useEffect(() => {
+  fetchProfileData();
+}, [emailId, page, postsPerPage]);
+
 
 const goToWorkUpload =()=>{
   navigate('/post');
 };
 
 
+
+//페이지
 const handlePageClick = async ({ selected }) => {
   const newPage = selected + 1;
   setPage(newPage);
-
+//api/profile/:emailId
   try {
     const response = await fetch(
-      `http://localhost:4000/api/lookups/${email}?page=${newPage}&postsPerPage=${postsPerPage}`
+      `http://localhost:4003/api/profile/${emailId}?page=${newPage}&postsPerPage=${postsPerPage}`
     );
 
     if (!response.ok) {
@@ -85,96 +95,54 @@ const handlePageClick = async ({ selected }) => {
     console.error("게시물을 불러오는 중 에러 발생:", error);
   }
 
-  // 다른 사용자의 프로필 데이터 가져오기
-  if (email !== emailId) {
-    fetchProfileData(emailId, newPage, postsPerPage);
-  }
-};
-
-
-//내 프로필
-async function fetchPosts(email, page, postsPerPage) {
-  try {
-    const response = await fetch(`http://localhost:4000/api/lookups/${email}?page=${page}&postsPerPage=${postsPerPage}`);
-    const { data, totalCount } = await response.json();
-    
-    setTotalCount(totalCount);
-
-    if (data.length > 0) {
-      setPosts(data);
-      setCurrentPosts(data);
-      setTotalCount(totalCount);
-      //setPosts(prevPosts => [...prevPosts, ...data]); 
-    }
-    
-  } catch (error) {
-    console.error('Error fetching posts:', error);
-  }
-}
-
-// 남의 프로필
-const fetchProfileData = async (email, currentPage, postsPerPage) => {
-  try {
-    const response = await fetch(`http://localhost:4003/api/profile/${email}?page=${currentPage}&postsPerPage=${postsPerPage}`);
-    const profileData = await response.json();
-
-    setImages(profileData.images);
-    setPostIds(profileData.id);
-    setPostEmail(profileData.email);
-    setTotalCount(profileData.totalCount);
-  } catch (error) {
-    console.error('Error fetching profile data for other user:', error);
-  }
+  
 };
 
 const pageCount = Math.ceil(TotalCount / postsPerPage);
 
+// 수정됨
+const fetchProfileData = () => {
+  fetch(`http://localhost:4003/api/profile/${emailId}?page=${page}&postsPerPage=${postsPerPage}`)
+    .then((response) => response.json())
+    .then((profileData) => {
+      setUserinfo(profileData);
+      setImages(profileData.images);
+      setPostIds(profileData.id);
+      setEmail(profileData.email);
+      setTotalCount(profileData.totalCount);
+      setNickname(profileData.nickname);
+      setCareer(profileData.career);
+      setIntroduction(profileData.introduction);
+    })
+    .catch((error) => {
+      console.error('Error fetching profile data for other user:', error);
+    });
+};  
 
-  useEffect(() => {
-    const accessToken = localStorage.getItem("access_token");
+// 계정삭제
+const handleDelete = async () => {
+try {
+  const response = await fetch('http://localhost:4001/api/userDel', {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify( {email} ), // PostIds 값을 JSON 형식으로 본문에 추가
+  });
+  if (response.status === 200) {
+    console.log("탈퇴 성공");
+    // 리다이렉트 또는 다른 처리를 수행할 수 있음
+  } else {
+    console.error("탈퇴 실패");
+    // 탈퇴 처리 실패
+  }
+} catch (error) {
+  console.error('에러 발생:', error);
+}
+};
+
+
   
-    if (accessToken) {
-      // 현재 사용자 정보 가져오기
-      fetch('http://localhost:4001/api/user', {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ accessToken }),
-      })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("현재 접속중인 사용자 이메일:", data.email);
-        console.log("현재 접속중인 사용자 닉네임:", data.nickname);
-        setEmail(data.email);
-        setNickname(data.nickname);
-  
-        if (data.email !== emailId) {
-          // 다른 사용자의 정보를 가져오기
-          fetch(`http://localhost:4003/api/profile/${emailId}?page=${page}&postsPerPage=${postsPerPage}`)
-            .then((response) => response.json())
-            .then((profileData) => {
-              setImages(profileData.images);
-              setPostIds(profileData.id);
-              setPostEmail(profileData.email);
-              setTotalCount(profileData.totalCount);
-            })
-            .catch((error) => {
-              console.error('Error fetching profile data for other user:', error);
-            });
-            
-            fetchPosts(data.email, currentPage, postsPerPage);
-            console.log(data.email);
-            
-        }
-      })
-      .catch((error) => {
-        console.error('Error fetching user email:', error);
-      });
-    }
-  }, [emailId, currentPage]);// emailId를 의존성 배열에 추가하여 URL 파라미터가 변경될 때만 실행
-  
-    
     return (
         <OutWrap>
             <InOutWrap>
@@ -183,47 +151,54 @@ const pageCount = Math.ceil(TotalCount / postsPerPage);
                 <Center>
                 <ProfileWrap>
               
-                {isCurrentUsersProfile ? (
-                    <>
-                      {isEditing ? (
-                        <ProfileInfo_Edit onEditComplete={handleEditComplete} />
-                      ) : (
-                        <>
-                          <ProfileInfo />
-                          {isCurrentUsersProfile && <ButtonShort onClick={gotoProfileEdit}>프로필 수정</ButtonShort>}
-                        </>
-                      )}
-                    </>
-                  ) : (
-                    <ProfileInfo />
+                <>
+                {isEditing ? (
+                  <ProfileInfo_Edit onEditComplete={handleEditComplete} />
+                ) : (
+                <>
+
+                {/* 수정됨*/}
+                <ProfileInfo
+                    introduction={introduction}
+                    career={career}
+                    email={email}
+                    nickname={nickname}
+                />
+                    
+
+                             
+                {(isMe === emailId) && ( //수정됨. 수정버튼 보이는 유무와 현재 사용자에 따른 ..
+                    <ButtonShort onClick={gotoProfileEdit}>프로필 수정</ButtonShort> 
                   )}
+
+               {(isMe === 'zxcva98657') && (
+                  <>
+                    <ButtonShort onClick={openModalHandler}>사용자 삭제</ButtonShort>
+                    {isOpen ? (<UserDelModal email={email} openModalHandler={openModalHandler}/>) : null}
+                  </>
+                )}
+
+
+                </>
+                )}
+                </>
 
                 </ProfileWrap>
 
                 <ArticleWrap>
                     <Two style={{display:'flex',flexDirection:'column'}}>
-                      <>
-                      {isCurrentUsersProfile ? (
-                        // 현재 사용자의 프로필을 보고 있다면 post를 렌더링합니다.
+                      
                         <GridWrap>
-                          {currentPosts.map((post, index) => (
-                            <GridDiv key={index}>
-                              <GridImg src={post.image_url} onClick={() => handleImageClick(post.id)} alt="사진"/>
-                            </GridDiv>
-                          ))}
-                      </GridWrap>
-                    ) : (
-                    // 다른 사용자의 프로필을 보고 있다면 images를 렌더링합니다.
-                    <GridWrap>
+                        
                       {images.map((image, index) => (
                         <GridDiv key={index}>
                             <GridImg src={image} onClick={() => handleImagesClick(PostIds[index])}  alt="사진" />
                             
                         </GridDiv>
                       ))}
-                    </GridWrap>
-                    )}
-                      </>
+                    
+                        </GridWrap>
+                   
 
                       <ReactPaginate
                         previousLabel={<Button style={{marginRight:20}}>이전</Button>}
@@ -242,16 +217,16 @@ const pageCount = Math.ceil(TotalCount / postsPerPage);
                 </Center>
             </InOutWrap>
 
-            {isCurrentUsersProfile ? ( <PostWrap>
+             <PostWrap>
               
-              <StyledBsPlusCircleFill onClick={goToWorkUpload} />
-            </PostWrap> ) :(null) }
+              
+              {isMe === emailId && ( // 수정됨
+                    <StyledBsPlusCircleFill onClick={goToWorkUpload} />
+                )}
+            </PostWrap> 
               
 
-              
-             
-
-           
+          
         </OutWrap>
 
     );

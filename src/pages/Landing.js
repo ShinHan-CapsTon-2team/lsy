@@ -127,19 +127,18 @@ function Landing(){
     
     
     return (
-        
-        <OutWrap>
-            <InsideWrap>
+        <div>
+            <OutWrap>
+                <InsideWrap>
 
-                <LogoImg src={logo} alt='' />
+                    <LogoImg src={logo} alt='' />
 
-
-                <ImgWrap> {/* 홈페이지 방문하기 말 바꾸기   */}
-                    
-                    <Button onClick={handleUploadPhotoClick}>🎨 색감 매칭을 통해 추천받기 
-                        <AiFillQuestionCircle  data-tooltip-id="colormatching-tooltip"
-                            
-                            style={{position:'absolute',right:25, width:30,height:30}}/>
+                    <ImgWrap> 
+                        
+                        <Button onClick={handleUploadPhotoClick}>🎨 색감 매칭을 통해 추천받기 
+                            <AiFillQuestionCircle  data-tooltip-id="colormatching-tooltip"
+                                
+                                style={{position:'absolute',right:25, width:30,height:30}}/>
 
                         </Button>
                         <Tooltip 
@@ -150,45 +149,52 @@ function Landing(){
                                 다섯 가지 다양한 카테고리 중 하나의 사진을 올리면, 그와 맞는 카테고리의 사진에서 색감 기반으로 유사한 이미지를 찾아 드립니다.
                                 
                         </Tooltip> 
-                    
+                        
 
+                        <Button onClick={handleFitPhotoClick}> 🔍테스트를 통해 추천받기
+                            <AiFillQuestionCircle
+                                data-tooltip-id="testmatching-tooltip"
+                                style={{position:'absolute',right:30}}/>       
+                        </Button>
+                        <Tooltip 
+                                id="testmatching-tooltip" 
+                                className="testmatching-toolstyle"
+                                place="right" >
+                                    사진 취향을 발견하고 원하는 사진을 찾기 위한 흥미로운 테스트를 시작하세요. <br/>
+                                    선택한 카테고리에 따라 원하는 스타일과 옵션을 선택하세요.<br/>
+                                    선택지 기반으로 맞춤형 사진을 찾아 드립니다.
+                                    
+                        </Tooltip>
+                        
+                        <Button onClick={handleGohomeClick}>🖼️ 모든 게시글 보러가기 </Button>
 
-                    <Button onClick={handleFitPhotoClick}> 🔍테스트를 통해 추천받기
-                        <AiFillQuestionCircle
-                            data-tooltip-id="testmatching-tooltip"
-                            style={{position:'absolute',right:30}}/>       
-                    </Button>
-                    <Tooltip 
-                            id="testmatching-tooltip" 
-                            className="testmatching-toolstyle"
-                            place="right" >
-                                사진 취향을 발견하고 원하는 사진을 찾기 위한 흥미로운 테스트를 시작하세요. <br/>
-                                선택한 카테고리에 따라 원하는 스타일과 옵션을 선택하세요.<br/>
-                                선택지 기반으로 맞춤형 사진을 찾아 드립니다.
-                                
-                    </Tooltip>
-                    
-                    <Button onClick={handleGohomeClick}>🖼️ 모든 게시글 보러가기 </Button>
+                        {accessToken ?
+                            <Button onClick={accessToken ? onGoProfile : openModalHandler}>📁 내 프로필 가기 </Button>
+                            :null    
+                        }
+                        {accessToken ?
+                                <Button onClick={accessToken ? onGoProfile : openModalHandler}>📸 포스트 작성하기 </Button>
+                                :null    
+                        }
+                        
+                        {isOpen ?
+                            // 액세스 토큰이 없는 경우
+                            <ModalBackdrop onClick={openModalHandler}>
+                                <LoginModal />
+                            </ModalBackdrop>
+                            : null}
 
-                    {accessToken ?
-                        <Button onClick={accessToken ? onGoProfile : openModalHandler}>📁 내 프로필 가기 </Button>
-                        :null    
-                }
-                    
-                    
-                    {isOpen ?
-                        // 액세스 토큰이 없는 경우
-                        <ModalBackdrop onClick={openModalHandler}>
-                            <LoginModal />
-                        </ModalBackdrop>
-                        : null}
+                    </ImgWrap>
+                </InsideWrap>
+                
+                
+            </OutWrap>
+            <FixedSpan>📢 저작권 문제 인지하고 있으며
+            끝나고 바로 삭제하겠습니다.
+            </FixedSpan>
 
-                </ImgWrap>
-                <span style={{position:'absolute',left:20,bottom:17,fontWeight:600,fontSize:15,color:'gray'}}>📢 저작권 문제 인지하고 있으며
-                끝나고 바로 삭제하겠습니다.</span>
-
-            </InsideWrap>
-        </OutWrap>
+        </div>
+        
     
     );
 }
@@ -196,7 +202,21 @@ function Landing(){
 export default Landing;
 
 
+const FixedSpan = styled.div`
+    position: fixed;
+    left: 20px;
+    bottom: 17px;
+    font-weight: 600;
+    font-size: 15px;
+    color: gray;
 
+
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /* 수평 정렬을 오른쪽으로 변경 */
+    justify-content: flex-end; /* 수직 정렬을 아래쪽으로 변경 */
+`;
 
 export const ModalBackdrop = styled.div`
 // Modal이 떴을 때의 배경을 깔아주는 CSS를 구현
@@ -241,12 +261,13 @@ bottom : 0;
     display: flex;
     justify-content: center;
     align-items: center;
-
+    
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-
+    
+    
     width: 100%;
     height:100%;
 `;
@@ -257,6 +278,7 @@ bottom : 0;
         flex-direction: column;
         align-items: center;
         width:80%
+ 
     `;
 
     const LogoImg = styled.img`
@@ -319,7 +341,8 @@ bottom : 0;
 
     
     width: 85%;
-    height: 9.6vh;; 
+    //height: 9.6vh;
+    height: 15%;
     font-size: 35px;
     margin-bottom:15px;
     //height:18.5%;

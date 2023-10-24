@@ -8,7 +8,7 @@ import upload from '../Images/upload.png';
   
 //모델파일 사용안함
 //히스토그램 기반 메트릭스 
-//  두 이미지 간의 히스토그램 오버랩을 계산하는 
+// 두 이미지 간의 히스토그램 오버랩을 계산하는 
 import styled from "styled-components";
 
 function Reco() { 
@@ -342,7 +342,7 @@ try {
      
 export default Reco;
      
-     const OutWrap = styled.div`
+const OutWrap = styled.div`
        width: 100%;
        height: 100%;
        background: white;
@@ -496,6 +496,7 @@ export default Reco;
      position: relative;
      width:100%;
      height:100%;
+     overflow:hidden;
      `;
        
      const Radius = styled.button`

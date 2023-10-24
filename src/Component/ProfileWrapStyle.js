@@ -54,10 +54,11 @@ export const DropMenu = styled.div`
   border-radius: 30px;
   z-index: 9999;
   box-shadow: 7px 7px 5px rgba(0, 0, 0, 0.25);
-  top: 80px;
+  top: 85px;
   height: 15vh;
 
   @media screen and (max-width: 1024px) {
+    width: 15vw;
   }
 
   @media screen and (max-width: 850px) {
@@ -67,7 +68,7 @@ export const DropMenu = styled.div`
   }
   /* mobile 규격 */
   @media screen and (max-width: 540px) {
-    top: 50px;
+    top: 70px;
     width: 45vw;
     height: 15vh;
     right: -25px;
@@ -81,7 +82,7 @@ export const DropMenu = styled.div`
   /* l 데스크 */
   @media screen and (min-width: 1700px) {
     width: 18vw;
-    top: 90px;
+    top: 115px;
     height: 17vh;
   }
 `;
@@ -117,3 +118,41 @@ export const CateMenu = styled.div`
     color: #5d6bb4;
   }
 `;
+
+export const ProfileShow = styled.div`
+  display: flex;
+  margin-top: 24px;
+  flex-direction: column;
+  justify-content:center;
+  align-items:center;
+
+  @media screen and (max-width: 1024px) {
+    margin-top: 20px;
+  }
+
+  @media screen and (max-width: 850px) {
+    margin-top: 20px;
+  }
+  /* mobile 규격 */
+  @media screen and (max-width: 540px) {
+    margin-top: 20px;
+  }
+
+  /* s 데스크 */
+  @media screen and (min-width: 1025px) {
+    margin-top: 20px;
+  }
+  /* l 데스크 */
+  @media screen and (min-width: 1700px) {
+    margin-top: 35px;
+  }
+`;
+
+export const Profilename= styled.div`
+position: relative;
+${FontStyle};
+  //margin-top: 5px;
+  top:8px;
+`;
+
+

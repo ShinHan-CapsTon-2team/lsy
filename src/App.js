@@ -9,6 +9,8 @@ import QuizReult from './Quiz/Quizresult';
 import Post from './PostUp/Post.js';
 import Home from './Home/homepage.js';
 import Reco from './Recommend/Reco'
+//import Reco12 from './Recommend/Reco12'
+//import Reco11 from './Recommend/Reco11'
 import RecoResult from './Recommend/RecoResult';
 import Lookup from './Lookup/Image_Lookup' 
 import ProfileLook from './Mypage/ProfileLook';
@@ -45,6 +47,8 @@ function App() {
                 <Route path ='/quizresult' element={<QuizReult />}/>
                 <Route path='/quizfrist' element={<QuizFrist/>}/>
                 <Route path ='/reco' element={<Reco/>}/>
+                {/* <Route path ='/reco12' element={<Reco12/>}/>
+                <Route path ='/reco11' element={<Reco11/>}/> */}
                 <Route path='/recoresult' element={<RecoResult/>}/>
                 
                 <Route path ='/lookup/:id' element={<Lookup/>}/>
