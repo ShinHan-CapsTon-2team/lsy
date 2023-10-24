@@ -4,7 +4,7 @@ import Header from "../Component/Header";
 import { LoginModal } from "../Modal/LoginModal";
 import * as S from "./homeStyle";
 import * as C from "../Style/CommonStyle";
-import { Link } from 'react-scroll';
+ 
 
 const categoriesData = [
   { name: '바디프로필'},
