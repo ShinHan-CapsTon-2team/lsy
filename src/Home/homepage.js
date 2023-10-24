@@ -5,7 +5,6 @@ import { LoginModal } from "../Modal/LoginModal";
 import * as S from "./homeStyle";
 import * as C from "../Style/CommonStyle";
 
-
 const categoriesData = [
   { name: '바디프로필'},
   { name: '반려동물' },
@@ -207,10 +206,7 @@ function scrollToTop() {
             <>
             {!(pageNumber === 1) &&
               <S.ButtonShort
-              onClick={() => {
-                handleGoToPreviousPage();
-                
-              }}
+                onClick={handleGoToPreviousPage}
                 disabled={pageNumber === 1}
               >
                 이전

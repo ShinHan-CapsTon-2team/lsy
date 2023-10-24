@@ -13,7 +13,6 @@ import { Popup } from "../Modal/Popup";
 
 
 const Header  = props => {
-  
   const location = useLocation();
   
   const isHomeRoute = location.pathname === "/home";// 현재 주소가 "/home"인 경우에만 요소를 숨깁니다.
