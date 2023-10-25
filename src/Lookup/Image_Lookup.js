@@ -213,24 +213,28 @@ const handlePageClick = async ({ selected }) => {
                 </S.Center>
                     
             </S.InOutWrap>
+            {!isMine ? (
+            <>
             <GridWrap>
             {images.map((image, index) => (
-                    <GridDiv key={index}>
-                        <GridImg src={image} onClick={() => handleImagesClick(PostIds[index])}  alt="사진" />
-                    </GridDiv>
-                ))}
+                <GridDiv key={index}>
+                    <GridImg src={image} onClick={() => handleImagesClick(PostIds[index])}  alt="사진" />
+                </GridDiv>
+              ))}
              </GridWrap>
              <ReactPaginate
-                        previousLabel={<Button style={{marginRight:680,bottom:230}}>◀</Button>}
-                        nextLabel={<Button style={{marginLeft:680, bottom:230}}>▶</Button>}
-                        breakLabel={''}
-                        marginPagesDisplayed={0}
-                        pageCount={pageCount}
-                        pageRangeDisplayed={0}
-                        onPageChange={handlePageClick}
-                        containerClassName={'paginations'}
-                        activeClassName={'actives'}
-                      />
+                  previousLabel={<Button style={{marginRight:680,bottom:230}}>◀</Button>}
+                  nextLabel={<Button style={{marginLeft:680, bottom:230}}>▶</Button>}
+                  breakLabel={''}
+                  marginPagesDisplayed={0}
+                  pageCount={pageCount}
+                  pageRangeDisplayed={0}
+                  onPageChange={handlePageClick}
+                  containerClassName={'paginations'}
+                  activeClassName={'actives'}
+              />
+            </>
+            ) : null}
         </S.OutWrap>
     );
 };
