@@ -26,6 +26,23 @@ export const OutWrap = styled.div`
   justify-content: center;
   align-items: center;
 `;
+export const GridImg = styled.img`
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  object-fit: cover;
+`;
+
+export const GradientOverlay = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.4) 100%);
+  border-radius: 10px;
+`;
+
 export const FontStyle = {
   "@media screen and (max-width: 1024px)": {
     fontSize: 22,
@@ -135,12 +152,7 @@ export const GridDiv = styled.div`
   }
 `;
 
-export const GridImg = styled.img`
-  width: 100%;
-  height: 100%;
-  border-radius: 10px;
-  object-fit: cover;
-`;
+
 
 export const PaginationWrap = styled.div`
   margin-top: 20px;

@@ -4,7 +4,8 @@ import Header from "../Component/Header";
 import { LoginModal } from "../Modal/LoginModal";
 import * as S from "./homeStyle";
 import * as C from "../Style/CommonStyle";
- 
+
+import ImageWithHover from './ImageWithHover';
 
 const categoriesData = [
   { name: '바디프로필'},
@@ -81,7 +82,7 @@ const handleCategorySelect = useCallback((category, limit, offset) => {
     })
     .then((data) => {
       setUsers(data);
-      console.log(data);
+      
       navigate(`/home?${queryString}`);
       setSelectedCategory(koreanCategory);
     })
@@ -89,7 +90,7 @@ const handleCategorySelect = useCallback((category, limit, offset) => {
       console.error(error);
     });
 }, [navigate]);
-
+console.log('name',  users.nickname);
 
 function scrollToTop() {
   const currentY = window.scrollY;
@@ -192,11 +193,14 @@ function scrollToTop() {
               //console.log("url:", imageUrl);
               return (
                 <S.GridDiv key={user.id}>
-                  <S.GridImg
-                    src={imageUrl}
-                    onClick={() => handleClick(user.id)}
-                    alt="사진"
-                  />
+                  
+                    <ImageWithHover
+                      imageUrl={imageUrl}
+                      onClick={() => handleClick(user.id)}
+                      alt="사진"
+                      nickname={user.nickname}
+                    />
+                  
                 </S.GridDiv>
               );
             })}
