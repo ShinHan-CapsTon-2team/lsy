@@ -36,5 +36,11 @@ html, body {
    //font-family: "GmarketSansTTFBold";
    
   }
+
+  button{
+	&:hover {
+		background: #5d6bb4;
+	  }
+  }
 `;
 export default GlobalStyles;

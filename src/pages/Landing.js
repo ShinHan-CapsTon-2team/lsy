@@ -14,7 +14,7 @@ function Landing(){
     const accessToken = localStorage.getItem('access_token'); // 로컬 스토리지에서 액세스 토큰 가져오기
     const location = useLocation();
     const currentPath = location.pathname;
-    let emailId;
+    const [emailId, setemailId] = useState('');
     console.log("accessToken:",accessToken);
     
     useEffect(() => {
@@ -80,7 +80,7 @@ function Landing(){
     
                 // 이메일 아이디 추출
                 const emailParts = data.email.split('@');
-                emailId = emailParts[0];
+                setemailId(emailParts[0]);
                 
             } else {
                 // "email" 필드가 없는 경우
@@ -168,12 +168,13 @@ function Landing(){
                         
                         <Button onClick={handleGohomeClick}>🖼️ 모든 게시글 보러가기 </Button>
 
-                        {accessToken ?
-                            <Button onClick={accessToken ? onGoProfile : openModalHandler}>📁 내 프로필 가기 </Button>
+                        {emailId ?
+                            <Button onClick={() => { onGoProfile(); openModalHandler(); }}>📁 내 프로필 가기 </Button>
+
                             :null    
                         }
-                        {accessToken ?
-                                <Button onClick={accessToken ? onGoProfile : openModalHandler}>📸 포스트 작성하기 </Button>
+                        {emailId ?
+                                <Button onClick={() => {onGoProfile(); openModalHandler();}}>📸 포스트 작성하기 </Button>
                                 :null    
                         }
                         
@@ -341,11 +342,10 @@ bottom : 0;
 
     
     width: 85%;
-    //height: 9.6vh;
     height: 15%;
     font-size: 35px;
     margin-bottom:15px;
-    //height:18.5%;
+    
     &:hover {
         background: #5d6bb4;
       }
