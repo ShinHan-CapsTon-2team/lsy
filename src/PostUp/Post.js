@@ -291,7 +291,7 @@ function Post() {
                   <S.Menu
                     onClick={() => document.getElementById("fileInput").click()}
                   >
-                    파일 찾기
+                    내 파일 찾기
                   </S.Menu>
                 </S.FindImg>
                 <S.FileBox

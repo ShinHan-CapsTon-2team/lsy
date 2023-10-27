@@ -78,11 +78,14 @@ useEffect(() =>
       })
       .catch((error) => {
           console.error("Error fetching user email:", error);
+          localStorage.removeItem("access_token");// 만료된 토큰 처리하기 
+          window.location.reload();
       }
       );
 
       
   }
+  
 }, [location.pathname]); 
   // landing page
   const handleGoLandingClick = () => {

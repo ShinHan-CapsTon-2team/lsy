@@ -78,7 +78,7 @@ const Lookup_Content =({ title,nickname,imageurl,description,created_at,id,write
 
                     {isOpen && (
                         <ModalBackdrop style={{overflowY:'initial'}}onClick={openModalHandler}>
-                            <CloseButton onClick={openModalHandler}>x</CloseButton>
+                            
                             <ImgModal 
                             imgurl={imageurl}openModalHandler={openModalHandler}/>
                         </ModalBackdrop>
@@ -98,38 +98,5 @@ export default Lookup_Content;
 
 
 
-const FontStyle = {
-    '@media screen and (max-width: 1024px)':{
-    fontSize: 22
-    },
-    
-    '@media screen and (max-width: 850px)':{
-    fontSize: 21
-    },
-    
-    /* mobile 규격 */
-    '@media screen and (max-width: 540px)':{
-    fontSize: 19
-    },
-    /* tablet 규격 */
-    '@media screen and (min-width: 1025px)':{
-    fontSize: 24
-    },
-    '@media screen and (min-width: 1700px)': {
-    fontSize: 37
-    }
-    };
 
     
-const CloseButton = styled.button`
-position:absolute;
-right:10px;
-top:10px;
-background-color:white !important;
-
-${FontStyle};
-
-&:hover {
-    color: #798be6;
-    }
-`;

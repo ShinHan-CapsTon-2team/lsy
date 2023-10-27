@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import React, { useEffect,useState } from 'react';
+import React, { useEffect } from 'react';
 
 
 export const ImgModal = ({imgurl,openModalHandler}) => {
@@ -25,6 +25,9 @@ export const ImgModal = ({imgurl,openModalHandler}) => {
 
 return (
     <ModalView style={{overflowX:'auto',overflowY:'auto'}} onClick={(e) => e.stopPropagation()}>
+      <div style={{display:'flex',width:'100%',height:'17vh'}}>
+      <CloseButton onClick={handleCancle}>x</CloseButton>
+      </div>
       <ModalContent>
         <ModalImageView src={imgurl} alt="이미지" />
       </ModalContent>
@@ -37,7 +40,7 @@ return (
 const ModalView = styled.div.attrs((props) => ({
   role: 'dialog',
 }))`
-  //border-radius: 20px;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -53,58 +56,64 @@ const ModalView = styled.div.attrs((props) => ({
 
 const ModalContent = styled.div`
   //max-width: 90%; /* Adjust the maximum width as needed */
-  max-height: 95vh; /* Adjust the maximum height as needed */
+  max-height: 100vh; /* Adjust the maximum height as needed */
+ 
   //overflow: auto; /* Enable scrolling for content */
-  margin-top:5vh;
+  //margin-top:8vh;
 `;
 
 const ModalImageView = styled.img`
   width: 100%;
   height: auto;
+  
   max-height: 100%; /* Make sure the image doesn't exceed the modal's height */
-  margin-bottom:5vh;
+  margin-bottom:15vh;
 `;
 
 
 
- const FontStyle = {
-'@media screen and (max-width: 1024px)':{
-fontSize: 22
-},
 
-'@media screen and (max-width: 850px)':{
-fontSize: 21
-},
 
-/* mobile 규격 */
-'@media screen and (max-width: 540px)':{
-fontSize: 19
-},
-/* tablet 규격 */
-'@media screen and (min-width: 1025px)':{
-fontSize: 24
-},
-'@media screen and (min-width: 1700px)': {
-fontSize: 37
-}
-};
+
+
+const FontStyle = {
+    '@media screen and (max-width: 1024px)':{
+    fontSize: 38
+    },
+    
+    '@media screen and (max-width: 850px)':{
+    fontSize: 37
+    },
+    
+    /* mobile 규격 */
+    '@media screen and (max-width: 540px)':{
+    fontSize: 35
+    },
+    /* tablet 규격 */
+    '@media screen and (min-width: 1025px)':{
+    fontSize: 40
+    },
+    '@media screen and (min-width: 1700px)': {
+    fontSize: 53
+    }
+    };
+
+const Imgsee = styled.img`
+width: 100%;
+      height: 100%;
+      object-fit: contain;
+`;
 
 
 const CloseButton = styled.button`
 position:absolute;
 right:10px;
 top:10px;
-background-color:white !important;
+background-color:transparent !important;
 
 ${FontStyle};
 
 &:hover {
     color: #798be6;
     }
-`;
-
-const Imgsee = styled.img`
-width: 100%;
-      height: 100%;
-      object-fit: contain;
 `;
