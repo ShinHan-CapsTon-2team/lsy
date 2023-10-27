@@ -125,7 +125,9 @@ function Landing(){
         navigate(`/profile/${emailId}`);  
     };
     
-    
+    const onGoPost = () => {
+        navigate(`/post`);  
+    };
     return (
         <div>
             <OutWrap>
@@ -174,7 +176,7 @@ function Landing(){
                             :null    
                         }
                         {emailId ?
-                                <Button onClick={() => {onGoProfile(); openModalHandler();}}>📸 포스트 작성하기 </Button>
+                                <Button onClick={() => {onGoPost(); openModalHandler();}}>📸 포스트 작성하기 </Button>
                                 :null    
                         }
                         

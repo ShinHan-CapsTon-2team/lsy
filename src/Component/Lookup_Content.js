@@ -3,6 +3,10 @@ import  {useNavigate } from 'react-router-dom';
 import profilelogo from '../Images/i2.png'
 import * as S from '../Lookup/LookupStyle'
 import React, { useState } from 'react';
+import { ModalBackdrop } from "../Modal/ModalStyle";
+import { ImgModal } from '../Modal/ImgModal';
+
+import styled from 'styled-components';
 
 const Lookup_Content =({ title,nickname,imageurl,description,created_at,id,writer}) => {
     
@@ -30,6 +34,16 @@ const Lookup_Content =({ title,nickname,imageurl,description,created_at,id,write
         navigate(`/profile/${writer}`);
       };
 
+
+    const [isOpen, setIsOpen] = useState(false); // 모달창 외부 여닫기
+    const openModalHandler = () => {
+    setIsOpen(!isOpen);
+
+      };
+    
+
+      
+
     return (
         <S.InLayoutOne>  
             <S.Content>
@@ -56,8 +70,19 @@ const Lookup_Content =({ title,nickname,imageurl,description,created_at,id,write
 
                 <S.ContentImgDes>{/* 이미지/설명 */}
                     <S.BoxRadius style={{padding:30}}> {/* 이미지 */}
-                        <S.Img src={imageurl} alt='이미지' />
+                        <S.Img src={imageurl} 
+                                alt='이미지' 
+                                onClick={openModalHandler}
+                        />
                     </S.BoxRadius>
+
+                    {isOpen && (
+                        <ModalBackdrop style={{overflowY:'initial'}}onClick={openModalHandler}>
+                            <CloseButton onClick={openModalHandler}>x</CloseButton>
+                            <ImgModal 
+                            imgurl={imageurl}openModalHandler={openModalHandler}/>
+                        </ModalBackdrop>
+                    )}
                     
                     <S.BoxRadius> {/* 설명 */}
                         {DisplayText(description)}
@@ -70,3 +95,41 @@ const Lookup_Content =({ title,nickname,imageurl,description,created_at,id,write
     );
 }; 
 export default Lookup_Content;
+
+
+
+const FontStyle = {
+    '@media screen and (max-width: 1024px)':{
+    fontSize: 22
+    },
+    
+    '@media screen and (max-width: 850px)':{
+    fontSize: 21
+    },
+    
+    /* mobile 규격 */
+    '@media screen and (max-width: 540px)':{
+    fontSize: 19
+    },
+    /* tablet 규격 */
+    '@media screen and (min-width: 1025px)':{
+    fontSize: 24
+    },
+    '@media screen and (min-width: 1700px)': {
+    fontSize: 37
+    }
+    };
+
+    
+const CloseButton = styled.button`
+position:absolute;
+right:10px;
+top:10px;
+background-color:white !important;
+
+${FontStyle};
+
+&:hover {
+    color: #798be6;
+    }
+`;

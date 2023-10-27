@@ -41,6 +41,8 @@ html, body {
 	&:hover {
 		background: #5d6bb4;
 	  }
+	  cursor: pointer;
+	border:none;
   }
 `;
 export default GlobalStyles;

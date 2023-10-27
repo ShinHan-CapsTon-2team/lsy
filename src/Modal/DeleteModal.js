@@ -11,9 +11,7 @@ export const DeleteModal = ({isId,openModalHandler}) => {
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
     const [showErrorMessage, setShowErrorMessage] = useState(false);
     const params = useParams(); 
-    //const id = params.id; 
-    //console.log("id",id);
-    console.log("isId:",isId);
+    //console.log("isId:",isId);
     const navigate = useNavigate();
 
     const handleDelete = () => {

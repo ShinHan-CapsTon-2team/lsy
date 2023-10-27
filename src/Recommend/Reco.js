@@ -1,4 +1,4 @@
-import React, { useState, useEffect ,useRef, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as tf from '@tensorflow/tfjs'; //npm i @tensorflow/tfjs
 import '@tensorflow/tfjs-backend-webgl'; //npm i @tensorflow/tfjs-backend-webgl
 import Header from '../Component/Header';
@@ -469,8 +469,6 @@ const OutWrap = styled.div`
     word-wrap: break-word;
     border-radius: 31px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    
-    
     box-sizing:border-box;
     
     @media screen and (max-width: 1600px) {
