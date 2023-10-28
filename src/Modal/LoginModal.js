@@ -1,10 +1,13 @@
 import styled from 'styled-components';
 import naverlogin from '../Images/naverlogin.png'
 import * as S from './ModalStyle'
-
+import React, { useState } from 'react';
+import naverloginHover from '../Images/naverloinghover.png';
 
 export const LoginModal = () => {
-  
+
+
+    
 
   // 네이버 로그인 처리하기 
   const onNaverLogin = async () => {
@@ -27,7 +30,8 @@ return (
         <S.TextWrap>
             <S.Text1>로그인 또는 회원가입 해주세요</S.Text1>
             <S.BtnLoginWrap> 
-                <S.BtnNaver src={naverlogin}  onClick={onNaverLogin} alt=''></S.BtnNaver>
+                <S.BtnNaver src={naverlogin}  onClick={onNaverLogin} alt=''
+                ></S.BtnNaver>
             </S.BtnLoginWrap>
         </S.TextWrap>
 
