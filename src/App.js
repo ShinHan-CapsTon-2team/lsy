@@ -9,13 +9,13 @@ import QuizReult from './Quiz/Quizresult';
 import Post from './PostUp/Post.js';
 import Home from './Home/homepage.js';
 import Reco from './Recommend/Reco'
-//import Reco12 from './Recommend/Reco12'
-//import Reco11 from './Recommend/Reco11'
 import RecoResult from './Recommend/RecoResult';
 import Lookup from './Lookup/Image_Lookup' 
 import ProfileLook from './Mypage/ProfileLook';
 import PostEdit from './PostUp/PostEdit';
 import QuizFrist from'./Quiz/Quizfirst';
+
+
 
 function App() {
     function setScreenSize() {

@@ -342,9 +342,12 @@ bottom : 0;
     position: relative;
     cursor: pointer;
     color: white;
-    font-weight: 500;
-
     
+    font-family: 'GfontL';
+    font-weight:600;
+    
+    //font-family: 'GfontMid';
+
     width: 85%;
     height: 15%;
     font-size: 35px;
