@@ -1,11 +1,9 @@
 
 
-import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-
 import * as S from './ProfileInfoStyle'
-
-const ProfileInfo = ({introduction, career, email, nickname}) => {
+import naveraddress from '../Images/naverIcon.png'
+import instaaddress from '../Images/instaIcon.png'
+const ProfileInfo = ({introduction, career, email, nickname,insta}) => {
 
       function DisplayText(text) { // 설명에서 \n 처리
         if (!text) {
@@ -27,12 +25,21 @@ const ProfileInfo = ({introduction, career, email, nickname}) => {
                 <S.One> {/* 이름 이메일  */}
                    
                         <S.Wrap style={{marginBottom:10}}>
-                            <S.NickName>{nickname || ''}</S.NickName>
+                            <S.NickName>{nickname || '이름없음'}</S.NickName>
                         </S.Wrap>
                         
-                        <S.Wrap>
-                            <S.Email>{email ||' '}</S.Email> {/* 링크 복사하게끔  */}
-                        </S.Wrap>
+                        <S.AddressWrap>
+                            <S.Address style={{marginBottom:10}}>
+                                <S.AddressImg src={naveraddress} ></S.AddressImg>
+                                <S.AddressSpan>{email ||'stapq@naver.com '}</S.AddressSpan>
+                                
+                            </S.Address> {/* 링크 복사하게끔  */}
+                            
+                            <S.Address >
+                                <S.AddressImg src={instaaddress} ></S.AddressImg>
+                                <S.AddressSpan>{insta ||' yeon125'}</S.AddressSpan>
+                            </S.Address> {/* 링크 복사하게끔  */}
+                        </S.AddressWrap>
                    
                 </S.One>
                 

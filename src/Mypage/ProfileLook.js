@@ -126,7 +126,7 @@ const fetchProfileData = () => {
       setIntroduction(profileData.introduction);
 
       //1029 
-      setInsta(profileData,insta);
+      setInsta(profileData.insta);
 
     })
     .catch((error) => {

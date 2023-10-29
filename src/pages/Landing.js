@@ -130,6 +130,8 @@ function Landing(){
     const onGoPost = () => {
         navigate(`/post`);  
     };
+
+    
     return (
         <div>
             <OutWrap>
@@ -140,11 +142,10 @@ function Landing(){
                     <ImgWrap> 
                         
                         <Button onClick={handleUploadPhotoClick}>🎨 색감 매칭을 통해 추천받기 
-                            <AiFillQuestionCircle  data-tooltip-id="colormatching-tooltip"
-                                
-                                style={{position:'absolute',right:25, width:30,height:30}}/>
-
+                            <TooImg data-tooltip-id="colormatching-tooltip"
+                                />
                         </Button>
+                        
                         <Tooltip 
                             id="colormatching-tooltip" 
                             className="colormatching-toolstyle"
@@ -156,10 +157,13 @@ function Landing(){
                         
 
                         <Button onClick={handleFitPhotoClick}> 🔍테스트를 통해 추천받기
-                            <AiFillQuestionCircle
+                            <TooImg
+                            onClick={handleUploadPhotoClick}
                                 data-tooltip-id="testmatching-tooltip"
-                                style={{position:'absolute',right:30}}/>       
+                                />       
                         </Button>
+
+                        
                         <Tooltip 
                                 id="testmatching-tooltip" 
                                 className="testmatching-toolstyle"
@@ -191,8 +195,7 @@ function Landing(){
 
                     </ImgWrap>
                 </InsideWrap>
-                
-                
+
             </OutWrap>
             <FixedSpan>📢 저작권 문제 인지하고 있으며
             끝나고 바로 삭제하겠습니다.
@@ -279,7 +282,31 @@ bottom : 0;
         display: flex;
         flex-direction: column;
         align-items: center;
-        width:80%
+        width:80%;
+
+        @media screen and (max-width: 1025px){
+            width:90%;
+        }
+    
+        @media screen and (max-width: 850px){
+            width:95%;
+        }
+        /* mobile 규격 */
+        @media screen and (max-width: 540px){
+            width:100%;
+        }
+    
+        /* s 데스크 */
+        @media screen and (min-width: 1025px){ 
+
+            width:85%;
+        }
+        /* l 데스크 */
+        @media screen and (min-width: 1700px){
+    
+        
+            
+        }
  
     `;
 
@@ -304,21 +331,16 @@ bottom : 0;
         flex-direction: column;
         align-items: center;
 
-        //width:55%;
         width:51%;
         height:100%;
-        @media screen and (max-width: 1024px){
+        @media screen and (max-width: 1300px){
             
             width: 70%;
         }
         @media screen and (max-width: 540px){
             
-            width: 87%;
-            
+            width: 100%;   
         }
-
-        
-        
     `;
 
 
@@ -355,6 +377,7 @@ bottom : 0;
 
     @media screen and (max-width: 850px){
         font-size: 27px;
+        width: 95%;
     }
     /* mobile 규격 */
     @media screen and (max-width: 540px){
@@ -375,3 +398,40 @@ bottom : 0;
         
     }
 `;
+
+const TooImg = styled(AiFillQuestionCircle)`
+position: absolute;
+  right: 25px;
+  width: 30px;
+  height: 30px;
+  z-index:9999px;
+  @media screen and (max-width: 850px) {
+   display: none;
+}
+
+
+@media screen and (max-width: 1024px){
+           
+}
+
+@media screen and (max-width: 850px){
+    
+}
+/* mobile 규격 */
+@media screen and (max-width: 540px){
+    width:40px;
+    height: 40px;
+}
+
+/* s 데스크 */
+@media screen and (min-width: 1025px){ 
+
+  
+}
+/* l 데스크 */
+@media screen and (min-width: 1700px){
+    width: 45px;
+    height: 45px;  
+}
+  `;
+

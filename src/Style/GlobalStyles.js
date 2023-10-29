@@ -19,6 +19,7 @@ const GlobalStyles = createGlobalStyle`
 
   @font-face {
     font-family: 'GfontL';
+    //font-weight: 600;
     src: url(${gLight}) format('truetype');
     }
     @font-face {
@@ -26,11 +27,17 @@ const GlobalStyles = createGlobalStyle`
       src: url(${gMid}) format('truetype');
       }
   
+      @font-face {
+        font-family: 'GmarketSansMedium';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+        font-weight: 600;
+        font-style: normal;
+    }
 ${reset}
 
 html, body {
-	font-weight:600;
-  font-family: 'GfontL';
+	//font-weight:600;
+  font-family: 'GmarketSansMedium';
   //font-weight:600;
     height: 100%;
     width: 100%;
@@ -39,8 +46,8 @@ html, body {
   }
 
   button{
-    font-weight:600;
-    font-family: 'GfontL';
+    //font-weight:600;
+    font-family: 'GmarketSansMedium';
     //font-weight:600;
 
 	&:hover {

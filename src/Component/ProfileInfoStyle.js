@@ -127,6 +127,14 @@ export const Wrap = styled(Area)`
   text-align: center;
   border-radius: 31px;
 `;
+export const AddressWrap = styled(Wrap)`
+  text-align: center;
+  border-radius: 31px;
+  flex-direction:column;
+  word-break:break-all;
+`;
+
+
 export const Font = styled.span`
   ${FontStyle};
   color: black;
@@ -213,7 +221,6 @@ export const Email = styled.div`
   ${FontStyle};
   width: 100%;
 `;
-
 export const GrayFontStyle = {
   "@media screen and (max-width: 1024px)": {
     fontSize: 20,
@@ -235,6 +242,45 @@ export const GrayFontStyle = {
     fontSize: 31,
   },
 };
+
+export const AddressFontStyle = {
+  "@media screen and (max-width: 1024px)": {
+    fontSize: 218,
+  },
+
+  "@media screen and (max-width: 850px)": {
+    fontSize: 17,
+  },
+
+  /* mobile 규격 */
+  "@media screen and (max-width: 540px)": {
+    fontSize: 15,
+  },
+  /* tablet 규격 */
+  "@media screen and (min-width: 1025px)": {
+    fontSize: 20,
+  },
+  "@media screen and (min-width: 1700px)": {
+    fontSize: 29,
+  },
+};
+export const Address = styled.div`
+${GrayFontStyle};
+width: 100%;
+display: flex;
+flex-direction: row;
+align-items: center;
+cursor: pointer;
+`;
+export const AddressImg = styled.img`
+width: 35px;
+height:35px;
+margin-right:3px;
+`;
+export const AddressSpan = styled.span`
+${AddressFontStyle};
+`;
+
 export const Whatgray = styled.div`
   ${GrayFontStyle};
 

@@ -9,8 +9,8 @@ const ProfileInfo_Edit = ({ onEditComplete}) => {
   const [nickname, setNickname] = useState('');
   const [introduction, setIntroduction] = useState('');
   const [career, setCareer] = useState('');
+  const [insta,setInsta]= useState('');
 
-  const [page, setPage] = useState(1); 
   const params = useParams(); // 1
   const emailId = params.emailId; // 2
   //const [editing, setEditing] = useState(false);
@@ -30,6 +30,8 @@ const ProfileInfo_Edit = ({ onEditComplete}) => {
             introduction,
             career,
             email,
+            //1029
+            insta
           }),
         },
       );
@@ -54,6 +56,8 @@ const ProfileInfo_Edit = ({ onEditComplete}) => {
               setNickname(profileData.nickname);
               setCareer(profileData.career);
               setIntroduction(profileData.introduction);
+              //1029
+              setInsta(profileData.insta);
               console.log('email: ', profileData.email);
      
              })
@@ -64,13 +68,14 @@ const ProfileInfo_Edit = ({ onEditComplete}) => {
     return(
      <> 
                 <S.One> {/* 이름 이메일  */}
-                            <S.Wrap style={{ marginBottom: 10 }}>
-                            <S.NickName>{nickname}</S.NickName>
-                            </S.Wrap>
+                    <S.Wrap style={{ marginBottom: 10 }}>
+                      <S.NickName>{nickname}</S.NickName>
+                    </S.Wrap>
 
-                        <S.Wrap>
-                            <S.Email>{email}</S.Email>
-                        </S.Wrap>
+                    <S.Wrap>
+                        <S.Email>{email}</S.Email>
+                        <S.Email>{insta}</S.Email>
+                    </S.Wrap>
  
                 </S.One>
                 
