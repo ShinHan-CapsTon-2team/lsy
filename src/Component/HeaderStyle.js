@@ -21,6 +21,7 @@ export const HomeLogo = styled.img`
   width: 55px;
   height: 55px;
   margin-right: 30px;
+  cursor:pointer;
   /* tablet 규격 */
   @media screen and (max-width: 1024px) {
   }
@@ -44,7 +45,7 @@ export const HomeLogo = styled.img`
 export const LandingLogo = styled.img`
   width: 170px;
   height: 100px;
-
+  cursor:pointer;
   /* tablet 규격 */
   @media screen and (max-width: 1024px) {
     width: 190px;

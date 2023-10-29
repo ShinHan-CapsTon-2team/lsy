@@ -119,14 +119,14 @@ export const OutWrap = styled.div`
     padding: 20px;
     word-wrap: break-word;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
-    cursor:pointer;
+    //cursor:pointer;
     border:none;
     background: #798BE6;
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
-    cursor: pointer;
+    //cursor: pointer;
     color:white;
     margin-bottom: 20px;
     border-radius: 21px;

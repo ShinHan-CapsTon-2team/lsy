@@ -211,11 +211,8 @@ const FixedSpan = styled.div`
     position: fixed;
     left: 20px;
     bottom: 17px;
-    font-weight: 600;
     font-size: 15px;
     color: gray;
-
-
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -340,14 +337,8 @@ bottom : 0;
     justify-content: center;
 
     position: relative;
-    cursor: pointer;
+    
     color: white;
-    
-    font-family: 'GfontL';
-    font-weight:600;
-    
-    //font-family: 'GfontMid';
-
     width: 85%;
     height: 15%;
     font-size: 35px;
@@ -355,7 +346,7 @@ bottom : 0;
     
     &:hover {
         background: #5d6bb4;
-      }
+    }
 
 
     @media screen and (max-width: 1024px){

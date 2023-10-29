@@ -505,7 +505,7 @@ const OutWrap = styled.div`
     align-items: center;
     justify-content: center;
     position: relative;
-    cursor: pointer;
+    //cursor: pointer;
     color: white;
     `;
     

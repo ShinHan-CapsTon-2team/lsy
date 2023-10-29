@@ -176,7 +176,7 @@ export const Radius = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
+ // cursor: pointer;
   position: relative;
   ${FontStyle};
   margin-top: 20px;

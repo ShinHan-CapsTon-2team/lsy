@@ -2,12 +2,14 @@ import React, {useParams ,useNavigate} from 'react-router-dom';
 import { useEffect,useState } from 'react'
 import Header from '../Component/Header';
 import Lookup_Content from '../Component/Lookup_Content';
-import {Popup} from '../Modal/Popup';
 import * as S from './LookupStyle' 
 import { DeleteModal } from '../Modal/DeleteModal';
 import ReactPaginate from 'react-paginate';
 import styled from "styled-components";
 import './Paging.css'
+
+import {HiChevronDoubleLeft} from "react-icons/hi";
+import {HiChevronDoubleRight} from "react-icons/hi";
 const SERVER_URL= 'http://localhost:4000/api/lookup';
 
 function Images_Lookup() {
@@ -173,68 +175,80 @@ const handlePageClick = async ({ selected }) => {
                 <Header onData={handleChildData}/>
 
                 <S.Center>
-                    {user.map((uu)=>{
-                        let imageUrl = uu.image_url; // 이미지 URL 사용
-                        //console.log("url:", imageUrl);
-                        
-                        return(
-                                <Lookup_Content 
-                                    key={uu.id} 
-                                    title={uu.title} 
-                                    nickname={uu.nickname} 
-                                    imageurl={imageUrl} 
-                                    description ={uu.description}
-                                    created_at={uu.created_at} 
-                                    id={uu.id} 
-                                    writer={userEmails}
-                                />    
-                                )
-                            }
-                        )} 
- 
-                {isMine|| isMe ===  'zxcva98657'  ? ( //수정된 부분 1017, 관리자 수정, 삭제버튼 보이도록 
-                <S.InLayoutTwo> 
-                    <S.Buttons>
-                    <S.Right> 
-                        <S.EditButton  onClick={handelGoEdit}>
-                        수정  
-                        </S.EditButton>
+                  {user.map((uu)=>{
+                      let imageUrl = uu.image_url; // 이미지 URL 사용
 
-                        <S.DelectButton onClick={openModalHandler}>
-                        삭제
-                        </S.DelectButton>
-                        {isOpen ? (<DeleteModal isId={id} openModalHandler={openModalHandler}/>) : null}
-                    </S.Right>
-                    </S.Buttons>
-                </S.InLayoutTwo>
-                ) : null}
+                      return(
+                              <Lookup_Content 
+                                  key={uu.id} 
+                                  title={uu.title} 
+                                  nickname={uu.nickname} 
+                                  imageurl={imageUrl} 
+                                  description ={uu.description}
+                                  created_at={uu.created_at} 
+                                  id={uu.id} 
+                                  writer={userEmails}
+                              />    
+                              )
+                          }
+                      )} 
+ 
+                  
+                  {!isMine ? (
+                  <>
+                    <ListallWrap> 
+                      <ListallText>모든 게시글 목록 </ListallText>
+                    </ListallWrap>
+
+                    <ListPostShowWrap >
+                      <GridWrap style={{position:'relative',zIndex:1}}>
+                      {images.map((image, index) => (
+                          <GridDiv key={index}>
+                              <GridImg src={image} onClick={() => handleImagesClick(PostIds[index])}  alt="사진" />
+                          </GridDiv>
+                        ))}
+                      </GridWrap>
+                    
+                      <PageWrap>
+                        <ReactPaginate
+                              previousLabel={<PreButton />}
+                              nextLabel={<NextButton />}
+                              breakLabel={''}
+                              pageCount={pageCount}
+                              onPageChange={handlePageClick}
+                              containerClassName={'paginations'}
+                              activeClassName={'actives'}
+                              pageRangeDisplayed={0} // 페이지 번호를 숨기는 옵션
+                              marginPagesDisplayed={0} // 페이지 번호를 숨기는 옵션
+                          />
+                        </PageWrap>
+                    </ListPostShowWrap>
+                    </>
+                    
+                    ) : null}
+
+                  {isMine|| isMe ===  'zxcva98657'  ? ( //수정된 부분 1017, 관리자 수정, 삭제버튼 보이도록 
+                  <S.InLayoutTwo> 
+                      <S.Buttons>
+                      <S.Right> 
+                          <S.EditButton  onClick={handelGoEdit}>
+                          수정  
+                          </S.EditButton>
+
+                          <S.DelectButton onClick={openModalHandler}>
+                          삭제
+                          </S.DelectButton>
+                          {isOpen ? (<DeleteModal isId={id} openModalHandler={openModalHandler}/>) : null}
+                      </S.Right>
+                      </S.Buttons>
+                  </S.InLayoutTwo>
+                  ) : null}
 
 
                 </S.Center>
                     
             </S.InOutWrap>
-            {!isMine ? (
-            <>
-            <GridWrap>
-            {images.map((image, index) => (
-                <GridDiv key={index}>
-                    <GridImg src={image} onClick={() => handleImagesClick(PostIds[index])}  alt="사진" />
-                </GridDiv>
-              ))}
-             </GridWrap>
-             <ReactPaginate
-                  previousLabel={<Button style={{marginRight:680,bottom:230}}>◀</Button>}
-                  nextLabel={<Button style={{marginLeft:680, bottom:230}}>▶</Button>}
-                  breakLabel={''}
-                  marginPagesDisplayed={0}
-                  pageCount={pageCount}
-                  pageRangeDisplayed={0}
-                  onPageChange={handlePageClick}
-                  containerClassName={'paginations'}
-                  activeClassName={'actives'}
-              />
-            </>
-            ) : null}
+            
         </S.OutWrap>
     );
 };
@@ -246,23 +260,18 @@ display: grid;
 grid-template-columns: repeat(4, 1fr);
 grid-template-rows: repeat(1, 1fr);
 gap: 10px;
-//width: 75%;
 height: auto;
-//min-height:80vh;
-//padding: 20px;
-//margin-top:20px;
 
 
 /* tablet 규격 */
 @media screen and (max-width: 1023px){
-  //width: 90%;
+  
 }
 @media screen and (max-width: 850px){
-  //width: 90%;
+  
 }
 /* mobile 규격 */
 @media screen and (max-width: 540px){
-  //width: 93%;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(10, 1fr);
   gap: 5px;
@@ -381,6 +390,44 @@ export const Button = styled(Radius)`
   }
 `; 
 
+const ButtonStyle = {
+  color: 'black',
+  width: 45,
+  height: 45,
 
+  '&:hover': {
+    color: '#5d6bb4'
+  }
+};
+
+const PreButton = styled(HiChevronDoubleLeft)`
+${ButtonStyle}`;
+const NextButton = styled(HiChevronDoubleRight)`${ButtonStyle}`;
+
+
+const ListallWrap = styled.div`
+  width: 100%; 
+`;
+
+const ListallText = styled.span`
+  display: flex; 
+  text-align: left; 
+  margin-bottom: 1vh; 
+`;
+
+const ListPostShowWrap = styled.div`
+width: 100%; 
+  position: relative;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5vh;
+`;
+
+const PageWrap = styled.div`
+  position: absolute;
+  z-index: 2;
+  top: 100px;
+  width: 115%;
+`;
 
 

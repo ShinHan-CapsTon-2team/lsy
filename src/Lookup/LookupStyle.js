@@ -223,7 +223,8 @@ ${TitleFontStyle};
 color: black;
 `;
 
-export const NameFont = styled.span`
+export const NameFont = styled.div`
+cursor:pointer;
 ${FontStyle};
 color: black;
 `;
@@ -321,7 +322,6 @@ display: flex;
 align-items: center;
 justify-content: center;
 position: relative;
-cursor: pointer;
 color: white;
 word-wrap: break-word;
 border-radius: 40px;

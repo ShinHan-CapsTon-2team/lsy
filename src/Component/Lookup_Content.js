@@ -5,10 +5,7 @@ import * as S from '../Lookup/LookupStyle'
 import React, { useState } from 'react';
 import { ModalBackdrop } from "../Modal/ModalStyle";
 import { ImgModal } from '../Modal/ImgModal';
-import {PiUserCircleThin} from 'react-icons/pi'
-import styled from 'styled-components';
 
-import { StyledPiUserCircleThin } from '../Style/CommonStyle';
 const Lookup_Content =({ title,nickname,imageurl,description,created_at,id,writer}) => {
     
     const navigate = useNavigate();

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import React, { useEffect } from 'react';
 
-
+import { HiOutlineX } from "react-icons/hi";
 export const ImgModal = ({imgurl,openModalHandler}) => {
   
 
@@ -98,14 +98,9 @@ const FontStyle = {
     }
     };
 
-const Imgsee = styled.img`
-width: 100%;
-      height: 100%;
-      object-fit: contain;
-`;
 
 
-const CloseButton = styled.button`
+const CloseButton = styled(HiOutlineX)`
 position:absolute;
 right:10px;
 top:10px;

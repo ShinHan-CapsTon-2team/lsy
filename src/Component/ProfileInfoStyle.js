@@ -166,14 +166,14 @@ export const Radius = styled.button`
   word-wrap: break-word;
   border-radius: 40px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  cursor: pointer;
+  //cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   border: none;
   background: #798be6;
   position: relative;
-  cursor: pointer;
+ // cursor: pointer;
   color: white;
 `;
 export const ButtonShort = styled(Radius)`
