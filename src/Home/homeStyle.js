@@ -242,7 +242,7 @@ export const CategoryMenu = styled(Radius)`
     height: 7vh; 
 
     &:nth-child(1){
-      width:33%;
+      width:37%;
     }
     &:nth-child(5){
       margin-right: 0;

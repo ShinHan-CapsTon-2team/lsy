@@ -76,7 +76,7 @@ const ModalImageView = styled.img`
 
 
 
-const FontStyle = {
+const CloseButtonStyle = {
     '@media screen and (max-width: 1024px)':{
     fontSize: 38
     },
@@ -106,7 +106,7 @@ right:10px;
 top:10px;
 background-color:transparent !important;
 
-${FontStyle};
+${CloseButtonStyle};
 
 &:hover {
     color: #798be6;

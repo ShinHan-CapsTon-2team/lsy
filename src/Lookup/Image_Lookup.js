@@ -28,6 +28,7 @@ function Images_Lookup() {
     const [page, setPage] = useState(1);  
     const [dataFromChild, setDataFromChild] = useState({}); 
     const pageCount = Math.ceil(TotalCount / postsPerPage);
+    const [nickname,setNickname]=useState([]);
     const handleChildData = (data) => {
         // 자식 컴포넌트로부터 받은 데이터를 처리
         setDataFromChild(data);
@@ -104,9 +105,11 @@ const handlePageClick = async ({ selected }) => {
         
                 const data = await response.json();
                 setEmail(data.userEmail)
+                
+                setNickname(data.nickname);
                 const userEmailFromServer = data.userEmail; // 서버에서 받은 이메일
                 const userNicknameFromServer = data.nickname;
-        
+
                 // 이메일 아이디 추출 (이메일에서 "@" 이후의 부분을 제외)
                 const emailId = userEmailFromServer.split('@')[0];
         
@@ -164,6 +167,7 @@ const handlePageClick = async ({ selected }) => {
         navigate(`/postedit/${id}`); 
     };
   
+    console.log("누구야",nickname);
     console.log("userEmail:",userEmails);
     console.log("현재 게시글 주인?:",email);
     console.log("가져온 이미지들 :",images);
@@ -177,7 +181,7 @@ const handlePageClick = async ({ selected }) => {
                 <S.Center>
                   {user.map((uu)=>{
                       let imageUrl = uu.image_url; // 이미지 URL 사용
-
+                      
                       return(
                               <Lookup_Content 
                                   key={uu.id} 
@@ -197,11 +201,11 @@ const handlePageClick = async ({ selected }) => {
                   {!isMine ? (
                   <>
                     <ListallWrap> 
-                      <ListallText>모든 게시글 목록 </ListallText>
+                      <ListallText> 모든 게시글 목록 </ListallText>
                     </ListallWrap>
 
                     <ListPostShowWrap >
-                      <GridWrap style={{position:'relative',zIndex:1}}>
+                      <GridWrap style={{position:'relative',}}>
                       {images.map((image, index) => (
                           <GridDiv key={index}>
                               <GridImg src={image} onClick={() => handleImagesClick(PostIds[index])}  alt="사진" />
@@ -410,6 +414,7 @@ const ListallWrap = styled.div`
 `;
 
 const ListallText = styled.span`
+${FontStyle};
   display: flex; 
   text-align: left; 
   margin-bottom: 1vh; 
@@ -425,7 +430,7 @@ width: 100%;
 
 const PageWrap = styled.div`
   position: absolute;
-  z-index: 2;
+ // z-index: 2;
   top: 100px;
   width: 115%;
 `;
