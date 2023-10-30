@@ -223,7 +223,7 @@ export const CategoryMenu = styled(Radius)`
   /* tablet 규격 */
   @media screen and (max-width: 1024px){
     width:19%;
-    height: 7vh; 
+    height: 8vh; 
     margin-right:5px;
   }
 
@@ -254,15 +254,15 @@ export const CategoryMenu = styled(Radius)`
 
   /* ss 데스크 */
   @media screen and (min-width: 1025px){
-  
+    height: 8vh; 
   }
   /* s 데스크 */
   @media screen and (min-width: 1210px){
-    height: 7.3vh; 
+    height: 8vh; 
       
   }
   @media screen and (min-width: 1700px) {
-    height: 7vh; 
+    height: 7.5vh; 
   }
     
   };

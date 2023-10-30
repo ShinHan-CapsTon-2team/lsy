@@ -148,7 +148,7 @@ const onGoProfile = () => {
           <>
             {accessToken ? ( // 액세스 토큰이 있는 경우 , 만료된 토큰에 대해 처리했기 때문에 
               <P.DropMenu>
-                <P.CateMenu onClick={onGoProfile}>마이프로필</P.CateMenu>
+                <P.CateMenu style={{marginBottom:'1vh'}}onClick={onGoProfile}>마이프로필</P.CateMenu>
                 <P.CateMenu onClick={onNaverLogout}>로그아웃</P.CateMenu>
               </P.DropMenu>
             ) : (

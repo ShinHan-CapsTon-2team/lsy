@@ -243,13 +243,13 @@ const FixedSpan = styled.div`
     justify-content: flex-end; 
 
     margin-right:30px;
-    
+    /*
     @media screen and (max-width: 540px){
         top: 17px;
         bottom: 0px;
         align-items: center; 
         justify-content: flex-start;
-    }
+    }*/
 `;
 
 export const ModalBackdrop = styled.div`
@@ -304,6 +304,9 @@ bottom : 0;
     
     width: 100%;
     height:100%;
+    @media screen and (max-width: 540px){
+        height:98.8vh;
+    }
 `;
 
     const InsideWrap = styled.div`

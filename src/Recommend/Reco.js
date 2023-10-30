@@ -5,6 +5,7 @@ import Header from '../Component/Header';
 import { useNavigate } from 'react-router-dom';
 import Loading from '../Component/Loading';
 import upload from '../Images/upload.png'; 
+import { Popup } from "../Modal/Popup";
   
 //모델파일 사용안함
 //히스토그램 기반 메트릭스 
@@ -19,6 +20,8 @@ function Reco() {
     const imagePathsInFolder = imagePaths; 
       // 로딩 상태를 관리하는 상태 변수
     const [isLoading, setIsLoading] = useState(false);
+    const [sizeFile,setSizeFile]= useState(false); // 10MB, 정적 이미지 파일이 아닐 경우 
+    const [categoryNo,setcategoryNo]= useState(false);
     const classLabels = [
       'body',
       'dog',
@@ -119,7 +122,7 @@ const handleImageFileChange = async (event) => {
     (imageFile.type === 'image/jpeg' ||
       imageFile.type === 'image/png' ||
       imageFile.type === 'image/jpg') &&
-    imageFile.size <= 30 * 1024 * 1024
+    imageFile.size <= 10 * 1024 * 1024
   ) {
     const reader = new FileReader();
     reader.onload = async (event) => {
@@ -141,6 +144,14 @@ const handleImageFileChange = async (event) => {
   } else {
     setImageFile(null);
     setPreviewImage(null);
+
+    //10MB, 정적 이미지 파일이 아닐 경우 
+    setSizeFile(true);
+
+    setTimeout(() => {
+      setSizeFile(false);
+      }, 2000);
+    console.log("실패");
   }
 };
       
@@ -197,6 +208,17 @@ const handleCosineCalculation = async () => {
       }
     } else {
       console.log('이미지가 분류되지 않았습니다.');
+
+      setcategoryNo(true);
+      
+      setTimeout(() => 
+      {
+        setcategoryNo(false);
+        navigate('/reco');
+        }, 2000);
+      
+      
+    
     }
   } catch (error) {
     console.error('Error calculating cosine similarity:', error);
@@ -329,6 +351,15 @@ try {
                     결과보기 
                   </ResultGoButton>  
               </InLayoutTwo>
+
+              {/* 파일 사이즈 클 경우 나오는  메시지를 보여주는 부분 */}
+              {sizeFile && (
+                <Popup text="최대 10MB 정적인 이미지 파일을 올려주세요." />
+              )}
+
+              {categoryNo && (
+                <Popup text="해당 사진이 카테고리 분류를 실패했습니다." />
+              )}
             </Center>
           </InOutWrap>
       </OutWrap>)}

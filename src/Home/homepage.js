@@ -179,7 +179,10 @@ function scrollToTop() {
                   marginRight: index === categoriesData.length - 1 ? "0px" : "",
                 }}
               >
+                
                 {category.name}
+                
+                
               </S.CategoryMenu>
             ))}
             
