@@ -129,7 +129,6 @@ export const Wrap = styled(Area)`
   border-radius: 31px;
 `;
 export const AddressWrap = styled(Wrap)`
-  text-align: center;
   border-radius: 31px;
   flex-direction:column;
   word-break:break-all;
@@ -170,6 +169,7 @@ export const TextareaBasic = styled.textarea`
   min-height: 25vh;
   height: auto;
 `;
+
 
 
 export const Radius = styled.button`
@@ -274,6 +274,7 @@ display: flex;
 flex-direction: row;
 align-items: center;
 cursor: pointer;
+text-align: left;
 `;
 export const AddressImg = styled.img`
 width: 38px;
@@ -287,8 +288,8 @@ ${AddressFontStyle};
 export const InstTextarea = styled.textarea`
   ${inputStyle};
   ${AddressFontStyle};
-  min-height: 25vh;
   height: auto;
+\
 `;
 
 export const Whatgray = styled.div`

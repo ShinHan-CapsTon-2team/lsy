@@ -47,12 +47,14 @@ const ProfileInfo = ({introduction, career, email, nickname,insta}) => {
                         </S.Wrap>
                         
                         <S.AddressWrap>
-                            <S.Address style={{marginBottom:15}} >
-                                
-                                    <S.AddressImg src={naveraddress} ></S.AddressImg>
-                                    <S.AddressSpan>{email ||'stapq@naver.com '}</S.AddressSpan>
-                                
-                            </S.Address> 
+                            <CopyToClipboard text={email} onCopy={copyNavermail}>
+                                <S.Address style={{marginBottom:15}} >
+                                    
+                                        <S.AddressImg src={naveraddress} ></S.AddressImg>
+                                        <S.AddressSpan>{email ||'stapq@naver.com '}</S.AddressSpan>
+                                        
+                                </S.Address>
+                            </CopyToClipboard> 
                             {copied && <Popup text="메일 주소가 복사가 완료되었습니다."/>}
                             
                             <S.Address onClick={goToInsta}>
