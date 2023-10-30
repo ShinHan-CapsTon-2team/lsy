@@ -62,13 +62,13 @@ const ProfileInfo_Edit = ({ onEditComplete}) => {
               console.log('email: ', profileData.email);
               console.log('insta: ', profileData.insta);
      
-             })
-             .catch((error) => {
-                console.error('Error fetching profile data for other user:', error);
-              });
-    }, [emailId]); 
-    return(
-     <> 
+            })
+            .catch((error) => {
+              console.error('Error fetching profile data for other user:', error);
+            });
+  }, [emailId]); 
+  return(
+    <> 
                 <S.One> {/* 이름 이메일  */}
                     <S.Wrap style={{ marginBottom: 10 }}>
                       <S.NickName>{nickname}</S.NickName>
@@ -83,7 +83,11 @@ const ProfileInfo_Edit = ({ onEditComplete}) => {
 
                             <S.Address >
                                 <S.AddressImg src={instaaddress} ></S.AddressImg>
-                                <S.TextareaBasic style={{height:'80%',minHeight:0}}>{insta ||' yeon125'}</S.TextareaBasic>
+                                <S.InstTextarea 
+                                  value={insta}
+                                  onChange={(e) =>setInsta(e.target.value)}
+                                  placeholder="인스타그램" 
+                                />
                             </S.Address> {/* 링크 복사하게끔  */}
                         </S.AddressWrap>
  
@@ -94,7 +98,7 @@ const ProfileInfo_Edit = ({ onEditComplete}) => {
                     <S.InfoWrap>
                         
                         <S.Left >
-                             <S.Whatgray> 소개 </S.Whatgray>
+                            <S.Whatgray> 소개 </S.Whatgray>
                         </S.Left>
 
                         <S.Left style={{marginTop:10 ,width:'100%'}}>

@@ -6,6 +6,7 @@ import { LoginModal } from '../Modal/LoginModal';
 import { AiFillQuestionCircle } from 'react-icons/ai';
 import { Tooltip } from 'react-tooltip'
 import "./Tooltipstyle.css";
+import { InfoModal } from '../Modal/InfoModa';
 
 
 function Landing(){
@@ -131,7 +132,14 @@ function Landing(){
         navigate(`/post`);  
     };
 
-    
+    const [isOpenInfoReco, setIsOpenInfoReco] = useState(false); // 색감 매칭 툴팁 모달창 
+    const [isOpenInfoTest, setIsOpenInfoTest] = useState(false);  // 테스트 툴팁 모달창 
+    const showInfoReco = () => {
+        setIsOpenInfoReco(!isOpenInfoReco) 
+    };
+    const showInfoTest = () => {
+        setIsOpenInfoTest(!isOpenInfoTest)  
+    };
     return (
         <div>
             <OutWrap>
@@ -142,9 +150,22 @@ function Landing(){
                     <ImgWrap> 
                         
                         <Button onClick={handleUploadPhotoClick}>🎨 색감 매칭을 통해 추천받기 
-                            <TooImg data-tooltip-id="colormatching-tooltip"
-                                />
+                           <InfoButton >
+                            <TooImg  onClick={(e) => {
+                                        e.stopPropagation(); // 이벤트 전파 중단
+                                        showInfoReco();
+                                    }}
+                                    />
+                           </InfoButton>
+                            
                         </Button>
+
+                        {isOpenInfoReco ?
+                            // 액세스 토큰이 없는 경우
+                            <ModalBackdrop onClick={showInfoReco}>
+                                <InfoModal showInfoReco= {showInfoReco}/>
+                            </ModalBackdrop>
+                            : null}
                         
                         <Tooltip 
                             id="colormatching-tooltip" 
@@ -157,12 +178,20 @@ function Landing(){
                         
 
                         <Button onClick={handleFitPhotoClick}> 🔍테스트를 통해 추천받기
-                            <TooImg
-                            onClick={handleUploadPhotoClick}
-                                data-tooltip-id="testmatching-tooltip"
-                                />       
+                           <InfoButton>
+                                <TooImg
+                            onClick={showInfoTest}
+                                />   
+                            </InfoButton>    
                         </Button>
 
+
+                        {isOpenInfoTest ?
+                            
+                            <ModalBackdrop onClick={showInfoTest}>
+                                <InfoModal showInfoReco= {showInfoTest}/>
+                            </ModalBackdrop>
+                            : null}
                         
                         <Tooltip 
                                 id="testmatching-tooltip" 
@@ -399,16 +428,17 @@ bottom : 0;
     }
 `;
 
-const TooImg = styled(AiFillQuestionCircle)`
+const InfoButton = styled.button`
 position: absolute;
   right: 25px;
-  width: 30px;
-  height: 30px;
-  z-index:9999px;
-  @media screen and (max-width: 850px) {
-   display: none;
-}
+  background-color: transparent;
+`;
+const TooImg = styled(AiFillQuestionCircle)`
 
+color:white;
+  width: 35px;
+  height: 35px;
+  cursor:pointer;
 
 @media screen and (max-width: 1024px){
            
