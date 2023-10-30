@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 export const ProfileWrap = styled.div`
   display: flex;
   flex-direction: column;
@@ -59,7 +59,8 @@ export const ContentRadius = styled.div`
 export const One = styled(ContentRadius)`
   display: flex;
   align-items: center;
-  height: 15vh;
+  min-height: 15vh;
+  height:auto;
   flex-direction: column;
   margin-bottom: 20px;
   justify-content: center;
@@ -157,7 +158,7 @@ export const WrapPer = styled(AreaInput)`
 
 export const inputStyle = {
   color: "black",
-  fontFamily: "Inter",
+  fontFamily: "GmarketSansMedium",
   border: "none",
   outline: "none",
   width: "100%",
@@ -169,6 +170,8 @@ export const TextareaBasic = styled.textarea`
   min-height: 25vh;
   height: auto;
 `;
+
+
 export const Radius = styled.button`
   padding: 20px;
   word-wrap: break-word;
@@ -245,7 +248,7 @@ export const GrayFontStyle = {
 
 export const AddressFontStyle = {
   "@media screen and (max-width: 1024px)": {
-    fontSize: 218,
+    fontSize: 18,
   },
 
   "@media screen and (max-width: 850px)": {
@@ -258,7 +261,7 @@ export const AddressFontStyle = {
   },
   /* tablet 규격 */
   "@media screen and (min-width: 1025px)": {
-    fontSize: 20,
+    fontSize: 18,
   },
   "@media screen and (min-width: 1700px)": {
     fontSize: 29,
@@ -273,12 +276,19 @@ align-items: center;
 cursor: pointer;
 `;
 export const AddressImg = styled.img`
-width: 35px;
-height:35px;
-margin-right:3px;
+width: 38px;
+height:38px;
+margin-right:5px;
 `;
 export const AddressSpan = styled.span`
 ${AddressFontStyle};
+`;
+
+export const InstTextarea = styled.textarea`
+  ${inputStyle};
+  ${AddressFontStyle};
+  min-height: 25vh;
+  height: auto;
 `;
 
 export const Whatgray = styled.div`

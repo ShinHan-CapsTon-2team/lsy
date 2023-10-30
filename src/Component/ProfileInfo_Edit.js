@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams  } from 'react-router-dom'; 
-
+import naveraddress from '../Images/naverIcon.png'
+import instaaddress from '../Images/instaIcon.png'
 import * as S from './ProfileInfoStyle'
 
 const ProfileInfo_Edit = ({ onEditComplete}) => {
@@ -59,6 +60,7 @@ const ProfileInfo_Edit = ({ onEditComplete}) => {
               //1029
               setInsta(profileData.insta);
               console.log('email: ', profileData.email);
+              console.log('insta: ', profileData.insta);
      
              })
              .catch((error) => {
@@ -72,10 +74,18 @@ const ProfileInfo_Edit = ({ onEditComplete}) => {
                       <S.NickName>{nickname}</S.NickName>
                     </S.Wrap>
 
-                    <S.Wrap>
-                        <S.Email>{email}</S.Email>
-                        <S.Email>{insta}</S.Email>
-                    </S.Wrap>
+                    <S.AddressWrap>
+                            <S.Address style={{marginBottom:15}} >
+                                
+                              <S.AddressImg src={naveraddress} ></S.AddressImg>
+                              <S.AddressSpan >{email ||'stapq@naver.com '}</S.AddressSpan>
+                            </S.Address> 
+
+                            <S.Address >
+                                <S.AddressImg src={instaaddress} ></S.AddressImg>
+                                <S.TextareaBasic style={{height:'80%',minHeight:0}}>{insta ||' yeon125'}</S.TextareaBasic>
+                            </S.Address> {/* 링크 복사하게끔  */}
+                        </S.AddressWrap>
  
                 </S.One>
                 
