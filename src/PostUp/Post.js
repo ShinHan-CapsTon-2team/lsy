@@ -23,6 +23,9 @@ function Post() {
     const [showSuccessMessage, setShowSuccessMessage] = useState(false); // 업로드 성공
     const [showErrorMessage, setShowErrorMessage] = useState(false); // 업로드 실패
 
+
+    const [sizeFile,setSizeFile]= useState(false); // 10MB, 정적 이미지 파일이 아닐 경우 
+
     const [showMessage, setShowMessage] = useState(false); // 카테고리 분류 중 
     const classLabels = [
       '바디프로필',
@@ -44,6 +47,11 @@ function Post() {
 
 
     const navigate = useNavigate();
+  
+    //홈페이지
+    const handleGohomeClick = () => {
+        navigate('/home');
+    };
     
     useEffect(() => {
         // 모델 로드
@@ -134,17 +142,17 @@ function Post() {
       const getEnglishCategory = (koreanCategory) => {
         return categoryLabels[koreanCategory];
       };
-
         /*파일업로드*/
       const handleImageFileChange = async (event) => {
         const imageFile = event.target.files[0];
-        if (
+        if 
+        (
           imageFile &&
           (imageFile.type === 'image/jpeg' ||
             imageFile.type === 'image/png' ||
-            imageFile.type === 'image/jpg') &&
-          imageFile.size <=10 * 1024 * 1024 //30 메가바이트를 바이트로 환산
-        ) {
+            imageFile.type === 'image/jpg') && imageFile.size <= 10* 1024 * 1024 //30 메가바이트를 바이트로 환산
+        ) 
+        {
           setImageFile(imageFile);
           setPreviewImage(URL.createObjectURL(imageFile));
 
@@ -170,10 +178,18 @@ function Post() {
             setPrediction(predictedLabel);
             setCategory(predictedLabel); // 카테고리를 예측된 클래스로 설정
           }
-        } else {
-          console.log("이미지 파일 크기가 100KB를 초과했습니다.");
+        } 
+        else { 
           setImageFile(null);
           setPreviewImage(null);
+
+          //10MB, 정적 이미지 파일이 아닐 경우 
+          setSizeFile(true);
+
+          setTimeout(() => {
+            setSizeFile(false);
+            }, 2000);
+          console.log("실패");
         }
       };
 
@@ -236,8 +252,8 @@ function Post() {
         setIsMenuOpen(!isMenuOpen);
     };
 
-    //여긴 필요없음 
-  const [dataFromChild, setDataFromChild] = useState(null); //!!!
+    
+  const [dataFromChild, setDataFromChild] = useState(null); 
 
   const handleChildData = (data) => {
     // 자식 컴포넌트로부터 받은 데이터를 처리
@@ -288,7 +304,7 @@ function Post() {
                   <S.Menu
                     onClick={() => document.getElementById("fileInput").click()}
                   >
-                    파일 찾기
+                    내 파일 찾기
                   </S.Menu>
                 </S.FindImg>
                 <S.FileBox
@@ -339,6 +355,10 @@ function Post() {
               <S.Right>
                 <S.ButtonTwo onClick={handleSubmit}>업로드</S.ButtonTwo>
               </S.Right>
+              {/* 파일 사이즈 클 경우 나오는  메시지를 보여주는 부분 */}
+              {sizeFile && (
+                <Popup text="최대 10MB 정적인 이미지 파일을 올려주세요." />
+              )}
               {/* 성공 메시지를 보여주는 부분 */}
               {showSuccessMessage && (
                 <Popup text="게시물이 성공적으로 업로드되었습니다" />
@@ -356,4 +376,3 @@ function Post() {
 }
 
 export default Post;
-

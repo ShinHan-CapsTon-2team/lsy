@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 export const ProfileWrap = styled.div`
   display: flex;
   flex-direction: column;
@@ -59,7 +59,8 @@ export const ContentRadius = styled.div`
 export const One = styled(ContentRadius)`
   display: flex;
   align-items: center;
-  height: 15vh;
+  min-height: 15vh;
+  height:auto;
   flex-direction: column;
   margin-bottom: 20px;
   justify-content: center;
@@ -127,6 +128,14 @@ export const Wrap = styled(Area)`
   text-align: center;
   border-radius: 31px;
 `;
+export const AddressWrap = styled(Wrap)`
+  text-align: center;
+  border-radius: 31px;
+  flex-direction:column;
+  word-break:break-all;
+`;
+
+
 export const Font = styled.span`
   ${FontStyle};
   color: black;
@@ -149,7 +158,7 @@ export const WrapPer = styled(AreaInput)`
 
 export const inputStyle = {
   color: "black",
-  fontFamily: "Inter",
+  fontFamily: "GmarketSansMedium",
   border: "none",
   outline: "none",
   width: "100%",
@@ -161,19 +170,21 @@ export const TextareaBasic = styled.textarea`
   min-height: 25vh;
   height: auto;
 `;
+
+
 export const Radius = styled.button`
   padding: 20px;
   word-wrap: break-word;
   border-radius: 40px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  cursor: pointer;
+  //cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   border: none;
   background: #798be6;
   position: relative;
-  cursor: pointer;
+ // cursor: pointer;
   color: white;
 `;
 export const ButtonShort = styled(Radius)`
@@ -213,7 +224,6 @@ export const Email = styled.div`
   ${FontStyle};
   width: 100%;
 `;
-
 export const GrayFontStyle = {
   "@media screen and (max-width: 1024px)": {
     fontSize: 20,
@@ -235,6 +245,52 @@ export const GrayFontStyle = {
     fontSize: 31,
   },
 };
+
+export const AddressFontStyle = {
+  "@media screen and (max-width: 1024px)": {
+    fontSize: 18,
+  },
+
+  "@media screen and (max-width: 850px)": {
+    fontSize: 17,
+  },
+
+  /* mobile 규격 */
+  "@media screen and (max-width: 540px)": {
+    fontSize: 15,
+  },
+  /* tablet 규격 */
+  "@media screen and (min-width: 1025px)": {
+    fontSize: 18,
+  },
+  "@media screen and (min-width: 1700px)": {
+    fontSize: 29,
+  },
+};
+export const Address = styled.div`
+${GrayFontStyle};
+width: 100%;
+display: flex;
+flex-direction: row;
+align-items: center;
+cursor: pointer;
+`;
+export const AddressImg = styled.img`
+width: 38px;
+height:38px;
+margin-right:5px;
+`;
+export const AddressSpan = styled.span`
+${AddressFontStyle};
+`;
+
+export const InstTextarea = styled.textarea`
+  ${inputStyle};
+  ${AddressFontStyle};
+  min-height: 25vh;
+  height: auto;
+`;
+
 export const Whatgray = styled.div`
   ${GrayFontStyle};
 

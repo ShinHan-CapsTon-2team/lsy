@@ -15,7 +15,6 @@ right : 0;
 bottom : 0;
 `;
 
-
 export const ModalView = styled.div.attrs((props) => ({
 role: 'dialog',
 }))`
@@ -125,4 +124,6 @@ height:100%;
 @media screen and (min-width: 1700px){
     width:49%;
 }
+
+
 `;

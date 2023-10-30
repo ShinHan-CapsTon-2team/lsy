@@ -1,4 +1,4 @@
-import React, { useState, useEffect ,useRef, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as tf from '@tensorflow/tfjs'; //npm i @tensorflow/tfjs
 import '@tensorflow/tfjs-backend-webgl'; //npm i @tensorflow/tfjs-backend-webgl
 import Header from '../Component/Header';
@@ -309,9 +309,9 @@ try {
                       )}{/* 빈 이미지 로고 그림인데 업로드 하면 없어진 */}
     
     
-                      <FindImg onClick={() => document.getElementById('file-upload').click()}>
-                        파일 찾기
-                      </FindImg>
+                      <FindImgButton onClick={() => document.getElementById('file-upload').click()}>
+                        내 파일 찾기
+                      </FindImgButton>
                       
     
                       <InputBox
@@ -320,17 +320,14 @@ try {
                           accept="image/*"
                           onChange={handleImageFileChange}
                       />
-                      {/* 위 아래  파일찾기  버튼, 이미지 셀렉 하면 없어진다. */}
-                  </Five>
-                  
+                  </Five>  
                 </Content>
               </InLayoutOne>
     
               <InLayoutTwo> 
-                  <ButtonTwo  style={{marginRight:10}}onClick={handleCosineCalculation}>
+                  <ResultGoButton style={{ backgroundColor: (!previewImage) &&'#5d6bb4'}}onClick={handleCosineCalculation}>
                     결과보기 
-                  </ButtonTwo>
-                  
+                  </ResultGoButton>  
               </InLayoutTwo>
             </Center>
           </InOutWrap>
@@ -341,230 +338,232 @@ try {
   }
      
 export default Reco;
-     
+  
+const FontStyle = {
+  "@media screen and (max-width: 1024px)": {
+    fontSize: 22,
+  },
+
+  "@media screen and (max-width: 850px)": {
+    fontSize: 21,
+  },
+
+  /* mobile 규격 */
+  "@media screen and (max-width: 540px)": {
+    fontSize: 19,
+  },
+  /* tablet 규격 */
+  "@media screen and (min-width: 1025px)": {
+    fontSize: 24,
+  },
+  "@media screen and (min-width: 1700px)": {
+    fontSize: 37,
+  },
+};
+
 const OutWrap = styled.div`
-       width: 100%;
-       height: 100%;
-       background: white;
-       //position: relative;
-       align-items: center;
-       display: flex;
-       flex-direction: column;
-      // justify-content: center;
-     
-     // 가운데로 
-      position: absolute;
-        // top: 50%;
-         //left: 50%;
-         //transform: translate(-50%, -50%);
-      
-       * {
-       font-size: 33px;
-       }
-       /* mobile 규격 */
-       @media screen and (max-width: 540px){
-       * {
-       font-size: 27px;
-       }
-         
-       }
-       @media screen and (min-width: 1700px) {
-       * {
-         font-size: 45px;
-       }
-     `;
-     const InOutWrap = styled.div`
-     display: flex;
-     flex-direction: column;
-     align-items: center;
-     justify-content: center;
-     width: 65%;
-     height:100%;
-     
-     /* tablet 규격 */
-       @media screen and (max-width: 1023px){
-         width: 75%;
-       }
-     /* mobile 규격 */
-       @media screen and (max-width: 540px){
-         width: 90%;
-       }
-       /* s 데스크 */
-       @media screen and (min-width: 1024px){
-           
-       }
-       /* l 데스크 */
-       @media screen and (min-width: 1700px){
-           
-       }
-     `;
-     
-     
-     const Center = styled.div`
-     width: 100%;
-     height:80%;
-     display: flex;
-     flex-direction: column;
-     align-items: center;
-     `;
-     const InLayoutOne = styled.div`
-     width:100%;
-     height:85%
-     `;
-     const Content = styled.div`
-     width:100%;
-     height:100%;
-     display: flex;
-     flex-direction: column;
-     `;
-     
-       const SelectImg = styled.img`
-       width: 100%;
-       height: 100%;
-       object-fit: contain;
-       `;
-     
-       const EmptyImg = styled.img`
-       width: 150px;
-       height: 150px;
-       position: absolute;
-       top: 50%;
-       left: 50%;
-       transform: translate(-50%, -50%);
-       
-       /* tablet 규격 */
-         @media screen and (max-width: 1023px){
-             
-         }
-     
-         /* mobile 규격 */
-         @media screen and (max-width: 540px){
-             
-         }
-         /* s 데스크 */
-         @media screen and (min-width: 1024px){
-             
-         }
-         /* l 데스크 */
-         @media screen and (min-width: 1700px){
-           width: 200px;
-           height: 200px;
-         }
-       `;
-     
-     const InLayoutTwo = styled(InLayoutOne)`
-     display: flex;
-     width:100%;
-     height:15%;
-     justify-content: flex-end;
-     align-items: center;
-     
-     `;
-     
-     const InputBox = styled.input`
-     display: none;
-     `;
-     
-     
-     const ContentRadius = styled.div`
-     border: 3px #3A76EF solid;
-     padding: 20px;
-     word-wrap: break-word;
-     border-radius: 31px;
-     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-     
-     
-     box-sizing:border-box;
-     
-     @media screen and (max-width: 1600px) {
-       border: 3px #3A76EF solid;
-       };
-       
-       @media screen and (max-width: 540px) {
-       margin-top: 15px;
-       border: 2px #3A76EF solid;
-       };
-       
-       @media screen and (min-width: 1601px) {
-       margin-top: 30px;
-       border: 4px #3A76EF solid;
-     `;
-     
-     
-     
-     const Five = styled(ContentRadius)`
-     position: relative;
-     width:100%;
-     height:100%;
-     overflow:hidden;
-     `;
-       
-     const Radius = styled.button`
-     padding: 20px;
-     word-wrap: break-word;
-     border-radius: 40px;
-     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-     border:none;
-     background: #798BE6;
-     display: flex;
-     align-items: center;
-     justify-content: center;
-     position: relative;
-     cursor: pointer;
-     color: white;
-     `;
-     
-     // 버튼투
-     const ButtonTwo = styled(Radius)`
-       width:30%;
-       height: 70%; 
-     
-       /* tablet 규격 */
-       @media screen and (max-width: 1023px){
-         width:40%;
-         
-       }
-       /* mobile 규격 */
-       @media screen and (max-width: 540px){
-         width:55%;
-       }
-     
-       /* s 데스크 */
-       @media screen and (min-width: 1024px){
-           
-       }
-       @media screen and (min-width: 1700px) {
-       
-       };
-      `;
-     const FindImg = styled(ButtonTwo)` 
-       position: absolute;
-       bottom: 30px;
-       right: 10px;
-     
-       width:30%;
-       height:12.5%;
-     
-       /* tablet 규격 */
-       @media screen and (max-width: 1023px){
-         width:40%;
-         
-       }
-       /* mobile 규격 */
-       @media screen and (max-width: 540px){
-         width:55%;
-         height: 13%; 
-         bottom: 20px;
-     
-       }
-     
-       /* s 데스크 */
-       @media screen and (min-width: 1024px){
-           
-       }
-       @media screen and (min-width: 1700px) {
+      width: 100%;
+      height: 100%;
+      background: white;
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+    position: absolute;
+    `;
+    const InOutWrap = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 65%;
+    height:100%;
+    
+    /* tablet 규격 */
+      @media screen and (max-width: 1023px){
+        width: 75%;
+      }
+    /* mobile 규격 */
+      @media screen and (max-width: 540px){
+        width: 90%;
+      }
+      /* s 데스크 */
+      @media screen and (min-width: 1024px){
           
-       };
-     
-     `;
-     
+      }
+      /* l 데스크 */
+      @media screen and (min-width: 1700px){
+          
+      }
+    `;
+    
+    
+    const Center = styled.div`
+    width: 100%;
+    height:80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    `;
+    const InLayoutOne = styled.div`
+    width:100%;
+    height:85%
+    `;
+    const Content = styled.div`
+    width:100%;
+    height:100%;
+    display: flex;
+    flex-direction: column;
+    `;
+    
+      const SelectImg = styled.img`
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      `;
+    
+      const EmptyImg = styled.img`
+      width: 150px;
+      height: 150px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      
+      /* tablet 규격 */
+        @media screen and (max-width: 1023px){
+            
+        }
+    
+        /* mobile 규격 */
+        @media screen and (max-width: 540px){
+            
+        }
+        /* s 데스크 */
+        @media screen and (min-width: 1024px){
+            
+        }
+        /* l 데스크 */
+        @media screen and (min-width: 1700px){
+          width: 200px;
+          height: 200px;
+        }
+      `;
+    
+    const InLayoutTwo = styled(InLayoutOne)`
+    display: flex;
+    width:100%;
+    height:15%;
+    justify-content: flex-end;
+    align-items: center;
+    
+    `;
+    
+    const InputBox = styled.input`
+    display: none;
+    `;
+    
+    
+    const ContentRadius = styled.div`
+    border: 3px #3A76EF solid;
+    padding: 20px;
+    word-wrap: break-word;
+    border-radius: 31px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    box-sizing:border-box;
+    
+    @media screen and (max-width: 1600px) {
+      border: 3px #3A76EF solid;
+      };
+      
+      @media screen and (max-width: 540px) {
+      margin-top: 15px;
+      border: 2px #3A76EF solid;
+      };
+      
+      @media screen and (min-width: 1601px) {
+      margin-top: 30px;
+      border: 4px #3A76EF solid;
+    `;
+    
+    
+    
+    const Five = styled(ContentRadius)`
+    position: relative;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    `;
+      
+    const Radius = styled.button`
+    padding: 20px;
+    word-wrap: break-word;
+    border-radius: 40px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border:none;
+    background: #798BE6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    //cursor: pointer;
+    color: white;
+    `;
+    
+    // 버튼투
+    const ButtonTwo = styled(Radius)`
+      width:30%;
+      height: 70%; 
+      ${FontStyle};
+      /* tablet 규격 */
+      @media screen and (max-width: 1023px){
+        width:40%;
+        
+      }
+      /* mobile 규격 */
+      @media screen and (max-width: 540px){
+        width:55%;
+      }
+    
+      /* s 데스크 */
+      @media screen and (min-width: 1024px){
+          
+      }
+      @media screen and (min-width: 1700px) {
+      
+      };
+    `;
+    const FindImgButton = styled(ButtonTwo)` 
+      position: absolute;
+      bottom: 30px;
+      left: 10px;
+    
+      width:30%;
+      height:12.5%;
+    
+
+      /* tablet 규격 */
+      @media screen and (max-width: 1023px){
+        width:40%;
+        
+      }
+      /* mobile 규격 */
+      @media screen and (max-width: 540px){
+        width:55%;
+        height: 13%; 
+        bottom: 20px;
+    
+      }
+    
+      /* s 데스크 */
+      @media screen and (min-width: 1024px){
+          
+      }
+      @media screen and (min-width: 1700px) {
+        
+      };
+    
+    `;
+    const ResultGoButton = styled(ButtonTwo)` 
+      margin-right:10px;
+   
+    `;

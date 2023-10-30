@@ -380,7 +380,7 @@ const handleCategorySelect = (selectedCategory, index) => {
                                   <S.Three>
                                     <S.SelectImg src={post.imagePreviewUrl || imageUrl} alt={`게시글 이미지`} />
                                     <S.FindImg >
-                                      <S.Menu onClick={() => document.getElementById('fileInput').click()}>파일 찾기</S.Menu>
+                                      <S.Menu onClick={() => document.getElementById('fileInput').click()}>내 파일 찾기</S.Menu>
                                     </S.FindImg>
 
                                     <S.FileBox 

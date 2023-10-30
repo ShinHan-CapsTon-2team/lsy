@@ -22,6 +22,7 @@ export const ProfileWrap = styled.div`
 export const ProfileLogo = styled.img`
   width: 57px;
   height: 57px; 
+  cursor:pointer;
   /* tablet 규격 */
   @media screen and (max-width: 1024px) {
   }

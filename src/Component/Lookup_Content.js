@@ -3,6 +3,8 @@ import  {useNavigate } from 'react-router-dom';
 import profilelogo from '../Images/i2.png'
 import * as S from '../Lookup/LookupStyle'
 import React, { useState } from 'react';
+import { ModalBackdrop } from "../Modal/ModalStyle";
+import { ImgModal } from '../Modal/ImgModal';
 
 const Lookup_Content =({ title,nickname,imageurl,description,created_at,id,writer}) => {
     
@@ -30,34 +32,59 @@ const Lookup_Content =({ title,nickname,imageurl,description,created_at,id,write
         navigate(`/profile/${writer}`);
       };
 
+
+    const [isOpen, setIsOpen] = useState(false); // 모달창 외부 여닫기
+    const openModalHandler = () => {
+    setIsOpen(!isOpen);
+
+      };
+    
+
+      
+
     return (
         <S.InLayoutOne>  
             <S.Content>
-                <S.ContentTitle> {/*제목*/}
-                    <S.WrapBasic>
-                        <S.Font> {title || 'none'} </S.Font>
-                    </S.WrapBasic>
+                
+                <S.ContentImgDes style={{display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center'}}>{/* 이미지/설명 */}
+                    <div style={{marginTop:'3vh',marginBottom:'3vh'}}>
+                        
+                            <S.TitleFont> {title || 'none'} </S.TitleFont>   
+                    </div>
 
-                    <S.WrapBasic> {/* 날짜 */}
-                        <S.At>{postdate || 'none'}</S.At>
-                    </S.WrapBasic>
-                </S.ContentTitle>
+                    <div style={{display:'flex',flexDirection:'row',marginTop:10,width:'100%'}}>
+                    
+                        <S.ProfileImgWrap style={{marginTop:0}} > 
+                            <S.ProfileImg src={profilelogo} onClick={handleGoProfile} />
+                        </S.ProfileImgWrap>
 
-                <S.ContentProfile> {/* 이름 */}
-                    <S.ProfileImgWrap > 
-                        <S.ProfileImg src={profilelogo} onClick={handleGoProfile} />
-                    </S.ProfileImgWrap>
-                    <S.ContentBasic  style={{flex:1}}>{/*이름 */}
-                        <S.WrapBasic>
-                            <S.Font>{nickname || 'none'}</S.Font>
+                        <S.WrapBasic style={{width:'auto'}}>
+                            <S.NameFont onClick={handleGoProfile}>{nickname || 'none'}</S.NameFont>
                         </S.WrapBasic>
-                    </S.ContentBasic>
-                </S.ContentProfile>
 
-                <S.ContentImgDes>{/* 이미지/설명 */}
-                    <S.BoxRadius style={{padding:30}}> {/* 이미지 */}
-                        <S.Img src={imageurl} alt='이미지' />
+                        <S.WrapBasic style={{width:'auto',marginLeft:10}}> {/* 날짜 */}
+                            <S.At>{postdate || 'none'}</S.At>
+                        </S.WrapBasic>
+                    
+                    </div>
+
+                    <hr style={{width:'100%'}}/>
+
+
+
+                    <S.BoxRadius style={{padding:30,maxWidth:'70%',maxHeight:'60%'}}> {/* 이미지 */}
+                        <S.Img src={imageurl} 
+                                alt='이미지' 
+                                onClick={openModalHandler}
+                        />
                     </S.BoxRadius>
+
+                    {isOpen && (
+                        <ModalBackdrop style={{overflowY:'initial'}}onClick={openModalHandler}>
+                            <ImgModal 
+                            imgurl={imageurl}openModalHandler={openModalHandler}/>
+                        </ModalBackdrop>
+                    )}
                     
                     <S.BoxRadius> {/* 설명 */}
                         {DisplayText(description)}
@@ -70,3 +97,8 @@ const Lookup_Content =({ title,nickname,imageurl,description,created_at,id,write
     );
 }; 
 export default Lookup_Content;
+
+
+
+
+    

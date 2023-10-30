@@ -32,7 +32,7 @@ const ImageWithHover = ({ imageUrl, alt, nickname, onClick }) => {
             bottom: 0,
             left: 0,
             right: 0,
-            background: 'rgba(220, 255, 255, 0.8)',
+            fontWeight:'bold',
             textAlign: 'center',
             padding: '8px',
             fontSize: '25px',

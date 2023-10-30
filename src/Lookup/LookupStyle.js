@@ -56,7 +56,7 @@ flex-direction: column;
 `;
 
 export const ContentRadius = styled.div`
-padding: 20px;
+padding: 40px;
 word-wrap: break-word;
 border-radius: 31px;
 box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -79,6 +79,7 @@ margin-top: 20px;
 
 export const ContentBasic = styled(ContentRadius)`
 display: flex;
+
 align-items: center;
 `;
 
@@ -114,11 +115,33 @@ align-items: center;
 margin-right: 10px;
 margin-top: 20px;
 cursor: pointer;
+
+
 `;
 
 export const ProfileImg = styled.img`
 width:57px;
 height:57px; //+2
+
+border-radius: 50%;
+border: 3px solid transparent;
+&:hover {
+    @media screen and (max-width: 1600px) {
+        border: 3px #3A76EF solid;
+        };
+        
+        @media screen and (max-width: 540px) {
+        margin-top: 15px;
+        border: 2px #3A76EF solid;
+        };
+        
+        @media screen and (min-width: 1601px) {
+        border: 4px #3A76EF solid;
+        };
+  }
+
+
+
 /* tablet 규격 */
 @media screen and (max-width: 1024px){
     
@@ -169,11 +192,46 @@ export const FontStyle = {
     };
     
 
+    export const TitleFontStyle = {
+        '@media screen and (max-width: 1024px)':{
+        
+        fontSize: 38
+        },
+        
+        '@media screen and (max-width: 850px)':{
+        fontSize: 37
+        
+        },
+        
+        /* mobile 규격 */
+        '@media screen and (max-width: 540px)':{
+        
+        fontSize: 35
+        },
+        /* tablet 규격 */
+        '@media screen and (min-width: 1025px)':{
+        
+        fontSize: 55//40
+        },
+        '@media screen and (min-width: 1700px)': {
+        
+        fontSize: 53
+        }
+        };
+export const TitleFont = styled.span`
+${TitleFontStyle};
+color: black;
+`;
+
+export const NameFont = styled.div`
+cursor:pointer;
+${FontStyle};
+color: black;
+`;
 export const Font = styled.span`
 ${FontStyle};
 color: black;
 `;
-
 
 export const OutWrap = styled.div`
 width: 100%;
@@ -264,7 +322,6 @@ display: flex;
 align-items: center;
 justify-content: center;
 position: relative;
-cursor: pointer;
 color: white;
 word-wrap: break-word;
 border-radius: 40px;

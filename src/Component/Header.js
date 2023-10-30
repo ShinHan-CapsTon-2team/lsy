@@ -22,6 +22,7 @@ const Header  = props => {
 
   const navigate = useNavigate();
 
+  const [acces,SetAcces]= useState('');
   const [emailId, setemailId] = useState('');
   const [userinfo, setUserinfo] = useState([]);
   const [nickname, setNickname] = useState('');
@@ -31,12 +32,14 @@ const Header  = props => {
 
   const { onData } = props;
 
-useEffect(() => {
+useEffect(() => 
+{
   setCurrentPath(location.pathname);
   console.log("현재 주소 : ", currentPath);
   console.log("accessToken:",accessToken);
   
-  if (accessToken) {
+  if (accessToken)
+  {
   fetch('http://localhost:4001/api/user', {
       method: "POST",
       headers: {
@@ -69,14 +72,20 @@ useEffect(() => {
           console.log("header 이메일 정보가 없습니다.");
           
           localStorage.removeItem("access_token");// 만료된 토큰 처리하기 
-          
-          navigate(currentPath); // 다시 현재 페이지로 새로고침 
+          window.location.reload();
+          //navigate(currentPath); // 다시 현재 페이지로 새로고침 
       }
       })
       .catch((error) => {
           console.error("Error fetching user email:", error);
-      });
+          localStorage.removeItem("access_token");// 만료된 토큰 처리하기 
+          window.location.reload();
+      }
+      );
+
+      
   }
+  
 }, [location.pathname]); 
   // landing page
   const handleGoLandingClick = () => {

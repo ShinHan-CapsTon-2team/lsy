@@ -1,6 +1,40 @@
 import styled from "styled-components";
 import { BsPlusCircleFill } from "react-icons/bs";
 
+
+import {PiUserCircleThin} from 'react-icons/pi'
+
+export const StyledPiUserCircleThin = styled(PiUserCircleThin)`
+width:65px;
+height:65px; //+2
+
+stroke-width: 2;
+/* tablet 규격 */
+@media screen and (max-width: 1024px){
+    
+}
+
+/* mobile 규격 */
+@media screen and (max-width: 540px){
+    width:43px;
+    height:43px;
+    
+}
+/* s 데스크 */
+@media screen and (min-width: 1025px){
+    
+}
+/* l 데스크 */
+@media screen and (min-width: 1700px){
+    width:70px;
+    height:70px;
+}
+&:hover {
+  color: #5d6bb4;
+}
+
+`;
+
 export const StyledBsPlusCircleFill = styled(BsPlusCircleFill)`
   color: #798be6;
   cursor: pointer;

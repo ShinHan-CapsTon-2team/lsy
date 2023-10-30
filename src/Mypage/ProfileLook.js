@@ -8,7 +8,7 @@ import Header from '../Component/Header';
 import styled from "styled-components";
 import './Paging.css';
 
-import {ProfileWrap,ButtonShort, Email} from '../Component/ProfileInfoStyle'
+import {ProfileWrap,ButtonShort} from '../Component/ProfileInfoStyle'
  
 import { UserDelModal } from '../Modal/UserDelModal'
 
@@ -18,6 +18,7 @@ function ProfileLook() {
   const [PostIds, setPostIds] = useState('');
   const [email, setEmail] = useState('');
   const [nickname, setNickname] = useState('');
+  const [ insta,setInsta] = useState('');
   const [isEditing, setIsEditing] = useState(false);
   const [TotalCount, setTotalCount] = useState('');
   const [currentPosts, setCurrentPosts] = useState([]);
@@ -59,9 +60,19 @@ const handleEditComplete = () => {
   fetchProfileData();
 };
 
+
+function scrollToTop() {
+  const currentY = window.scrollY;
+  if (currentY > 0) {
+    window.requestAnimationFrame(scrollToTop);
+    window.scrollTo(0, currentY - 60); // 20은 스크롤 속도를 조절하는 값입니다.
+  }
+}
+
 //수정됨
 useEffect(() => {
   fetchProfileData();
+  scrollToTop();
 }, [emailId, page, postsPerPage]);
 
 
@@ -113,6 +124,10 @@ const fetchProfileData = () => {
       setNickname(profileData.nickname);
       setCareer(profileData.career);
       setIntroduction(profileData.introduction);
+
+      //1029 
+      setInsta(profileData.insta);
+
     })
     .catch((error) => {
       console.error('Error fetching profile data for other user:', error);
@@ -163,6 +178,7 @@ try {
                     career={career}
                     email={email}
                     nickname={nickname}
+                    insta={insta}
                 />
                     
 
@@ -546,7 +562,7 @@ const StyledBsPlusCircleFill = styled(BsPlusCircleFill)`
   justify-content: center;
 
   position: relative;
-  cursor: pointer;
+  
   color: white;
 `;
 
