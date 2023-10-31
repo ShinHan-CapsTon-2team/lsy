@@ -140,6 +140,9 @@ function Landing(){
     const showInfoTest = () => {
         setIsOpenInfoTest(!isOpenInfoTest)  
     };
+    
+    const reco = "우리의 색감 매칭 기능을 통해 여러분의 사진과 유사한 색감을 가진 다른 사진을 찾아보세요.. 다섯 가지 다양한 카테고리 중 하나의 사진을 올리면, 그와 맞는 카테고리의 사진에서 색감 기반으로 유사한 이미지를 찾아 드립니다..";
+    const test ="사진 취향을 발견하고 원하는 사진을 찾기 위한 흥미로운 테스트를 시작하세요.. 선택한 카테고리에 따라 원하는 스타일과 옵션을 선택하세요.선택지 기반으로 맞춤형 사진을 찾아드립니다..";
     return (
         <div>
             <OutWrap>
@@ -149,38 +152,36 @@ function Landing(){
 
                     <ImgWrap> 
                         
-                        <Button onClick={handleUploadPhotoClick}>🎨 색감 매칭을 통해 추천받기 
-                           <InfoButton >
-                            <TooImg  onClick={(e) => {
+                        <Button onClick={handleUploadPhotoClick}>
+                            
+                            🎨 색감 매칭을 통해 추천받기
+                            <InfoButton >
+                                <TooImg  onClick={(e) => {
                                         e.stopPropagation(); // 이벤트 전파 중단
-                                        showInfoReco();
-                                    }}
-                                    />
-                           </InfoButton>
+                                        showInfoReco();}}/>
+                            </InfoButton>
+                            
                             
                         </Button>
-
+                        
                         {isOpenInfoReco ?
                             // 액세스 토큰이 없는 경우
                             <ModalBackdrop onClick={showInfoReco}>
-                                <InfoModal showInfoReco= {showInfoReco}/>
+                                <InfoModal 
+                                text={reco}
+                                showInfo= {showInfoReco}/>
                             </ModalBackdrop>
                             : null}
                         
-                        <Tooltip 
-                            id="colormatching-tooltip" 
-                            className="colormatching-toolstyle"
-                            place="right" >
-                                우리의 색감 매칭 기능을 통해 여러분의 사진과 유사한 색감을 가진 다른 사진을 찾아보세요. <br/>
-                                다섯 가지 다양한 카테고리 중 하나의 사진을 올리면, 그와 맞는 카테고리의 사진에서 색감 기반으로 유사한 이미지를 찾아 드립니다.
-                                
-                        </Tooltip> 
                         
-
+                        
                         <Button onClick={handleFitPhotoClick}> 🔍테스트를 통해 추천받기
-                           <InfoButton>
+                            <InfoButton>
                                 <TooImg
-                            onClick={showInfoTest}
+                                onClick={(e) => {
+                                    e.stopPropagation(); // 이벤트 전파 중단
+                                    showInfoTest();
+                                }}
                                 />   
                             </InfoButton>    
                         </Button>
@@ -189,19 +190,9 @@ function Landing(){
                         {isOpenInfoTest ?
                             
                             <ModalBackdrop onClick={showInfoTest}>
-                                <InfoModal showInfoReco= {showInfoTest}/>
+                                <InfoModal text={test} showInfo= {showInfoTest}/>
                             </ModalBackdrop>
                             : null}
-                        
-                        <Tooltip 
-                                id="testmatching-tooltip" 
-                                className="testmatching-toolstyle"
-                                place="right" >
-                                    사진 취향을 발견하고 원하는 사진을 찾기 위한 흥미로운 테스트를 시작하세요. <br/>
-                                    선택한 카테고리에 따라 원하는 스타일과 옵션을 선택하세요.<br/>
-                                    선택지 기반으로 맞춤형 사진을 찾아 드립니다.
-                                    
-                        </Tooltip>
                         
                         <Button onClick={handleGohomeClick}>🖼️ 모든 게시글 보러가기 </Button>
 
@@ -248,8 +239,17 @@ const FixedSpan = styled.div`
     text-align: center;
     display: flex;
     flex-direction: column;
-    align-items: flex-end; /* 수평 정렬을 오른쪽으로 변경 */
-    justify-content: flex-end; /* 수직 정렬을 아래쪽으로 변경 */
+    align-items: flex-end; 
+    justify-content: flex-end; 
+
+    margin-right:30px;
+    /*
+    @media screen and (max-width: 540px){
+        top: 17px;
+        bottom: 0px;
+        align-items: center; 
+        justify-content: flex-start;
+    }*/
 `;
 
 export const ModalBackdrop = styled.div`
@@ -304,6 +304,9 @@ bottom : 0;
     
     width: 100%;
     height:100%;
+    @media screen and (max-width: 540px){
+        height:98.8vh;
+    }
 `;
 
     const InsideWrap = styled.div`
@@ -311,14 +314,16 @@ bottom : 0;
         display: flex;
         flex-direction: column;
         align-items: center;
-        width:80%;
+        //width:57%;
 
-        @media screen and (max-width: 1025px){
-            width:90%;
+        @media screen and (max-width: 1024px){
+           // width:85%;
+           width:70%;
         }
     
         @media screen and (max-width: 850px){
-            width:95%;
+            //width:95%;
+            width:85%;
         }
         /* mobile 규격 */
         @media screen and (max-width: 540px){
@@ -327,8 +332,12 @@ bottom : 0;
     
         /* s 데스크 */
         @media screen and (min-width: 1025px){ 
-
-            width:85%;
+            width:70%;
+            //width:80%;
+        }
+        @media screen and (min-width: 1300px){ 
+            width:53%;
+            //width:80%;
         }
         /* l 데스크 */
         @media screen and (min-width: 1700px){
@@ -343,13 +352,31 @@ bottom : 0;
         margin-top: 50px; 
         margin-bottom: 20px; 
 
-        width: 48%;
+        
 
         @media screen and (max-width: 1024px){
-            width: 63%;
+            width: 50vw;
         }
+        
+        @media screen and (max-width: 850px){
+            width: 65vw;
+        }
+        /* mobile 규격 */
         @media screen and (max-width: 540px){
-            width: 80%;
+            width: 75vw;
+
+        }
+        
+        /* s 데스크 */
+        @media screen and (min-width: 1025px){
+            width: 50vw;
+        }
+        @media screen and (min-width: 1200px){ 
+            width: 39vw;
+        }
+        /* l 데스크 */
+        @media screen and (min-width: 1700px){
+        
         }
         
     `;
@@ -359,17 +386,31 @@ bottom : 0;
         display: flex;
         flex-direction: column;
         align-items: center;
-
-        width:51%;
+        width:80%;
+        //width:51%;
         height:100%;
-        @media screen and (max-width: 1300px){
-            
-            width: 70%;
+
+        @media screen and (max-width: 1024px){
+           // width: 75%; 
         }
+        
+        @media screen and (max-width: 850px){
+            //width: 75%;  
+        }
+        /* mobile 규격 */
         @media screen and (max-width: 540px){
-            
-            width: 100%;   
+           width: 100%;  
         }
+        
+        /* s 데스크 */
+        @media screen and (min-width: 1025px){
+            //width: 51%; 
+        }
+        /* l 데스크 */
+        @media screen and (min-width: 1700px){
+        
+        }
+        
     `;
 
 
@@ -390,7 +431,8 @@ bottom : 0;
     position: relative;
     
     color: white;
-    width: 85%;
+    //width: 85%;
+    width: 90%;
     height: 15%;
     font-size: 35px;
     margin-bottom:15px;
@@ -401,37 +443,44 @@ bottom : 0;
 
 
     @media screen and (max-width: 1024px){
-        font-size: 28px;
+        font-size: 26px;
     }
 
     @media screen and (max-width: 850px){
-        font-size: 27px;
-        width: 95%;
+        font-size: 25px;
+       // width: 95%;
     }
     /* mobile 규격 */
     @media screen and (max-width: 540px){
         
-        font-size: 25px;
+        font-size: 23px;
         margin-bottom:15px;
     }
 
     /* s 데스크 */
     @media screen and (min-width: 1025px){ 
-        font-size: 30px;
+        font-size: 28px;
         
     }
     /* l 데스크 */
     @media screen and (min-width: 1700px){
 
-        font-size: 40px;
+        font-size: 38px;
         
     }
 `;
 
-const InfoButton = styled.button`
+const InfoButton = styled.div`
+display: flex;
+    align-items: center;
 position: absolute;
-  right: 25px;
+  right: 15px;
   background-color: transparent;
+
+  @media screen and (max-width: 540px){
+        
+    //top:-20px;
+    }
 `;
 const TooImg = styled(AiFillQuestionCircle)`
 
@@ -439,7 +488,7 @@ color:white;
   width: 35px;
   height: 35px;
   cursor:pointer;
-
+  
 @media screen and (max-width: 1024px){
            
 }
@@ -451,6 +500,9 @@ color:white;
 @media screen and (max-width: 540px){
     width:40px;
     height: 40px;
+    color:#5d6bb4;
+    opacity:0.8;
+    
 }
 
 /* s 데스크 */
@@ -465,3 +517,9 @@ color:white;
 }
   `;
 
+const MenuSpan = styled.span`
+@media screen and (max-width: 540px){
+    width:100%;
+   text-align:left;
+}
+`;

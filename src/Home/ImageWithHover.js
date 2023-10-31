@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 //import styled from "styled-components";
 import * as S from "./homeStyle";
+import styled from 'styled-components';
 
 const ImageWithHover = ({ imageUrl, alt, nickname, onClick }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -26,23 +27,45 @@ const ImageWithHover = ({ imageUrl, alt, nickname, onClick }) => {
       </S.GridDiv>
 
       {isHovered && (
-        <div
-          style={{
-            position: 'absolute',
-            bottom: 0,
-            left: 0,
-            right: 0,
-            fontWeight:'bold',
-            textAlign: 'center',
-            padding: '8px',
-            fontSize: '25px',
-          }}
+        <HoverShow
         >
           {nickname}
-        </div>
+        </HoverShow>
       )}
     </div>
   );
 };
 
 export default ImageWithHover;
+
+export const FontStyle = {
+  "@media screen and (max-width: 1024px)": {
+    fontSize: 22,
+  },
+
+  "@media screen and (max-width: 850px)": {
+    fontSize: 21,
+  },
+
+  /* mobile 규격 */
+  "@media screen and (max-width: 540px)": {
+    fontSize: 16,
+  },
+  /* tablet 규격 */
+  "@media screen and (min-width: 1025px)": {
+    fontSize: 24,
+  },
+  "@media screen and (min-width: 1700px)": {
+    fontSize: 37,
+  },
+};
+const HoverShow = styled.div`
+${FontStyle};
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  font-weight: bold;
+  text-align: center;
+  padding: 8px;
+`;

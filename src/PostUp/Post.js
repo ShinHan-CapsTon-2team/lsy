@@ -186,7 +186,8 @@ function Post() {
           //10MB, 정적 이미지 파일이 아닐 경우 
           setSizeFile(true);
 
-          setTimeout(() => {
+          setTimeout(() => 
+          {
             setSizeFile(false);
             }, 2000);
           console.log("실패");

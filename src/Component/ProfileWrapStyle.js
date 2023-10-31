@@ -136,7 +136,7 @@ export const ProfileShow = styled.div`
   }
   /* mobile 규격 */
   @media screen and (max-width: 540px) {
-    margin-top: 20px;
+    margin-top: 15px;
   }
 
   /* s 데스크 */
