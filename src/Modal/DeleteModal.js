@@ -6,7 +6,7 @@ import {Popup} from '../Modal/Popup';
 const SERVER_URL= 'http://localhost:4000/api/lookup';
 
 
-export const DeleteModal = ({isId,openModalHandler}) => {
+export const DeleteModal = ({isId,profilego,openModalHandler}) => {
     //삭제 성공/실패 모달창 
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
     const [showErrorMessage, setShowErrorMessage] = useState(false);
@@ -31,7 +31,7 @@ export const DeleteModal = ({isId,openModalHandler}) => {
                 // 1초 후에 성공 메시지를 숨깁니다.
                 setTimeout(() => {
                     setShowSuccessMessage(false);
-                    navigate('/home');
+                    navigate(`/profile/${profilego}`);
                 }, 1000);
                 } else {
                 // 실패 메시지를 보여줍니다.

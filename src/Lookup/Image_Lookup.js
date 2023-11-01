@@ -29,10 +29,12 @@ function Images_Lookup() {
     const [dataFromChild, setDataFromChild] = useState({}); 
     const pageCount = Math.ceil(TotalCount / postsPerPage);
     const [nickname,setNickname]=useState([]);
+    
     const handleChildData = (data) => {
         // 자식 컴포넌트로부터 받은 데이터를 처리
         setDataFromChild(data);
     };
+ 
     const [isMine,setIsMine]= useState(false); // 현 게시글이 내꺼인지 
     const isMe= dataFromChild.emailid;
     console.log("지금 로그인 한 사람 누구야 :",isMe);
@@ -167,10 +169,6 @@ const handlePageClick = async ({ selected }) => {
         navigate(`/postedit/${id}`); 
     };
   
-    console.log("누구야",nickname);
-    console.log("userEmail:",userEmails);
-    console.log("현재 게시글 주인?:",email);
-    console.log("가져온 이미지들 :",images);
     return (  
         
         <S.OutWrap>
@@ -231,7 +229,7 @@ const handlePageClick = async ({ selected }) => {
                     
                     ) : null}
 
-                  {isMine|| isMe ===  'zxcva98657'  ? ( //수정된 부분 1017, 관리자 수정, 삭제버튼 보이도록 
+                  {isMine|| isMe ===  'zxcva98657'  ? ( 
                   <S.InLayoutTwo> 
                       <S.Buttons>
                       <S.Right> 
@@ -242,7 +240,7 @@ const handlePageClick = async ({ selected }) => {
                           <S.DelectButton onClick={openModalHandler}>
                           삭제
                           </S.DelectButton>
-                          {isOpen ? (<DeleteModal isId={id} openModalHandler={openModalHandler}/>) : null}
+                          {isOpen ? (<DeleteModal isId={id} profilego={isMe} openModalHandler={openModalHandler}/>) : null}
                       </S.Right>
                       </S.Buttons>
                   </S.InLayoutTwo>

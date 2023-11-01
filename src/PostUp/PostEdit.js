@@ -59,8 +59,8 @@ function PostEdit() {
     // 자식 컴포넌트로부터 받은 데이터를 처리
     setDataFromChild(data);
   };
-  const emailid = dataFromChild.emailid;
-    const navigate = useNavigate();
+  
+  const navigate = useNavigate();
   
  
     //데이터 가져오기 위해 
@@ -295,7 +295,7 @@ const handleCategorySelect = (selectedCategory, index) => {
     // 2초 후에 성공 메시지를 숨기고 페이지를 이동
     setTimeout(() => {
       setShowSuccessMessage(false);
-      navigate(`/profile/${emailid}`);
+      navigate(`/lookup/${id}`);
     }, 2000);
 
     // 서버에서 받은 이미지 URL을 업데이트된 데이터에 반영
