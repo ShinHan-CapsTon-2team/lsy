@@ -1,6 +1,9 @@
 import styled from "styled-components";
 
 export const ProfileWrap = styled.div`
+
+  height:100%;
+
   margin-right: 30px;
 
   /* tablet 규격 */
@@ -121,6 +124,9 @@ export const CateMenu = styled.div`
 `;
 
 export const ProfileShow = styled.div`
+
+  height:100%;
+
   display: flex;
   margin-top: 24px;
   flex-direction: column;
@@ -141,6 +147,7 @@ export const ProfileShow = styled.div`
 
   /* s 데스크 */
   @media screen and (min-width: 1025px) {
+    
     margin-top: 20px;
   }
   /* l 데스크 */
@@ -149,11 +156,12 @@ export const ProfileShow = styled.div`
   }
 `;
 
-export const Profilename= styled.div`
+export const Profilename= styled.span`
 position: relative;
 ${FontStyle};
-  //margin-top: 5px;
-  top:8px;
+  top:10px;
+// margin-top: 10px;
+  //bottom:-8px;
 `;
 
 

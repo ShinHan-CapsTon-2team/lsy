@@ -180,14 +180,12 @@ try {
                     nickname={nickname}
                     insta={insta}
                 />
-                    
-
-                             
-                {(isMe === emailId) && ( //수정됨. 수정버튼 보이는 유무와 현재 사용자에 따른 ..
+  
+                {(isMe === emailId) && ( 
                     <ButtonShort onClick={gotoProfileEdit}>프로필 수정</ButtonShort> 
                   )}
 
-               {(isMe === 'zxcva98657') && (
+                {(isMe === 'zxcva98657') && (
                   <>
                     <ButtonShort onClick={openModalHandler}>사용자 삭제</ButtonShort>
                     {isOpen ? (<UserDelModal email={email} openModalHandler={openModalHandler}/>) : null}

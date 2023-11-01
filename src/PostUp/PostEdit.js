@@ -59,7 +59,7 @@ function PostEdit() {
     // 자식 컴포넌트로부터 받은 데이터를 처리
     setDataFromChild(data);
   };
-
+  const emailid = dataFromChild.emailid;
     const navigate = useNavigate();
   
  
@@ -295,7 +295,7 @@ const handleCategorySelect = (selectedCategory, index) => {
     // 2초 후에 성공 메시지를 숨기고 페이지를 이동
     setTimeout(() => {
       setShowSuccessMessage(false);
-      navigate(`/lookup/${id}`);
+      navigate(`/profile/${emailid}`);
     }, 2000);
 
     // 서버에서 받은 이미지 URL을 업데이트된 데이터에 반영
@@ -334,134 +334,126 @@ const handleCategorySelect = (selectedCategory, index) => {
         setIsMenuOpen(!isMenuOpen);
     };
     return (
-        <>
-        {getloading ? (
-            // 로딩 중일 때
-            <Loading what="Loading" />
-        ) : (
-            //로딩 끝나면 
-            <S.OutWrap>
-              <S.InOutWrap>            
-                  {/* 로고 */}        
-                  <Header onData={handleChildData}/>
-                  {/* 내용 */} 
-                  <S.Center>
-                    <S.InLayoutOne>
-                      <S.Content>
-                          {updatedPost && updatedPost.map((post, index) => {
-                            const imageUrl = post.image_url;
-              
-                            return (
-                                <div key={index}>
-                                  <S.One>
-                                    <S.WrapAuto>
-                                        <S.InputBasic
-                                            type="text"
-                                            name="title"
-                                            value={post.title}
-                                            onChange={e => handleChange(e, index, "title")}
-                                        />
-                                    </S.WrapAuto>
-                                  </S.One>
-
-
-                                  <S.Two>
-                                    <S.WrapPer>
-                                      <S.TextareaBasic
-                                        value={post.description}
-                                        onChange={e =>
-                                          handleChange(e, index, "description")
-                                        }
-                                        placeholder="설명"
-                                      />
-                                    </S.WrapPer>
-                                  </S.Two>
-
-                                  <S.Three>
-                                    <S.SelectImg src={post.imagePreviewUrl || imageUrl} alt={`게시글 이미지`} />
-                                    <S.FindImg >
-                                      <S.Menu onClick={() => document.getElementById('fileInput').click()}>내 파일 찾기</S.Menu>
-                                    </S.FindImg>
-
-                                    <S.FileBox 
-                                        id="fileInput"
-                                        type="file"
-                                        accept="image/jpg, image/png ,image/jpeg"
-                                        onChange={(e) => handleImageFileChange(e, index, 'image_url')}
+        
+        <S.OutWrap>
+          <S.InOutWrap>            
+              {/* 로고 */}        
+              <Header onData={handleChildData}/>
+              {/* 내용 */} 
+              <S.Center>
+                <S.InLayoutOne>
+                  <S.Content>
+                      {updatedPost && updatedPost.map((post, index) => {
+                        const imageUrl = post.image_url;
+          
+                        return (
+                            <div key={index}>
+                              <S.One>
+                                <S.WrapAuto>
+                                    <S.InputBasic
+                                        type="text"
+                                        name="title"
+                                        value={post.title}
+                                        onChange={e => handleChange(e, index, "title")}
                                     />
+                                </S.WrapAuto>
+                              </S.One>
 
-                                    {previewImage && 
-                                    <S.SelectImg src={previewImage} alt="Preview" />}      
-                                  </S.Three>
 
-                                </div>
-                            );
-                          })}
-                      </S.Content>
-                    </S.InLayoutOne>
+                              <S.Two>
+                                <S.WrapPer>
+                                  <S.TextareaBasic
+                                    value={post.description}
+                                    onChange={e =>
+                                      handleChange(e, index, "description")
+                                    }
+                                    placeholder="설명"
+                                  />
+                                </S.WrapPer>
+                              </S.Two>
 
-                    <S.InLayoutTwoH>
-                        <S.Buttons >
-                          {updatedPost.map((post, index) => (
-                              <S.Left key={index}>
-                              <S.ButtonOne onClick={handleMenuToggle} show={showMessage}>
+                              <S.Three>
+                                <S.SelectImg src={post.imagePreviewUrl || imageUrl} alt={`게시글 이미지`} />
+                                <S.FindImg >
+                                  <S.Menu onClick={() => document.getElementById('fileInput').click()}>내 파일 찾기</S.Menu>
+                                </S.FindImg>
 
-                              {showMessage ? (
-                                <S.Menu>카테고리 분류 중</S.Menu>
-                              ) : (
-                                (post.category && categoryLabels[post.category]) ? (
-                                  <S.Menu>{categoryLabels[post.category]}</S.Menu>
-                                ) : (
-                                  <S.Menu>{post.category}</S.Menu>
-                                )
-                              )}
+                                <S.FileBox 
+                                    id="fileInput"
+                                    type="file"
+                                    accept="image/jpg, image/png ,image/jpeg"
+                                    onChange={(e) => handleImageFileChange(e, index, 'image_url')}
+                                />
 
-                                  <S.DropContainer>
+                                {previewImage && 
+                                <S.SelectImg src={previewImage} alt="Preview" />}      
+                              </S.Three>
 
-                                    {isMenuOpen && (
-                                     <S.DropMenu > {/* 스타일 수정 */}
-                                      
-                                        <S.CateMenu onClick={() => handleCategorySelect(classLabels[0], index)}>{classLabels[0]}</S.CateMenu>
-                                        <S.CateMenu onClick={() => handleCategorySelect(classLabels[1], index)}>{classLabels[1]}</S.CateMenu>
-                                        <S.CateMenu onClick={() => handleCategorySelect(classLabels[2], index)}>{classLabels[2]}</S.CateMenu>
-                                        <S.CateMenu onClick={() => handleCategorySelect(classLabels[3], index)}>{classLabels[3]}</S.CateMenu>
-                                        <S.CateMenu onClick={() => handleCategorySelect(classLabels[4], index)}>{classLabels[4]}</S.CateMenu>
-                                        <S.CateMenu onClick={() => handleCategorySelect(classLabels[5], index)}>{classLabels[5]}</S.CateMenu>
-                                    </S.DropMenu>
-                                    )}
+                            </div>
+                        );
+                      })}
+                  </S.Content>
+                </S.InLayoutOne>
 
-                                </S.DropContainer>
-                            </S.ButtonOne>
-                        </S.Left>
+                <S.InLayoutTwoH>
+                    <S.Buttons >
+                      {updatedPost.map((post, index) => (
+                          <S.Left key={index}>
+                          <S.ButtonOne onClick={handleMenuToggle} show={showMessage}>
+
+                          {showMessage ? (
+                            <S.Menu>카테고리 분류 중</S.Menu>
+                          ) : (
+                            (post.category && categoryLabels[post.category]) ? (
+                              <S.Menu>{categoryLabels[post.category]}</S.Menu>
+                            ) : (
+                              <S.Menu>{post.category}</S.Menu>
+                            )
+                          )}
+
+                              <S.DropContainer>
+
+                                {isMenuOpen && (
+                                  <S.DropMenu > {/* 스타일 수정 */}
+                                  
+                                    <S.CateMenu onClick={() => handleCategorySelect(classLabels[0], index)}>{classLabels[0]}</S.CateMenu>
+                                    <S.CateMenu onClick={() => handleCategorySelect(classLabels[1], index)}>{classLabels[1]}</S.CateMenu>
+                                    <S.CateMenu onClick={() => handleCategorySelect(classLabels[2], index)}>{classLabels[2]}</S.CateMenu>
+                                    <S.CateMenu onClick={() => handleCategorySelect(classLabels[3], index)}>{classLabels[3]}</S.CateMenu>
+                                    <S.CateMenu onClick={() => handleCategorySelect(classLabels[4], index)}>{classLabels[4]}</S.CateMenu>
+                                    <S.CateMenu onClick={() => handleCategorySelect(classLabels[5], index)}>{classLabels[5]}</S.CateMenu>
+                                </S.DropMenu>
+                                )}
+
+                            </S.DropContainer>
+                        </S.ButtonOne>
+                    </S.Left>
+                  ))}
+
+                    <S.Right style={{flexDirection:'column'}}>
+                      {updatedPost.map((post, index) => (
+                        // 게시물 내용 렌더링
+                        <S.EditButton key={post.id} onClick={() => handleUpdate(index)}>수정</S.EditButton>
                       ))}
-
-                        <S.Right style={{flexDirection:'column'}}>
-                          {updatedPost.map((post, index) => (
-                            // 게시물 내용 렌더링
-                            <S.EditButton key={post.id} onClick={() => handleUpdate(index)}>수정</S.EditButton>
-                          ))}
-                          
-                            {/* 성공 메시지를 보여주는 부분 */}
-                            {showSuccessMessage && (
-                              <Popup text="게시물이 성공적으로 수정되었습니다." />
-                            )}
-                            {/* 실패 메시지를 보여주는 부분 */}
-                            {showErrorMessage && (
-                              <Popup text="게시물 수정 실패했습니다" />
-                            )}
+                      
+                        {/* 성공 메시지를 보여주는 부분 */}
+                        {showSuccessMessage && (
+                          <Popup text="게시물이 성공적으로 수정되었습니다." />
+                        )}
+                        {/* 실패 메시지를 보여주는 부분 */}
+                        {showErrorMessage && (
+                          <Popup text="게시물 수정 실패했습니다" />
+                        )}
 
 
-                            <S.CancelButton onClick={handleCancel}>취소</S.CancelButton>
-                        </S.Right>
-                      </S.Buttons>
-                  </S.InLayoutTwoH>
-                </S.Center>
+                        <S.CancelButton onClick={handleCancel}>취소</S.CancelButton>
+                    </S.Right>
+                  </S.Buttons>
+              </S.InLayoutTwoH>
+            </S.Center>
 
-              </S.InOutWrap>
-            </S.OutWrap>
-            
-            )}
-        </>
+          </S.InOutWrap>
+        </S.OutWrap>
     );
 }
 

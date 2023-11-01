@@ -207,9 +207,7 @@ function Post() {
           const formData = new FormData();
           formData.append('data', JSON.stringify(data));
           formData.append('image', imageFile);
-          //formData.append('category', category);
-          
-          
+
       // fetch()를 이용하여 서버로 데이터를 전송
           fetch(SERVER_URL, {
           method: 'POST',
@@ -304,8 +302,7 @@ function Post() {
                 <S.FindImg>
                   <S.Menu
                     onClick={() => document.getElementById("fileInput").click()}
-                  >
-                    내 파일 찾기
+                  >내 파일 찾기
                   </S.Menu>
                 </S.FindImg>
                 <S.FileBox

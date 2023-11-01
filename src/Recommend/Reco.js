@@ -187,7 +187,7 @@ const handleCosineCalculation = async () => {
       return;
     }
 
-    const classIndex = await classifyImageData(imageFile, 0.8);
+    const classIndex = await classifyImageData(imageFile, 0.1);
 
     if (classIndex !== -1) {
       const categoryName = classLabels[classIndex];

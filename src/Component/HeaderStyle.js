@@ -72,3 +72,31 @@ export const LandingLogo = styled.img`
     height: 170px;
   }
 `;
+export const FontStyle = {
+  "@media screen and (max-width: 1024px)": {
+    fontSize: 22,
+  },
+
+  "@media screen and (max-width: 850px)": {
+    fontSize: 21,
+  },
+
+  /* mobile 규격 */
+  "@media screen and (max-width: 540px)": {
+    fontSize: 19,
+  },
+  /* tablet 규격 */
+  "@media screen and (min-width: 1025px)": {
+    fontSize: 24,
+  },
+  "@media screen and (min-width: 1700px)": {
+    fontSize: 37,
+  },
+};
+export const MenuBarWrap = styled.div``;
+export const MenuBar = styled.span
+`${FontStyle};
+&:hover {
+  color: #5d6bb4;
+}
+`;

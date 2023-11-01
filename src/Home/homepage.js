@@ -44,11 +44,8 @@ const Homepage = () => {
     // 자식 컴포넌트로부터 받은 데이터를 처리
     setDataFromChild(data);
   };
-
-  console.log("헤더에서 온 액세스 토큰 값 : ",dataFromChild.accesstoken);
-  const access = dataFromChild.accesstoken;
-  console.log("access:",access);
-  console.log("헤더에서 온 이메일 아이디 값 : ",dataFromChild.emailid);
+  const access = dataFromChild.accesstoken; 
+  
   const openModalHandler = () => { // 모달창 관련임 자세히 알 필요 X 
     setIsOpen(!isOpen) 
   };
@@ -83,7 +80,7 @@ const handleCategorySelect = useCallback((category, limit, offset) => {
     .then((data) => {
       setUsers(data);
       
-      navigate(`/home?${queryString}`);
+      navigate(`/?${queryString}`);
       setSelectedCategory(koreanCategory);
     })
     .catch((error) => {
@@ -153,7 +150,6 @@ function scrollToTop() {
       navigate("/post"); // accessToken이 false인 경우 /post로 이동
     
   };
-    //console.log("page",pageNumber );
 
 
   return (

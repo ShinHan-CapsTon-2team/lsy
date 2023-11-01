@@ -4,10 +4,9 @@ import styled from "styled-components";
 import { useState ,useEffect} from 'react';
 import { LoginModal } from '../Modal/LoginModal';
 import { AiFillQuestionCircle } from 'react-icons/ai';
-import { Tooltip } from 'react-tooltip'
-import "./Tooltipstyle.css";
 import { InfoModal } from '../Modal/InfoModa';
-
+import ll from '../Images/Group 2.png'
+import q from '../Images/q.png'
 
 function Landing(){
     const [access_Token, setAccessToken] = useState('');
@@ -148,13 +147,12 @@ function Landing(){
             <OutWrap>
                 <InsideWrap>
 
-                    <LogoImg src={logo} alt='' />
+                    <LogoImg src={ll} alt='' />
 
                     <ImgWrap> 
                         
-                        <Button onClick={handleUploadPhotoClick}>
-                            
-                            🎨 색감 매칭을 통해 추천받기
+                        <Button style={{flexDirection:'column'}}onClick={handleUploadPhotoClick}>
+                            색감 매칭을 통해 추천받기
                             <InfoButton >
                                 <TooImg  onClick={(e) => {
                                         e.stopPropagation(); // 이벤트 전파 중단
@@ -349,8 +347,8 @@ bottom : 0;
     `;
 
     const LogoImg = styled.img`
-        margin-top: 50px; 
-        margin-bottom: 20px; 
+        //margin-top: 50px; 
+        //margin-bottom: 20px; 
 
         
 
@@ -372,7 +370,8 @@ bottom : 0;
             width: 50vw;
         }
         @media screen and (min-width: 1200px){ 
-            width: 39vw;
+            width: 18vw;
+           // width: 39vw;
         }
         /* l 데스크 */
         @media screen and (min-width: 1700px){
