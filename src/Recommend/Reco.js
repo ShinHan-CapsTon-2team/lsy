@@ -21,7 +21,8 @@ function Reco() {
       // 로딩 상태를 관리하는 상태 변수
     const [isLoading, setIsLoading] = useState(false);
     const [sizeFile,setSizeFile]= useState(false); // 10MB, 정적 이미지 파일이 아닐 경우 
-    const [categoryNo,setcategoryNo]= useState(false);
+    const [categoryNo,setcategoryNo]= useState(false); // 해당없음 분류
+    const [noImg,setnoImg]= useState(false);// 
     const classLabels = [
       'body',
       'dog',
@@ -180,49 +181,61 @@ const handleImageFileChange = async (event) => {
 
 //업로드 버튼 
 const handleCosineCalculation = async () => {
-  try {
-    if (!model || !imageFile) {
-      console.error('모델 또는 이미지를 사용할 수 없습니다.');
-      setIsLoading(false);
-      return;
-    }
-
-    const classIndex = await classifyImageData(imageFile, 0.1);
-
-    if (classIndex !== -1) {
-      const categoryName = classLabels[classIndex];
-
-      const imagePathsResponse = await fetch(`http://localhost:4004/api/${categoryName}`);
-      if (imagePathsResponse.ok) {
-        const data = await imagePathsResponse.json();
-        const updatedImagePaths = data.map((imagePath) => `http://localhost:4004${imagePath}`);
-        
-        // calculateEuclideanSimilarity 함수 내부에서 바로 사용할 수 있도록 전달
-        const topSimilarImages=await calculateImageSimilarityMatrix (updatedImagePaths);
-
-        setIsLoading(false); // 로딩 상태를 해제
-
-        navigate('/recoresult', { state: { topSimilarImages } });
-      } else {
-        console.error('Failed to fetch image paths:', imagePathsResponse.status);
+  if(previewImage)
+  {
+    try {
+      if (!model || !imageFile) {
+        console.error('모델 또는 이미지를 사용할 수 없습니다.');
+        setIsLoading(false);
+        return;
       }
-    } else {
-      console.log('이미지가 분류되지 않았습니다.');
-
-      setcategoryNo(true);
+  
+      const classIndex = await classifyImageData(imageFile, 0.1);
+  
+      if (classIndex !== -1) {
+        const categoryName = classLabels[classIndex];
+  
+        const imagePathsResponse = await fetch(`http://localhost:4004/api/${categoryName}`);
+        if (imagePathsResponse.ok) {
+          const data = await imagePathsResponse.json();
+          const updatedImagePaths = data.map((imagePath) => `http://localhost:4004${imagePath}`);
+          
+          // calculateEuclideanSimilarity 함수 내부에서 바로 사용할 수 있도록 전달
+          const topSimilarImages=await calculateImageSimilarityMatrix (updatedImagePaths);
+  
+          setIsLoading(false); // 로딩 상태를 해제
+  
+          navigate('/recoresult', { state: { topSimilarImages } });
+        } else {
+          console.error('Failed to fetch image paths:', imagePathsResponse.status);
+        }
+      } else {
+        console.log('이미지가 분류되지 않았습니다.');
+  
+        setcategoryNo(true);
+        
+        setTimeout(() => 
+        {
+          setcategoryNo(false);
+          navigate('/reco');
+          }, 2000);
+        
+        
       
-      setTimeout(() => 
-      {
-        setcategoryNo(false);
-        navigate('/reco');
-        }, 2000);
-      
-      
-    
+      }
+    } catch (error) {
+      console.error('Error calculating cosine similarity:', error);
     }
-  } catch (error) {
-    console.error('Error calculating cosine similarity:', error);
+  }else{
+
+    setnoImg(true);
+        
+        setTimeout(() => 
+        {
+          setnoImg(false);
+        }, 2000);
   }
+  
 };
 
 
@@ -352,6 +365,10 @@ try {
                   </ResultGoButton>  
               </InLayoutTwo>
 
+              {/* 사진없이 결과 보기를 누를 경우  */}
+              {noImg && (
+                <Popup text="이미지 파일을 올려주세요." />
+              )}
               {/* 파일 사이즈 클 경우 나오는  메시지를 보여주는 부분 */}
               {sizeFile && (
                 <Popup text="최대 10MB 정적인 이미지 파일을 올려주세요." />

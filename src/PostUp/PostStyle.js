@@ -350,25 +350,32 @@ export const DropMenu = styled.div`
   ${FontStyle};
   //text-align: center;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  top: -167px; // 높 : 860 -167px;
+  top: -167px; 
 
-  /* tablet 규격 */
-  @media screen and (max-width: 1023px) {
+  
+  @media screen and (max-width: 1024px) {
+    width: 35vw;
+    top: -147px;
+  }
+  @media screen and (max-width: 840px) {
+    width: 40vw;
+    top: -137px;
   }
 
   /* mobile 규격 */
   @media screen and (max-width: 540px) {
-    width: 45vw;
-    top: -157px;
+    width: 47vw;
+    top: -127px;
   }
   /* s 데스크 */
-  @media screen and (min-width: 1024px) {
+  @media screen and (min-width: 1025px) {
     width: 25vw;
+    top: -157px;
   }
   /* l 데스크 */
   @media screen and (min-width: 1700px) {
     width: 40vw;
-    top: -197px; // 1080
+    top: -210px; // 1080
   }
 `;
 

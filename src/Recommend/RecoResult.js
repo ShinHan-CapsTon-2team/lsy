@@ -18,7 +18,7 @@ const RecoResult = () => {
     const navigate = useNavigate();
 
     const handleGoHomeClick = () => {
-        navigate('/home');
+        navigate('/');
     };
 
     const handleGoUploadClick = () => {
@@ -91,7 +91,7 @@ const RecoResult = () => {
                     )}
                     
                     <S.ButtonsWrap>
-                        <S.ButtonTwo onClick={handleGoHomeClick}>모든 게시글 보러가기</S.ButtonTwo>
+                        <S.ButtonTwo onClick={handleGoHomeClick}>메인화면으로 가기</S.ButtonTwo>
                         <S.ButtonTwo style={{ marginRight: 0 }} onClick={handleGoUploadClick}>다시 매칭해보기</S.ButtonTwo>
                     </S.ButtonsWrap>
                 </S.InsideWrap>
@@ -157,17 +157,16 @@ const RecoResult = () => {
     @media screen and (max-width: 1024px){
         max-width: 33vw;
         height: 49vh;
-        
-        margin-right: ${({ index }) => (index === 1 || index === 2 ? '0px' : '20px')};
+        margin-right: ${({ index }) => (index === 0 || index === 1 ? '10px' : '0px')};
         border: 4px #798BE6 solid;
     }
     @media screen and (max-width: 840px){
         max-width: 40vw;
         height: 45vh;
-        margin-right: ${({ index }) => (index === 1 || index === 2 ? '0px' : '20px')};
+        margin-right: ${({ index }) => (index === 0 || index === 1 ? '10px' : '0px')};
     }
     /* mobile 규격 */
-    @media screen and (max-width: 540px){
+    @media screen and (max-width: 600px){
         max-width: 83vw;
         height: 58vh;
         

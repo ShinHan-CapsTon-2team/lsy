@@ -284,6 +284,10 @@ export const OutWrap = styled.div`
             margin-right:10px;
         }
         @media screen and (max-width: 850px){
+            width:39vw;
+            height: 7vh;
+            
+            margin-right:10px;
         }
         /* mobile 규격 */
         @media screen and (max-width: 540px){

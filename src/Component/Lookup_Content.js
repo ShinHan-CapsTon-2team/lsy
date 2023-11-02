@@ -62,7 +62,7 @@ const Lookup_Content =({ title,nickname,imageurl,description,created_at,id,write
                             <S.NameFont onClick={handleGoProfile}>{nickname || 'none'}</S.NameFont>
                         </S.WrapBasic>
 
-                        <S.WrapBasic style={{width:'auto',marginLeft:10}}> {/* 날짜 */}
+                        <S.WrapBasic style={{width:'auto',marginLeft:20}}> {/* 날짜 */}
                             <S.At>{postdate || 'none'}</S.At>
                         </S.WrapBasic>
                     
