@@ -2,9 +2,10 @@
 //import text from '../Images/image 21.png'
 
 import styled from "styled-components";
-
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import { AiFillQuestionCircle } from 'react-icons/ai';
+import { InfoModal } from '../Modal/InfoModa';
 const Quizstart = () => {
     const navigate = useNavigate();
 
@@ -12,14 +13,32 @@ const Quizstart = () => {
         const queryString = new URLSearchParams({ name: category }).toString();
         navigate(`/quizfrist?${queryString}`);
     };
-
+    const [isOpenInfoTest, setIsOpenInfoTest] = useState(false);  // 테스트 툴팁 모달창 
+    const showInfoTest = () => {
+        setIsOpenInfoTest(!isOpenInfoTest) 
+    };
     
     return (
         <OutWrap>
             <InsidWrap>
                 <TextWrap>
-                    <Textselect>관심있는 분야 선택하기</Textselect>
+                    <Textselect>
+                        관심있는 분야 선택하기
+                        <InfoButton >
+                        <TooImg  onClick={(e) => {
+                            e.stopPropagation(); // 이벤트 전파 중단
+                            showInfoTest();}}/>
+                        </InfoButton>
+                        
+                    </Textselect>
                 </TextWrap>
+
+                {isOpenInfoTest ?
+                            
+                <ModalBackdrop onClick={showInfoTest}>
+                    <InfoModal text="test" showInfo= {showInfoTest}/>
+                </ModalBackdrop>
+                : null}
 
                 <ImgWrap>
                     <ButtonWrap >
@@ -56,6 +75,74 @@ const Quizstart = () => {
 
 export default Quizstart;
 
+export const ModalBackdrop = styled.div`
+// Modal이 떴을 때의 배경을 깔아주는 CSS를 구현
+width:100vw;
+height:100%;
+
+z-index: 1; //위치지정 요소
+position: fixed;
+display : flex;
+justify-content : center;
+align-items : center;
+background-color: rgba(0,0,0,0.1);
+top : 0;
+left : 0;
+right : 0;
+bottom : 0;
+
+`;
+
+const InfoButton = styled.div`
+display: flex;
+    align-items: center;
+position: absolute;
+  right: 65px;
+  background-color: transparent;
+
+  
+  @media screen and (max-width: 840px){
+    right: 40px;
+    
+    }
+    @media screen and (max-width: 840px){
+        right: 20px;
+        
+        }
+`;
+const TooImg = styled(AiFillQuestionCircle)`
+
+  width: 50px;
+  height: 50px;
+  cursor:pointer;
+  opacity:1;
+  
+@media screen and (max-width: 1024px){
+           
+}
+
+@media screen and (max-width: 850px){
+  width:40px;
+  height: 40px;
+}
+/* mobile 규격 */
+@media screen and (max-width: 600px){
+    width:35px;
+    height: 35px;
+}
+
+/* s 데스크 */
+@media screen and (min-width: 1025px){ 
+
+  
+}
+/* l 데스크 */
+@media screen and (min-width: 1700px){
+    width: 55px;
+    height: 55px;  
+}
+  `;
+
 const OutWrap = styled.div`
     width: 100%;
     height: 100%;
@@ -86,9 +173,18 @@ const OutWrap = styled.div`
     flex-direction: column;
     align-items: center;
     
+    @media screen and (max-width: 1120px){
+        width: 60%;
+        height: 75%;
+    
+    }
     /* tablet 규격 */
     @media screen and (max-width: 1023px){
         width: 70%;
+        height: 75%;
+    }
+    @media screen and (max-width: 840px){
+        width: 80%;
         height: 75%;
     }
 
@@ -168,6 +264,10 @@ const OutWrap = styled.div`
     height:80%;
     border: 3px #798BE6 solid;
     ${FontStyle};
+    cursor:default;
+    &:hover{
+        background:white;
+    }
     `;
 
     const ButtonTwo = styled(Radius)`

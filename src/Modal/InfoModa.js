@@ -17,9 +17,7 @@ export const InfoModal = ({text,showInfo}) => {
         const lines = text.split('.');
         return lines.map((line, index) => (
             <Text style={{display:'flex',flexDirection:'row'}}key={index}>
-                {line.trim()}
-            
-                
+                {line.trim()}   
             </Text>
             ));
         } 
@@ -31,10 +29,23 @@ export const InfoModal = ({text,showInfo}) => {
                 <CloseButtonWrap>
                     <CloseButton onClick={handleCancle}></CloseButton>
                 </CloseButtonWrap>
-                
+                {text="reco" ?(
+                    <TextWrap > 
+                        <Text>
+                            우리의 색감 매칭 기능을 통해 여러분의 사진과 유사한 색감을 가진 다른 사진을 찾아보세요. <br/>
+                            다섯 가지 다양한 카테고리 중 하나의 사진을 올리면, 그와 맞는 카테고리의 사진에서 색감 기반으로 유사한 이미지를 찾아 드립니다.
+                        </Text>
+                    </TextWrap>
+                ):(
                 <TextWrap > 
-                { DisplayText(text) }
+                    <Text>
+                        사진 취향을 발견하고 원하는 사진을 찾기 위한 흥미로운 테스트를 시작하세요. <br/>
+                        선택한 카테고리에 따라 원하는 스타일과 옵션을 선택하세요.<br/>
+                        선택지 기반으로 맞춤형 사진을 찾아 드립니다.
+                    </Text>
                 </TextWrap>
+                )}
+                
             </Wrap>
         </ModalView>
         
@@ -124,7 +135,7 @@ height:auto;
 background-color: #ffffff;
 display: flex;
 align-items: center;
-justify-content: center;
+//justify-content: center;
 flex-direction:column;
 @media screen and (max-width: 1024px){
 width: 35vw;
@@ -155,6 +166,7 @@ const Wrap = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
+  width:100%;
 `;
 
 const CloseButtonWrap = styled.div`
@@ -174,5 +186,5 @@ padding:20px;
 
 const Text = styled.span`
 ${FontStyle};
-line-height: 125%;
+line-height: 130%;
 `;

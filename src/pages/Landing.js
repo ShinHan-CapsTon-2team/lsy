@@ -5,8 +5,7 @@ import { useState ,useEffect} from 'react';
 import { LoginModal } from '../Modal/LoginModal';
 import { AiFillQuestionCircle } from 'react-icons/ai';
 import { InfoModal } from '../Modal/InfoModa';
-import ll from '../Images/Group 2.png'
-import q from '../Images/q.png'
+
 
 function Landing(){
     const [access_Token, setAccessToken] = useState('');
@@ -156,23 +155,16 @@ function Landing(){
                             <InfoButton >
                                 <TooImg  onClick={(e) => {
                                         e.stopPropagation(); // 이벤트 전파 중단
-                                        showInfoReco();}}/>
-                            </InfoButton>
-                            
-                            
+                                        showInfoTest();}}/>
+                            </InfoButton> 
                         </Button>
-                        
-                        {isOpenInfoReco ?
-                            // 액세스 토큰이 없는 경우
-                            <ModalBackdrop onClick={showInfoReco}>
-                                <InfoModal 
-                                text={reco}
-                                showInfo= {showInfoReco}/>
+                        {isOpenInfoTest ?
+                            
+                            <ModalBackdrop onClick={showInfoTest}>
+                                <InfoModal text={test} showInfo= {showInfoTest}/>
                             </ModalBackdrop>
                             : null}
-                        
-                        
-                        
+
                         <Button onClick={handleFitPhotoClick}> 🔍테스트를 통해 추천받기
                             <InfoButton>
                                 <TooImg
