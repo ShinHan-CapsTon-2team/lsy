@@ -443,7 +443,7 @@ const handleCategorySelect = (selectedCategory, index) => {
                       // 게시물 내용 렌더링
                       <S.EditButton key={post.id} onClick={() => handleUpdate(index)}>수정</S.EditButton>
                     ))}
-                    
+                      
                     {/* 파일 사이즈 클 경우 나오는  메시지를 보여주는 부분 */}
                     {sizeFile && (
                       <Popup text="최대 10MB 정적인 이미지 파일을 올려주세요." />

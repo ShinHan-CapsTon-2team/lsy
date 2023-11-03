@@ -78,26 +78,30 @@ const ModalImageView = styled.img`
 
 const CloseButtonStyle = {
     '@media screen and (max-width: 1024px)':{
-    fontSize: 38
+      width:40,
+      height:40,
     },
     
-    '@media screen and (max-width: 850px)':{
-    fontSize: 37
+    '@media screen and (max-width: 870px)':{
+      width:35,
+      height:35,
     },
     
     /* mobile 규격 */
-    '@media screen and (max-width: 540px)':{
-    fontSize: 35
+    '@media screen and (max-width: 750px)':{
+      width:30,
+      height:30,
     },
     /* tablet 규격 */
     '@media screen and (min-width: 1025px)':{
-    fontSize: 40
+      width:45,
+      height:45,
     },
     '@media screen and (min-width: 1700px)': {
-    fontSize: 53
+      width:65,
+      height:65,
     }
     };
-
 
 
 const CloseButton = styled(HiOutlineX)`

@@ -103,9 +103,11 @@ export const UserDelModal = ({openModalHandler,email}) => {
 const Button = styled.button`
 border:none;
 ${FontStyle};
-font-weight:600;
+
 background-color:white;
 &:hover {
+    background-color: transparent;
+
     color: #798be6;
   }
 `;

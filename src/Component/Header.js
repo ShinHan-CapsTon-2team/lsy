@@ -187,8 +187,8 @@ const onGoProfile = () => {
         />
         {isMenuOpen?(
           <P.DropMenuBar  className={`element ${isMenuOpen ? 'open' : 'hidden'}`}>
-          <P.CateMenu style={{marginBottom:'1vh'}}onClick={handleGoRecoClick}>#색감 매칭</P.CateMenu>
-          <P.CateMenu onClick={handleGoTestClick}>#취향 테스트</P.CateMenu>
+            <P.CateMenu style={{marginBottom:'1vh'}}onClick={handleGoRecoClick}>#색감 매칭</P.CateMenu>
+            <P.CateMenu onClick={handleGoTestClick}>#취향 테스트</P.CateMenu>
         </P.DropMenuBar>
         ):null
         }
@@ -243,10 +243,9 @@ const onGoProfile = () => {
         )}
 
 
-
         {/* 성공 메시지를 보여주는 부분 */}
         {showSuccessMessage && (
-          <Popup text="로그아웃 되었습니다"/>
+          <Popup text="로그아웃 되었습니다."/>
         )}
         
       </P.ProfileWrap>

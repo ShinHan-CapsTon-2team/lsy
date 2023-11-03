@@ -32,7 +32,7 @@ export const DeleteModal = ({isId,profilego,openModalHandler}) => {
                 setTimeout(() => {
                     setShowSuccessMessage(false);
                     navigate(`/profile/${profilego}`);
-                }, 1000);
+                }, 2000);
                 } else {
                 // 실패 메시지를 보여줍니다.
                 setShowErrorMessage(true);
@@ -63,7 +63,7 @@ export const DeleteModal = ({isId,profilego,openModalHandler}) => {
                 
             </ModalView>
         </ModalBackdrop>
-        
+        <Popup text="게시물이 성공적으로 삭제되었습니다." />
         {showSuccessMessage && <Popup text="게시물이 성공적으로 삭제되었습니다." />}
         
         {/* 실패 메시지를 보여주는 부분 */}

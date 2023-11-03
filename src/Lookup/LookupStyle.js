@@ -290,7 +290,7 @@ text-align:center;
 width:100%;
 margin-bottom:30px;
 @media screen and (min-width: 1700px) {
-    height:17vh;
+    //height:15vh;
     //height:21vh;
 };
 `;

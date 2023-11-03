@@ -75,26 +75,16 @@ export const InfoModal = ({text,showInfo}) => {
 
 
     const CloseButtonStyle = {
-        '@media screen and (max-width: 1024px)':{
-        fontSize: 38
-        },
-        
-        '@media screen and (max-width: 850px)':{
-        fontSize: 37
-        },
-        
-        /* mobile 규격 */
-        '@media screen and (max-width: 540px)':{
-        fontSize: 35
-        },
-        /* tablet 규격 */
-        '@media screen and (min-width: 1025px)':{
-        fontSize: 40
-        },
-        '@media screen and (min-width: 1700px)': {
-        fontSize: 53
-        }
-        };
+    width:35,
+    height:35,
+    
+    /* mobile 규격 */
+    '@media screen and (max-width: 750px)':{
+        width:30,
+        height:30,
+    },
+    
+    };
     const CloseButton = styled(HiOutlineX)`
 
 right:10px;
@@ -129,37 +119,23 @@ export const ModalView = styled.div.attrs((props) => ({
 role: 'dialog',
 }))`
 border-radius: 20px;
-width: 35vw;
-min-height: 23vh;
+width: 45%;
 height:auto;
 background-color: #ffffff;
 display: flex;
 align-items: center;
-//justify-content: center;
 flex-direction:column;
-@media screen and (max-width: 1024px){
-width: 35vw;
-}
 
-@media screen and (max-width: 850px){
-width: 53vw;
-min-height: 19vh;
+
+@media screen and (max-width: 750px){
+width: 53%;
 }
 /* mobile 규격 */
-@media screen and (max-width: 540px){
-width: 77vw;
-min-height: 23vh;
+@media screen and (max-width: 600px){
+width: 65%;
 }
 
-/* s 데스크 */
-@media screen and (min-width: 1025px){
 
-}
-/* l 데스크 */
-@media screen and (min-width: 1700px){
-width: 38vw;
-min-height: 25vh;
-}
 `;
 
 const Wrap = styled.div`

@@ -67,17 +67,16 @@ export const DropMenu = styled.div`
   }
 
   @media screen and (max-width: 890px) {
-    width: 22vw;
+    width: 24vw;
+    //width: 22vw;
     height: 17vh;
     padding: 5px;
   }
-  @media screen and (max-width: 890px) {
-    width: 25vw;
-  }
+
   /* mobile 규격 */
   @media screen and (max-width: 540px) {
     top: 70px;
-    width: 45vw;
+    width: 35vw;
     height: 15vh;
     right: -25px;
     border: 1.8px solid black;
@@ -94,13 +93,44 @@ export const DropMenu = styled.div`
     height: 17vh;
   }
 `;
+export const MenuBarSee = {
+  "@media (min-width: 891px)": {
+    display: "none"
+  }
+};
+export const DropMenuBar = styled.div`
+display: flex;
+align-items: center;
+flex-direction: column;
+justify-content: center;
 
-export const DropMenuBar = styled(DropMenu)`
-  left:22%;
-  top:7%;
+position: absolute;
+background-color: white;
+border: 2px solid black;
+padding: 20px;
+border-radius: 30px;
+z-index: 9999;
+box-shadow: 7px 7px 5px rgba(0, 0, 0, 0.25);
+
+//height: 15vh;
+min-height: 10vh;
+height:auto;
+width: 24vw;
+
+${MenuBarSee};
+
+  left:25%;
+  top:13%;
+
+  @media screen and (max-width: 750px)
+  {
+   // width:24vw;
+    left:27%;
+  }
   @media screen and (max-width: 690px)
   {
-    left:25%;
+    width:28vw;
+    left:28%;
   }
   @media screen and (max-width: 600px)
   {
@@ -108,13 +138,10 @@ export const DropMenuBar = styled(DropMenu)`
   }
   @media screen and (max-width: 540px)
   {
-    left:15%;
+    width: 35vw;
+    left:20%;
   }
-  /*
-  min-width:18vw;
-  @media screen and (max-width: 730px) {
-    left:25%;
-  }*/
+
 
  
   
@@ -140,6 +167,7 @@ export const FontStyle = {
     fontSize: 37,
   },
 };
+
 
 export const CateMenu = styled.div`
   ${FontStyle};

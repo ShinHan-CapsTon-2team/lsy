@@ -18,38 +18,19 @@ bottom : 0;
 export const ModalView = styled.div.attrs((props) => ({
 role: 'dialog',
 }))`
+
 border-radius: 20px;
-width: 35vw;
-min-height: 23vh;
+min-width: 20vw;
+min-height: 16vh;
+width:auto;
 height:auto;
 background-color: #ffffff;
 display: flex;
 align-items: center;
 justify-content: center;
+padding:25px;
 
-@media screen and (max-width: 1024px){
-width: 35vw;
-}
 
-@media screen and (max-width: 850px){
-width: 53vw;
-//height: 19vh;
-}
-/* mobile 규격 */
-@media screen and (max-width: 540px){
-width: 77vw;
-//height: 23vh;
-}
-
-/* s 데스크 */
-@media screen and (min-width: 1025px){
-
-}
-/* l 데스크 */
-@media screen and (min-width: 1700px){
-width: 38vw;
-//height: 25vh;
-}
 `;
 
 
@@ -98,32 +79,25 @@ margin-bottom:5%;
 `;
 
 export const BtnLoginWrap = styled.div`
-width:100%;
+margin-top:10px;
 `;
 
 export const BtnNaver = styled.img`
-width:50%;
-height:100%;
+width:270px;
+//height:100%;
 
-@media screen and (max-width: 1024px){
-    width:60%;
-}
 
 @media screen and (max-width: 850px){
-    width:65%;
+    width:250px;
 }
 /* mobile 규격 */
 @media screen and (max-width: 540px){
-    width:70%;
+    width:200px;
 }
 
-/* s 데스크 */
-@media screen and (min-width: 1025px){
-
-}
 /* l 데스크 */
 @media screen and (min-width: 1700px){
-    width:49%;
+    width:335px;
 }
 
 
