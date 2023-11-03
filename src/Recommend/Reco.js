@@ -444,6 +444,11 @@ position: absolute;
   right: 15px;
   background-color: transparent;
 
+  @media screen and (min-width: 891px)
+    {
+    display:none;
+
+    }
   @media screen and (max-width: 840px){
     right: 10px;
     

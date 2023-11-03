@@ -3,14 +3,18 @@ import styled from "styled-components";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Popup } from "../Modal/Popup";
 import * as S from './ImgResultStyle'
-
+import Header from '../Component/Header';
 
 const RecoResult = () => {
     const location = useLocation();
     const params = new URLSearchParams(location.search);
     const topSimilarImages = location.state?.topSimilarImages || [];
     const [showErrorMessage, setShowErrorMessage] = useState(false); // 게시글 조회 실패 
-    
+    const [dataFromChild, setDataFromChild] = useState({});
+    const handleChildData = (data) => {
+        // 자식 컴포넌트로부터 받은 데이터를 처리
+        setDataFromChild(data);
+    };
     useEffect(() => {
         console.log('topSimilarImages:', topSimilarImages);
       }, [topSimilarImages]); // Add topSimilarImages as a dependency to trigger the log when it changes
@@ -63,11 +67,14 @@ const RecoResult = () => {
     return (
         
             <OutWrap> 
-                
                 <S.InsideWrap>
+                    <InsidWrap>
+                        <Header style={{flex:0}} onData={handleChildData}/>
+                    </InsidWrap>
+
                     <S.TextWrap>
                         <S.Text1> 추천 결과</S.Text1>
-                        <S.Text2> 해당 사진과 비슷한 색감의 다른 사진을 확인하세요</S.Text2>
+                        <S.Text2> 해당 사진과 유사한 색감의 다른 사진을 확인하세요</S.Text2>
                         <S.Text2> 사진을 클릭하면 자세하게 확인할 수 있습니다</S.Text2>
                     </S.TextWrap>
 
@@ -103,7 +110,31 @@ const RecoResult = () => {
     };
 
     export default RecoResult;
+const InsidWrap = styled.div`
+    text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  height:100%;
 
+  /* tablet 규격 */
+  @media screen and (max-width: 1024px) {
+    width: 87%;
+  }
+
+  /* mobile 규격 */
+  @media screen and (max-width: 540px) {
+    width: 95%;
+  }
+  /* s 데스크 */
+  @media screen and (min-width: 1025px) {
+  }
+  /* l 데스크 */
+  @media screen and (min-width: 1700px) {
+    width: 75%;
+  }
+    `;
     const OutWrap = styled.div`
     width: 100%;
     height: 100%;

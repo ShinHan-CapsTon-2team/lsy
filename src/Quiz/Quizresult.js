@@ -5,6 +5,7 @@ import AllDataResult from "../Datajson/AllDataResult.json"
 import btn_link from '../Images/btn_link.svg'
 import { Popup } from '../Modal/Popup';
 import KakaoShareBtn from '../Component/Kakao';
+import Header from '../Component/Header';
 import * as S from '../Recommend/ImgResultStyle';
 
 import styled from "styled-components";
@@ -12,6 +13,7 @@ const Quizresult  = () => {
     const location = useLocation();
     const params = new URLSearchParams(location.search);
     console.log("location",location);
+    const [dataFromChild, setDataFromChild] = useState({});
 
     //링크 복사 
     const [copied, setCopied] = useState(false);
@@ -31,7 +33,7 @@ const Quizresult  = () => {
 
         // 홈페이지 이동 수정 
     const handleGoHomeClick = () => {
-        navigate('/home');
+        navigate('/');
     };
 
         // 다시 테스트 
@@ -70,13 +72,27 @@ const Quizresult  = () => {
 
       // 복사 후 추가적인 작업을 수행하고 싶다면 여기에 코드를 추가할 수 있습니다.
     };
+    const handleChildData = (data) => {
+        // 자식 컴포넌트로부터 받은 데이터를 처리
+        setDataFromChild(data);
+    };
+    const categoryMapping = {
+        pet: "반려동물",
+        wedding: "웨딩사진",
+        body: "바디프로필",
+        family: "가족사진",
+    };
+    const category = categoryMapping[categoryName] || "기타"; // 기본값은 "기타"로 설정
     
 
     return (
         <S.OutWrap>
             <S.InsideWrap>
+                <InsidWrap>
+                    <Header style={{flex:0}} onData={handleChildData}/>
+                </InsidWrap>
                 <S.TextWrap>
-                    <S.Text1> 추천 결과</S.Text1>
+                    <S.Text1> <S.Text1 style={{color:'#5d6bb4'}}>{category}</S.Text1> 추천 결과</S.Text1>
                     <S.Text2> 선택한 사진과 비슷한 스타일의 다른 사진을 확인하세요</S.Text2>
                     <S.Text2> 사진을 클릭하면 자세한 정보를 확인할 수 있습니다</S.Text2>
                 </S.TextWrap>
@@ -114,7 +130,7 @@ const Quizresult  = () => {
 
                 <S.ButtonsWrap> 
                     <S.ButtonTwo onClick={handleGoHomeClick}>                                        
-                    모든 게시글 보러가기 
+                        메인화면 가기
                     </S.ButtonTwo>
 
                     <S.ButtonTwo style={{marginRight:0}} onClick={handleRetestdClick}>                         
@@ -131,6 +147,31 @@ const Quizresult  = () => {
 export default Quizresult;
 
 
+const InsidWrap = styled.div`
+    text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  height:100%;
+
+  /* tablet 규격 */
+  @media screen and (max-width: 1024px) {
+    width: 87%;
+  }
+
+  /* mobile 규격 */
+  @media screen and (max-width: 540px) {
+    width: 95%;
+  }
+  /* s 데스크 */
+  @media screen and (min-width: 1025px) {
+  }
+  /* l 데스크 */
+  @media screen and (min-width: 1700px) {
+    width: 75%;
+  }
+    `;
 
 const Img= styled.img`
 border: 5px #798BE6 solid;

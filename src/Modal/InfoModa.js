@@ -29,7 +29,7 @@ export const InfoModal = ({text,showInfo}) => {
                 <CloseButtonWrap>
                     <CloseButton onClick={handleCancle}></CloseButton>
                 </CloseButtonWrap>
-                {text="reco" ?(
+                {text==="reco" ?(
                     <TextWrap > 
                         <Text>
                             우리의 색감 매칭 기능을 통해 여러분의 사진과 유사한 색감을 가진 다른 사진을 찾아보세요. <br/>

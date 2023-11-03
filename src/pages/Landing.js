@@ -156,15 +156,22 @@ function Landing(){
                                 <TooImg  onClick={(e) => {
                                         e.stopPropagation(); // 이벤트 전파 중단
                                         showInfoTest();}}/>
-                            </InfoButton> 
-                        </Button>
-                        {isOpenInfoTest ?
+                            </InfoButton>
                             
-                            <ModalBackdrop onClick={showInfoTest}>
-                                <InfoModal text={test} showInfo= {showInfoTest}/>
+                            
+                        </Button>
+                        
+                        {isOpenInfoReco ?
+                            // 액세스 토큰이 없는 경우
+                            <ModalBackdrop onClick={showInfoReco}>
+                                <InfoModal 
+                                text={reco}
+                                showInfo= {showInfoReco}/>
                             </ModalBackdrop>
                             : null}
-
+                        
+                        
+                        
                         <Button onClick={handleFitPhotoClick}> 🔍테스트를 통해 추천받기
                             <InfoButton>
                                 <TooImg

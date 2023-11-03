@@ -159,7 +159,6 @@ function scrollToTop() {
         
         <Header onData={handleChildData}/>
         
-        
         <S.CategoryWrap >
           
           {categoriesData &&

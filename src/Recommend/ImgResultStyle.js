@@ -311,7 +311,7 @@ export const OutWrap = styled.div`
 
     
 export const BtnLink = styled.img`
-
+cursor:pointer;
 /* mobile 규격 */
 @media screen and (max-width: 540px){
     width:50px;

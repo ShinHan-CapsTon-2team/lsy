@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 import naverlogin from '../Images/naverlogin.png'
 import * as S from './ModalStyle'
-import React, { useState } from 'react';
-import naverloginHover from '../Images/naverloinghover.png';
 
 export const LoginModal = () => {
 

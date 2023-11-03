@@ -20,7 +20,8 @@ role: 'dialog',
 }))`
 border-radius: 20px;
 width: 35vw;
-height: 23vh;
+min-height: 23vh;
+height:auto;
 background-color: #ffffff;
 display: flex;
 align-items: center;
@@ -32,12 +33,12 @@ width: 35vw;
 
 @media screen and (max-width: 850px){
 width: 53vw;
-height: 19vh;
+//height: 19vh;
 }
 /* mobile 규격 */
 @media screen and (max-width: 540px){
 width: 77vw;
-height: 23vh;
+//height: 23vh;
 }
 
 /* s 데스크 */
@@ -47,7 +48,7 @@ height: 23vh;
 /* l 데스크 */
 @media screen and (min-width: 1700px){
 width: 38vw;
-height: 25vh;
+//height: 25vh;
 }
 `;
 

@@ -10,10 +10,11 @@ function KaKao({_resulttype}) {
     outline: none;
     background: none;
     border: none;
+    &:hover{
+        background:white;
+    }
     `;
 
-    
-   
     const onHandleShareKaKao = () => {
         
         if (!Kakao.isInitialized()) {

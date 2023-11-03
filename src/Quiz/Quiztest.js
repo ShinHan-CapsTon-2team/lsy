@@ -1,6 +1,6 @@
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import React, { useState, useEffect } from 'react'; 
-
+import Header from '../Component/Header';
 // 이미지 퀴즈  json 파일 
 import quizbody from '../Datajson/bodydata.json';
 import quizpet from '../Datajson/petdata.json';
@@ -90,26 +90,50 @@ const QuizTest = () => {
         setSearchParams(searchParams);
     };
 
+    const [dataFromChild, setDataFromChild] = useState({});
+    const handleChildData = (data) => {
+        // 자식 컴포넌트로부터 받은 데이터를 처리
+        setDataFromChild(data);
+    };
+    const categoryMapping = {
+      pet: "반려동물",
+      wedding: "웨딩사진",
+      body: "바디프로필",
+      family: "가족사진",
+    };
+    const category = categoryMapping[categoryName] || "기타"; // 기본값은 "기타"로 설정
+  
 
     return (
     <OutWrap>
-        {quiz && quiz.map((item) => (
-            <Textselect>{item.selectCriteria}</Textselect>
-        ))}
-        <Ulstyle>
-            
-            {select && select.map((item, index) => (
-            <div key={index}>
-                <Textimgselect>{item.name}</Textimgselect>
-                <Img
-                src={`${process.env.PUBLIC_URL}/Images/quest/${categoryName}/${item.img}`}
-                alt={`Option ${item.name}`}
-                onClick={() => handleAnswer(item)}
-                style={{ marginRight: index === 1 ? 0 : null }}
-                />
-            </div>
+        <InsidWrap>
+            <Header style={{flex:0}} onData={handleChildData}/>
+            {quiz && quiz.map((item) => (
+
+                <Textselect style={{marginTop:20}}>
+                    <QCateText>#{category}</QCateText>
+                    <QText>{item.selectCriteria}</QText>
+                </Textselect>
             ))}
-        </Ulstyle>
+            <Ulstyle>
+                
+                {select && select.map((item, index) => (
+                <div key={index} style={{display:'flex',flexDirection:'column'}}>
+                    <div style={{textAlign:'left' }}>
+                        <Textimgselect>{item.name  || " "}</Textimgselect>
+                    </div>
+                    
+                    <Img 
+                    
+                    src={`${process.env.PUBLIC_URL}/Images/quest/${categoryName}/${item.img}`}
+                    alt={`Option ${item.name}`}
+                    onClick={() => handleAnswer(item)}
+                    style={{ marginRight: index === 1 ? 0 : null}}
+                    />
+                </div>
+                ))}
+            </Ulstyle>
+        </InsidWrap>
     </OutWrap>
 
     );
@@ -117,34 +141,84 @@ const QuizTest = () => {
 
 export default QuizTest;
 
+const InsidWrap = styled.div`
+    text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  height:100%;
 
-const FontStyle = {
-    '@media screen and (max-width: 1024px)':{
-    
-    fontSize: 30
-    },
-    /* mobile 규격 */
-    '@media screen and (max-width: 540px)':{
-    
-    fontSize: 25
-    },
-    /* tablet 규격 */
-    '@media screen and (min-width: 1025px)':{
-    
-    fontSize: 30
-    },
-    '@media screen and (min-width: 1700px)': {
-    
-    fontSize: 40
-    }
-    };
+  /* tablet 규격 */
+  @media screen and (max-width: 1024px) {
+    width: 87%;
+  }
 
-const Textselect= styled.div`
-color: #798BE6;
+  /* mobile 규격 */
+  @media screen and (max-width: 540px) {
+    width: 95%;
+  }
+  /* s 데스크 */
+  @media screen and (min-width: 1025px) {
+  }
+  /* l 데스크 */
+  @media screen and (min-width: 1700px) {
+    width: 75%;
+  }
+    `;
+
+    const FontStyle = {
+        '@media screen and (max-width: 1024px)':{
+        
+        fontSize: 30
+        },
+        /* mobile 규격 */
+        '@media screen and (max-width: 540px)':{
+        
+        fontSize: 25
+        },
+        /* tablet 규격 */
+        '@media screen and (min-width: 1025px)':{
+        
+        fontSize: 30
+        },
+        '@media screen and (min-width: 1700px)': {
+        
+        fontSize: 40
+        }
+        };
+    const Textselect= styled.div`
+text-align: center;
+display: flex;
+flex-direction: row;
+align-items: center;
+@media screen and (max-width: 640px){
+flex-direction: column;
+}
+`;
+
+const QText = styled.span`
+color: black;
 font-weight: bold;
 
 ${FontStyle};
 `;
+
+const QCateText = styled.span
+`font-weight: bold;
+
+${FontStyle};
+color: #798BE6;
+margin-right:10px;
+@media screen and (max-width: 640px){
+  margin-right:0px;
+  margin-bottom:10px;
+  }
+`;
+
+
+
+
 
 const FontsmallStyle = {
     '@media screen and (max-width: 1024px)':{
@@ -167,8 +241,8 @@ const FontsmallStyle = {
     }
     };
 
-const Textimgselect= styled.div`
-color: #798BE6;
+const Textimgselect= styled.span`
+color: black;
 font-weight: bold;
 margin-bottom:5px;
 ${FontsmallStyle};
@@ -222,45 +296,71 @@ const OutWrap = styled.div`
     
 
     const Img= styled.img`
-    border: 9px #798BE6 solid; // ?????
+    border: 5px #798BE6 solid;
     border-radius: 31px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     display: flex;
     align-items: center; 
     overflow:hidden;
 
-    width: 32vw;
-    height: 77vh;
+    width: 43vw;
+    height: 62vh;
+    //width: 32vw;
+    //height: 77vh;
     
-
+    &:hover {
+      border: 5px #4E62C5 solid;
+  }
+  
+    margin-right: 15px;
     
+    @media screen and (max-width: 1300px)
+    {
+      width: 34vw;
+      margin-right: 25px;
+    }
     /* tablet 규격 */
         @media screen and (max-width: 1023px){
-            margin-right: 15px;
-        }
+          width: 43vw;
+          height: 62vh;
+          margin-right: 15px;
+      }
 
-        @media screen and (max-width: 900px){
-            width: 43vw;
-            height: 53vh;
-            
-        }
+      @media screen and (max-width: 900px){
+          width: 43vw;
+          height: 53vh;
+          
+      }
 
 
-        /* mobile 규격 */
+      /* mobile 규격 */
+      @media screen and (max-width: 650px){
+          width: 75vw;
+          height: 59vh;
+          //height: 40vh;
+          margin-bottom:20px;
+          margin-right: 0px;
+          border: 4px #798BE6 solid;
+          &:hover {
+            border: 4px #4E62C5 solid;
+          }
+      }
         @media screen and (max-width: 540px){
-            width: 65vw;
-            height: 40vh;
-            margin-bottom:10px;
-            
-            border: 4px #798BE6 solid;
+          width: 75vw;
+          height: 55vh;
+          
         }
         /* s 데스크 */
-        @media screen and (min-width: 1024px){
-            margin-right: 50px;
+        @media screen and (min-width: 1301px){
+          width: 32vw;
+          height: 61vh;
         }
         /* l 데스크 */
         @media screen and (min-width: 1700px){
             margin-right: 80px; 
-            
+            border: 8px #798BE6 solid;
+            &:hover {
+                border: 8px #4E62C5 solid;
+            }
         }
     `;

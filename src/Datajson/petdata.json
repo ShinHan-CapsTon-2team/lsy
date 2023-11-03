@@ -7,17 +7,17 @@
                 "beforeselec":"a",
                 "quiz":[
                     {
-                        "selectCriteria":"원하시는 스타일을 선택해주세요",
+                        "selectCriteria":"소품 여부를 선택해주세요",
                         "select":
                         [
                             {
                                 "type":"a",
-                                "name":"소품이 있는 사진",
+                                "name":" \u00A0 ",
                                 "img":"4.jpg"
                             },
                             {
                                 "type":"b",
-                                "name":"소품이 없는 사진",
+                                "name":" \u00A0",
                                 "img":"3.jpg"
                             }
                         ]  
@@ -34,12 +34,12 @@
                     [
                         {
                             "type":"a",
-                            "name":"산",
+                            "name":"#산",
                             "img":"10.jpg"
                         },
                         {
                             "type":"b",
-                            "name":"바다",
+                            "name":"#바다",
                             "img":"9.jpg"
                         }
                     ] 
@@ -61,12 +61,12 @@
                         "select": [
                             {
                                 "type":"a",
-                                "name":"배경색이 있는 사진",
+                                "name":"#컬러",
                                 "img":"5.jpg"
                             },
                             {
                                 "type":"b",
-                                "name":"배경색이 없는 사진",
+                                "name":"#화이트",
                                 "img":"6.jpg"
                             }
                         ]  
@@ -82,12 +82,12 @@
                         "select": [
                             {
                                 "type":"a",
-                                "name":"배경색이 있는 사진",
+                                "name":"#컬러",
                                 "img":"8.jpg"
                             },
                             {
                                 "type":"b",
-                                "name":"배경색이 없는 사진",
+                                "name":"#화이트",
                                 "img":"7.png"
                             }
                         ] 
@@ -102,12 +102,12 @@
                         "select": [
                             {
                                 "type":"a",
-                                "name":"가만히 있는 모습",
+                                "name":"#정적인",
                                 "img":"11.png"
                             },
                             {
                                 "type":"b",
-                                "name":"활동적으로 뛰어다니는 모습",
+                                "name":"#활동적인",
                                 "img":"12.jpg"
                             }
                         ]  
@@ -122,12 +122,12 @@
                         "select": [
                             {
                                 "type":"a",
-                                "name":"가만히 있는 모습",
+                                "name":"#정적인",
                                 "img":"13.jpg"
                             },
                             {
                                 "type":"b",
-                                "name":"활동적으로 뛰어다니는 모습",
+                                "name":"#활동적인",
                                 "img":"14.jpg"
                             }
                         ] 

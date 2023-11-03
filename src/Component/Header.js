@@ -12,18 +12,15 @@ import { Popup } from "../Modal/Popup";
 import { Tooltip } from 'react-tooltip'
 import "../pages/Tooltipstyle.css";
 
+
 const Header  = props => {
-  
   const location = useLocation();
-  
- const isHomeRoute = location.pathname === "/home";
-  
   const accessToken = localStorage.getItem("access_token");
 
   const navigate = useNavigate();
+
   const [access_Token, setAccessToken] = useState('');
   const [userInfo, setUserInfo] = useState(null); 
-  console.log("accessToken:",accessToken);
   const [acces,SetAcces]= useState('');
   const [emailId, setemailId] = useState('');
   const [userinfo, setUserinfo] = useState([]);
@@ -34,7 +31,12 @@ const Header  = props => {
 
   const { onData } = props;
 
-    
+  
+  const recoRoute =["/reco","/recoresult"];
+  const testRoutes = ["/quizindex", "/quizfrist", "/quiztest", "/quizresult"];
+  const isTestRoute = testRoutes.includes(location.pathname);
+  const isRecoRoute =recoRoute.includes(location.pathname);
+
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const code = urlParams.get('code');
@@ -75,70 +77,71 @@ const Header  = props => {
     }
     }, []);
 
-
-  
-useEffect(() => 
-{
-  setCurrentPath(location.pathname);
-  console.log("현재 주소 : ", currentPath);
-  console.log("accessToken:",accessToken);
-  
-  if (accessToken)
+  useEffect(() => 
   {
-  fetch('http://localhost:4001/api/user', {
-      method: "POST",
-      headers: {
-          "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ accessToken }),
-      })
-      .then((response) => response.json())
-      .then((data) => {
+    setCurrentPath(location.pathname);
+    console.log("현재 주소 : ", currentPath);
+    console.log("accessToken:",accessToken);
+    
+    if (accessToken)
+    {
+    fetch('http://localhost:4001/api/user', {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ accessToken }),
+        })
+        .then((response) => response.json())
+        .then((data) => {
 
-        if (data.email) {
-          setUserinfo(data);
+          if (data.email) {
+            setUserinfo(data);
 
-          console.log("header 현재 접속중인 사용자 이메일:", data.email);
-          console.log("header 현재 접속중인 사용자 닉네임:", data.nickname);
-          setNickname(data.nickname)
+            console.log("header 현재 접속중인 사용자 이메일:", data.email);
+            console.log("header 현재 접속중인 사용자 닉네임:", data.nickname);
+            setNickname(data.nickname)
 
-          // 이메일 아이디 추출
-          const emailParts = data.email.split('@');
-          setemailId(emailParts[0]);
-          const senddata = {
-            accesstoken: accessToken ,
-            emailid: emailParts[0],
-          };
-          console.log("senddata: ",senddata);
-          onData(senddata);
-          
-      } else {
-          // "email" 필드가 없는 경우
-          console.log("header 이메일 정보가 없습니다.");
-          
-          localStorage.removeItem("access_token");// 만료된 토큰 처리하기 
-          window.location.reload();
-          //navigate(currentPath); // 다시 현재 페이지로 새로고침 
-      }
-      })
-      .catch((error) => {
-          console.error("Error fetching user email:", error);
-          localStorage.removeItem("access_token");// 만료된 토큰 처리하기 
-          window.location.reload();
-      }
-      );
+            // 이메일 아이디 추출
+            const emailParts = data.email.split('@');
+            setemailId(emailParts[0]);
+            const senddata = {
+              accesstoken: accessToken ,
+              emailid: emailParts[0],
+            };
+            console.log("senddata: ",senddata);
+            onData(senddata);
+            
+        } else {
+            // "email" 필드가 없는 경우
+            console.log("header 이메일 정보가 없습니다.");
+            
+            localStorage.removeItem("access_token");// 만료된 토큰 처리하기 
+            window.location.reload();
+            //navigate(currentPath); // 다시 현재 페이지로 새로고침 
+        }
+        })
+        .catch((error) => {
+            console.error("Error fetching user email:", error);
+            localStorage.removeItem("access_token");// 만료된 토큰 처리하기 
+            window.location.reload();
+        }
+        );
 
-      
-  }
-  
-}, [location.pathname,accessToken]); 
+        
+    }
+    
+  }, [location.pathname,accessToken]); 
 
-  // landing page
   const handleGoLandingClick = () => {
     navigate("/");
   };
-
-  
+  const handleGoRecoClick = () => {
+    navigate("/reco");
+  };
+  const handleGoTestClick = () => {
+    navigate("/quizindex");
+  };
 
 
 // 자기 프로필 가는거 처리하기 App js 참고  
@@ -168,23 +171,24 @@ const onGoProfile = () => {
     <S.LogoWrap style={{flexDirection:'column'}}>
       <div style={{display:'flex',width:'100%',justifyContent:'space-between'}}>
 
-      
       <S.LandingWrap  style={{display:'flex',alignItems:'center'}}>
         <S.LandingLogo src={logo} alt="" onClick={handleGoLandingClick} />
 
-        <S.MenuBarWrap style={{marginRight:30,marginLeft:10}}> 
-          <S.MenuBar data-tooltip-id="colormatching-tooltip" >색감 매칭</S.MenuBar>
+        <S.SmallMenu/>
+        <S.MenuBarWrap style={{marginLeft:20}} onClick={handleGoRecoClick}> 
+          <S.MenuBar style={{ color: isRecoRoute ? '#5d6bb4' : ''}} data-tooltip-id="colormatching-tooltip" >#색감 매칭</S.MenuBar>
         </S.MenuBarWrap>
 
-        <S.MenuBarWrap>
-          <S.MenuBar  data-tooltip-id="testmatching-tooltip"> 취향 테스트</S.MenuBar>
+        <S.MenuBarWrap onClick={handleGoTestClick}>
+          <S.MenuBar  style={{ color: isTestRoute ? '#5d6bb4' : ''}}data-tooltip-id="testmatching-tooltip"> #취향 테스트</S.MenuBar>
         </S.MenuBarWrap>
+        <hr/>
         <Tooltip 
           id="colormatching-tooltip" 
           className="colormatching-toolstyle"
           place="bottom" >
-              우리의 색감 매칭 기능을 통해 여러분의 사진과 유사한 색감을 가진 다른 사진을 찾아보세요. <br/>
-              다섯 가지 다양한 카테고리 중 하나의 사진을 올리면, 그와 맞는 카테고리의 사진에서 색감 기반으로 유사한 이미지를 찾아 드립니다.
+              우리의 색감 매칭 기능을 통해 여러분의 사진과 비슷한 색감을 가진 다른 사진을 찾아보세요. 🎨 <br/>
+              여러분이 원하는 카테고리 중 하나의 사진을 업로드하면, 그와 비슷한 색감을 가진 다른 사진을 찾아드립니다.
 
         </Tooltip> 
 
@@ -231,9 +235,7 @@ const onGoProfile = () => {
       </P.ProfileWrap>
       </S.HomeWrap>
       </div>
-      <div>
 
-      </div >
       <hr style={{width:'100%'}}/>
       
     </S.LogoWrap>
