@@ -98,6 +98,8 @@ ${FontStyle};
 
 background-color:white;
 &:hover {
+    background-color: transparent;
+
     color: #798be6;
   }
 `;

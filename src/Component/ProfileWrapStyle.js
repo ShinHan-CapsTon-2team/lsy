@@ -54,21 +54,25 @@ export const DropMenu = styled.div`
   position: absolute;
   background-color: white;
   border: 2px solid black;
-  padding: 10px;
+  padding: 20px;
   border-radius: 30px;
   z-index: 9999;
   box-shadow: 7px 7px 5px rgba(0, 0, 0, 0.25);
   top: 85px;
-  height: 15vh;
-
+  //height: 15vh;
+  min-height: 15vh;
+  height:auto;
   @media screen and (max-width: 1024px) {
     width: 15vw;
   }
 
-  @media screen and (max-width: 850px) {
-    width: 25vw;
-    height: 12vh;
+  @media screen and (max-width: 890px) {
+    width: 22vw;
+    height: 17vh;
     padding: 5px;
+  }
+  @media screen and (max-width: 890px) {
+    width: 25vw;
   }
   /* mobile 규격 */
   @media screen and (max-width: 540px) {
@@ -89,6 +93,31 @@ export const DropMenu = styled.div`
     top: 115px;
     height: 17vh;
   }
+`;
+
+export const DropMenuBar = styled(DropMenu)`
+  left:22%;
+  top:7%;
+  @media screen and (max-width: 690px)
+  {
+    left:25%;
+  }
+  @media screen and (max-width: 600px)
+  {
+    left:30%;
+  }
+  @media screen and (max-width: 540px)
+  {
+    left:15%;
+  }
+  /*
+  min-width:18vw;
+  @media screen and (max-width: 730px) {
+    left:25%;
+  }*/
+
+ 
+  
 `;
 export const FontStyle = {
   "@media screen and (max-width: 1024px)": {
@@ -159,7 +188,7 @@ export const ProfileShow = styled.div`
 export const Profilename= styled.span`
 position: relative;
 ${FontStyle};
-  top:10px;
+  top:5px;
 // margin-top: 10px;
   //bottom:-8px;
 `;

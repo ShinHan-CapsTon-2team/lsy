@@ -1,15 +1,14 @@
 import styled from "styled-components";
 import {TbMenu2} from 'react-icons/tb'
+import { Tooltip } from 'react-tooltip'
 
 export const SmallMenu = styled(TbMenu2)`
+display:flex;
   stroke-width:1.5;
-
-@media screen and (max-width: 890px) {
-  display:flex;
   margin-left: 20px;
   width: 41px;
   height: 41px;
-}
+  cursor:pointer;
 @media screen and (min-width: 891px)
 {
   display:none;
@@ -102,14 +101,14 @@ export const FontStyle = {
   },
   /* tablet 규격 */
   "@media screen and (min-width: 1025px)": {
-    fontSize: 24,
+    fontSize: 24 ,
   },
   "@media screen and (min-width: 1700px)": {
     fontSize: 37,
   },
 };
 export const MenuBarWrap = styled.div`
-@media screen and (max-width: 890px)
+@media screen and (max-width: 891px)
 {
   display:none;
 }
@@ -126,4 +125,38 @@ export const MenuBar = styled.span
 &:hover {
   color: #5d6bb4;
 }
+`;
+
+export const Tool = styled(Tooltip)`
+  cursor:pointer !important;
+  background-color:  #9AA5DE !important;
+  font-size: 20px !important; /* 글꼴 크기 변경 */
+  color: white; /* 글꼴 색상 변경 */
+  width: 30vw !important;
+  min-height: 20vh !important;
+  height: auto !important;
+  padding:40px !important;
+  text-align: left !important;
+  z-index: 9999 !important;
+  margin-left: 30px !important;
+  line-height: 125%;
+  letter-spacing: 2px;
+  border-radius: 3.5% !important;
+  opacity:1 !important;
+
+
+  @media screen and (max-width: 1024px){
+    font-size: 20px !important;
+    width: 32vw !important;
+  }
+    
+  /* s 데스크 */
+  @media screen and (min-width: 1025px){
+    font-size: 22px !important;
+    width: 30vw !important;
+  }
+  /* l 데스크 */
+  @media screen and (min-width: 1700px){
+    font-size: 35px !important;
+  }
 `;

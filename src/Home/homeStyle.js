@@ -221,7 +221,7 @@ export const CategoryMenu = styled(Radius)`
   }
   
   /* tablet 규격 */
-  @media screen and (max-width: 1024px){
+  @media screen and (max-width: 1160px){
     width:19%;
     height: 8vh; 
     margin-right:5px;
@@ -237,7 +237,7 @@ export const CategoryMenu = styled(Radius)`
   }
 
   /* mobile 규격 */
-  @media screen and (max-width: 540px){
+  @media screen and (max-width: 780px){
     width:32%;
     height: 7vh; 
 
@@ -253,7 +253,7 @@ export const CategoryMenu = styled(Radius)`
   }
 
   /* ss 데스크 */
-  @media screen and (min-width: 1025px){
+  @media screen and (min-width: 1161px){
     height: 8vh; 
   }
   /* s 데스크 */

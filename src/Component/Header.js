@@ -3,20 +3,17 @@ import { useNavigate ,useLocation} from "react-router-dom";
 import logo from "../Images/imagelogo.png";
 import loginlogo from "../Images/loginBefor.png";
 import profilelogo from "../Images/loginFin.jpg";
-
 import * as S from "./HeaderStyle";
 import { LoginModal } from "../Modal/LoginModal";
 import * as P from "./ProfileWrapStyle";
 import { ModalBackdrop } from "../Modal/ModalStyle";
 import { Popup } from "../Modal/Popup";
-import { Tooltip } from 'react-tooltip'
-import "../pages/Tooltipstyle.css";
-
+import "./DropMenu.css";
 
 const Header  = props => {
   const location = useLocation();
   const accessToken = localStorage.getItem("access_token");
-
+  
   const navigate = useNavigate();
 
   const [access_Token, setAccessToken] = useState('');
@@ -28,7 +25,7 @@ const Header  = props => {
   const [isOpen, setIsOpen] = useState(false); // 모달창때문에 있는거 삭제 노
   const [showSuccessMessage, setShowSuccessMessage] = useState(false); // 로그아웃 성공 여부 
   const [currentPath, setCurrentPath] = useState(location.pathname);// currentPath 상태 정의 및 초기화
-
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { onData } = props;
 
   
@@ -79,6 +76,7 @@ const Header  = props => {
 
   useEffect(() => 
   {
+    
     setCurrentPath(location.pathname);
     console.log("현재 주소 : ", currentPath);
     console.log("accessToken:",accessToken);
@@ -133,6 +131,7 @@ const Header  = props => {
     
   }, [location.pathname,accessToken]); 
 
+
   const handleGoLandingClick = () => {
     navigate("/");
   };
@@ -150,8 +149,17 @@ const onGoProfile = () => {
 };
   const openModalHandler = () => {
     setIsOpen(!isOpen);
+    setIsMenuOpen(false);
+    
   };
 
+  const openMenuHandler = () => {
+
+    setIsMenuOpen(!isMenuOpen);
+    setIsOpen(false);
+
+  };
+  
   const onNaverLogout = () => {
     //로그아웃 처리 코드
     localStorage.removeItem("access_token"); // 토큰 살아있음 
@@ -167,6 +175,7 @@ const onGoProfile = () => {
     console.log("로그아웃 되었습니다.");
   };
 
+
   return (
     <S.LogoWrap style={{flexDirection:'column'}}>
       <div style={{display:'flex',width:'100%',justifyContent:'space-between'}}>
@@ -174,32 +183,39 @@ const onGoProfile = () => {
       <S.LandingWrap  style={{display:'flex',alignItems:'center'}}>
         <S.LandingLogo src={logo} alt="" onClick={handleGoLandingClick} />
 
-        <S.SmallMenu/>
-        <S.MenuBarWrap style={{marginLeft:20}} onClick={handleGoRecoClick}> 
-          <S.MenuBar style={{ color: isRecoRoute ? '#5d6bb4' : ''}} data-tooltip-id="colormatching-tooltip" >#색감 매칭</S.MenuBar>
+        <S.SmallMenu  onClick={openMenuHandler} 
+        />
+        {isMenuOpen?(
+          <P.DropMenuBar  className={`element ${isMenuOpen ? 'open' : 'hidden'}`}>
+          <P.CateMenu style={{marginBottom:'1vh'}}onClick={handleGoRecoClick}>#색감 매칭</P.CateMenu>
+          <P.CateMenu onClick={handleGoTestClick}>#취향 테스트</P.CateMenu>
+        </P.DropMenuBar>
+        ):null
+        }
+        
+        
+        <S.MenuBarWrap style={{marginLeft:20}} onClick={handleGoRecoClick} > 
+          <S.MenuBar style={{ color: isRecoRoute ? '#5d6bb4' : ''}}  data-tooltip-id="colormatching-tooltip" >#색감 매칭</S.MenuBar>
         </S.MenuBarWrap>
 
         <S.MenuBarWrap onClick={handleGoTestClick}>
-          <S.MenuBar  style={{ color: isTestRoute ? '#5d6bb4' : ''}}data-tooltip-id="testmatching-tooltip"> #취향 테스트</S.MenuBar>
+          <S.MenuBar  style={{ color: isTestRoute ? '#5d6bb4' : ''}}  data-tooltip-id="testmatching-tooltip"> #취향 테스트</S.MenuBar>
         </S.MenuBarWrap>
-        <hr/>
-        <Tooltip 
+        <S.Tool 
           id="colormatching-tooltip" 
-          className="colormatching-toolstyle"
           place="bottom" >
-              우리의 색감 매칭 기능을 통해 여러분의 사진과 비슷한 색감을 가진 다른 사진을 찾아보세요. 🎨 <br/>
-              여러분이 원하는 카테고리 중 하나의 사진을 업로드하면, 그와 비슷한 색감을 가진 다른 사진을 찾아드립니다.
+          우리의 색감 매칭 기능을 통해 여러분의 사진과 비슷한 색감을 가진 다른 사진을 찾아보세요. <br/>
+          여러분이 원하는 카테고리 중 하나의 사진을 업로드하면, 그와 비슷한 색감을 가진 다른 사진을 찾아드립니다.
 
-        </Tooltip> 
+        </S.Tool> 
 
-        <Tooltip 
-              id="testmatching-tooltip" 
-              className="testmatching-toolstyle"
-              place="bottom" >
-                  사진 취향을 발견하고 원하는 사진을 찾기 위한 흥미로운 테스트를 시작하세요.<br/>
-                  선택한 카테고리에 따라 원하는 스타일과 옵션을 선택하세요.<br/>
-                  선택지 기반으로 맞춤형 사진을 찾아 드립니다.
-        </Tooltip>
+        <S.Tool  
+          id="testmatching-tooltip" 
+          place="bottom" >
+          사진 취향을 발견하고 원하는 사진을 찾기 위한 흥미로운 테스트를 시작하세요.<br/>
+          선택한 카테고리에 따라 원하는 스타일과 옵션을 선택하세요.<br/>
+          선택지 기반으로 맞춤형 사진을 찾아 드립니다.
+        </S.Tool>
       </S.LandingWrap>
       
       <S.HomeWrap>
@@ -210,11 +226,10 @@ const onGoProfile = () => {
           {accessToken && <P.Profilename>{nickname}</P.Profilename>}
           
         </P.ProfileShow> 
-
         {isOpen && (
           <>
             {accessToken ? ( // 액세스 토큰이 있는 경우 , 만료된 토큰에 대해 처리했기 때문에 
-              <P.DropMenu>
+              <P.DropMenu className={`element ${isOpen ? 'open' : 'hidden'}`}>
                 <P.CateMenu style={{marginBottom:'1vh'}}onClick={onGoProfile}>마이프로필</P.CateMenu>
                 <P.CateMenu onClick={onNaverLogout}>로그아웃</P.CateMenu>
               </P.DropMenu>
@@ -227,6 +242,8 @@ const onGoProfile = () => {
           </>
         )}
 
+
+
         {/* 성공 메시지를 보여주는 부분 */}
         {showSuccessMessage && (
           <Popup text="로그아웃 되었습니다"/>
@@ -236,7 +253,7 @@ const onGoProfile = () => {
       </S.HomeWrap>
       </div>
 
-      <hr style={{width:'100%'}}/>
+      <hr style={{width:'100%',border:'1.5px solid',color:'black'}}/>
       
     </S.LogoWrap>
   );

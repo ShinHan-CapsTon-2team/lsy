@@ -477,6 +477,7 @@ const PageWrap = styled.div`
 `;
 const Nick = styled.span`
 color: gray;
+//color: #798BE6;
 cursor:pointer;
 
 &:hover{

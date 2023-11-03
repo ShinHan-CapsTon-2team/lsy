@@ -1,5 +1,5 @@
+
 .colormatching-toolstyle {
-    
     background-color:  #9AA5DE !important;
     font-size: 20px !important; /* 글꼴 크기 변경 */
     color: white; /* 글꼴 색상 변경 */
@@ -19,17 +19,5 @@
 
 
 .testmatching-toolstyle {
-background-color:  #9AA5DE !important;
-font-size: 20px !important; /* 글꼴 크기 변경 */
-color: white !important; /* 글꼴 색상 변경 */
-width: 25vw  !important;
-height: 22vh !important;
-padding:20px !important;
-text-align: left !important;
-z-index: 9999 !important;
-margin-left: 30px !important;
-line-height: 125%;
-letter-spacing: 2px;
-border-radius: 3.5% !important;
-opacity:1 !important;
+    font-size: 22px;
 }

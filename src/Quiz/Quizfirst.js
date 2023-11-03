@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import React, { useState } from 'react'; 
 import Header from '../Component/Header';
 import first from '../Datajson/first.json'
+
 const Quizfrist = () => {
     const navigate = useNavigate();
     const [dataFromChild, setDataFromChild] = useState({});
