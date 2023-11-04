@@ -42,283 +42,358 @@ function Reco() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        // 모델 로드
-        const modelUrl = './model_tfjs/model.json';
-        async function loadModel() {
-          const model = await tf.loadLayersModel(modelUrl);
-          setModel(model);
-        }
-        loadModel();
-      }, []);
-
-      
-
-     // 이미지 분류 함수 (소프트맥스 함수 사용)
-    const classifyImageData  = async (img, threshold) => {
-      try {
-          if (!model) {
-              console.error('Model not loaded yet.');
-              return null;
-          }
-
-          const imageData = await getImageData(img);
-          const tensorImg = tf.browser.fromPixels(imageData).toFloat();
-          const resizedImg = tf.image.resizeBilinear(tensorImg, [350, 250]); 
-          const expandedImg = resizedImg.expandDims();
-          const normalizedImg = expandedImg.div(255.0);
-          const prediction = await model.predict(normalizedImg).array();
-
-          // 소프트맥스 함수 적용하여 확률로 변환
-          const softmaxPrediction = tf.softmax(tf.tensor(prediction)).arraySync()[0];
-
-          // 예측 확률 중 가장 높은 값과 해당 클래스 인덱스 가져오기
-          const maxProb = Math.max(...softmaxPrediction);
-          const classIndex = softmaxPrediction.indexOf(maxProb);
-
-          // 특정 임계값 이상인 경우 해당 클래스 레이블 반환, 그렇지 않으면 "해당없음"
-          if (maxProb >= threshold) {
-              // 각 클래스 레이블과 예측 확률을 함께 콘솔에 출력
-                console.log('Predictions with Softmax:');
-                softmaxPrediction.forEach((prob, classIndex) => {
-                    console.log(`${classLabels[classIndex]}: ${prob * 100}%`);
-                });
-            return classIndex;
-        } else {
-            console.log('Predictions with Softmax:');
-            softmaxPrediction.forEach((prob, idx) => {
-                console.log(`${classLabels[idx]}: ${prob * 100}%`);
-            });
-            console.log(`Predicted as: 해당없음 (Threshold: ${threshold * 100}%)`);
-            return -1; // -1을 반환하여 "해당없음" 클래스를 나타냄
-        }
-      } catch (error) {
-          console.error('Error classifying the image:', error);
-          return null;
+      // 모델 로드
+      const modelUrl = './model_tfjs/model.json';
+      async function loadModel() {
+        const model = await tf.loadLayersModel(modelUrl);
+        setModel(model);
       }
-    };
+      loadModel();
+    }, []);
 
-    const getImageDataFromPath = async (imagePath) => {
-      return new Promise((resolve, reject) => {
-        const img = new Image();
-        img.crossOrigin = 'anonymous'; // 권한 설정
-        img.onload = () => {
-          const canvas = document.createElement('canvas');
-          canvas.width = img.width;
-          canvas.height = img.height;
-          const ctx = canvas.getContext('2d');
-          ctx.drawImage(img, 0, 0);
-          const imageData = ctx.getImageData(0, 0, img.width, img.height);
-          resolve(imageData);
-        };
-        img.onerror = (error) => {
-          console.error('Error loading image:', error);
-          reject(error);
-        };
-        img.src = imagePath;
+    
+
+   // 이미지 분류 함수 (소프트맥스 함수 사용)
+const classifyImageData  = async (img, threshold) => {
+try {
+    if (!model) {
+        console.error('Model not loaded yet.');
+        return null;
+    }
+
+    const imageData = await getImageData(img);
+    const tensorImg = tf.browser.fromPixels(imageData).toFloat();
+    const resizedImg = tf.image.resizeBilinear(tensorImg, [350, 250]); 
+    const expandedImg = resizedImg.expandDims();
+    const normalizedImg = expandedImg.div(255.0);
+    const prediction = await model.predict(normalizedImg).array();
+
+    // 소프트맥스 함수 적용하여 확률로 변환
+    const softmaxPrediction = tf.softmax(tf.tensor(prediction)).arraySync()[0];
+
+    // 예측 확률 중 가장 높은 값과 해당 클래스 인덱스 가져오기
+    const maxProb = Math.max(...softmaxPrediction);
+    const classIndex = softmaxPrediction.indexOf(maxProb);
+
+    // 특정 임계값 이상인 경우 해당 클래스 레이블 반환, 그렇지 않으면 "해당없음"
+    if (maxProb >= threshold) {
+        // 각 클래스 레이블과 예측 확률을 함께 콘솔에 출력
+          console.log('Predictions with Softmax:');
+          softmaxPrediction.forEach((prob, classIndex) => {
+              console.log(`${classLabels[classIndex]}: ${prob * 100}%`);
+          });
+      return classIndex;
+  } else {
+      console.log('Predictions with Softmax:');
+      softmaxPrediction.forEach((prob, idx) => {
+          console.log(`${classLabels[idx]}: ${prob * 100}%`);
       });
+      console.log(`Predicted as: 해당없음 (Threshold: ${threshold * 100}%)`);
+      return -1; // -1을 반환하여 "해당없음" 클래스를 나타냄
+  }
+} catch (error) {
+    console.error('Error classifying the image:', error);
+    return null;
+}
+};
+
+const getImageDataFromPath = async (imagePath) => {
+return new Promise((resolve, reject) => {
+  const img = new Image();
+  img.crossOrigin = 'anonymous'; // 권한 설정
+  img.onload = () => {
+    const canvas = document.createElement('canvas');
+    canvas.width = img.width;
+    canvas.height = img.height;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(img, 0, 0);
+    const imageData = ctx.getImageData(0, 0, img.width, img.height);
+    resolve(imageData);
+  };
+  img.onerror = (error) => {
+    console.error('Error loading image:', error);
+    reject(error);
+  };
+  img.src = imagePath;
+});
+};
+
+const handleImageFileChange = async (event) => {
+const imageFile = event.target.files[0];
+if (
+  imageFile &&
+  (imageFile.type === 'image/jpeg' ||
+    imageFile.type === 'image/png' ||
+    imageFile.type === 'image/jpg') &&
+  imageFile.size <= 30 * 1024 * 1024
+) {
+  const reader = new FileReader();
+  reader.onload = async (event) => {
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = async () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = img.width;
+      canvas.height = img.height;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0);
+
+      setImageFile(imageFile);
+      setPreviewImage(URL.createObjectURL(imageFile));
     };
+    img.src = event.target.result;
+  };
+  reader.readAsDataURL(imageFile);
+} else {
+  setImageFile(null);
+  setPreviewImage(null);
 
-    const handleImageFileChange = async (event) => {
-      const imageFile = event.target.files[0];
-      if (
-        imageFile &&
-        (imageFile.type === 'image/jpeg' ||
-          imageFile.type === 'image/png' ||
-          imageFile.type === 'image/jpg') &&
-        imageFile.size <= 10 * 1024 * 1024
-      ) {
-        const reader = new FileReader();
-        reader.onload = async (event) => {
-          const img = new Image();
-          img.crossOrigin = 'anonymous';
-          img.onload = async () => {
-            const canvas = document.createElement('canvas');
-            canvas.width = img.width;
-            canvas.height = img.height;
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(img, 0, 0);
+  //10MB, 정적 이미지 파일이 아닐 경우 
+  setSizeFile(true);
 
-            setImageFile(imageFile);
-            setPreviewImage(URL.createObjectURL(imageFile));
-          };
-          img.src = event.target.result;
-        };
-        reader.readAsDataURL(imageFile);
-      } else {
-        setImageFile(null);
-        setPreviewImage(null);
-
-        //10MB, 정적 이미지 파일이 아닐 경우 
-        setSizeFile(true);
-
-        setTimeout(() => {
-          setSizeFile(false);
-          }, 2000);
-        console.log("실패");
-      }
+  setTimeout(() => {
+    setSizeFile(false);
+    }, 2000);
+  console.log("실패");
+}
+};
+    
+const getImageData = (file) => {
+return new Promise((resolve, reject) => {
+  const reader = new FileReader();
+  reader.onload = (event) => {
+      const img = new Image();
+      img.crossOrigin = 'anonymous'; // 권한 설정
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+        const imageData = ctx.getImageData(0, 0, img.width, img.height);
+        resolve(imageData);
+      };
+      img.src = event.target.result;
     };
-      
-    const getImageData = (file) => {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = (event) => {
-            const img = new Image();
-            img.crossOrigin = 'anonymous'; // 권한 설정
-            img.onload = () => {
-              const canvas = document.createElement('canvas');
-              canvas.width = img.width;
-              canvas.height = img.height;
-              const ctx = canvas.getContext('2d');
-              ctx.drawImage(img, 0, 0);
-              const imageData = ctx.getImageData(0, 0, img.width, img.height);
-              resolve(imageData);
-            };
-            img.src = event.target.result;
-          };
-          reader.onerror = (error) => reject(error);
-          reader.readAsDataURL(file);
-        });
-    };
+    reader.onerror = (error) => reject(error);
+    reader.readAsDataURL(file);
+  });
+};
 
 
-    //업로드 버튼 
-    const handleCosineCalculation = async () => {
-      if(previewImage)
-      {
-        try {
-          if (!model || !imageFile) {
-            console.error('모델 또는 이미지를 사용할 수 없습니다.');
-            setIsLoading(false);
-            return;
-          }
-      
-          const classIndex = await classifyImageData(imageFile, 0.1);
-      
-          if (classIndex !== -1) {
-            const categoryName = classLabels[classIndex];
-      
-            const imagePathsResponse = await fetch(`http://localhost:4004/api/${categoryName}`);
-            if (imagePathsResponse.ok) {
-              const data = await imagePathsResponse.json();
-              const updatedImagePaths = data.map((imagePath) => `http://localhost:4004${imagePath}`);
-              
-              // calculateEuclideanSimilarity 함수 내부에서 바로 사용할 수 있도록 전달
-              const topSimilarImages=await calculateImageSimilarityMatrix (updatedImagePaths);
-      
-              setIsLoading(false); // 로딩 상태를 해제
-      
-              navigate('/recoresult', { state: { topSimilarImages } });
-            } else {
-              console.error('Failed to fetch image paths:', imagePathsResponse.status);
-            }
-          } else {
-            console.log('이미지가 분류되지 않았습니다.');
-      
-            setcategoryNo(true);
-            
-            setTimeout(() => 
-            {
-              setcategoryNo(false);
-              navigate('/reco');
-              }, 2000);
-            
-            
-          
-          }
-        } catch (error) {
-          console.error('Error calculating cosine similarity:', error);
-        }
-      }else{
+//업로드 버튼 
+const handleCosineCalculation = async () => {
+try {
+  if (!model || !imageFile) {
+    console.error('모델 또는 이미지를 사용할 수 없습니다.');
+    setIsLoading(false);
+    return;
+  }
 
-        setnoImg(true);
-            
-            setTimeout(() => 
-            {
-              setnoImg(false);
-            }, 2000);
-      }
+  const classIndex = await classifyImageData(imageFile, 0.1);
+
+  if (classIndex !== -1) {
+    const categoryName = classLabels[classIndex];
+
+    const imagePathsResponse = await fetch(`http://localhost:4004/api/${categoryName}`);
+    if (imagePathsResponse.ok) {
+      const data = await imagePathsResponse.json();
+      const updatedImagePaths = data.map((imagePath) => `http://localhost:4004${imagePath}`);
       
-    };
+      // calculateEuclideanSimilarity 함수 내부에서 바로 사용할 수 있도록 전달
+      const topSimilarImages=await calculateImageSimilarityMatrix (updatedImagePaths);
 
+      setIsLoading(false); // 로딩 상태를 해제
 
-    // 히스토그램 계산 함수
-    const calculateHistogram = (imageData) => {
-            const histogram = Array(256).fill(0); // 히스토그램 배열 초기화
-          
-            for (let i = 0; i < imageData.data.length; i += 4) {
-              const pixelValue = Math.floor(imageData.data[i] * 0.299 + imageData.data[i + 1] * 0.587 + imageData.data[i + 2] * 0.114);
-              histogram[pixelValue] += 1; // 픽셀 값의 빈도수 증가
-            }
-          
-            return histogram;
-    };
-      
-    // 히스토그램 기반 메트릭스 계산 함수
-    const calculateHistogramBasedSimilarity = (histogramA, histogramB) => {
-    let sum = 0;
-
-    for (let i = 0; i < histogramA.length; i++) {
-            sum += Math.min(histogramA[i], histogramB[i]);
+      navigate('/recoresult', { state: { topSimilarImages } });
+    } else {
+      console.error('Failed to fetch image paths:', imagePathsResponse.status);
     }
+  } else {
+    console.log('이미지가 분류되지 않았습니다.');
+  }
+} catch (error) {
+  console.error('Error calculating cosine similarity:', error);
+}
+};
 
-    // 히스토그램 유사성 계산
-    const similarity = sum / Math.max(histogramA.reduce((a, b) => a + b, 0), histogramB.reduce((a, b) => a + b, 0));
+// 이미지가 컬러 이미지인지 여부를 확인하는 함수
+const isColorImage = (imageData) => {
+for (let i = 0; i < imageData.data.length; i += 4) {
+  const r = imageData.data[i];
+  const g = imageData.data[i + 1];
+  const b = imageData.data[i + 2];
+  if (r !== g || r !== b || g !== b) {
+    return true; // 색상 채널이 서로 다른 경우, 컬러 이미지로 간주
+  }
+}
+return false; // 모든 색상 채널이 동일한 경우, 흑백 이미지로 간주
+};
 
-    return similarity;
-    };
-          
-    // 이미지 간의 유사성 메트릭스 계산 함수 (히스토그램 기반)
-    const calculateImageSimilarityMatrix = async (imagePaths) => {
+// 히스토그램 계산 함수 (흑백 이미지 또는 컬러 이미지의 각 채널에 대한 히스토그램을 계산)
+const calculateHistogram = (imageData, channelCount) => {
+const histogram = Array(256).fill(0); // 히스토그램 배열 초기화
+
+for (let i = 0; i < imageData.data.length; i += 4) {
+  for (let c = 0; c < channelCount; c++) {
+    const pixelValue = imageData.data[i + c]; // 특정 채널의 픽셀 값
+    histogram[pixelValue] += 1; // 픽셀 값의 빈도수 증가
+  }
+}
+
+return histogram;
+};
+
+// calculateImageSimilarityMatrix 함수 내에서 컬러 이미지와 흑백 이미지 모두 처리되도록 수정
+const calculateImageSimilarityMatrix = async (imagePaths) => {
+try {
+  if (!model || !imageFile || imagePaths.length === 0) {
+    console.error('모델 또는 이미지를 사용할 수 없습니다.');
+    return;
+  }
+
+  // 로딩 상태를 true로 설정하여 로딩 표시를 활성화
+  setIsLoading(true);
+
+  // 입력 이미지의 특성 추출
+  const inputImageData = await getImageData(imageFile);
+
+  // 이미지가 흑백 또는 컬러인지 확인
+  const isColorInput = isColorImage(inputImageData);
+
+  // 히스토그램 계산 및 출력
+  const inputHistogram = calculateHistogram(inputImageData, isColorInput ? 3 : 1);
+
+  if (isColorInput) {
+    console.log('Input Image is Color');
+    console.log('Input Image Histogram (Color):', inputHistogram);
+  } else {
+    console.log('Input Image is Grayscale');
+    console.log('Input Image Histogram (Grayscale):', inputHistogram);
+  }
+
+  // 각 이미지의 유사성 메트릭스 계산
+  const similarityMatrix = [];
+  for (const imagePath of imagePaths) {
     try {
-            if (!model || !imageFile || imagePaths.length === 0) {
-            console.error('모델 또는 이미지를 사용할 수 없습니다.');
-            return;
-            }
+      const folderImageData = await getImageDataFromPath(imagePath);
 
-            // 로딩 상태를 true로 설정하여 로딩 표시를 활성화
-            setIsLoading(true);
+      // 이미지가 흑백 또는 컬러인지 확인
+      const isColorFolder = isColorImage(folderImageData);
 
-            // 입력 이미지의 특성 추출
-            const inputImageData = await getImageData(imageFile);
-            const inputHistogram = calculateHistogram(inputImageData);
+      // 히스토그램 계산 및 출력
+      const folderHistogram = calculateHistogram(folderImageData, isColorFolder ? 3 : 1);
 
-            console.log('Input Image Histogram:', inputHistogram); // 입력 이미지 히스토그램 출력
+      if (isColorInput && isColorFolder) {
+        console.log('Input and Folder Images are Color for', imagePath);
+        console.log('Input Image Histogram (Color):', inputHistogram);
+        console.log('Folder Image Histogram (Color) for', imagePath, ':', folderHistogram);
+      } else if (!isColorInput && !isColorFolder) {
+        console.log('Input and Folder Images are Grayscale for', imagePath);
+        console.log('Input Image Histogram (Grayscale):', inputHistogram);
+        console.log('Folder Image Histogram (Grayscale) for', imagePath, ':', folderHistogram);
+      } else {
+        console.log('Image type mismatch. Skipping comparison for', imagePath);
+        continue; // 이미지 유형이 다른 경우, 비교 생략
+      }
 
-            // 각 이미지의 유사성 메트릭스 계산
-            const similarityMatrix = [];
-            for (const imagePath of imagePaths) {
-            try {
-            const folderImageData = await getImageDataFromPath(imagePath);
-            const folderHistogram = calculateHistogram(folderImageData);
+      // 피어슨 상관 계수 계산
+      const pearsonCorrelation = calculatePearsonCorrelation(inputHistogram, folderHistogram);
 
-            console.log('Folder Image Histogram for', imagePath, ':', folderHistogram); // 폴더 이미지 히스토그램 출력
+      console.log('Pearson Correlation for', imagePath, ':', pearsonCorrelation);
 
-            // 이미지 간의 유사성 메트릭스 계산 (히스토그램 기반)
-            const similarity = calculateHistogramBasedSimilarity(inputHistogram, folderHistogram);
-
-            console.log('Histogram-Based Similarity for', imagePath, ':', similarity); // 유사성 메트릭스 출력
-
-            similarityMatrix.push({ imagePath, similarity });
-            } catch (imageError) {
-            console.error('이미지 처리 중 오류:', imageError);
-            }
-            }
-
-            // 유사성 메트릭스를 기준으로 이미지 정렬
-            similarityMatrix.sort((a, b) => b.similarity - a.similarity);
-
-            // 상위 3개 유사한 이미지 선택
-            const topSimilarImages = similarityMatrix.slice(0, 3);
-
-            console.log("상위 유사한 이미지:", topSimilarImages);
-            setIsLoading(false);
-
-            return topSimilarImages; // 상위 유사한 이미지를 반환
-
-    } catch (error) {
-            console.error('이미지 유사성 메트릭스 계산 중 오류:', error);
+      if (pearsonCorrelation !== 1) { // 1이 아닌 경우에만 결과 배열에 추가
+        similarityMatrix.push({ imagePath, similarity: pearsonCorrelation });
+      }
+    } catch (imageError) {
+      console.error('이미지 처리 중 오류:', imageError);
     }
+  }
+
+  // 유사성 메트릭스를 기준으로 이미지 정렬
+  similarityMatrix.sort((a, b) => b.similarity - a.similarity);
+
+  // 상위 3개 유사한 이미지 선택
+  const topSimilarImages = similarityMatrix.slice(0, 3);
+
+  console.log('상위 유사한 이미지:', topSimilarImages);
+  setIsLoading(false);
+
+  return topSimilarImages; // 상위 유사한 이미지를 반환
+} catch (error) {
+  console.error('이미지 유사성 메트릭스 계산 중 오류:', error);
+}
+};
+
+
+
+
+
+     
+// 피어슨 상관 계수 계산 함수
+const calculatePearsonCorrelation = (vectorA, vectorB) => {
+const meanA = vectorA.reduce((acc, value) => acc + value, 0) / vectorA.length;
+const meanB = vectorB.reduce((acc, value) => acc + value, 0) / vectorB.length;
+
+let numerator = 0;
+let denominatorA = 0;
+let denominatorB = 0;
+
+for (let i = 0; i < vectorA.length; i++) {
+       const deviationA = vectorA[i] - meanA;
+       const deviationB = vectorB[i] - meanB;
+       numerator += deviationA * deviationB;
+       denominatorA += deviationA ** 2;
+       denominatorB += deviationB ** 2;
+}
+
+const correlation = numerator / Math.sqrt(denominatorA * denominatorB);
+
+return isNaN(correlation) ? 0 : correlation; // NaN 처리
+};
+
+const handleDragOver = (event) => {
+event.preventDefault();
+};
+
+const handleDrop = (event) => {
+event.preventDefault();
+const imageFile = event.dataTransfer.files[0];
+if (
+  imageFile &&
+  (imageFile.type === 'image/jpeg' ||
+    imageFile.type === 'image/png' ||
+    imageFile.type === 'image/jpg') &&
+  imageFile.size <= 30 * 1024 * 1024
+) {
+  const reader = new FileReader();
+  reader.onload = async (event) => {
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = async () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = img.width;
+      canvas.height = img.height;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0);
+
+      setImageFile(imageFile);
+      setPreviewImage(URL.createObjectURL(imageFile));
     };
+    img.src = event.target.result;
+  };
+  reader.readAsDataURL(imageFile);
+} else {
+  setImageFile(null);
+  setPreviewImage(null);
+  setSizeFile(true);
+
+  setTimeout(() => {
+    setSizeFile(false);
+  }, 2000);
+  console.log("실패");
+}
+};
 
     const [isOpenInfoReco, setIsOpenInfoReco] = useState(false); // 색감 매칭 툴팁 모달창 
     const [isOpenInfoTest, setIsOpenInfoTest] = useState(false);  // 테스트 툴팁 모달창 
