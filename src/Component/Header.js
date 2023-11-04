@@ -223,7 +223,7 @@ const onGoProfile = () => {
       <P.ProfileWrap>
         <P.ProfileShow style={accessToken ? {}:{marginTop:0}}>
           <P.ProfileLogo src={accessToken ? profilelogo : loginlogo} onClick={openModalHandler} />
-          {accessToken && <P.Profilename>{nickname}</P.Profilename>}
+          {accessToken && <P.Profilename >{nickname}</P.Profilename>}
           
         </P.ProfileShow> 
         {isOpen && (
@@ -252,7 +252,7 @@ const onGoProfile = () => {
       </S.HomeWrap>
       </div>
 
-      <hr style={{width:'100%',border:'1.5px solid',color:'black'}}/>
+      <hr style={{width:'100%',border:'1.5px solid',color:'black',marginTop:15}}/>
       
     </S.LogoWrap>
   );

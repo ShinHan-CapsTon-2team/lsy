@@ -52,7 +52,7 @@ fontSize: 19
 fontSize: 24
 },
 '@media screen and (min-width: 1700px)': {
-fontSize: 37
+fontSize: 30
 }
 };
 
@@ -97,7 +97,7 @@ width:270px;
 
 /* l 데스크 */
 @media screen and (min-width: 1700px){
-    width:335px;
+    width:235px;
 }
 
 

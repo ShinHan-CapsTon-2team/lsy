@@ -69,7 +69,7 @@ export const InfoModal = ({text,showInfo}) => {
     fontSize: 24
     },
     '@media screen and (min-width: 1700px)': {
-    fontSize: 37
+    fontSize: 30
     }
     };
 

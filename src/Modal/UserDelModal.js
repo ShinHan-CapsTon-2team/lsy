@@ -97,7 +97,7 @@ export const UserDelModal = ({openModalHandler,email}) => {
     fontSize: 24
     },
     '@media screen and (min-width: 1700px)': {
-    fontSize: 37
+    fontSize: 30
     }
     };
 const Button = styled.button`

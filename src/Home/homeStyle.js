@@ -61,7 +61,7 @@ export const FontStyle = {
     fontSize: 24,
   },
   "@media screen and (min-width: 1700px)": {
-    fontSize: 37,
+    fontSize: 30,
   },
 };
 export const InsideWrap = styled.div`
@@ -94,7 +94,7 @@ export const CategoryWrap = styled.div`
   flex-wrap: wrap; /* 줄바꿈을 허용하여 가로 공간에 맞게 정렬될 수 있도록 설정 */
   justify-content: center; /* 공간을 균등하게 분배하여 가로로 정렬 */
   align-items: center; /* 수직 가운데 정렬 (선택 사항) */
-  margin-top: 20px;
+  margin-top: 15px;
 
   width: 100%;
 `;
@@ -125,6 +125,7 @@ export const GridWrap = styled.div`
   }
   /* l 데스크 */
   @media screen and (min-width: 1700px) {
+    
   }
 `;
 
@@ -149,6 +150,7 @@ export const GridDiv = styled.div`
   }
   /* l 데스크 */
   @media screen and (min-width: 1700px) {
+    
   }
 `;
 

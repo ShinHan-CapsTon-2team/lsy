@@ -7,7 +7,7 @@ import { DeleteModal } from '../Modal/DeleteModal';
 import ReactPaginate from 'react-paginate';
 import styled from "styled-components";
 import './Paging.css'
-
+import * as M from "../Modal/ModalStyle";
 import {HiChevronDoubleLeft} from "react-icons/hi";
 import {HiChevronDoubleRight} from "react-icons/hi";
 const SERVER_URL= 'http://localhost:4000/api/lookup';
@@ -205,7 +205,7 @@ const handlePageClick = async ({ selected }) => {
                     <ListPostShowWrap >
                       <GridWrap style={{position:'relative',}}>
                       {images.map((image, index) => (
-                          <GridDiv key={index}>
+                          <GridDiv key={index} onClick={() => handleImagesClick(PostIds[index])}>
                               <GridImg src={image} onClick={() => handleImagesClick(PostIds[index])}  alt="사진" />
                           </GridDiv>
                         ))}
@@ -240,7 +240,11 @@ const handlePageClick = async ({ selected }) => {
                           <S.DelectButton onClick={openModalHandler}>
                           삭제
                           </S.DelectButton>
-                          {isOpen ? (<DeleteModal isId={id} profilego={isMe} openModalHandler={openModalHandler}/>) : null}
+                          {isOpen ? (
+                            <M.ModalBackdrop onClick={openModalHandler}>
+                                <DeleteModal isId={id} profilego={isMe} openModalHandler={openModalHandler}/>
+                            </M.ModalBackdrop>
+                          ) : null}
                       </S.Right>
                       </S.Buttons>
                   </S.InLayoutTwo>
@@ -294,7 +298,7 @@ const GridDiv = styled.div`
   height: 39vh;
   border-radius: 10px;
   overflow: hidden;
-
+  cursor:pointer;
   /* tablet 규격 */
   @media screen and (max-width: 1024px){
     height: 30vh;
@@ -321,6 +325,7 @@ const GridImg = styled.img`
   height: 100%;
   border-radius: 10px; 
   object-fit: cover;
+  cursor:pointer;
   
 `;
 
@@ -358,7 +363,7 @@ export const FontStyle = {
       fontSize: 24,
     },
     "@media screen and (min-width: 1700px)": {
-      fontSize: 37,
+      fontSize: 30,
     },
   };
   
@@ -418,8 +423,8 @@ const ButtonStyle = {
     height: 50,
   },
   '@media screen and (min-width: 1700px)': {
-    width: 65,
-    height: 65,
+    width: 60,
+    height: 60,
   }
 };
 
@@ -471,7 +476,7 @@ const PageWrap = styled.div`
   }
   /* l 데스크 */
   @media screen and (min-width: 1700px){
-    top: 190px;
+    top: 150px;
   }
 
 `;

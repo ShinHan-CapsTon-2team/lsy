@@ -28,7 +28,7 @@ export const FontStyle = {
     fontSize: 24,
   },
   "@media screen and (min-width: 1700px)": {
-    fontSize: 37,
+    fontSize: 30,
   },
 };
 export const InOutWrap = styled.div`
@@ -295,6 +295,7 @@ export const TextareaBasic = styled.textarea`
   ${inputStyle}
   height: 100%;
   ${FontStyle};
+
 `;
 
 export const EmptyImg = styled.img`

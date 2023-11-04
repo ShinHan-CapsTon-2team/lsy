@@ -24,7 +24,7 @@ export const DayFontStyle = {
     },
     '@media screen and (min-width: 1700px)': {
     
-    fontSize: 33
+    fontSize: 26
     }
     };
 export const  At =styled.span`
@@ -187,7 +187,7 @@ export const FontStyle = {
     },
     '@media screen and (min-width: 1700px)': {
     
-    fontSize: 37
+    fontSize: 30
     }
     };
     
@@ -215,7 +215,7 @@ export const FontStyle = {
         },
         '@media screen and (min-width: 1700px)': {
         
-        fontSize: 53
+        fontSize: 46
         }
         };
 export const TitleFont = styled.span`

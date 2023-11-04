@@ -100,22 +100,26 @@ const Quizresult  = () => {
                 
                 <Content>
                     
-                        {typeData.answer && typeData.answer.map((answer, index) => (
-                        <Img 
-                            key={index}
-                            src={`${process.env.PUBLIC_URL}/Images/questresult/${categoryName}/${answer.img}`}
-                            alt={`Image ${index + 1}`}
-                            onClick={() => handleImageClick(answer.id)}
-                            index={index}
-                        />
-                        ))}
-                    
-                </Content>           
-                
+                    {typeData.answer && typeData.answer.map((answer, index) => (
+                    <Img 
+                        key={index}
+                        src={`${process.env.PUBLIC_URL}/Images/questresult/${categoryName}/${answer.img}`}
+                        alt={`Image ${index + 1}`}
+                        onClick={() => handleImageClick(answer.id)}
+                        index={index}
+                    />
+                    ))}
 
-                <S.Sharewrap>
-                    <S.ShareText> 결과 공유하기</S.ShareText>
-                    <S.ShareButtonWrap>
+                </Content>           
+
+                <S.Sharewrap style={{marginTop:'10vh'}} >
+                    <div>
+                        <S.ShareText style={{backgroundColor:'white',zIndex:1,position:'relative',top:-50}}> 결과 공유하기</S.ShareText>
+                    </div>
+                    
+                
+                
+                    <S.ShareButtonWrap style={{position:'relative',top:-15}}>
                         <CopyToClipboard text={currentUrl} onCopy={handleCopy}>
                             <S.BtnLink src = {btn_link}></S.BtnLink>
                         </CopyToClipboard>
@@ -125,8 +129,6 @@ const Quizresult  = () => {
                         <KakaoShareBtn _resulttype={type}/>
                     </S.ShareButtonWrap>
                 </S.Sharewrap>
-                
-
 
                 <S.ButtonsWrap> 
                     <S.ButtonTwo onClick={handleGoHomeClick}>                                        
@@ -220,12 +222,12 @@ margin-bottom:20px;
 }
 /* l 데스크 */
 @media screen and (min-width: 1700px){
-    max-width: 26vw;
-    height: 65vh;
+    max-width: 23vw;
+    height: 54vh;
     
-    border: 8px #798BE6 solid;
+    border: 6px #798BE6 solid;
     &:hover {
-        border: 8px #4E62C5 solid;
+        border: 6px #4E62C5 solid;
         }
     }
 

@@ -1,12 +1,11 @@
- //import React, { useState } from 'react';
-//import text from '../Images/image 21.png'
-
 import styled from "styled-components";
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AiFillQuestionCircle } from 'react-icons/ai';
 import { InfoModal } from '../Modal/InfoModa';
 import Header from '../Component/Header';
+
+
 const Quizstart = () => {
     const [dataFromChild, setDataFromChild] = useState({});
     const navigate = useNavigate();
@@ -84,7 +83,26 @@ const Quizstart = () => {
 };
 
 export default Quizstart;
-
+const FontMenuStyle = {
+    '@media screen and (max-width: 1024px)':{
+    
+    fontSize: 30
+    },
+    /* mobile 규격 */
+    '@media screen and (max-width: 540px)':{
+    
+    fontSize: 25
+    },
+    /* tablet 규격 */
+    '@media screen and (min-width: 1025px)':{
+    
+    fontSize: 30
+    },
+    '@media screen and (min-width: 1700px)': {
+    
+    fontSize: 37
+    }
+    };
 export const ModalBackdrop = styled.div`
 // Modal이 떴을 때의 배경을 깔아주는 CSS를 구현
 width:100vw;
@@ -311,7 +329,7 @@ const OutWrap = styled.div`
     },
     '@media screen and (min-width: 1700px)': {
     
-    fontSize: 40
+    fontSize: 33
     }
     };
 
@@ -322,7 +340,7 @@ const OutWrap = styled.div`
     width: 100%;
     height:80%;
     border: 3px #798BE6 solid;
-    ${FontStyle};
+    ${FontMenuStyle};
     cursor:default;
     &:hover{
         background:white;

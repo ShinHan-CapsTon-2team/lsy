@@ -1,10 +1,11 @@
-import { BsPlusCircleFill } from 'react-icons/bs'
+
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 import ProfileInfo from '../Component/ProfileInfo';
 import ProfileInfo_Edit from '../Component/ProfileInfo_Edit';
 import Header from '../Component/Header';
+import {StyledBsPlusCircleFill} from '../Style/CommonStyle'
 import styled from "styled-components";
 import './Paging.css';
 
@@ -161,10 +162,10 @@ try {
     return (
         <OutWrap>
             <InOutWrap>
-                <Header onData={handleChildData}/>
+                <Header onData={handleChildData} style={{flex:0}}/>
 
-                <Center>
-                <ProfileWrap>
+                <Center style={{flex:1}}>
+                  <ProfileWrap>
               
                 <>
                 {isEditing ? (
@@ -371,30 +372,24 @@ flex-direction: column;
 align-items: center;
 justify-content: center;
 
-width:80%;
+width: 80%;
 
-      /* tablet 규격 */
-    @media screen and (max-width: 1024px){
-      width:87%;
-    }
+  /* tablet 규격 */
+  @media screen and (max-width: 1024px) {
+    width: 87%;
+  }
 
-    @media screen and (max-width: 850px){
-      //width:90%;
-    }
-    
-    /* mobile 규격 */
-    @media screen and (max-width: 540px){
-      width:95%;
-      
-    }
-    /* s 데스크 */
-    @media screen and (min-width: 1025px){
-        
-    }
-    /* l 데스크 */
-    @media screen and (min-width: 1700px){
-      width:75%;
-    }
+  /* mobile 규격 */
+  @media screen and (max-width: 540px) {
+    width: 95%;
+  }
+  /* s 데스크 */
+  @media screen and (min-width: 1025px) {
+  }
+  /* l 데스크 */
+  @media screen and (min-width: 1700px) {
+    width: 75%;
+  }
 `;
 
 
@@ -414,6 +409,10 @@ margin-top:20px;
 @media screen and (max-width: 540px){
   flex-direction: column;
   align-items:center;
+}
+
+@media screen and (min-width: 1700px){
+  width:100%;
 }
 `;
 
@@ -497,36 +496,7 @@ text-align: center;
     }
 `;
 
-const StyledBsPlusCircleFill = styled(BsPlusCircleFill)`
-    width: 70px;
-    height: 70px;
-    color:#798BE6;
-    cursor:pointer;
-    &:hover {
-      color:#5D6BB4;
-    }
 
-    /* tablet 규격 */
-    @media screen and (max-width: 1023px){
-        width: 75px;
-      height:75px;
-    }
-
-    /* mobile 규격 */
-    @media screen and (max-width: 540px){
-      width: 63px;
-      height:63px;
-    }
-    /* s 데스크 */
-    @media screen and (min-width: 1024px){
-        
-    }
-    /* l 데스크 */
-    @media screen and (min-width: 1700px){
-      width: 90px;
-      height:90px;
-    }
-    `;
     export const FontStyle = {
       "@media screen and (max-width: 1024px)": {
         fontSize: 22,
@@ -545,7 +515,7 @@ const StyledBsPlusCircleFill = styled(BsPlusCircleFill)`
         fontSize: 24,
       },
       "@media screen and (min-width: 1700px)": {
-        fontSize: 37,
+        fontSize: 30,
       },
     };
     export const Radius = styled.button`

@@ -187,6 +187,10 @@ try {
   if (!model || !imageFile) {
     console.error('모델 또는 이미지를 사용할 수 없습니다.');
     setIsLoading(false);
+    setnoImg(true);
+    setTimeout(() => {
+      setnoImg(false);
+    }, 2000);
     return;
   }
 
@@ -410,9 +414,9 @@ if (
           
           <InOutWrap>
             {/* 로고 */}        
-            <Header onData={handleChildData}/>
+            <Header onData={handleChildData} style={{flex:0}}/>
             {/* 컨텐츠 */}
-            <Center>
+            <Center style={{flex:1}}>
     
               <InLayoutOne>
                 <Content>
@@ -459,12 +463,9 @@ if (
                 </ModalBackdrop>
                 : null}
 
-              {/* 사진없이 결과 보기를 누를 경우  */}
-              {noImg && (
-                <Popup text="이미지 파일을 올려주세요." />
-              )}
+              
               {/* 파일 사이즈 클 경우 나오는  메시지를 보여주는 부분 */}
-              {sizeFile && (
+              {(sizeFile)||(noImg) && (
                 <Popup text="최대 10MB 정적인 이미지 파일을 올려주세요." />
               )}
 
@@ -580,7 +581,7 @@ const FontStyle = {
     fontSize: 24,
   },
   "@media screen and (min-width: 1700px)": {
-    fontSize: 37,
+    fontSize: 30,
   },
 };
 
@@ -598,30 +599,30 @@ const OutWrap = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 65%;
-    height:100%;
-    
-    /* tablet 규격 */
-      @media screen and (max-width: 1023px){
-        width: 75%;
-      }
-    /* mobile 규격 */
-      @media screen and (max-width: 540px){
-        width: 90%;
-      }
-      /* s 데스크 */
-      @media screen and (min-width: 1024px){
-          
-      }
-      /* l 데스크 */
-      @media screen and (min-width: 1700px){
-          
-      }
+    width: 80%;
+  height:100%;
+
+  /* tablet 규격 */
+  @media screen and (max-width: 1024px) {
+    width: 87%;
+  }
+
+  /* mobile 규격 */
+  @media screen and (max-width: 540px) {
+    width: 95%;
+  }
+  /* s 데스크 */
+  @media screen and (min-width: 1025px) {
+  }
+  /* l 데스크 */
+  @media screen and (min-width: 1700px) {
+    width: 75%;
+  }
     `;
     
     
     const Center = styled.div`
-    width: 100%;
+    width: 90%;
     height:80%;
     display: flex;
     flex-direction: column;

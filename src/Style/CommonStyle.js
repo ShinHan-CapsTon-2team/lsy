@@ -58,8 +58,8 @@ export const StyledBsPlusCircleFill = styled(BsPlusCircleFill)`
     height: 70px;
   }
   @media screen and (min-width: 1700px) {
-    width: 90px;
-    height: 90px;
+    width: 75px;
+    height: 75px;
   }
 `;
 export const FontStyle = {
@@ -80,6 +80,6 @@ export const FontStyle = {
     fontSize: 24,
   },
   "@media screen and (min-width: 1700px)": {
-    fontSize: 37,
+    fontSize: 30,
   },
 };

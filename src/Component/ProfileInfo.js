@@ -19,7 +19,7 @@ const ProfileInfo = ({introduction, career, email, nickname,insta}) => {
     
         setTimeout(() => {
             setCopied(false);
-        }, 1000); // 2초 후에 '복사되었습니다' 메시지가 사라지도록 설정
+        }, 2000); // 2초 후에 '복사되었습니다' 메시지가 사라지도록 설정
     
     };
 

@@ -8,7 +8,7 @@ import quizwedding from '../Datajson/weddingdata.json';
 import quizfamily from '../Datajson/familydata.json';
 
 import styled from "styled-components";
-
+import * as S from "./QuizStyle";
 const getQuizbody = () => {
     return quizbody;
 };
@@ -35,6 +35,7 @@ const QuizTest = () => {
 
     const navigate = useNavigate();
     const [searchParams, setSearchParams] = useSearchParams();
+
 
     let questions = [];
     if (categoryName === 'body') {
@@ -105,25 +106,25 @@ const QuizTest = () => {
   
 
     return (
-    <OutWrap>
-        <InsidWrap>
+    <S.OutWrap>
+        <S.InsidWrap>
             <Header style={{flex:0}} onData={handleChildData}/>
             {quiz && quiz.map((item) => (
 
-                <Textselect style={{marginTop:20}}>
-                    <QCateText>#{category}</QCateText>
-                    <QText>{item.selectCriteria}</QText>
-                </Textselect>
+                <S.Textselect style={{marginTop:20}}>
+                    <S.QCateText>#{category}</S.QCateText>
+                    <S.QText>{item.selectCriteria}</S.QText>
+                </S.Textselect>
             ))}
-            <Ulstyle>
+            <S.Ulstyle>
                 
                 {select && select.map((item, index) => (
                 <div key={index} style={{display:'flex',flexDirection:'column'}}>
                     <div style={{textAlign:'left' }}>
-                        <Textimgselect>{item.name  || " "}</Textimgselect>
+                        <S.Textimgselect>{item.name  || " "}</S.Textimgselect>
                     </div>
                     
-                    <Img 
+                    <S.Img 
                     
                     src={`${process.env.PUBLIC_URL}/Images/quest/${categoryName}/${item.img}`}
                     alt={`Option ${item.name}`}
@@ -132,9 +133,9 @@ const QuizTest = () => {
                     />
                 </div>
                 ))}
-            </Ulstyle>
-        </InsidWrap>
-    </OutWrap>
+            </S.Ulstyle>
+        </S.InsidWrap>
+    </S.OutWrap>
 
     );
 };
@@ -184,7 +185,7 @@ const InsidWrap = styled.div`
         },
         '@media screen and (min-width: 1700px)': {
         
-        fontSize: 40
+        fontSize: 30
         }
         };
     const Textselect= styled.div`

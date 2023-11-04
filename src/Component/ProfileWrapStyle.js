@@ -5,7 +5,7 @@ export const ProfileWrap = styled.div`
   height:100%;
 
   margin-right: 30px;
-
+  top: 5.5%;
   /* tablet 규격 */
   @media screen and (max-width: 1023px) {
     right: 5%;
@@ -40,8 +40,8 @@ export const ProfileLogo = styled.img`
   }
   /* l 데스크 */
   @media screen and (min-width: 1700px) {
-    width: 70px;
-    height: 70px;
+    //width: 60px;
+    //height: 60px;
   }
 `;
 
@@ -88,9 +88,10 @@ export const DropMenu = styled.div`
   }
   /* l 데스크 */
   @media screen and (min-width: 1700px) {
-    width: 18vw;
-    top: 115px;
-    height: 17vh;
+    width: 14vw;
+    top: 100px;
+    height: 15vh;
+    padding: 10px;
   }
 `;
 export const MenuBarSee = {
@@ -146,6 +147,27 @@ ${MenuBarSee};
  
   
 `;
+export const NickFontStyle = {
+  "@media screen and (max-width: 1024px)": {
+    fontSize: 22,
+  },
+
+  "@media screen and (max-width: 850px)": {
+    fontSize: 21,
+  },
+
+  /* mobile 규격 */
+  "@media screen and (max-width: 540px)": {
+    fontSize: 19,
+  },
+  /* tablet 규격 */
+  "@media screen and (min-width: 1025px)": {
+    fontSize: 24,
+  },
+  "@media screen and (min-width: 1700px)": {
+    fontSize: 23,
+  },
+};
 export const FontStyle = {
   "@media screen and (max-width: 1024px)": {
     fontSize: 22,
@@ -164,7 +186,7 @@ export const FontStyle = {
     fontSize: 24,
   },
   "@media screen and (min-width: 1700px)": {
-    fontSize: 37,
+    fontSize: 28,
   },
 };
 
@@ -215,7 +237,7 @@ export const ProfileShow = styled.div`
 
 export const Profilename= styled.span`
 position: relative;
-${FontStyle};
+${NickFontStyle};
   top:5px;
 // margin-top: 10px;
   //bottom:-8px;

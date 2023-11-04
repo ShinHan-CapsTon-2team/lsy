@@ -167,61 +167,62 @@ const InsidWrap = styled.div`
 
 
     const Img= styled.img`
-    border: 5px #798BE6 solid;
-    border-radius: 31px;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    display: flex;
-    align-items: center; 
-    overflow:hidden;
-    cursor:pointer;
-    margin-right: ${({ index }) => (index === 2? '0px' : '20px')};
-    width:100%;
-    object-fit:cover;
-    margin-bottom:20px;
+border: 5px #798BE6 solid;
+border-radius: 31px;
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+display: flex;
+align-items: center; 
+overflow:hidden;
+cursor:pointer;
+margin-right: ${({ index }) => (index === 2? '0px' : '20px')};
+width:100%;
+object-fit:cover;
+margin-bottom:20px;
 
+&:hover {
+    border: 5px #4E62C5 solid;
+}
+
+
+/* tablet 규격 */
+@media screen and (max-width: 1024px){
+    max-width: 33vw;
+    height: 49vh;
+    
+    margin-right: ${({ index }) => (index === 1 || index === 2 ? '0px' : '20px')};
+    border: 4px #798BE6 solid;
+}
+@media screen and (max-width: 840px){
+    max-width: 40vw;
+    height: 45vh;
+    margin-right: ${({ index }) => (index === 1 || index === 2 ? '0px' : '20px')};
+}
+/* mobile 규격 */
+@media screen and (max-width: 540px){
+    max-width: 83vw;
+    height: 58vh;
+    
+    border: 4px #798BE6 solid;
+    
+    margin-right: 0px;
+}
+/* s 데스크 */
+@media screen and (min-width: 1025px){
+    max-width: 24vw;
+    height: 63vh;
+}
+/* l 데스크 */
+@media screen and (min-width: 1700px){
+    max-width: 23vw;
+    height: 54vh;
+    
+    border: 6px #798BE6 solid;
     &:hover {
-        border: 5px #4E62C5 solid;
+        border: 6px #4E62C5 solid;
+        }
     }
 
-    
-    /* tablet 규격 */
-    @media screen and (max-width: 1024px){
-        max-width: 33vw;
-        height: 49vh;
-        margin-right: ${({ index }) => (index === 0 || index === 1 ? '10px' : '0px')};
-        border: 4px #798BE6 solid;
-    }
-    @media screen and (max-width: 840px){
-        max-width: 40vw;
-        height: 45vh;
-        margin-right: ${({ index }) => (index === 0 || index === 1 ? '10px' : '0px')};
-    }
-    /* mobile 규격 */
-    @media screen and (max-width: 600px){
-        max-width: 83vw;
-        height: 58vh;
-        
-        border: 4px #798BE6 solid;
-        
-        margin-right: 0px;
-    }
-    /* s 데스크 */
-    @media screen and (min-width: 1025px){
-        max-width: 24vw;
-        height: 63vh;
-    }
-    /* l 데스크 */
-    @media screen and (min-width: 1700px){
-        max-width: 26vw;
-        height: 65vh;
-        
-        border: 8px #798BE6 solid;
-        &:hover {
-            border: 8px #4E62C5 solid;
-            }
-        }
-    
-    `;
+`;
     
 
 

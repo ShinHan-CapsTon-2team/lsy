@@ -82,8 +82,8 @@ export const LandingLogo = styled.img`
   }
   /* l 데스크 */
   @media screen and (min-width: 1700px) {
-    width: 300px;
-    height: 153px;
+    width: 260px;
+    height: 133px;
   }
 `;
 export const FontStyle = {
@@ -104,7 +104,7 @@ export const FontStyle = {
     fontSize: 24 ,
   },
   "@media screen and (min-width: 1700px)": {
-    fontSize: 37,
+    fontSize: 28,
   },
 };
 export const MenuBarWrap = styled.div`
@@ -129,11 +129,15 @@ export const MenuBar = styled.span
 
 export const Tool = styled(Tooltip)`
   cursor:pointer !important;
-  background-color:  #9AA5DE !important;
+  color:black !important;
+  border : 3px black solid !important;
+ background-color:white !important;
+ //background-color:  #9AA5DE !important;
+
   font-size: 20px !important; /* 글꼴 크기 변경 */
-  color: white; /* 글꼴 색상 변경 */
+  //color: white; /* 글꼴 색상 변경 */
   width: 30vw !important;
-  min-height: 20vh !important;
+  min-height: 15vh !important;
   height: auto !important;
   padding:40px !important;
   text-align: left !important;
@@ -141,7 +145,7 @@ export const Tool = styled(Tooltip)`
   margin-left: 30px !important;
   line-height: 125%;
   letter-spacing: 2px;
-  border-radius: 3.5% !important;
+  border-radius: 15% !important;
   opacity:1 !important;
 
 
@@ -156,7 +160,8 @@ export const Tool = styled(Tooltip)`
     width: 30vw !important;
   }
   /* l 데스크 */
-  @media screen and (min-width: 1700px){
-    font-size: 35px !important;
+  @media screen and (min-width: 1500px){
+    font-size: 25px !important;
+    width: 20vw !important;
   }
 `;

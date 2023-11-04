@@ -29,7 +29,6 @@ const OutWrap = styled.div`
 const Tex = styled.span`
 color:#798BE6;
 margin-bottom:15px;
-//font-size:20px;
 ${FontStyle};
 `;
 

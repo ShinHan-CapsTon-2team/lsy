@@ -43,6 +43,7 @@ html, body {
     margin: 0;
   }
 
+
   button{
     font-family: 'GmarketSansMedium';
 
@@ -50,7 +51,7 @@ html, body {
 		background: #5d6bb4;
 	  }
 	  cursor: pointer;
-	border:none;
+	  border:none;
   }
 `;
 export default GlobalStyles;
