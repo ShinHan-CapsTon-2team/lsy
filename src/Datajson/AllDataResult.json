@@ -8,15 +8,15 @@
 
                 "answer": [
                     {
-                        "img":"aaaaa (1).png",
+                        "img":"1.PNG",
                         "id":1
                     },
                     {
-                        "img":"aaaaa (2).png",
+                        "img":"2.PNG",
                         "id":2
                     },
                     {
-                        "img":"aaaaa (3).png",
+                        "img":"3.PNG",
                         "id":3
                     }
                 ]
@@ -25,15 +25,15 @@
                 "type": "aaab",
                 "answer": [
                     {
-                        "img":"aaab (1).png",
+                        "img":"4.PNG",
                         "id":4
                     },
                     {
-                        "img":"aaab (2).png",
+                        "img":"5.PNG",
                         "id":5
                     },
                     {
-                        "img":"aaab (3).png",
+                        "img":"6.PNG",
                         "id":6
                     }
                     
@@ -42,15 +42,15 @@
                 "type": "aaba",
                 "answer": [
                     {
-                        "img":"aaba (1).jpg",
+                        "img":"7.jpg",
                         "id":7
                     },
                     {
-                        "img":"aaba (1).PNG",
+                        "img":"8.PNG",
                         "id":8
                     },
                     {
-                        "img":"aaba (2).png",
+                        "img":"2.png",
                         "id":9
                     }
                     
@@ -60,15 +60,15 @@
                 "type": "aabb",
                 "answer": [
                     {
-                        "img":"aabb (1).jpg",
+                        "img":"10.jpg",
                         "id":10
                     },
                     {
-                        "img":"aabb (1).PNG",
+                        "img":"11.PNG",
                         "id":11
                     },
                     {
-                        "img":"aabb (2).png",
+                        "img":"12.png",
                         "id":12
                     }
                     
@@ -78,15 +78,15 @@
                 "type": "aba",
                 "answer": [
                     {
-                        "img":"aba (1).jpg",
+                        "img":"13.jpg",
                         "id":13
                     },
                     {
-                        "img":"aba (2).jpg",
+                        "img":"14.jpg",
                         "id":14
                     },
                     {
-                        "img":"aba (3).jpg",
+                        "img":"15.jpg",
                         "id":15
                     }
                     
@@ -96,15 +96,15 @@
                 "type": "abb",
                 "answer": [
                     {
-                        "img":"abb (1).jpg",
+                        "img":"16.jpg",
                         "id":16
                     },
                     {
-                        "img":"abb (2).jpg",
+                        "img":"17.jpg",
                         "id":17
                     },
                     {
-                        "img":"abb (3).jpg",
+                        "img":"18.jpg",
                         "id":18
                     }
                     
@@ -114,15 +114,15 @@
                 "type": "baa",
                 "answer": [
                     {
-                        "img":"baa (1).jpg",
+                        "img":"19.jpg",
                         "id":19
                     },
                     {
-                        "img":"baa (2).jpg",
+                        "img":"20.jpg",
                         "id":20
                     },
                     {
-                        "img":"baa (3).jpg",
+                        "img":"21.jpg",
                         "id":21
                     }
                     
@@ -132,15 +132,15 @@
                 "type": "bab",
                 "answer": [
                     {
-                        "img":"bab (1).jpg",
+                        "img":"22.jpg",
                         "id":22
                     },
                     {
-                        "img":"bab (2).jpg",
+                        "img":"23.jpg",
                         "id":23
                     },
                     {
-                        "img":"bab (3).jpg",
+                        "img":"24.jpg",
                         "id":24
                     }
                     
@@ -150,15 +150,15 @@
                 "type": "bbaa",
                 "answer": [
                     {
-                        "img":"bbaa (1).jpg",
+                        "img":"25.jpg",
                         "id":25
                     },
                     {
-                        "img":"bbaa (1).PNG",
+                        "img":"26.PNG",
                         "id":26
                     },
                     {
-                        "img":"bbaa (2).jpg",
+                        "img":"27.jpg",
                         "id":27
                     }
                     
@@ -168,15 +168,15 @@
                 "type": "bbab",
                 "answer": [
                     {
-                        "img":"bbab (1).jpg",
+                        "img":"28.jpg",
                         "id":28
                     },
                     {
-                        "img":"bbab (2).jpg",
+                        "img":"29.jpg",
                         "id":29
                     },
                     {
-                        "img":"bbab (3).jpg",
+                        "img":"30.jpg",
                         "id":30
                     }
                     
@@ -186,15 +186,15 @@
                 "type": "bbba",
                 "answer": [
                     {
-                        "img":"bbba (1).png",
+                        "img":"31.PNG",
                         "id":31
                     },
                     {
-                        "img":"bbba (2).png",
+                        "img":"32.PNG",
                         "id":32
                     },
                     {
-                        "img":"bbba (3).png",
+                        "img":"3.PNG",
                         "id":33
                     }
                     
@@ -204,15 +204,15 @@
                 "type": "bbbb",
                 "answer": [
                     {
-                        "img":"bbbb (1).jpg",
+                        "img":"34.jpg",
                         "id":34
                     },
                     {
-                        "img":"bbbb (1).PNG",
+                        "img":"35.PNG",
                         "id":35
                     },
                     {
-                        "img":"bbbb (2).jpg",
+                        "img":"37.jpg",
                         "id":36
                     }
                     
