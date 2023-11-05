@@ -189,13 +189,13 @@ margin-bottom:20px;
     max-width: 33vw;
     height: 49vh;
     
-    margin-right: ${({ index }) => (index === 1 || index === 2 ? '0px' : '20px')};
+    margin-right: ${({ index }) => (index === 3|| index === 2 ? '0px' : '20px')};
     border: 4px #798BE6 solid;
 }
 @media screen and (max-width: 840px){
     max-width: 40vw;
     height: 45vh;
-    margin-right: ${({ index }) => (index === 1 || index === 2 ? '0px' : '20px')};
+    margin-right: ${({ index }) => (index === 3 || index === 2 ? '0px' : '20px')};
 }
 /* mobile 규격 */
 @media screen and (max-width: 540px){

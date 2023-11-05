@@ -436,15 +436,15 @@
                 "type": "aba",
                 "answer": [
                     {
-                        "img":"aba (1).jpg",
+                        "img":"93.jpg",
                         "id":93
                     },
                     {
-                        "img":"aba (2).jpg",
+                        "img":"94.jpg",
                         "id":94
                     },
                     {
-                        "img":"aba (3).jpg",
+                        "img":"95.jpg",
                         "id":95
                     }
                     
@@ -454,15 +454,15 @@
                 "type": "abb",
                 "answer": [
                     {
-                        "img":"abb (1).jpg",
+                        "img":"96.jpg",
                         "id":96
                     },
                     {
-                        "img":"abb (2).jpg",
+                        "img":"97.jpg",
                         "id":97
                     },
                     {
-                        "img":"abb (3).jpg",
+                        "img":"98.jpg",
                         "id":98
                     }
                     
@@ -472,15 +472,15 @@
                 "type": "baa",
                 "answer": [
                     {
-                        "img":"baa (1).jpeg",
+                        "img":"99.jpg",
                         "id":99
                     },
                     {
-                        "img":"baa (1).jpg",
+                        "img":"100.jpeg",
                         "id":100
                     },
                     {
-                        "img":"baa (2).jpeg",
+                        "img":"101.jpeg",
                         "id":101
                     }
                     
@@ -490,15 +490,15 @@
                 "type": "bab",
                 "answer": [
                     {
-                        "img":"bab (1).jpeg",
+                        "img":"102.png",
                         "id":102
                     },
                     {
-                        "img":"bab (1).png",
+                        "img":"103.png",
                         "id":103
                     },
                     {
-                        "img":"bab (2).png",
+                        "img":"104.jpeg",
                         "id":104
                     }
                     
@@ -508,15 +508,15 @@
                 "type": "bba",
                 "answer": [
                     {
-                        "img":"bba (1).jpg",
+                        "img":"105.jpg",
                         "id":105
                     },
                     {
-                        "img":"bba (1).png",
+                        "img":"106.png",
                         "id":106
                     },
                     {
-                        "img":"bba (2).png",
+                        "img":"107.png",
                         "id":107
                     }
                     
@@ -526,15 +526,15 @@
                 "type": "bbb",
                 "answer": [
                     {
-                        "img":"bbb (1).jpg",
+                        "img":"108.jpg",
                         "id":108
                     },
                     {
-                        "img":"bbb (1).png",
+                        "img":"109.png",
                         "id":109
                     },
                     {
-                        "img":"bbb (2).jpg",
+                        "img":"110.jpg",
                         "id":110
                     }
                     
@@ -801,7 +801,7 @@
                         "id":41
                     },
                     {
-                        "img":"42.png",
+                        "img":"42.jpg",
                         "id":42
                     }
                     
@@ -922,7 +922,7 @@
                         "id":61
                     },
                     {
-                        "img":"62.png",
+                        "img":"62.jpg",
                         "id":62
                     },
                     {
@@ -1058,9 +1058,8 @@
                     }
                     
                 ]
-            }            
-
+            }  
         ]
-        
     }
+          
 ]
