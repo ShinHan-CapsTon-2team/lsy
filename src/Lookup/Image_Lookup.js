@@ -203,7 +203,7 @@ const handlePageClick = async ({ selected }) => {
                     </ListallWrap>
 
                     <ListPostShowWrap >
-                      <GridWrap style={{position:'relative',}}>
+                      <GridWrap style={{position:'relative',zIndex:2}}>
                       {images.map((image, index) => (
                           <GridDiv key={index} onClick={() => handleImagesClick(PostIds[index])}>
                               <GridImg src={image} onClick={() => handleImagesClick(PostIds[index])}  alt="사진" />
@@ -451,12 +451,14 @@ width: 100%;
   display: flex;
   justify-content: center;
   margin-bottom: 5vh;
+  z-index:2;
 `;
 
 const PageWrap = styled.div`
   position: absolute;
   top: 100px;
   width: 115%;
+  z-index:1;
   @media screen and (max-width: 1024px){
 
   }
@@ -476,7 +478,7 @@ const PageWrap = styled.div`
   }
   /* l 데스크 */
   @media screen and (min-width: 1700px){
-    top: 150px;
+    top: 170px;
   }
 
 `;

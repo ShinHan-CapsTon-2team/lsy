@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from "react";
+import React,{useState,useEffect,useRef } from "react";
 import { useNavigate ,useLocation} from "react-router-dom";
 import logo from "../Images/imagelogo.png";
 import loginlogo from "../Images/loginBefor.png";
@@ -9,7 +9,7 @@ import * as P from "./ProfileWrapStyle";
 import { ModalBackdrop } from "../Modal/ModalStyle";
 import { Popup } from "../Modal/Popup";
 import "./DropMenu.css";
-
+import styled from 'styled-components';
 const Header  = props => {
   const location = useLocation();
   const accessToken = localStorage.getItem("access_token");
@@ -174,88 +174,141 @@ const onGoProfile = () => {
     setIsOpen(!isOpen);
     console.log("로그아웃 되었습니다.");
   };
-
-
-  return (
-    <S.LogoWrap style={{flexDirection:'column'}}>
-      <div style={{display:'flex',width:'100%',justifyContent:'space-between'}}>
-
-      <S.LandingWrap  style={{display:'flex',alignItems:'center'}}>
-        <S.LandingLogo src={logo} alt="" onClick={handleGoLandingClick} />
-
-        <S.SmallMenu  onClick={openMenuHandler} 
-        />
-        {isMenuOpen?(
-          <P.DropMenuBar  className={`element ${isMenuOpen ? 'open' : 'hidden'}`}>
-            <P.CateMenu style={{marginBottom:'1vh'}}onClick={handleGoRecoClick}>#색감 매칭</P.CateMenu>
-            <P.CateMenu onClick={handleGoTestClick}>#취향 테스트</P.CateMenu>
-        </P.DropMenuBar>
-        ):null
+  const dropMenuRef = useRef(null);
+  const smallmenuRef = useRef(null);
+    
+  
+    useEffect(() => {
+      const handleDocumentClick = (e) => {
+        
+        if (dropMenuRef.current && !dropMenuRef.current.contains(e.target)) {
+          setIsOpen(!isOpen);
         }
+      };
+      /*
+
+      const handleSmallMenuClick = (e) => { // 작동이 안됨 
+        if (smallmenuRef.current && !smallmenuRef.current.contains(e.target)) {
+          setIsMenuOpen(!isMenuOpen);
+        }
+      };
+      */
+
+      if(isOpen){
+        window.addEventListener('click', handleDocumentClick);
+      }
+      /*
+      if(isMenuOpen){
+        window.addEventListener('click', handleSmallMenuClick);
+      }*/
+
+      return()=>{
+        //window.removeEventListener('click', handleSmallMenuClick);
+        window.removeEventListener('click', handleDocumentClick);
         
-        
-        <S.MenuBarWrap style={{marginLeft:20}} onClick={handleGoRecoClick} > 
-          <S.MenuBar style={{ color: isRecoRoute ? '#5d6bb4' : ''}}  data-tooltip-id="colormatching-tooltip" >#색감 매칭</S.MenuBar>
-        </S.MenuBarWrap>
+      }  
+    }, [isOpen,isMenuOpen]);
 
-        <S.MenuBarWrap onClick={handleGoTestClick}>
-          <S.MenuBar  style={{ color: isTestRoute ? '#5d6bb4' : ''}}  data-tooltip-id="testmatching-tooltip"> #취향 테스트</S.MenuBar>
-        </S.MenuBarWrap>
-        <S.Tool 
-          id="colormatching-tooltip" 
-          place="bottom" >
-          우리의 색감 매칭 기능을 통해 여러분의 사진과 비슷한 색감을 가진 다른 사진을 찾아보세요. <br/>
-          여러분이 원하는 카테고리 중 하나의 사진을 업로드하면, 그와 비슷한 색감을 가진 다른 사진을 찾아드립니다.
+  
 
-        </S.Tool> 
+    return (
+      <S.LogoWrap style={{flexDirection:'column'}}>
+        <div style={{display:'flex',width:'100%',justifyContent:'space-between'}}>
 
-        <S.Tool  
-          id="testmatching-tooltip" 
-          place="bottom" >
-          사진 취향을 발견하고 원하는 사진을 찾기 위한 흥미로운 테스트를 시작하세요.<br/>
-          선택한 카테고리에 따라 원하는 스타일과 옵션을 선택하세요.<br/>
-          선택지 기반으로 맞춤형 사진을 찾아 드립니다.
-        </S.Tool>
-      </S.LandingWrap>
-      
-      <S.HomeWrap>
-      
-      <P.ProfileWrap>
-        <P.ProfileShow style={accessToken ? {}:{marginTop:0}}>
-          <P.ProfileLogo src={accessToken ? profilelogo : loginlogo} onClick={openModalHandler} />
-          {accessToken && <P.Profilename >{nickname}</P.Profilename>}
+        <S.LandingWrap  style={{display:'flex',alignItems:'center'}}>
+          <S.LandingLogo src={logo} alt="" onClick={handleGoLandingClick} />
+
+          <S.SmallMenu  onClick={openMenuHandler} ref={smallmenuRef}  />
+          {isMenuOpen &&(
+            <P.DropMenuBar  className={`element ${isMenuOpen ? 'open' : 'hidden'}`}  >
+              <P.CateMenu style={{marginBottom:'1vh'}}onClick={handleGoRecoClick}>#색감 매칭</P.CateMenu>
+              <P.CateMenu onClick={handleGoTestClick}>#취향 테스트</P.CateMenu>
+            </P.DropMenuBar>
+          )}
           
-        </P.ProfileShow> 
-        {isOpen && (
-          <>
-            {accessToken ? ( // 액세스 토큰이 있는 경우 , 만료된 토큰에 대해 처리했기 때문에 
-              <P.DropMenu className={`element ${isOpen ? 'open' : 'hidden'}`}>
-                <P.CateMenu style={{marginBottom:'1vh'}}onClick={onGoProfile}>마이프로필</P.CateMenu>
-                <P.CateMenu onClick={onNaverLogout}>로그아웃</P.CateMenu>
-              </P.DropMenu>
-            ) : (
-              // 액세스 토큰이 없는 경우
-              <ModalBackdrop onClick={openModalHandler}>
-                <LoginModal />
-              </ModalBackdrop>
-            )}
-          </>
-        )}
+          
+          <S.MenuBarWrap style={{marginLeft:20}} onClick={handleGoRecoClick} > 
+            <S.MenuBar style={{ color: isRecoRoute ? '#5d6bb4' : ''}}  data-tooltip-id="colormatching-tooltip" >#색감 매칭</S.MenuBar>
+          </S.MenuBarWrap>
 
+          <S.MenuBarWrap onClick={handleGoTestClick}>
+            <S.MenuBar  style={{ color: isTestRoute ? '#5d6bb4' : ''}}  data-tooltip-id="testmatching-tooltip"> #취향 테스트</S.MenuBar>
+          </S.MenuBarWrap>
 
-        {/* 성공 메시지를 보여주는 부분 */}
-        {showSuccessMessage && (
-          <Popup text="로그아웃 되었습니다."/>
-        )}
+          <S.Tool 
+            id="colormatching-tooltip" 
+            place="bottom" >
+            우리의 색감 매칭 기능을 통해 여러분의 사진과 비슷한 색감을 가진 다른 사진을 찾아보세요. <br/>
+            여러분이 원하는 카테고리 중 하나의 사진을 업로드하면, 그와 비슷한 색감을 가진 다른 사진을 찾아드립니다.
+
+          </S.Tool> 
+
+          <S.Tool  
+            id="testmatching-tooltip" 
+            place="bottom" >
+            사진 취향을 발견하고 원하는 사진을 찾기 위한 흥미로운 테스트를 시작하세요.<br/>
+            선택한 카테고리에 따라 원하는 스타일과 옵션을 선택하세요.<br/>
+            선택지 기반으로 맞춤형 사진을 찾아 드립니다.
+          </S.Tool>
+        </S.LandingWrap>
         
-      </P.ProfileWrap>
-      </S.HomeWrap>
-      </div>
+        <S.HomeWrap>
+        
+        <P.ProfileWrap>
+          <P.ProfileShow style={accessToken ? {}:{marginTop:0}}>
+            <P.ProfileLogo src={accessToken ? profilelogo : loginlogo} onClick={openModalHandler} ref={dropMenuRef} />
+            {accessToken && <P.Profilename >{nickname}</P.Profilename>}
+            
+          </P.ProfileShow> 
+          {isOpen && (
+            <>
+              {accessToken ? ( // 액세스 토큰이 있는 경우 , 만료된 토큰에 대해 처리했기 때문에 
+              
+                <P.DropMenu className={`element ${isOpen ? 'open' : 'hidden'}`}  >
+                  <P.CateMenu style={{marginBottom:'1vh'}} onClick={onGoProfile}>마이프로필</P.CateMenu>
+                  <P.CateMenu onClick={onNaverLogout}>로그아웃</P.CateMenu>
+                </P.DropMenu>
+              
+              ) : (
+                // 액세스 토큰이 없는 경우
+                <ModalBackdrop onClick={openModalHandler}>
+                  <LoginModal />
+                </ModalBackdrop>
+              )}
+            </>
+          )}
 
-      <hr style={{width:'100%',border:'1.5px solid',color:'black',marginTop:15}}/>
-      
-    </S.LogoWrap>
-  );
+
+          {/* 성공 메시지를 보여주는 부분 */}
+          {showSuccessMessage && (
+            <Popup text="로그아웃 되었습니다."/>
+          )}
+          
+        </P.ProfileWrap>
+        </S.HomeWrap>
+        </div>
+
+        <hr style={{width:'100%',border:'1.5px solid',color:'black',marginTop:15}}/>
+        
+      </S.LogoWrap>
+    );
 };
 
 export default Header;
+
+export const Modaldrop = styled.div`
+width:100%;
+height:100%;
+z-index: 1; 
+position: fixed;
+display : flex;
+//justify-content : center;
+//align-items : center;
+background-color: rgba(0,0,0,0.4);
+top : 0;
+left : 0;
+right : 0;
+bottom : 0;
+
+
+`;

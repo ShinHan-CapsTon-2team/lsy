@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useRef } from "react";
 import * as tf from "@tensorflow/tfjs"; //npm i @tensorflow/tfjs
 import "@tensorflow/tfjs-backend-webgl"; //npm i @tensorflow/tfjs-backend-webgl
 import { useNavigate } from "react-router-dom";
 import upload from "../Images/upload.png";
 import Header from "../Component/Header";
 import * as S from "./PostStyle";
-
+import "./CateDropMenu.css";
 import { Popup } from "../Modal/Popup";
 const SERVER_URL = "http://localhost:4000/api/post";
 
@@ -259,6 +259,25 @@ function Post() {
     setDataFromChild(data);
   };
 
+  const dropMenuRef = useRef(null);
+    
+  
+  useEffect(() => {
+    const handleDocumentClick = (e) => {
+      
+      if (dropMenuRef.current && !dropMenuRef.current.contains(e.target)) {
+        setIsMenuOpen(!isMenuOpen);
+      }
+    };
+
+    if(isMenuOpen){
+      window.addEventListener('click', handleDocumentClick);
+    }
+
+    return()=>{
+      window.removeEventListener('click', handleDocumentClick);  
+    }  
+  }, [isMenuOpen]);
 
   return (
     <S.OutWrap>
@@ -322,7 +341,7 @@ function Post() {
             <S.Buttons>
               <S.Left>
                 
-                <S.ButtonOne onClick={handleMenuToggle} show={showMessage}  >{/* 0916 추가 */}
+                <S.ButtonOne onClick={handleMenuToggle} show={showMessage} ref={dropMenuRef} >{/* 0916 추가 */}
                   
                   {/* 0916 추가 */}
                   {showMessage ? (
@@ -333,7 +352,7 @@ function Post() {
                     </S.Menu>
                   )}
 
-                  <S.DropContainer>
+                  <S.DropContainer className={`element ${isMenuOpen ? 'open' : 'hidden'}`}  >
                     {isMenuOpen && (
                       <S.DropMenu>
                         {classLabels.map((label, index) => (

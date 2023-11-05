@@ -80,7 +80,7 @@ const Lookup_Content =({ title,nickname,imageurl,description,created_at,id,write
                     </S.BoxRadius>
 
                     {isOpen && (
-                        <ModalBackdrop style={{overflowY:'initial'}}onClick={openModalHandler}>
+                        <ModalBackdrop style={{overflowY:'initial', zIndex:99}}onClick={openModalHandler}>
                             <ImgModal 
                             imgurl={imageurl}openModalHandler={openModalHandler}/>
                         </ModalBackdrop>

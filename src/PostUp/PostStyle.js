@@ -63,6 +63,9 @@ export const Center = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  @media screen and (min-width: 1700px) {
+    width: 80%;
+  }
 `;
 
 export const InLayoutOne = styled.div`
@@ -375,8 +378,8 @@ export const DropMenu = styled.div`
   }
   /* l 데스크 */
   @media screen and (min-width: 1700px) {
-    width: 40vw;
-    top: -210px; // 1080
+    width: 35vw;
+    top: -190px; // 1080
   }
 `;
 

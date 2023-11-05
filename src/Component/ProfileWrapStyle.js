@@ -120,18 +120,19 @@ width: 24vw;
 
 ${MenuBarSee};
 
-  left:25%;
-  top:13%;
+  left:20%;
+  top:5.5%;
 
   @media screen and (max-width: 750px)
   {
    // width:24vw;
-    left:27%;
+    //left:27%;
+    //left:2%;
   }
   @media screen and (max-width: 690px)
   {
     width:28vw;
-    left:28%;
+   // left:28%;
   }
   @media screen and (max-width: 600px)
   {
@@ -144,7 +145,7 @@ ${MenuBarSee};
   }
 
 
- 
+
   
 `;
 export const NickFontStyle = {

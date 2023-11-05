@@ -97,7 +97,7 @@ width:270px;
 
 /* l 데스크 */
 @media screen and (min-width: 1700px){
-    width:235px;
+    width:265px;
 }
 
 
