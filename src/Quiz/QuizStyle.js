@@ -229,7 +229,7 @@ export const Img= styled.img`
         /* s 데스크 */
         @media screen and (min-width: 1301px){
           width: 32vw;
-          height: 61vh;
+          height: 62vh;
         }
         /* l 데스크 */
         @media screen and (min-width: 1700px){

@@ -112,7 +112,7 @@ const QuizTest = () => {
             {quiz && quiz.map((item) => (
 
                 <S.Textselect style={{marginTop:20}}>
-                    <S.QCateText>#{category}</S.QCateText>
+                    <S.QCateText>{category}</S.QCateText>
                     <S.QText>{item.selectCriteria}</S.QText>
                 </S.Textselect>
             ))}
@@ -121,7 +121,7 @@ const QuizTest = () => {
                 {select && select.map((item, index) => (
                 <div key={index} style={{display:'flex',flexDirection:'column'}}>
                     <div style={{textAlign:'left' }}>
-                        <S.Textimgselect>{item.name  || " "}</S.Textimgselect>
+                        <S.Textimgselect>#{item.name  || " "}</S.Textimgselect>
                     </div>
                     
                     <S.Img 

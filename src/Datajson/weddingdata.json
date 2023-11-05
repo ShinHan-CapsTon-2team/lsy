@@ -59,12 +59,12 @@
                         "select": [
                             {
                                 "type":"a",
-                                "name":"",
+                                "name":"#소품 무",
                                 "img":"5.jpg"
                             },
                             {
                                 "type":"b",
-                                "name":"",
+                                "name":"#소품 유",
                                 "img":"6.jpg"
                             }
                         ]  
@@ -144,12 +144,12 @@
                         "select": [
                             {
                                 "type":"a",
-                                "name":"",
+                                "name":"#앉아있는",
                                 "img":"9.jpg"
                             },
                             {
                                 "type":"b",
-                                "name":"",
+                                "name":"#서있는",
                                 "img":"10.jpg"
                             }
                         ]
@@ -163,12 +163,12 @@
                         "select": [
                             {
                                 "type":"a",
-                                "name":"",
+                                "name":"#앉아있는",
                                 "img":"7.jpg"
                             },
                             {
                                 "type":"b",
-                                "name":"",
+                                "name":"#서있는",
                                 "img":"8.jpg"
                             }
                         ]  

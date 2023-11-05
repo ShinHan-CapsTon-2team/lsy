@@ -157,7 +157,7 @@ export const Tool = styled(Tooltip)`
   /* s 데스크 */
   @media screen and (min-width: 1025px){
     font-size: 22px !important;
-    width: 30vw !important;
+    width: 15vw !important;
   }
   /* l 데스크 */
   @media screen and (min-width: 1500px){
