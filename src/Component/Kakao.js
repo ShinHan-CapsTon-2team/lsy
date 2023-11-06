@@ -43,8 +43,8 @@ function KaKao({_resulttype}) {
                     {
                     title: '테스트하기',
                     link: {
-                        mobileWebUrl: 'https://localhost:3000/quizindex',
-                        webUrl: 'https://localhost:3000/quizindex',
+                        mobileWebUrl: 'http://localhost:3000/quizindex',
+                        webUrl: 'http://localhost:3000/quizindex',
                     }
                 }
             ],

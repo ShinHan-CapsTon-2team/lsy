@@ -220,7 +220,7 @@ export const OutWrap = styled.div`
     },
     /* tablet 규격 */
     '@media screen and (min-width: 1025px)': {
-        fontSize: 40,
+        fontSize: 30,
     },
     '@media screen and (min-width: 1700px)': {
         fontSize: 40,

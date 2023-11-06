@@ -158,6 +158,6 @@ export const Tool = styled(Tooltip)`
   /* l 데스크 */
   @media screen and (min-width: 1500px){
     font-size: 22px !important;
-    width: 23vw !important;
+    width: 25vw !important;
   }
 `;
