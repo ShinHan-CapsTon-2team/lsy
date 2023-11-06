@@ -134,9 +134,9 @@ export const Tool = styled(Tooltip)`
  background-color:white !important;
  //background-color:  #9AA5DE !important;
 
-  font-size: 20px !important; /* 글꼴 크기 변경 */
+  font-size: 18px !important; /* 글꼴 크기 변경 */
   //color: white; /* 글꼴 색상 변경 */
-  width: 30vw !important;
+  //width: 30vw !important;
   min-height: 15vh !important;
   height: auto !important;
   padding:40px !important;
@@ -149,19 +149,15 @@ export const Tool = styled(Tooltip)`
   opacity:1 !important;
 
 
-  @media screen and (max-width: 1024px){
-    font-size: 20px !important;
-    width: 32vw !important;
+  @media screen and (min-width: 1024px){
+    font-size: 18px ;
+    width: 25vw !important;
+    //line-height: 100% !important;
   }
-    
-  /* s 데스크 */
-  @media screen and (min-width: 1025px){
-    font-size: 22px !important;
-    width: 15vw !important;
-  }
+
   /* l 데스크 */
   @media screen and (min-width: 1500px){
-    font-size: 25px !important;
-    width: 20vw !important;
+    font-size: 22px !important;
+    width: 23vw !important;
   }
 `;

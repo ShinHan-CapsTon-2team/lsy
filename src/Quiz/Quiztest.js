@@ -121,7 +121,7 @@ const QuizTest = () => {
                 {select && select.map((item, index) => (
                 <div key={index} style={{display:'flex',flexDirection:'column'}}>
                     <div style={{textAlign:'left' }}>
-                        <S.Textimgselect>#{item.name  || " "}</S.Textimgselect>
+                        <S.Textimgselect>{item.name  || " "}</S.Textimgselect>
                     </div>
                     
                     <S.Img 
