@@ -25,7 +25,7 @@ const Quizstart = () => {
     
     return (
         <C.OutWrap style={{height:'90vh'}}>
-            <InsidWrap>
+            <C.InsideWrap style={{height:'100%'}}>
                 <Header style={{flex:0}} onData={handleChildData}/>
             
                 <InsideContentWrap style={{flex:1}}>
@@ -77,7 +77,7 @@ const Quizstart = () => {
 
                     </ImgWrap>
                 </InsideContentWrap>
-            </InsidWrap>
+            </C.InsideWrap>
         </C.OutWrap>
     );
 };
@@ -199,7 +199,7 @@ const OutWrap = styled.div`
   flex-direction: column;
   align-items: center;
   width: 80%;
-  height:100%;
+  
 
   /* tablet 규격 */
   @media screen and (max-width: 1024px) {
@@ -217,6 +217,8 @@ const OutWrap = styled.div`
   @media screen and (min-width: 1700px) {
     width: 75%;
   }
+
+  height:100%;
     `;
     const InsideContentWrap = styled.div`
     position:relative;

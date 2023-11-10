@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { Popup } from "../Modal/Popup";
 import * as S from './ImgResultStyle'
 import Header from "../Header/Header";
-
+import * as C from "../Style/CommonStyle";
 const RecoResult = () => {
     const location = useLocation();
     const params = new URLSearchParams(location.search);
@@ -66,11 +66,11 @@ const RecoResult = () => {
 
     return (
         
-            <OutWrap> 
-                <S.InsideWrap>
-                    <InsidWrap>
+            <C.OutWrap> 
+                <S.InOutWrap >
+                    <C.InsideWrap >
                         <Header style={{flex:0}} onData={handleChildData}/>
-                    </InsidWrap>
+                    </C.InsideWrap >
 
                     <S.TextWrap>
                         <S.Text1> 추천 결과</S.Text1>
@@ -101,9 +101,9 @@ const RecoResult = () => {
                         <S.ButtonTwo onClick={handleGoHomeClick}>메인화면으로 가기</S.ButtonTwo>
                         <S.ButtonTwo style={{ marginRight: 0 }} onClick={handleGoUploadClick}>다시 매칭해보기</S.ButtonTwo>
                     </S.ButtonsWrap>
-                </S.InsideWrap>
+                </S.InOutWrap >
                 
-            </OutWrap>
+            </C.OutWrap>
             
     );
 

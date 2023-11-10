@@ -15,7 +15,30 @@ export const OutWrap = styled.div`
   align-items: center;
   justify-content: center;
 `;  
+export const InsideWrap = styled.div`
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
 
+  /* tablet 규격 */
+  @media screen and (max-width: 1024px) {
+    width: 87%;
+  }
+
+  /* mobile 규격 */
+  @media screen and (max-width: 540px) {
+    width: 95%;
+  }
+  /* s 데스크 */
+  @media screen and (min-width: 1025px) {
+  }
+  /* l 데스크 */
+  @media screen and (min-width: 1700px) {
+    width: 75%;
+  }
+`;
 export const StyledPiUserCircleThin = styled(PiUserCircleThin)`
 width:65px;
 height:65px; //+2

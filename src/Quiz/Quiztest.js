@@ -108,7 +108,7 @@ const QuizTest = () => {
 
     return (
     <C.OutWrap>
-        <S.InsidWrap>
+        <S.InsideWrap>
             <Header style={{flex:0}} onData={handleChildData}/>
             {quiz && quiz.map((item) => (
 
@@ -135,7 +135,7 @@ const QuizTest = () => {
                 </div>
                 ))}
             </S.Ulstyle>
-        </S.InsidWrap>
+        </S.InsideWrap>
     </C.OutWrap>
 
     );

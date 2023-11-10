@@ -283,7 +283,7 @@ function Post() {
 
   return (
     <C.OutWrap>
-      <S.InOutWrap>
+      <C.InsideWrap >
         {/* 로고 */}
         <Header onData={handleChildData} />
         {/* 내용 */}
@@ -389,7 +389,7 @@ function Post() {
             </S.Buttons>
           </S.InLayoutTwo>
         </S.Center>
-      </S.InOutWrap>
+      </C.InsideWrap >
     </C.OutWrap>
   );
 }

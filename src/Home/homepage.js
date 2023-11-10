@@ -152,7 +152,7 @@ const Homepage = () => {
 
   return (
     <C.OutWrap style={{height:'100%'}}>
-      <S.InsideWrap>
+      <C.InsideWrap>
         <Header onData={handleChildData}/>
         
         <S.CategoryWrap >
@@ -217,7 +217,7 @@ const Homepage = () => {
           )}
         </S.PaginationWrap>
 
-      </S.InsideWrap>
+      </C.InsideWrap>
 
       <S.PostWrap>{/* 컴포넌트 */}
         <C.StyledBsPlusCircleFill onClick={access ? goToWorkUpload : openModalHandler} />

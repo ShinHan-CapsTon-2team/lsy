@@ -8,7 +8,7 @@ import Header from '../Header/Header';
 import {StyledBsPlusCircleFill} from '../Style/CommonStyle'
 import styled from "styled-components";
 import './Paging.css';
-
+import * as C from "../Style/CommonStyle";
 import {ProfileWrap,ButtonShort} from './ProfileInfoStyle'
  
 import { UserDelModal } from '../Modal/UserDelModal'
@@ -160,8 +160,8 @@ try {
 
   
     return (
-        <OutWrap>
-            <InOutWrap>
+        <C.OutWrap style={{height:'100vh'}}>
+            <C.InsideWrap >
                 <Header onData={handleChildData} style={{flex:0}}/>
 
                 <Center style={{flex:1}}>
@@ -230,7 +230,7 @@ try {
                 </ArticleWrap>
                 
                 </Center>
-            </InOutWrap>
+            </C.InsideWrap>
 
              <PostWrap>
               
@@ -242,7 +242,7 @@ try {
               
 
           
-        </OutWrap>
+        </C.OutWrap>
 
     );
 }
@@ -358,7 +358,7 @@ flex-direction: column;
 align-items: center;
 
 height: 100vh;
-justify-content: center;
+//justify-content: center; 없
 `;
 
 const InOutWrap = styled.div`

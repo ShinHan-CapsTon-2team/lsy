@@ -36,7 +36,7 @@ const Quizfrist = () => {
 
     return (
       <C.OutWrap>
-        <S.InsidWrap>
+        <S.InsideWrap>
             <Header style={{flex:0}} onData={handleChildData}/>
             
             <S.Textselect style={{marginTop:20}}>
@@ -61,7 +61,7 @@ const Quizfrist = () => {
                 </div>
               ))}
             </S.Ulstyle>
-        </S.InsidWrap>
+        </S.InsideWrap>
       </C.OutWrap>
     );
     

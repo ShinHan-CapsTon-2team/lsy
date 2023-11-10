@@ -8,7 +8,7 @@ export const OutWrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
+`; 
 
 export const FontStyle = {
   "@media screen and (max-width: 1024px)": {

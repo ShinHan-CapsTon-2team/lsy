@@ -174,7 +174,7 @@ const handlePageClick = async ({ selected }) => {
     return (  
         
         <C.OutWrap>
-            <S.InOutWrap>
+            <C.InsideWrap >
                     
                 <Header onData={handleChildData}/>
 
@@ -254,7 +254,7 @@ const handlePageClick = async ({ selected }) => {
 
                 </S.Center>
                     
-            </S.InOutWrap>
+            </C.InsideWrap>
             
         </C.OutWrap>
     );

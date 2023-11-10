@@ -1,30 +1,8 @@
 import styled from "styled-components";
+import { InsideWrap as BaseInsideWrap } from '../Style/CommonStyle';
 
-export const InsidWrap = styled.div`
-    text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 80%;
-  height:100%;
+export const InsideWrap = styled(BaseInsideWrap)` height:100%;`;
 
-  /* tablet 규격 */
-  @media screen and (max-width: 1024px) {
-    width: 87%;
-  }
-
-  /* mobile 규격 */
-  @media screen and (max-width: 540px) {
-    width: 95%;
-  }
-  /* s 데스크 */
-  @media screen and (min-width: 1025px) {
-  }
-  /* l 데스크 */
-  @media screen and (min-width: 1700px) {
-    width: 75%;
-  }
-    `;
 export const FontStyle = {
   '@media screen and (max-width: 1024px)':{
   

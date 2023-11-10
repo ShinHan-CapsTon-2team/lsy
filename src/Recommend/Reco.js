@@ -8,7 +8,7 @@ import upload from '../Images/upload.png';
 import { Popup } from "../Modal/Popup";
 import { AiFillQuestionCircle } from 'react-icons/ai';
 import { InfoModal } from '../Modal/InfoModa';
-
+import * as C from "../Style/CommonStyle";
 //모델파일 사용안함
 //히스토그램 기반 메트릭스 
 // 두 이미지 간의 히스토그램 오버랩을 계산하는 
@@ -410,9 +410,9 @@ if (
         {isLoading ?(
           <Loading what="유사한 이미지를 찾고 있습니다" />
         ):(
-        <OutWrap>
+        <C.OutWrap style={{height: '100%',position: 'absolute'}}>
           
-          <InOutWrap>
+          <C.InsideWrap>
             {/* 로고 */}        
             <Header onData={handleChildData} style={{flex:0}}/>
             {/* 컨텐츠 */}
@@ -473,11 +473,11 @@ if (
                 <Popup text="해당 사진이 카테고리 분류를 실패했습니다." />
               )}
             </Center>
-          </InOutWrap>
+          </C.InsideWrap>
 
 
 
-      </OutWrap>)}
+      </C.OutWrap>)}
         
       </>
     );
@@ -592,6 +592,8 @@ const OutWrap = styled.div`
       display: flex;
       flex-direction: column;
       justify-content: center;
+
+
       height: 100%;
       position: absolute;
     `;

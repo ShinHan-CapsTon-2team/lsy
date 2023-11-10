@@ -9,12 +9,12 @@ export const OutWrap = styled.div`
     align-items: center; 
     justify-content: center;
 
-    
+
     height: 100%;
 
     `;
 
-    export const InsideWrap = styled.div`
+    export const InOutWrap  = styled.div`
         width:100%;
         text-align: center;
         display: flex;

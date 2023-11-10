@@ -86,11 +86,11 @@ const Quizresult  = () => {
     
 
     return (
-        <C.OutWrap>
-            <S.InsideWrap>
-                <InsidWrap>
+        <C.OutWrap style={{height: '100%'}}>
+            <S.InOutWrap >
+                <C.InsideWrap >
                     <Header style={{flex:0}} onData={handleChildData}/>
-                </InsidWrap>
+                </C.InsideWrap>
                 <S.TextWrap>
                     <S.Text1> <S.Text1 style={{color:'#5d6bb4'}}>{category}</S.Text1> 추천 결과</S.Text1>
                     <S.Text2> 선택한 사진과 비슷한 스타일의 다른 사진을 확인하세요</S.Text2>
@@ -141,7 +141,7 @@ const Quizresult  = () => {
 
                 </S.ButtonsWrap>
                     
-            </S.InsideWrap>   
+            </S.InOutWrap >   
         </C.OutWrap>
     );
 };

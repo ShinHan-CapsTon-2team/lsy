@@ -345,7 +345,7 @@ const handleCategorySelect = (selectedCategory, index) => {
 
     return (  
       <C.OutWrap>
-        <S.InOutWrap>            
+        <C.InsideWrap>            
             {/* 로고 */}        
             <Header onData={handleChildData}/>
             {/* 내용 */} 
@@ -464,7 +464,7 @@ const handleCategorySelect = (selectedCategory, index) => {
                 </S.Buttons>
             </S.InLayoutTwoH>
             </S.Center>
-        </S.InOutWrap>
+        </C.InsideWrap>
       </C.OutWrap>
     );
 };
