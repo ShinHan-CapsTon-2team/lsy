@@ -9,6 +9,7 @@ import quizfamily from '../Datajson/familydata.json';
 
 import styled from "styled-components";
 import * as S from "./QuizStyle";
+import * as C from "../Style/CommonStyle";
 const getQuizbody = () => {
     return quizbody;
 };
@@ -106,7 +107,7 @@ const QuizTest = () => {
   
 
     return (
-    <S.OutWrap>
+    <C.OutWrap>
         <S.InsidWrap>
             <Header style={{flex:0}} onData={handleChildData}/>
             {quiz && quiz.map((item) => (
@@ -135,7 +136,7 @@ const QuizTest = () => {
                 ))}
             </S.Ulstyle>
         </S.InsidWrap>
-    </S.OutWrap>
+    </C.OutWrap>
 
     );
 };

@@ -4,6 +4,18 @@ import { BsPlusCircleFill } from "react-icons/bs";
 
 import {PiUserCircleThin} from 'react-icons/pi'
 
+
+export const OutWrap = styled.div`
+  width: 100%;
+  height: 97.6vh;
+  position: relative;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;  
+
 export const StyledPiUserCircleThin = styled(PiUserCircleThin)`
 width:65px;
 height:65px; //+2

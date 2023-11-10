@@ -7,7 +7,7 @@ import { Popup } from '../Modal/Popup';
 import KakaoShareBtn from '../Component/Kakao';
 import Header from "../Header/Header";
 import * as S from '../Recommend/ImgResultStyle';
-
+import * as C from "../Style/CommonStyle";
 import styled from "styled-components";
 const Quizresult  = () => {
     const location = useLocation();
@@ -86,7 +86,7 @@ const Quizresult  = () => {
     
 
     return (
-        <S.OutWrap>
+        <C.OutWrap>
             <S.InsideWrap>
                 <InsidWrap>
                     <Header style={{flex:0}} onData={handleChildData}/>
@@ -142,7 +142,7 @@ const Quizresult  = () => {
                 </S.ButtonsWrap>
                     
             </S.InsideWrap>   
-        </S.OutWrap>
+        </C.OutWrap>
     );
 };
 

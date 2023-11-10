@@ -587,12 +587,13 @@ const FontStyle = {
 
 const OutWrap = styled.div`
       width: 100%;
-      height: 100%;
       background: white;
       align-items: center;
       display: flex;
       flex-direction: column;
-    position: absolute;
+      justify-content: center;
+      height: 100%;
+      position: absolute;
     `;
     const InOutWrap = styled.div`
     display: flex;

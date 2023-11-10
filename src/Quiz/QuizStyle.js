@@ -123,24 +123,22 @@ margin-bottom:5px;
 ${FontsmallStyle};
 `;
 
+
+
+/*
 export const OutWrap = styled.div`
     width: 100%;
-    height: 97.6vh;
     position: relative;
     background: white;
     display: flex;
     justify-content: center;
     align-items: center;   
-    
-  /*
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    */
     flex-direction: column;
 
-    /* mobile 규격 */
+
+
+    height: 97.6vh;
+    
         @media screen and (max-width: 840px){
            
             height: calc(var(--vh, 1vh) * 100);
@@ -148,6 +146,7 @@ export const OutWrap = styled.div`
 
     
 `;
+*/
 
     
    

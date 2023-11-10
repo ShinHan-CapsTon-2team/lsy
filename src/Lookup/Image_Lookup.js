@@ -10,6 +10,8 @@ import './Paging.css'
 import * as M from "../Modal/ModalStyle";
 import {HiChevronDoubleLeft} from "react-icons/hi";
 import {HiChevronDoubleRight} from "react-icons/hi";
+
+import * as C from "../Style/CommonStyle";
 const SERVER_URL= 'http://localhost:4000/api/lookup';
 
 function Images_Lookup() {
@@ -171,7 +173,7 @@ const handlePageClick = async ({ selected }) => {
     };
     return (  
         
-        <S.OutWrap>
+        <C.OutWrap>
             <S.InOutWrap>
                     
                 <Header onData={handleChildData}/>
@@ -194,8 +196,7 @@ const handlePageClick = async ({ selected }) => {
                               )
                           }
                       )} 
- 
-                  
+
                   {!isMine ? (
                   <>
                     <ListallWrap> 
@@ -255,7 +256,7 @@ const handlePageClick = async ({ selected }) => {
                     
             </S.InOutWrap>
             
-        </S.OutWrap>
+        </C.OutWrap>
     );
 };
 

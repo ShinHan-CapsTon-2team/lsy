@@ -7,6 +7,8 @@ import Header from "../Header/Header";
 import * as S from "./PostStyle";
 import "./CateDropMenu.css";
 import { Popup } from "../Modal/Popup";
+
+import * as C from "../Style/CommonStyle";
 const SERVER_URL = "http://localhost:4000/api/post";
 
 function Post() {
@@ -280,7 +282,7 @@ function Post() {
   }, [isMenuOpen]);
 
   return (
-    <S.OutWrap>
+    <C.OutWrap>
       <S.InOutWrap>
         {/* 로고 */}
         <Header onData={handleChildData} />
@@ -388,7 +390,7 @@ function Post() {
           </S.InLayoutTwo>
         </S.Center>
       </S.InOutWrap>
-    </S.OutWrap>
+    </C.OutWrap>
   );
 }
 

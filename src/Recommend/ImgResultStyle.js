@@ -2,20 +2,17 @@ import styled from "styled-components";
 
 export const OutWrap = styled.div`
     width: 100%;
-    height: 100%;
-
     position: relative;
     background: white;
     display: flex;
     flex-direction: column;
     align-items: center; 
+    justify-content: center;
 
-    /* mobile 규격 */
-    @media screen and (max-width: 840px){
-        
-        height: calc(var(--vh, 1vh) * 100);
-    }
-`;
+    
+    height: 100%;
+
+    `;
 
     export const InsideWrap = styled.div`
         width:100%;

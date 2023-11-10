@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Header from "../Header/Header";
 import first from '../Datajson/first.json'
 import * as S from "./QuizStyle";
+import * as C from "../Style/CommonStyle";
 const Quizfrist = () => {
     const navigate = useNavigate();
     const [dataFromChild, setDataFromChild] = useState({});
@@ -34,7 +35,7 @@ const Quizfrist = () => {
     
 
     return (
-      <S.OutWrap>
+      <C.OutWrap>
         <S.InsidWrap>
             <Header style={{flex:0}} onData={handleChildData}/>
             
@@ -61,7 +62,7 @@ const Quizfrist = () => {
               ))}
             </S.Ulstyle>
         </S.InsidWrap>
-      </S.OutWrap>
+      </C.OutWrap>
     );
     
 

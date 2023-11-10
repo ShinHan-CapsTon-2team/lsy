@@ -351,18 +351,14 @@ const GridImg = styled.img`
 
 const OutWrap = styled.div`
 width: 100%;
-height: 100vh;
-
 position: relative;
-
 background: white;
-
 display: flex;
 flex-direction: column;
-// justify-content: center;
 align-items: center;
 
-
+height: 100vh;
+justify-content: center;
 `;
 
 const InOutWrap = styled.div`

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { AiFillQuestionCircle } from 'react-icons/ai';
 import { InfoModal } from '../Modal/InfoModa';
 import Header from "../Header/Header";
-
+import * as C from "../Style/CommonStyle";
 
 const Quizstart = () => {
     const [dataFromChild, setDataFromChild] = useState({});
@@ -24,7 +24,7 @@ const Quizstart = () => {
     };
     
     return (
-        <OutWrap>
+        <C.OutWrap style={{height:'90vh'}}>
             <InsidWrap>
                 <Header style={{flex:0}} onData={handleChildData}/>
             
@@ -78,7 +78,7 @@ const Quizstart = () => {
                     </ImgWrap>
                 </InsideContentWrap>
             </InsidWrap>
-        </OutWrap>
+        </C.OutWrap>
     );
 };
 
@@ -182,14 +182,14 @@ const TooImg = styled(AiFillQuestionCircle)`
 
 const OutWrap = styled.div`
     width: 100%;
-    height: 90vh;
-    
     background: white;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: relative;
 
+    height: 90vh;
     `;
 
 
@@ -271,6 +271,7 @@ const OutWrap = styled.div`
     align-items: center; 
 
     width: 49%;
+    
     @media screen and (max-width: 1120px){
         width: 60%;
         height: 75%;
@@ -309,7 +310,7 @@ const OutWrap = styled.div`
     
     const ButtonWrap =styled.div`
     width:100%;
-    height:23%;
+    height:22%;
     `;
     //다른 FontStyle
     const FontStyle = {

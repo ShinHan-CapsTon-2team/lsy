@@ -18,13 +18,14 @@ export const ModalBackdrop = styled.div`
 `;
 export const OutWrap = styled.div`
   width: 100%;
-  height: 100%;
   position: relative;
   background: white;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+ // height: 100%;
 `;
 export const GridImg = styled.img`
   width: 100%;

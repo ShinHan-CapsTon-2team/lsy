@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import  * as S from './PostStyle'
 import Header from "../Header/Header";
 import { Popup } from "../Modal/Popup";
+import * as C from "../Style/CommonStyle";
 const SERVER_URL= 'http://localhost:4000/api/postedit';
 
 function PostEdit() {
@@ -343,7 +344,7 @@ const handleCategorySelect = (selectedCategory, index) => {
     };
 
     return (  
-      <S.OutWrap>
+      <C.OutWrap>
         <S.InOutWrap>            
             {/* 로고 */}        
             <Header onData={handleChildData}/>
@@ -464,7 +465,7 @@ const handleCategorySelect = (selectedCategory, index) => {
             </S.InLayoutTwoH>
             </S.Center>
         </S.InOutWrap>
-      </S.OutWrap>
+      </C.OutWrap>
     );
 };
 

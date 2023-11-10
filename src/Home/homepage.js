@@ -151,7 +151,7 @@ const Homepage = () => {
 
 
   return (
-    <S.OutWrap>
+    <C.OutWrap style={{height:'100%'}}>
       <S.InsideWrap>
         <Header onData={handleChildData}/>
         
@@ -236,7 +236,7 @@ const Homepage = () => {
         )}
 
       </S.PostWrap>
-    </S.OutWrap>
+    </C.OutWrap>
   );
 };
 
