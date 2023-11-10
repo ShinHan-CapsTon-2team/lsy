@@ -5,7 +5,7 @@ import AllDataResult from "../Datajson/AllDataResult.json"
 import btn_link from '../Images/btn_link.svg'
 import { Popup } from '../Modal/Popup';
 import KakaoShareBtn from '../Component/Kakao';
-import Header from '../Component/Header';
+import Header from "../Header/Header";
 import * as S from '../Recommend/ImgResultStyle';
 
 import styled from "styled-components";

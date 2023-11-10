@@ -3,7 +3,7 @@ import * as tf from "@tensorflow/tfjs"; //npm i @tensorflow/tfjs
 import "@tensorflow/tfjs-backend-webgl"; //npm i @tensorflow/tfjs-backend-webgl
 import { useNavigate } from "react-router-dom";
 import upload from "../Images/upload.png";
-import Header from "../Component/Header";
+import Header from "../Header/Header";
 import * as S from "./PostStyle";
 import "./CateDropMenu.css";
 import { Popup } from "../Modal/Popup";

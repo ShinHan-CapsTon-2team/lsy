@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useLocation, useNavigate } from 'react-router-dom';
 import React, { useState } from 'react'; 
-import Header from '../Component/Header';
+import Header from "../Header/Header";
 import first from '../Datajson/first.json'
 import * as S from "./QuizStyle";
 const Quizfrist = () => {

@@ -2,14 +2,14 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
-import ProfileInfo from '../Component/ProfileInfo';
-import ProfileInfo_Edit from '../Component/ProfileInfo_Edit';
-import Header from '../Component/Header';
+import ProfileInfo from './ProfileInfo';
+import ProfileInfo_Edit from './ProfileInfo_Edit';
+import Header from '../Header/Header';
 import {StyledBsPlusCircleFill} from '../Style/CommonStyle'
 import styled from "styled-components";
 import './Paging.css';
 
-import {ProfileWrap,ButtonShort} from '../Component/ProfileInfoStyle'
+import {ProfileWrap,ButtonShort} from './ProfileInfoStyle'
  
 import { UserDelModal } from '../Modal/UserDelModal'
 

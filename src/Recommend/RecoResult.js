@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Popup } from "../Modal/Popup";
 import * as S from './ImgResultStyle'
-import Header from '../Component/Header';
+import Header from "../Header/Header";
 
 const RecoResult = () => {
     const location = useLocation();

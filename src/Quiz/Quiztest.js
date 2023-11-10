@@ -1,6 +1,6 @@
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import React, { useState, useEffect } from 'react'; 
-import Header from '../Component/Header';
+import Header from "../Header/Header";
 // 이미지 퀴즈  json 파일 
 import quizbody from '../Datajson/bodydata.json';
 import quizpet from '../Datajson/petdata.json';

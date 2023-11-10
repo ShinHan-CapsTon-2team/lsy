@@ -1,7 +1,7 @@
 import React, {useParams ,useNavigate} from 'react-router-dom';
 import { useEffect,useState } from 'react'
-import Header from '../Component/Header';
-import Lookup_Content from '../Component/Lookup_Content';
+import Header from '../Header/Header';
+import Lookup_Content from './Lookup_Content';
 import * as S from './LookupStyle' 
 import { DeleteModal } from '../Modal/DeleteModal';
 import ReactPaginate from 'react-paginate';

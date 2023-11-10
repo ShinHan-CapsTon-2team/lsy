@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import React, { useCallback, useEffect, useState } from "react";
-import Header from "../Component/Header";
+import Header from "../Header/Header"
 import { LoginModal } from "../Modal/LoginModal";
 import * as S from "./homeStyle";
 import * as C from "../Style/CommonStyle";
@@ -35,8 +35,6 @@ const Homepage = () => {
   const [pageNumber, setPageNumber] = useState(1);
   const limit = 20; // 한 페이지당 이미지 수 설정
   const [offset, setOffset] = useState(0); //offset 초기값
-
-  const [userinfo, setUserinfo] = useState([]);
   const [dataFromChild, setDataFromChild] = useState({}); //!!!
 
   

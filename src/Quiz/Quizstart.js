@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AiFillQuestionCircle } from 'react-icons/ai';
 import { InfoModal } from '../Modal/InfoModa';
-import Header from '../Component/Header';
+import Header from "../Header/Header";
 
 
 const Quizstart = () => {
