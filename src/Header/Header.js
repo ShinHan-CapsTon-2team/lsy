@@ -8,7 +8,8 @@ import { LoginModal } from "../Modal/LoginModal";
 import * as P from "./ProfileWrapStyle";
 import { ModalBackdrop } from "../Modal/ModalStyle";
 import { Popup } from "../Modal/Popup";
-import "./DropMenu.css";
+import MenuTool from "./Component/MenuTool.js";
+import User from "./Component/User.js"
 import styled from 'styled-components';
 const Header  = props => {
   const location = useLocation();
@@ -18,7 +19,6 @@ const Header  = props => {
 
   const [access_Token, setAccessToken] = useState('');
   const [userInfo, setUserInfo] = useState(null); 
-  const [acces,SetAcces]= useState('');
   const [emailId, setemailId] = useState('');
   const [userinfo, setUserinfo] = useState([]);
   const [nickname, setNickname] = useState('');
@@ -28,11 +28,6 @@ const Header  = props => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { onData } = props;
 
-  
-  const recoRoute =["/reco","/recoresult"];
-  const testRoutes = ["/quizindex", "/quizfrist", "/quiztest", "/quizresult"];
-  const isTestRoute = testRoutes.includes(location.pathname);
-  const isRecoRoute =recoRoute.includes(location.pathname);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -76,7 +71,6 @@ const Header  = props => {
 
   useEffect(() => 
   {
-    
     setCurrentPath(location.pathname);
     console.log("현재 주소 : ", currentPath);
     console.log("accessToken:",accessToken);
@@ -143,10 +137,10 @@ const Header  = props => {
   };
 
 
-// 자기 프로필 가는거 처리하기 App js 참고  
-const onGoProfile = () => { 
-  navigate(`/profile/${emailId}`);  
-};
+ 
+  const onGoProfile = () => { 
+    navigate(`/profile/${emailId}`);  
+  };
   const openModalHandler = () => {
     setIsOpen(!isOpen);
     setIsMenuOpen(false);
@@ -154,7 +148,6 @@ const onGoProfile = () => {
   };
 
   const openMenuHandler = () => {
-
     setIsMenuOpen(!isMenuOpen);
     setIsOpen(false);
 
@@ -207,85 +200,53 @@ const onGoProfile = () => {
         window.removeEventListener('click', handleDocumentClick);
         
       }  
-    }, [isOpen,isMenuOpen]);
+    }, [isOpen]);
 
-  
 
     return (
       <S.LogoWrap style={{flexDirection:'column'}}>
         <div style={{display:'flex',width:'100%',justifyContent:'space-between'}}>
-
-        <S.LandingWrap  style={{display:'flex',alignItems:'center'}}>
-          <S.LandingLogo src={logo} alt="" onClick={handleGoLandingClick} />
-
-          <S.SmallMenu  onClick={openMenuHandler} ref={smallmenuRef}  />
-          {isMenuOpen &&(
-            <P.DropMenuBar  className={`element ${isMenuOpen ? 'open' : 'hidden'}`}  >
-              <P.CateMenu style={{marginBottom:'1vh'}}onClick={handleGoRecoClick}>#색감 매칭</P.CateMenu>
-              <P.CateMenu onClick={handleGoTestClick}>#취향 테스트</P.CateMenu>
-            </P.DropMenuBar>
-          )}
-          
-          
-          <S.MenuBarWrap style={{marginLeft:20}} onClick={handleGoRecoClick} > 
-            <S.MenuBar style={{ color: isRecoRoute ? '#5d6bb4' : ''}}  data-tooltip-id="colormatching-tooltip" >#색감 매칭</S.MenuBar>
-          </S.MenuBarWrap>
-
-          <S.MenuBarWrap onClick={handleGoTestClick}>
-            <S.MenuBar  style={{ color: isTestRoute ? '#5d6bb4' : ''}}  data-tooltip-id="testmatching-tooltip"> #취향 테스트</S.MenuBar>
-          </S.MenuBarWrap>
-
-          <S.Tool 
-            id="colormatching-tooltip" 
-            place="bottom" >
-            우리의 색감 매칭 기능을 통해 여러분의 사진과 비슷한 색감을 가진 다른 사진을 찾아보세요. <br/>
-            여러분이 원하는 카테고리 중 하나의 사진을 업로드하면, 그와 비슷한 색감을 가진 다른 사진을 찾아드립니다.
-
-          </S.Tool> 
-
-          <S.Tool  
-            id="testmatching-tooltip" 
-            place="bottom" >
-            사진 취향을 발견하고 원하는 사진을 찾기 위한 흥미로운 테스트를 시작하세요.<br/>
-            선택한 카테고리에 따라 원하는 스타일과 옵션을 선택하세요.<br/>
-            선택지 기반으로 맞춤형 사진을 찾아 드립니다.
-          </S.Tool>
-        </S.LandingWrap>
         
+        
+        <MenuTool/>
+        <User/>
+        {/*
         <S.HomeWrap>
-        
-        <P.ProfileWrap>
-          <P.ProfileShow style={accessToken ? {}:{marginTop:0}}>
-            <P.ProfileLogo src={accessToken ? profilelogo : loginlogo} onClick={openModalHandler} ref={dropMenuRef} />
-            {accessToken && <P.Profilename >{nickname}</P.Profilename>}
-            
-          </P.ProfileShow> 
-          {isOpen && (
-            <>
-              {accessToken ? ( // 액세스 토큰이 있는 경우 , 만료된 토큰에 대해 처리했기 때문에 
-              
-                <P.DropMenu className={`element ${isOpen ? 'open' : 'hidden'}`}  >
-                  <P.CateMenu style={{marginBottom:'1vh'}} onClick={onGoProfile}>마이프로필</P.CateMenu>
-                  <P.CateMenu onClick={onNaverLogout}>로그아웃</P.CateMenu>
-                </P.DropMenu>
-              
-              ) : (
-                // 액세스 토큰이 없는 경우
-                <ModalBackdrop onClick={openModalHandler}>
-                  <LoginModal />
-                </ModalBackdrop>
-              )}
-            </>
-          )}
-
-
-          {/* 성공 메시지를 보여주는 부분 */}
-          {showSuccessMessage && (
-            <Popup text="로그아웃 되었습니다."/>
-          )}
           
-        </P.ProfileWrap>
+          <P.ProfileWrap>
+            <P.ProfileShow style={accessToken ? {}:{marginTop:0}}>
+              <P.ProfileLogo src={accessToken ? profilelogo : loginlogo} onClick={openModalHandler} ref={dropMenuRef} />
+              {accessToken && <P.Profilename >{nickname}</P.Profilename>}
+              
+            </P.ProfileShow> 
+            {isOpen && (
+              <>
+                {accessToken ? ( // 액세스 토큰이 있는 경우 , 만료된 토큰에 대해 처리했기 때문에 
+                
+                  <P.DropMenu className={`element ${isOpen ? 'open' : 'hidden'}`}  >
+                    <P.CateMenu style={{marginBottom:'1vh'}} onClick={onGoProfile}>마이프로필</P.CateMenu>
+                    <P.CateMenu onClick={onNaverLogout}>로그아웃</P.CateMenu>
+                  </P.DropMenu>
+                
+                ) : (
+                  // 액세스 토큰이 없는 경우
+                  <ModalBackdrop onClick={openModalHandler}>
+                    <LoginModal />
+                  </ModalBackdrop>
+                )}
+              </>
+            )}
+
+
+            {showSuccessMessage && (
+              <Popup text="로그아웃 되었습니다."/>
+            )}
+            
+          </P.ProfileWrap> 
+          
         </S.HomeWrap>
+
+        */}
         </div>
 
         <hr style={{width:'100%',border:'1.5px solid',color:'black',marginTop:15}}/>
