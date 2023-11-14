@@ -208,8 +208,8 @@ const Header  = props => {
         <div style={{display:'flex',width:'100%',justifyContent:'space-between'}}>
         
         
-        <MenuTool/>
-        <User/>
+        <MenuTool isOpen={isOpen} isMenuOpen={isMenuOpen} openMenuHandler={openMenuHandler}/>
+        <User nickname={nickname} emailId={emailId} isOpen={isOpen} openModalHandler={openModalHandler}/>
         {/*
         <S.HomeWrap>
           

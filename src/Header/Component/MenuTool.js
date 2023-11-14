@@ -8,7 +8,7 @@ import "../DropMenu.css";
 
 import * as P from "../ProfileWrapStyle";
 import logo from "../../Images/imagelogo.png";
-const MenuTool = () => {
+const MenuTool = ({isMenuOpen, openMenuHandler }) => {
 
     const location = useLocation();
     const navigate = useNavigate();
@@ -32,45 +32,47 @@ const MenuTool = () => {
     const handleGoLandingClick = () => {
         navigate("/");
       };
-      const openMenuHandler = () => {
-
-        setIsMenuOpen(!isMenuOpen);
+      const MenuHandler = () => {
+        openMenuHandler();
+        //setIsMenuOpen(!isMenuOpen);
         //setIsOpen(false);
     
       };
 
       const smallmenuRef = useRef(null);
-      const [isMenuOpen, setIsMenuOpen] = useState(false);
-      const [isOpen, setIsOpen] = useState(false); 
+     
+      //const [isMenuOpen, setIsMenuOpen] = useState(false);
+      //const [isOpen, setIsOpen] = useState(false); 
+      console.log("smallmenuRef",smallmenuRef.current);
 
       useEffect(() => {
-        const handleSmallMenuClick = (e) => { // 작동이 안됨 
+        const handleOutsideClick = (e) => {
+          console.log('Outside Click Event', e.target);
+          
           if (smallmenuRef.current && !smallmenuRef.current.contains(e.target)) {
-            setIsMenuOpen(!isMenuOpen);
+            openMenuHandler();
           }
         };
-
-        if(isMenuOpen){
-          window.addEventListener('click', handleSmallMenuClick);
+      
+        if (isMenuOpen) {
+          window.addEventListener('click', handleOutsideClick);
         }
-  
-        return()=>{
-          window.removeEventListener('click', handleSmallMenuClick);
-          
-          
-        }  
-      }, [isMenuOpen]);
+      
+        return () => {
+          window.removeEventListener('click', handleOutsideClick);
+        };
+      }, [isMenuOpen, openMenuHandler]);
     return(
         <>
             <S.LandingWrap  style={{display:'flex',alignItems:'center'}}>
                 <S.LandingLogo src={logo} alt="" onClick={handleGoLandingClick}  />
 
-                <S.SmallMenu  onClick={openMenuHandler}  ref={smallmenuRef} />
+                <S.SmallMenu  onClick={MenuHandler} ref={smallmenuRef}  />
             
                 {isMenuOpen &&(
                     <P.DropMenuBar  className={`element ${isMenuOpen ? 'open' : 'hidden'}`} >
-                    <P.CateMenu style={{marginBottom:'1vh'}}onClick={handleGoRecoClick}>#색감 매칭</P.CateMenu>
-                    <P.CateMenu onClick={handleGoTestClick}>#취향 테스트</P.CateMenu>
+                      <P.CateMenu style={{marginBottom:'1vh'}}onClick={handleGoRecoClick}>#색감 매칭</P.CateMenu>
+                      <P.CateMenu onClick={handleGoTestClick}>#취향 테스트</P.CateMenu>
                     </P.DropMenuBar>
                 )}
             

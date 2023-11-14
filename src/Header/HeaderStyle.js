@@ -3,15 +3,15 @@ import {TbMenu2} from 'react-icons/tb'
 import { Tooltip } from 'react-tooltip'
 
 export const SmallMenu = styled(TbMenu2)`
-display:flex;
+display:none;
   stroke-width:1.5;
   margin-left: 20px;
   width: 41px;
   height: 41px;
   cursor:pointer;
-@media screen and (min-width: 891px)
+@media screen and (max-width: 890px)
 {
-  display:none;
+  display:block;
 }
 `;
 export const LogoWrap = styled.div`

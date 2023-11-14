@@ -8,18 +8,19 @@ import loginlogo from "../../Images/loginBefor.png";
 import profilelogo from "../../Images/loginFin.jpg";
 import { LoginModal } from "../../Modal/LoginModal";
 import { ModalBackdrop } from "../../Modal/ModalStyle";
-const User = ({nickname,emailId}) => {
+const User = ({nickname,emailId, isOpen, openModalHandler}) => {
     const accessToken = localStorage.getItem("access_token");
     const dropMenuRef = useRef(null);
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-    const [isOpen, setIsOpen] = useState(false);
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    //const [isOpen, setIsOpen] = useState(false);
+    //const [isMenuOpen, setIsMenuOpen] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
 
-    const openModalHandler = () => {
-        setIsOpen(!isOpen);
-        setIsMenuOpen(false);
+    const modalHandler = () => {
+        openModalHandler();
+       // setIsOpen(!isOpen);
+        //setIsMenuOpen(false);
       };
 
     const onGoProfile = () => { 
@@ -37,17 +38,46 @@ const User = ({nickname,emailId}) => {
           setShowSuccessMessage(false);
         }, 2000); 
         window.location.reload();
-        setIsOpen(!isOpen);
+        isOpen=!isOpen;
         console.log("로그아웃 되었습니다.");
       };
-
+      useEffect(() => {
+        const handleDocumentClick = (e) => {
+          
+          if (dropMenuRef.current && !dropMenuRef.current.contains(e.target)) {
+            openModalHandler();
+          }
+        };
+        /*
+  
+        const handleSmallMenuClick = (e) => { // 작동이 안됨 
+          if (smallmenuRef.current && !smallmenuRef.current.contains(e.target)) {
+            setIsMenuOpen(!isMenuOpen);
+          }
+        };
+        */
+  
+        if(isOpen){
+          window.addEventListener('click', handleDocumentClick);
+        }
+        /*
+        if(isMenuOpen){
+          window.addEventListener('click', handleSmallMenuClick);
+        }*/
+  
+        return()=>{
+          //window.removeEventListener('click', handleSmallMenuClick);
+          window.removeEventListener('click', handleDocumentClick);
+          
+        }  
+      }, [isOpen]);
 
     return(
         <>
         <S.HomeWrap>
             <P.ProfileWrap>
                 <P.ProfileShow style={accessToken ? {}:{marginTop:0}}>
-                <   P.ProfileLogo src={accessToken ? profilelogo : loginlogo} onClick={openModalHandler} ref={dropMenuRef} />
+                    <P.ProfileLogo src={accessToken ? profilelogo : loginlogo} onClick={modalHandler} ref={dropMenuRef} />
                         {accessToken && <P.Profilename >{nickname}</P.Profilename>} 
                 </P.ProfileShow> 
                 {isOpen && (
@@ -61,7 +91,7 @@ const User = ({nickname,emailId}) => {
                     
                     ) : (
                     // 액세스 토큰이 없는 경우
-                    <ModalBackdrop onClick={openModalHandler}>
+                    <ModalBackdrop onClick={modalHandler}>
                         <LoginModal />
                     </ModalBackdrop>
                     )}
