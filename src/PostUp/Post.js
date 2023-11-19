@@ -16,7 +16,6 @@ function Post() {
   const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [category, setCategory] = useState('');
-    const [profile, setProfile] = useState(''); 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [imageFile, setImageFile] = useState(null);
     const [previewImage, setPreviewImage] = useState(null); // 미리보기 이미지 URL 상태
@@ -50,11 +49,7 @@ function Post() {
 
     const navigate = useNavigate();
   
-    //홈페이지
-    const handleGohomeClick = () => {
-        navigate('/home');
-    };
-    
+
     useEffect(() => {
         // 모델 로드
         const modelUrl = './model_tfjs/model.json';

@@ -34,15 +34,10 @@ const MenuTool = ({isMenuOpen, openMenuHandler }) => {
       };
       const MenuHandler = () => {
         openMenuHandler();
-        //setIsMenuOpen(!isMenuOpen);
-        //setIsOpen(false);
-    
       };
 
       const smallmenuRef = useRef(null);
-     
-      //const [isMenuOpen, setIsMenuOpen] = useState(false);
-      //const [isOpen, setIsOpen] = useState(false); 
+
       console.log("smallmenuRef",smallmenuRef.current);
 
       useEffect(() => {

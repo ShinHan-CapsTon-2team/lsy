@@ -135,33 +135,9 @@ const fetchProfileData = () => {
     });
 };  
 
-// 계정삭제
-const handleDelete = async () => {
-try {
-  const response = await fetch('http://localhost:4001/api/userDel', {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify( {email} ), // PostIds 값을 JSON 형식으로 본문에 추가
-  });
-  if (response.status === 200) {
-    console.log("탈퇴 성공");
-    // 리다이렉트 또는 다른 처리를 수행할 수 있음
-  } else {
-    console.error("탈퇴 실패");
-    // 탈퇴 처리 실패
-  }
-} catch (error) {
-  console.error('에러 발생:', error);
-}
-};
-
-
-  
     return (
         <C.OutWrap style={{height:'100vh'}}>
-            <C.InsideWrap >
+            <C.InsideWrap style={{height:'100%'}}>
                 <Header onData={handleChildData} style={{flex:0}}/>
 
                 <Center style={{flex:1}}>
@@ -213,7 +189,6 @@ try {
                       ))}
                     
                         </GridWrap>
-                   
 
                       <ReactPaginate
                         previousLabel={<Button style={{marginRight:20}}>이전</Button>}

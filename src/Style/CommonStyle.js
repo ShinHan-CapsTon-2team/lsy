@@ -21,7 +21,8 @@ export const InsideWrap = styled.div`
   flex-direction: column;
   align-items: center;
   width: 80%;
-
+  height:100%;
+  
   /* tablet 규격 */
   @media screen and (max-width: 1024px) {
     width: 87%;

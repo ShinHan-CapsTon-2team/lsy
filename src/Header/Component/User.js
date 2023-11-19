@@ -12,15 +12,10 @@ const User = ({nickname,emailId, isOpen, openModalHandler}) => {
     const accessToken = localStorage.getItem("access_token");
     const dropMenuRef = useRef(null);
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-    //const [isOpen, setIsOpen] = useState(false);
-    //const [isMenuOpen, setIsMenuOpen] = useState(false);
     const navigate = useNavigate();
-    const location = useLocation();
 
     const modalHandler = () => {
         openModalHandler();
-       // setIsOpen(!isOpen);
-        //setIsMenuOpen(false);
       };
 
     const onGoProfile = () => { 
@@ -48,25 +43,13 @@ const User = ({nickname,emailId, isOpen, openModalHandler}) => {
             openModalHandler();
           }
         };
-        /*
-  
-        const handleSmallMenuClick = (e) => { // 작동이 안됨 
-          if (smallmenuRef.current && !smallmenuRef.current.contains(e.target)) {
-            setIsMenuOpen(!isMenuOpen);
-          }
-        };
-        */
+
   
         if(isOpen){
           window.addEventListener('click', handleDocumentClick);
         }
-        /*
-        if(isMenuOpen){
-          window.addEventListener('click', handleSmallMenuClick);
-        }*/
-  
+
         return()=>{
-          //window.removeEventListener('click', handleSmallMenuClick);
           window.removeEventListener('click', handleDocumentClick);
           
         }  

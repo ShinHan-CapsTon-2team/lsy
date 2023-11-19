@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 import { ModalBackdrop } from "../Modal/ModalStyle";
 import { ImgModal } from '../Modal/ImgModal';
 
-const Lookup_Content =({ title,nickname,imageurl,description,created_at,id,writer}) => {
+const Lookup_Content =({ title,nickname,imageurl,description,created_at,writer}) => {
     
     const navigate = useNavigate();
     

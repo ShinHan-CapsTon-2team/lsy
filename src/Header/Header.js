@@ -1,21 +1,12 @@
 import React,{useState,useEffect,useRef } from "react";
-import { useNavigate ,useLocation} from "react-router-dom";
-import logo from "../Images/imagelogo.png";
-import loginlogo from "../Images/loginBefor.png";
-import profilelogo from "../Images/loginFin.jpg";
-import * as S from "./HeaderStyle";
-import { LoginModal } from "../Modal/LoginModal";
-import * as P from "./ProfileWrapStyle";
-import { ModalBackdrop } from "../Modal/ModalStyle";
-import { Popup } from "../Modal/Popup";
+import {useLocation} from "react-router-dom";
 import MenuTool from "./Component/MenuTool.js";
 import User from "./Component/User.js"
 import styled from 'styled-components';
+import * as S from "./HeaderStyle";
 const Header  = props => {
   const location = useLocation();
   const accessToken = localStorage.getItem("access_token");
-  
-  const navigate = useNavigate();
 
   const [access_Token, setAccessToken] = useState('');
   const [userInfo, setUserInfo] = useState(null); 
@@ -23,7 +14,6 @@ const Header  = props => {
   const [userinfo, setUserinfo] = useState([]);
   const [nickname, setNickname] = useState('');
   const [isOpen, setIsOpen] = useState(false); // 모달창때문에 있는거 삭제 노
-  const [showSuccessMessage, setShowSuccessMessage] = useState(false); // 로그아웃 성공 여부 
   const [currentPath, setCurrentPath] = useState(location.pathname);// currentPath 상태 정의 및 초기화
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { onData } = props;
@@ -126,21 +116,6 @@ const Header  = props => {
   }, [location.pathname,accessToken]); 
 
 
-  const handleGoLandingClick = () => {
-    navigate("/");
-  };
-  const handleGoRecoClick = () => {
-    navigate("/reco");
-  };
-  const handleGoTestClick = () => {
-    navigate("/quizindex");
-  };
-
-
- 
-  const onGoProfile = () => { 
-    navigate(`/profile/${emailId}`);  
-  };
   const openModalHandler = () => {
     setIsOpen(!isOpen);
     setIsMenuOpen(false);
@@ -153,100 +128,15 @@ const Header  = props => {
 
   };
   
-  const onNaverLogout = () => {
-    //로그아웃 처리 코드
-    localStorage.removeItem("access_token"); // 토큰 살아있음 
-
-    setShowSuccessMessage(true); // 로그아웃 후 모달 
-
-    // 2초 후에 성공 메시지를 숨김
-    setTimeout(() => {
-      setShowSuccessMessage(false);
-    }, 2000); 
-    window.location.reload();
-    setIsOpen(!isOpen);
-    console.log("로그아웃 되었습니다.");
-  };
-  const dropMenuRef = useRef(null);
-  const smallmenuRef = useRef(null);
-    
   
-    useEffect(() => {
-      const handleDocumentClick = (e) => {
-        
-        if (dropMenuRef.current && !dropMenuRef.current.contains(e.target)) {
-          setIsOpen(!isOpen);
-        }
-      };
-      /*
-
-      const handleSmallMenuClick = (e) => { // 작동이 안됨 
-        if (smallmenuRef.current && !smallmenuRef.current.contains(e.target)) {
-          setIsMenuOpen(!isMenuOpen);
-        }
-      };
-      */
-
-      if(isOpen){
-        window.addEventListener('click', handleDocumentClick);
-      }
-      /*
-      if(isMenuOpen){
-        window.addEventListener('click', handleSmallMenuClick);
-      }*/
-
-      return()=>{
-        //window.removeEventListener('click', handleSmallMenuClick);
-        window.removeEventListener('click', handleDocumentClick);
-        
-      }  
-    }, [isOpen]);
-
 
     return (
       <S.LogoWrap style={{flexDirection:'column'}}>
         <div style={{display:'flex',width:'100%',justifyContent:'space-between'}}>
-        
-        
-        <MenuTool isOpen={isOpen} isMenuOpen={isMenuOpen} openMenuHandler={openMenuHandler}/>
-        <User nickname={nickname} emailId={emailId} isOpen={isOpen} openModalHandler={openModalHandler}/>
-        {/*
-        <S.HomeWrap>
-          
-          <P.ProfileWrap>
-            <P.ProfileShow style={accessToken ? {}:{marginTop:0}}>
-              <P.ProfileLogo src={accessToken ? profilelogo : loginlogo} onClick={openModalHandler} ref={dropMenuRef} />
-              {accessToken && <P.Profilename >{nickname}</P.Profilename>}
-              
-            </P.ProfileShow> 
-            {isOpen && (
-              <>
-                {accessToken ? ( // 액세스 토큰이 있는 경우 , 만료된 토큰에 대해 처리했기 때문에 
-                
-                  <P.DropMenu className={`element ${isOpen ? 'open' : 'hidden'}`}  >
-                    <P.CateMenu style={{marginBottom:'1vh'}} onClick={onGoProfile}>마이프로필</P.CateMenu>
-                    <P.CateMenu onClick={onNaverLogout}>로그아웃</P.CateMenu>
-                  </P.DropMenu>
-                
-                ) : (
-                  // 액세스 토큰이 없는 경우
-                  <ModalBackdrop onClick={openModalHandler}>
-                    <LoginModal />
-                  </ModalBackdrop>
-                )}
-              </>
-            )}
 
+          <MenuTool isOpen={isOpen} isMenuOpen={isMenuOpen} openMenuHandler={openMenuHandler}/>
+          <User nickname={nickname} emailId={emailId} isOpen={isOpen} openModalHandler={openModalHandler}/>
 
-            {showSuccessMessage && (
-              <Popup text="로그아웃 되었습니다."/>
-            )}
-            
-          </P.ProfileWrap> 
-          
-        </S.HomeWrap>
-
-        */}
         </div>
 
         <hr style={{width:'100%',border:'1.5px solid',color:'black',marginTop:15}}/>

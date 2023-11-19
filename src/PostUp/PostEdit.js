@@ -10,7 +10,7 @@ import * as C from "../Style/CommonStyle";
 const SERVER_URL= 'http://localhost:4000/api/postedit';
 
 function PostEdit() {
-  const [post, setPost] = useState({});
+    const [post, setPost] = useState({});
     const [updatedPost, setUpdatedPost] = useState([]);
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
