@@ -166,11 +166,19 @@ const handlePageClick = async ({ selected }) => {
 
     const handelGoEdit = () => {
         navigate(`/postedit/${id}`); 
+<<<<<<< Updated upstream
     };
     let nick="";
     const handleGoProfile = () => {
       navigate(`/profile/${emailId}`);
     };
+=======
+    }; 
+    console.log("누구야",nickname);
+    console.log("userEmail:",userEmails);
+    console.log("현재 게시글 주인?:",email);
+    console.log("가져온 이미지들 :",images);
+>>>>>>> Stashed changes
     return (  
         
         <C.OutWrap>

@@ -6,9 +6,14 @@ import { useNavigate } from 'react-router-dom';
 import Loading from '../Component/Loading';
 import upload from '../Images/upload.png'; 
 import { Popup } from "../Modal/Popup";
+<<<<<<< Updated upstream
 import { AiFillQuestionCircle } from 'react-icons/ai';
 import { InfoModal } from '../Modal/InfoModa';
 import * as C from "../Style/CommonStyle";
+=======
+
+  
+>>>>>>> Stashed changes
 //모델파일 사용안함
 //히스토그램 기반 메트릭스 
 // 두 이미지 간의 히스토그램 오버랩을 계산하는 
@@ -33,14 +38,15 @@ function Reco() {
       'wedding',
       'unknown'
     ];
-
+ 
+    const navigate = useNavigate();
     const [dataFromChild, setDataFromChild] = useState({})
     const handleChildData = (data) => {
       // 자식 컴포넌트로부터 받은 데이터를 처리
       setDataFromChild(data);
     };
-    const navigate = useNavigate();
 
+    
     useEffect(() => {
       // 모델 로드
       const modelUrl = './model_tfjs/model.json';
@@ -156,9 +162,15 @@ function Reco() {
       }, 2000);
     console.log("실패");
   }
+<<<<<<< Updated upstream
   };
     
   const getImageData = (file) => {
+=======
+};
+      
+const getImageData = (file) => {
+>>>>>>> Stashed changes
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = (event) => {
@@ -218,10 +230,17 @@ function Reco() {
   } catch (error) {
     console.error('Error calculating cosine similarity:', error);
   }
+<<<<<<< Updated upstream
   };
 
   // 이미지가 컬러 이미지인지 여부를 확인하는 함수
   const isColorImage = (imageData) => {
+=======
+};
+ 
+// 이미지가 컬러 이미지인지 여부를 확인하는 함수
+const isColorImage = (imageData) => {
+>>>>>>> Stashed changes
   for (let i = 0; i < imageData.data.length; i += 4) {
     const r = imageData.data[i];
     const g = imageData.data[i + 1];
@@ -231,10 +250,17 @@ function Reco() {
     }
   }
   return false; // 모든 색상 채널이 동일한 경우, 흑백 이미지로 간주
+<<<<<<< Updated upstream
   };
 
   // 히스토그램 계산 함수 (흑백 이미지 또는 컬러 이미지의 각 채널에 대한 히스토그램을 계산)
   const calculateHistogram = (imageData, channelCount) => {
+=======
+};
+
+// 히스토그램 계산 함수 (흑백 이미지 또는 컬러 이미지의 각 채널에 대한 히스토그램을 계산)
+const calculateHistogram = (imageData, channelCount) => {
+>>>>>>> Stashed changes
   const histogram = Array(256).fill(0); // 히스토그램 배열 초기화
 
   for (let i = 0; i < imageData.data.length; i += 4) {
@@ -245,10 +271,17 @@ function Reco() {
   }
 
   return histogram;
+<<<<<<< Updated upstream
   };
 
   // calculateImageSimilarityMatrix 함수 내에서 컬러 이미지와 흑백 이미지 모두 처리되도록 수정
   const calculateImageSimilarityMatrix = async (imagePaths) => {
+=======
+};
+
+// calculateImageSimilarityMatrix 함수 내에서 컬러 이미지와 흑백 이미지 모두 처리되도록 수정
+const calculateImageSimilarityMatrix = async (imagePaths) => {
+>>>>>>> Stashed changes
   try {
     if (!model || !imageFile || imagePaths.length === 0) {
       console.error('모델 또는 이미지를 사용할 수 없습니다.');
@@ -326,7 +359,11 @@ function Reco() {
   } catch (error) {
     console.error('이미지 유사성 메트릭스 계산 중 오류:', error);
   }
+<<<<<<< Updated upstream
   };
+=======
+};
+>>>>>>> Stashed changes
 
 
   // 피어슨 상관 계수 계산 함수
@@ -357,10 +394,78 @@ function Reco() {
         setIsOpenInfoReco(!isOpenInfoReco) 
     };
 
+
+
+       
+// 피어슨 상관 계수 계산 함수
+const calculatePearsonCorrelation = (vectorA, vectorB) => {
+const meanA = vectorA.reduce((acc, value) => acc + value, 0) / vectorA.length;
+const meanB = vectorB.reduce((acc, value) => acc + value, 0) / vectorB.length;
+
+let numerator = 0;
+let denominatorA = 0;
+let denominatorB = 0;
+
+for (let i = 0; i < vectorA.length; i++) {
+         const deviationA = vectorA[i] - meanA;
+         const deviationB = vectorB[i] - meanB;
+         numerator += deviationA * deviationB;
+         denominatorA += deviationA ** 2;
+         denominatorB += deviationB ** 2;
+}
+
+const correlation = numerator / Math.sqrt(denominatorA * denominatorB);
+
+return isNaN(correlation) ? 0 : correlation; // NaN 처리
+};
+
+const handleDragOver = (event) => {
+  event.preventDefault();
+};
+
+const handleDrop = (event) => {
+  event.preventDefault();
+  const imageFile = event.dataTransfer.files[0];
+  if (
+    imageFile &&
+    (imageFile.type === 'image/jpeg' ||
+      imageFile.type === 'image/png' ||
+      imageFile.type === 'image/jpg') &&
+    imageFile.size <= 30 * 1024 * 1024
+  ) {
+    const reader = new FileReader();
+    reader.onload = async (event) => {
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = async () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+
+        setImageFile(imageFile);
+        setPreviewImage(URL.createObjectURL(imageFile));
+      };
+      img.src = event.target.result;
+    };
+    reader.readAsDataURL(imageFile);
+  } else {
+    setImageFile(null);
+    setPreviewImage(null);
+    setSizeFile(true);
+
+    setTimeout(() => {
+      setSizeFile(false);
+    }, 2000);
+    console.log("실패");
+  }
+};
     return (
       <>
         {isLoading ?(
           <Loading what="유사한 이미지를 찾고 있습니다" />
+<<<<<<< Updated upstream
         ):(
         <C.OutWrap style={{height: '100%',position: 'absolute'}}>
           
@@ -370,6 +475,14 @@ function Reco() {
             {/* 컨텐츠 */}
             <Center style={{flex:1}}>
     
+=======
+        ):(<OutWrap>
+            <InOutWrap onDragOver={handleDragOver} onDrop={handleDrop}>
+              {/* 로고 */}
+              <Header onData={handleChildData} />
+              {/* 컨텐츠 */}
+          <Center>
+>>>>>>> Stashed changes
               <InLayoutOne>
                 <Content>
                   <Five> 

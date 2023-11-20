@@ -82,7 +82,6 @@ const goToWorkUpload =()=>{
 };
 
 
-
 //페이지
 const handlePageClick = async ({ selected }) => {
   const newPage = selected + 1;
@@ -92,12 +91,10 @@ const handlePageClick = async ({ selected }) => {
     const response = await fetch(
       `http://localhost:4003/api/profile/${emailId}?page=${newPage}&postsPerPage=${postsPerPage}`
     );
-
     if (!response.ok) {
       throw new Error("페이지를 불러오는 데 문제가 발생했습니다.");
     }
-
-    const { data, totalCount } = await response.json();
+    const {data, totalCount} = await response.json();
 
     if (data.length > 0) {
       setCurrentPosts(data);
@@ -134,7 +131,12 @@ const fetchProfileData = () => {
       console.error('Error fetching profile data for other user:', error);
     });
 };  
+<<<<<<< Updated upstream
 
+=======
+ 
+  
+>>>>>>> Stashed changes
     return (
         <C.OutWrap style={{height:'100vh'}}>
             <C.InsideWrap style={{height:'100%'}}>
