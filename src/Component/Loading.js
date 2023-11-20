@@ -14,8 +14,6 @@ const override = {
 const OutWrap = styled.div`
   width: 100%;
   height: 100%;
-  //padding: 0; margin: 0;
-  //overflow: hidden;
   background: white;
   position: absolute;
   display: flex;
@@ -29,7 +27,6 @@ const OutWrap = styled.div`
 const Tex = styled.span`
 color:#798BE6;
 margin-bottom:15px;
-//font-size:20px;
 ${FontStyle};
 `;
 

@@ -1,15 +1,17 @@
 import React, {useParams ,useNavigate} from 'react-router-dom';
 import { useEffect,useState } from 'react'
-import Header from '../Component/Header';
-import Lookup_Content from '../Component/Lookup_Content';
+import Header from '../Header/Header';
+import Lookup_Content from './Lookup_Content';
 import * as S from './LookupStyle' 
 import { DeleteModal } from '../Modal/DeleteModal';
 import ReactPaginate from 'react-paginate';
 import styled from "styled-components";
 import './Paging.css'
-
+import * as M from "../Modal/ModalStyle";
 import {HiChevronDoubleLeft} from "react-icons/hi";
 import {HiChevronDoubleRight} from "react-icons/hi";
+
+import * as C from "../Style/CommonStyle";
 const SERVER_URL= 'http://localhost:4000/api/lookup';
 
 function Images_Lookup() {
@@ -29,10 +31,12 @@ function Images_Lookup() {
     const [dataFromChild, setDataFromChild] = useState({}); 
     const pageCount = Math.ceil(TotalCount / postsPerPage);
     const [nickname,setNickname]=useState([]);
+    
     const handleChildData = (data) => {
         // 자식 컴포넌트로부터 받은 데이터를 처리
         setDataFromChild(data);
     };
+ 
     const [isMine,setIsMine]= useState(false); // 현 게시글이 내꺼인지 
     const isMe= dataFromChild.emailid;
     console.log("지금 로그인 한 사람 누구야 :",isMe);
@@ -105,14 +109,11 @@ const handlePageClick = async ({ selected }) => {
         
                 const data = await response.json();
                 setEmail(data.userEmail)
-                
-                setNickname(data.nickname);
                 const userEmailFromServer = data.userEmail; // 서버에서 받은 이메일
-                const userNicknameFromServer = data.nickname;
 
                 // 이메일 아이디 추출 (이메일에서 "@" 이후의 부분을 제외)
                 const emailId = userEmailFromServer.split('@')[0];
-        
+                
                 console.log("emailId:",emailId);
                 setUserEmails(emailId);
                 
@@ -161,27 +162,26 @@ const handlePageClick = async ({ selected }) => {
     getUserList();
     }, [id]);
     
-
+    console.log("setNickname:",nickname);
 
     const handelGoEdit = () => {
         navigate(`/postedit/${id}`); 
     };
-  
-    console.log("누구야",nickname);
-    console.log("userEmail:",userEmails);
-    console.log("현재 게시글 주인?:",email);
-    console.log("가져온 이미지들 :",images);
+    let nick="";
+    const handleGoProfile = () => {
+      navigate(`/profile/${emailId}`);
+    };
     return (  
         
-        <S.OutWrap>
-            <S.InOutWrap>
+        <C.OutWrap>
+            <C.InsideWrap >
                     
                 <Header onData={handleChildData}/>
 
                 <S.Center>
                   {user.map((uu)=>{
                       let imageUrl = uu.image_url; // 이미지 URL 사용
-                      
+                      nick=(uu.nickname);
                       return(
                               <Lookup_Content 
                                   key={uu.id} 
@@ -196,18 +196,17 @@ const handlePageClick = async ({ selected }) => {
                               )
                           }
                       )} 
- 
-                  
+
                   {!isMine ? (
                   <>
                     <ListallWrap> 
-                      <ListallText> 모든 게시글 목록 </ListallText>
+                      <ListallText> <Nick onClick={handleGoProfile}>{nick}</Nick> 의 모든 게시글 목록 </ListallText>
                     </ListallWrap>
 
                     <ListPostShowWrap >
-                      <GridWrap style={{position:'relative',}}>
+                      <GridWrap style={{position:'relative',zIndex:2}}>
                       {images.map((image, index) => (
-                          <GridDiv key={index}>
+                          <GridDiv key={index} onClick={() => handleImagesClick(PostIds[index])}>
                               <GridImg src={image} onClick={() => handleImagesClick(PostIds[index])}  alt="사진" />
                           </GridDiv>
                         ))}
@@ -231,7 +230,7 @@ const handlePageClick = async ({ selected }) => {
                     
                     ) : null}
 
-                  {isMine|| isMe ===  'zxcva98657'  ? ( //수정된 부분 1017, 관리자 수정, 삭제버튼 보이도록 
+                  {isMine|| isMe ===  'zxcva98657'  ? ( 
                   <S.InLayoutTwo> 
                       <S.Buttons>
                       <S.Right> 
@@ -242,7 +241,11 @@ const handlePageClick = async ({ selected }) => {
                           <S.DelectButton onClick={openModalHandler}>
                           삭제
                           </S.DelectButton>
-                          {isOpen ? (<DeleteModal isId={id} openModalHandler={openModalHandler}/>) : null}
+                          {isOpen ? (
+                            <M.ModalBackdrop onClick={openModalHandler}>
+                                <DeleteModal isId={id} profilego={isMe} openModalHandler={openModalHandler}/>
+                            </M.ModalBackdrop>
+                          ) : null}
                       </S.Right>
                       </S.Buttons>
                   </S.InLayoutTwo>
@@ -251,9 +254,9 @@ const handlePageClick = async ({ selected }) => {
 
                 </S.Center>
                     
-            </S.InOutWrap>
+            </C.InsideWrap>
             
-        </S.OutWrap>
+        </C.OutWrap>
     );
 };
 
@@ -265,19 +268,21 @@ grid-template-columns: repeat(4, 1fr);
 grid-template-rows: repeat(1, 1fr);
 gap: 10px;
 height: auto;
-
+cursor:pointer;
 
 /* tablet 규격 */
 @media screen and (max-width: 1023px){
   
 }
 @media screen and (max-width: 850px){
-  
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 5px;
 }
 /* mobile 규격 */
 @media screen and (max-width: 540px){
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(10, 1fr);
+  grid-template-rows: repeat(2, 1fr);
   gap: 5px;
 }
 /* s 데스크 */
@@ -291,23 +296,23 @@ height: auto;
 
 const GridDiv = styled.div`
   width: 100%;
-  height: 36vh;
+  height: 39vh;
   border-radius: 10px;
   overflow: hidden;
-
+  cursor:pointer;
   /* tablet 규격 */
-  @media screen and (max-width: 1023px){
-    height: 26vh;
+  @media screen and (max-width: 1024px){
+    height: 30vh;
   }
   @media screen and (max-width: 850px){
-    height: 24vh;
+    height: 35vh;
   }
   /* mobile 규격 */
   @media screen and (max-width: 540px){
     height: 30vh;
   }
   /* s 데스크 */
-  @media screen and (min-width: 1024px){
+  @media screen and (min-width: 1025px){
       
   }
   /* l 데스크 */
@@ -321,6 +326,8 @@ const GridImg = styled.img`
   height: 100%;
   border-radius: 10px; 
   object-fit: cover;
+  cursor:pointer;
+  
 `;
 
 export const Radius = styled.button`
@@ -357,7 +364,7 @@ export const FontStyle = {
       fontSize: 24,
     },
     "@media screen and (min-width: 1700px)": {
-      fontSize: 37,
+      fontSize: 30,
     },
   };
   
@@ -398,11 +405,30 @@ const ButtonStyle = {
   color: 'black',
   width: 45,
   height: 45,
-
   '&:hover': {
     color: '#5d6bb4'
+  },
+  '@media screen and (max-width: 1024px)': {
+   
+  },
+  '@media screen and (max-width: 850px)': {
+    width: 50,
+    height: 50,
+  },
+  '@media screen and (max-width: 540px)': {
+    width: 50,
+    height: 50,
+  },
+  '@media screen and (min-width: 1025px)': {
+    width: 50,
+    height: 50,
+  },
+  '@media screen and (min-width: 1700px)': {
+    width: 60,
+    height: 60,
   }
 };
+
 
 const PreButton = styled(HiChevronDoubleLeft)`
 ${ButtonStyle}`;
@@ -426,13 +452,44 @@ width: 100%;
   display: flex;
   justify-content: center;
   margin-bottom: 5vh;
+  z-index:2;
 `;
 
 const PageWrap = styled.div`
   position: absolute;
- // z-index: 2;
   top: 100px;
   width: 115%;
-`;
+  z-index:1;
+  @media screen and (max-width: 1024px){
 
+  }
+  
+  @media screen and (max-width: 850px){
+    top: 240px;
+  }
+  /* mobile 규격 */
+  @media screen and (max-width: 540px){
+    width: 120%;
+    top: 200px;
+  }
+  
+  /* s 데스크 */
+  @media screen and (min-width: 1025px){
+    top: 120px;
+  }
+  /* l 데스크 */
+  @media screen and (min-width: 1700px){
+    top: 170px;
+  }
+
+`;
+const Nick = styled.span`
+color: gray;
+//color: #798BE6;
+cursor:pointer;
+
+&:hover{
+  color: #5d6bb4;
+}
+`;
 

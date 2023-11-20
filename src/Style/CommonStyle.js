@@ -4,6 +4,42 @@ import { BsPlusCircleFill } from "react-icons/bs";
 
 import {PiUserCircleThin} from 'react-icons/pi'
 
+
+export const OutWrap = styled.div`
+  width: 100%;
+  height: 97.6vh;
+  position: relative;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;  
+export const InsideWrap = styled.div`
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  height:100%;
+  
+  /* tablet 규격 */
+  @media screen and (max-width: 1024px) {
+    width: 87%;
+  }
+
+  /* mobile 규격 */
+  @media screen and (max-width: 540px) {
+    width: 95%;
+  }
+  /* s 데스크 */
+  @media screen and (min-width: 1025px) {
+  }
+  /* l 데스크 */
+  @media screen and (min-width: 1700px) {
+    width: 75%;
+  }
+`;
 export const StyledPiUserCircleThin = styled(PiUserCircleThin)`
 width:65px;
 height:65px; //+2
@@ -58,8 +94,8 @@ export const StyledBsPlusCircleFill = styled(BsPlusCircleFill)`
     height: 70px;
   }
   @media screen and (min-width: 1700px) {
-    width: 90px;
-    height: 90px;
+    width: 75px;
+    height: 75px;
   }
 `;
 export const FontStyle = {
@@ -80,6 +116,6 @@ export const FontStyle = {
     fontSize: 24,
   },
   "@media screen and (min-width: 1700px)": {
-    fontSize: 37,
+    fontSize: 30,
   },
 };

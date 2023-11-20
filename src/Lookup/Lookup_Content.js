@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 import { ModalBackdrop } from "../Modal/ModalStyle";
 import { ImgModal } from '../Modal/ImgModal';
 
-const Lookup_Content =({ title,nickname,imageurl,description,created_at,id,writer}) => {
+const Lookup_Content =({ title,nickname,imageurl,description,created_at,writer}) => {
     
     const navigate = useNavigate();
     
@@ -62,7 +62,7 @@ const Lookup_Content =({ title,nickname,imageurl,description,created_at,id,write
                             <S.NameFont onClick={handleGoProfile}>{nickname || 'none'}</S.NameFont>
                         </S.WrapBasic>
 
-                        <S.WrapBasic style={{width:'auto',marginLeft:10}}> {/* 날짜 */}
+                        <S.WrapBasic style={{width:'auto',marginLeft:20}}> {/* 날짜 */}
                             <S.At>{postdate || 'none'}</S.At>
                         </S.WrapBasic>
                     
@@ -80,7 +80,7 @@ const Lookup_Content =({ title,nickname,imageurl,description,created_at,id,write
                     </S.BoxRadius>
 
                     {isOpen && (
-                        <ModalBackdrop style={{overflowY:'initial'}}onClick={openModalHandler}>
+                        <ModalBackdrop style={{overflowY:'initial', zIndex:99}}onClick={openModalHandler}>
                             <ImgModal 
                             imgurl={imageurl}openModalHandler={openModalHandler}/>
                         </ModalBackdrop>

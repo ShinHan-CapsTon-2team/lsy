@@ -36,25 +36,22 @@ const GlobalStyles = createGlobalStyle`
 ${reset}
 
 html, body {
-	//font-weight:600;
   font-family: 'GmarketSansMedium';
-  //font-weight:600;
     height: 100%;
     width: 100%;
     padding: 0;
     margin: 0;
   }
 
+
   button{
-    //font-weight:600;
     font-family: 'GmarketSansMedium';
-    //font-weight:600;
 
 	&:hover {
 		background: #5d6bb4;
 	  }
 	  cursor: pointer;
-	border:none;
+	  border:none;
   }
 `;
 export default GlobalStyles;

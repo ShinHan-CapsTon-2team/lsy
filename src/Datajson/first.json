@@ -5,7 +5,7 @@
         [
             {
                 
-                "selectCriteria":"장소",
+                "selectCriteria":"원하는 장소를 선택해주세요",
                 "select": [
                     {
                         "type":"a",

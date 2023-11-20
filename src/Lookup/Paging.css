@@ -9,6 +9,7 @@
   .paginations li, .pages.paginations li {
     display: inline;
     margin: 0 2px;
+    
   }
   
   .paginations a, .pages.paginations a {

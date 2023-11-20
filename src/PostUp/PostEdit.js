@@ -3,15 +3,14 @@ import { useParams } from 'react-router-dom';
 import * as tf from '@tensorflow/tfjs'; //npm i @tensorflow/tfjs
 import '@tensorflow/tfjs-backend-webgl'; //npm i @tensorflow/tfjs-backend-webgl
 import { useNavigate } from 'react-router-dom';
-import upload from '../Images/upload.png';
 import  * as S from './PostStyle'
-import Header from '../Component/Header';
-import Loading from '../Component/Loading';
+import Header from "../Header/Header";
 import { Popup } from "../Modal/Popup";
+import * as C from "../Style/CommonStyle";
 const SERVER_URL= 'http://localhost:4000/api/postedit';
 
 function PostEdit() {
-  const [post, setPost] = useState({});
+    const [post, setPost] = useState({});
     const [updatedPost, setUpdatedPost] = useState([]);
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
@@ -26,6 +25,7 @@ function PostEdit() {
     const [getloading, setGetLoading] = useState(false);
     const [showErrorMessage, setShowErrorMessage] = useState(false); // 수정 실패
     const [showSuccessMessage, setShowSuccessMessage] = useState(false); // 수정 성공
+    const [sizeFile,setSizeFile]= useState(false); // 10MB, 정적 이미지 파일이 아닐 경우 
     const [showMessage, setShowMessage] = useState(false); // 카테고리 분류 중 
     const [dataFromChild, setDataFromChild] = useState({});
     const classLabels = [
@@ -59,8 +59,8 @@ function PostEdit() {
     // 자식 컴포넌트로부터 받은 데이터를 처리
     setDataFromChild(data);
   };
-
-    const navigate = useNavigate();
+  
+  const navigate = useNavigate();
   
  
     //데이터 가져오기 위해 
@@ -231,19 +231,27 @@ const handleImageFileChange = async (event, index) => {
         i === index ? { 
           ...post, 
           imagePreviewUrl: imageUrl, 
-         newImageFile: imageFile, 
+          newImageFile: imageFile, 
           category: categoryToSet  
         } : post
       )
     );
-   
     // 카테고리 정보 설정
     setCategory(categoryToSet);
     console.log('Updated image:', imageFile);
   } else {
-    //선택한 파일이 이미지 파일이 아니거나 크기가 유효하지 않을 경우, 이미지 관련 상태를 초기화
+    
     setImageFile(null);
     setPreviewImage(null);
+
+    //10MB, 정적 이미지 파일이 아닐 경우 
+    setSizeFile(true);
+
+    setTimeout(() => 
+    {
+      setSizeFile(false);
+      }, 2000);
+    console.log("실패");
   }
 };
 
@@ -320,6 +328,7 @@ const handleCategorySelect = (selectedCategory, index) => {
     setTimeout(() => {
     setShowErrorMessage(false);
     }, 2000);
+  
   }
 };
 
@@ -333,136 +342,131 @@ const handleCategorySelect = (selectedCategory, index) => {
     const handleMenuToggle = () => { //메뉴열기/닫기
         setIsMenuOpen(!isMenuOpen);
     };
-    return (
-        <>
-        {getloading ? (
-            // 로딩 중일 때
-            <Loading what="Loading" />
-        ) : (
-            //로딩 끝나면 
-            <S.OutWrap>
-              <S.InOutWrap>            
-                  {/* 로고 */}        
-                  <Header onData={handleChildData}/>
-                  {/* 내용 */} 
-                  <S.Center>
-                    <S.InLayoutOne>
-                      <S.Content>
-                          {updatedPost && updatedPost.map((post, index) => {
-                            const imageUrl = post.image_url;
-              
-                            return (
-                                <div key={index}>
-                                  <S.One>
-                                    <S.WrapAuto>
-                                        <S.InputBasic
-                                            type="text"
-                                            name="title"
-                                            value={post.title}
-                                            onChange={e => handleChange(e, index, "title")}
-                                        />
-                                    </S.WrapAuto>
-                                  </S.One>
+
+    return (  
+      <C.OutWrap>
+        <C.InsideWrap>            
+            {/* 로고 */}        
+            <Header onData={handleChildData}/>
+            {/* 내용 */} 
+            <S.Center>
+              <S.InLayoutOne>
+                <S.Content>
+                    {updatedPost && updatedPost.map((post, index) => {
+                      const imageUrl = post.image_url;
+        
+                      return (
+                          <div key={index}>
+                            <S.One>
+                              <S.WrapAuto>
+                                  <S.InputBasic
+                                      type="text"
+                                      name="title"
+                                      value={post.title}
+                                      onChange={e => handleChange(e, index, "title")}
+                                  />
+                              </S.WrapAuto>
+                            </S.One>
 
 
-                                  <S.Two>
-                                    <S.WrapPer>
-                                      <S.TextareaBasic
-                                        value={post.description}
-                                        onChange={e =>
-                                          handleChange(e, index, "description")
-                                        }
-                                        placeholder="설명"
-                                      />
-                                    </S.WrapPer>
-                                  </S.Two>
+                            <S.Two>
+                              <S.WrapPer>
+                                <S.TextareaBasic
+                                  value={post.description}
+                                  onChange={e =>
+                                    handleChange(e, index, "description")
+                                  }
+                                  placeholder="설명"
+                                />
+                              </S.WrapPer>
+                            </S.Two>
 
-                                  <S.Three>
-                                    <S.SelectImg src={post.imagePreviewUrl || imageUrl} alt={`게시글 이미지`} />
-                                    <S.FindImg >
-                                      <S.Menu onClick={() => document.getElementById('fileInput').click()}>내 파일 찾기</S.Menu>
-                                    </S.FindImg>
+                            <S.Three>
+                              <S.SelectImg src={post.imagePreviewUrl || imageUrl} alt={`게시글 이미지`} />
+                              <S.FindImg >
+                                <S.Menu onClick={() => document.getElementById('fileInput').click()}>내 파일 찾기</S.Menu>
+                              </S.FindImg>
 
-                                    <S.FileBox 
-                                        id="fileInput"
-                                        type="file"
-                                        accept="image/jpg, image/png ,image/jpeg"
-                                        onChange={(e) => handleImageFileChange(e, index, 'image_url')}
-                                    />
+                              <S.FileBox 
+                                  id="fileInput"
+                                  type="file"
+                                  accept="image/jpg, image/png ,image/jpeg"
+                                  onChange={(e) => handleImageFileChange(e, index, 'image_url')}
+                              />
 
-                                    {previewImage && 
-                                    <S.SelectImg src={previewImage} alt="Preview" />}      
-                                  </S.Three>
+                              {previewImage && 
+                              <S.SelectImg src={previewImage} alt="Preview" />}      
+                            </S.Three>
 
-                                </div>
-                            );
-                          })}
-                      </S.Content>
-                    </S.InLayoutOne>
+                          </div>
+                      );
+                    })}
+                </S.Content>
+              </S.InLayoutOne>
 
-                    <S.InLayoutTwoH>
-                        <S.Buttons >
-                          {updatedPost.map((post, index) => (
-                              <S.Left key={index}>
-                              <S.ButtonOne onClick={handleMenuToggle} show={showMessage}>
+              <S.InLayoutTwoH>
+                  <S.Buttons >
+                    {updatedPost.map((post, index) => (
+                        <S.Left key={index}>
+                        <S.ButtonOne onClick={handleMenuToggle} show={showMessage}>
 
-                              {showMessage ? (
-                                <S.Menu>카테고리 분류 중</S.Menu>
-                              ) : (
-                                (post.category && categoryLabels[post.category]) ? (
-                                  <S.Menu>{categoryLabels[post.category]}</S.Menu>
-                                ) : (
-                                  <S.Menu>{post.category}</S.Menu>
-                                )
+                        {showMessage ? (
+                          <S.Menu>카테고리 분류 중</S.Menu>
+                        ) : (
+                          (post.category && categoryLabels[post.category]) ? (
+                            <S.Menu>{categoryLabels[post.category]}</S.Menu>
+                          ) : (
+                            <S.Menu>{post.category}</S.Menu>
+                          )
+                        )}
+
+                            <S.DropContainer>
+
+                              {isMenuOpen && (
+                                <S.DropMenu > {/* 스타일 수정 */}
+                                
+                                  <S.CateMenu onClick={() => handleCategorySelect(classLabels[0], index)}>{classLabels[0]}</S.CateMenu>
+                                  <S.CateMenu onClick={() => handleCategorySelect(classLabels[1], index)}>{classLabels[1]}</S.CateMenu>
+                                  <S.CateMenu onClick={() => handleCategorySelect(classLabels[2], index)}>{classLabels[2]}</S.CateMenu>
+                                  <S.CateMenu onClick={() => handleCategorySelect(classLabels[3], index)}>{classLabels[3]}</S.CateMenu>
+                                  <S.CateMenu onClick={() => handleCategorySelect(classLabels[4], index)}>{classLabels[4]}</S.CateMenu>
+                                  <S.CateMenu onClick={() => handleCategorySelect(classLabels[5], index)}>{classLabels[5]}</S.CateMenu>
+                              </S.DropMenu>
                               )}
 
-                                  <S.DropContainer>
+                          </S.DropContainer>
+                      </S.ButtonOne>
+                  </S.Left>
+                ))}
 
-                                    {isMenuOpen && (
-                                     <S.DropMenu > {/* 스타일 수정 */}
-                                      
-                                        <S.CateMenu onClick={() => handleCategorySelect(classLabels[0], index)}>{classLabels[0]}</S.CateMenu>
-                                        <S.CateMenu onClick={() => handleCategorySelect(classLabels[1], index)}>{classLabels[1]}</S.CateMenu>
-                                        <S.CateMenu onClick={() => handleCategorySelect(classLabels[2], index)}>{classLabels[2]}</S.CateMenu>
-                                        <S.CateMenu onClick={() => handleCategorySelect(classLabels[3], index)}>{classLabels[3]}</S.CateMenu>
-                                        <S.CateMenu onClick={() => handleCategorySelect(classLabels[4], index)}>{classLabels[4]}</S.CateMenu>
-                                        <S.CateMenu onClick={() => handleCategorySelect(classLabels[5], index)}>{classLabels[5]}</S.CateMenu>
-                                    </S.DropMenu>
-                                    )}
-
-                                </S.DropContainer>
-                            </S.ButtonOne>
-                        </S.Left>
-                      ))}
-
-                        <S.Right style={{flexDirection:'column'}}>
-                          {updatedPost.map((post, index) => (
-                            // 게시물 내용 렌더링
-                            <S.EditButton key={post.id} onClick={() => handleUpdate(index)}>수정</S.EditButton>
-                          ))}
-                          
-                            {/* 성공 메시지를 보여주는 부분 */}
-                            {showSuccessMessage && (
-                              <Popup text="게시물이 성공적으로 수정되었습니다." />
-                            )}
-                            {/* 실패 메시지를 보여주는 부분 */}
-                            {showErrorMessage && (
-                              <Popup text="게시물 수정 실패했습니다" />
-                            )}
+                  <S.Right style={{flexDirection:'column'}}>
+                    {updatedPost.map((post, index) => (
+                      // 게시물 내용 렌더링
+                      <S.EditButton key={post.id} onClick={() => handleUpdate(index)}>수정</S.EditButton>
+                    ))}
+                      
+                    {/* 파일 사이즈 클 경우 나오는  메시지를 보여주는 부분 */}
+                    {sizeFile && (
+                      <Popup text="최대 10MB 정적인 이미지 파일을 올려주세요." />
+                    )}
+                      {/* 성공 메시지를 보여주는 부분 */}
+                      {showSuccessMessage && (
+                        <Popup text="게시물이 성공적으로 수정되었습니다." />
+                      )}
+                      {/* 실패 메시지를 보여주는 부분 */}
+                      {showErrorMessage && (
+                        <Popup text="게시물 수정 실패했습니다" />
+                      )}
 
 
-                            <S.CancelButton onClick={handleCancel}>취소</S.CancelButton>
-                        </S.Right>
-                      </S.Buttons>
-                  </S.InLayoutTwoH>
-                </S.Center>
-
-              </S.InOutWrap>
-            </S.OutWrap>
-            
-            )}
-        </>
+                      <S.CancelButton onClick={handleCancel}>취소</S.CancelButton>
+                  </S.Right>
+                </S.Buttons>
+            </S.InLayoutTwoH>
+            </S.Center>
+        </C.InsideWrap>
+      </C.OutWrap>
     );
-}
+};
 
 export default PostEdit;

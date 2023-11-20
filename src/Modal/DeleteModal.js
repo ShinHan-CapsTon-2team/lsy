@@ -3,15 +3,15 @@ import React, {useParams ,useNavigate} from 'react-router-dom';
 import { useState } from 'react'
 import styled from 'styled-components';
 import {Popup} from '../Modal/Popup';
+import * as M from "./ModalStyle";
 const SERVER_URL= 'http://localhost:4000/api/lookup';
 
 
-export const DeleteModal = ({isId,openModalHandler}) => {
+export const DeleteModal = ({isId,profilego,openModalHandler}) => {
     //삭제 성공/실패 모달창 
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
     const [showErrorMessage, setShowErrorMessage] = useState(false);
-    const params = useParams(); 
-    //console.log("isId:",isId);
+
     const navigate = useNavigate();
 
     const handleDelete = () => {
@@ -30,9 +30,10 @@ export const DeleteModal = ({isId,openModalHandler}) => {
         
                 // 1초 후에 성공 메시지를 숨깁니다.
                 setTimeout(() => {
+                    openModalHandler();
                     setShowSuccessMessage(false);
-                    navigate('/home');
-                }, 1000);
+                    navigate(`/profile/${profilego}`);
+                }, 2000);
                 } else {
                 // 실패 메시지를 보여줍니다.
                 setShowErrorMessage(true);
@@ -52,23 +53,21 @@ export const DeleteModal = ({isId,openModalHandler}) => {
         openModalHandler();
     };
     return (
-        <>
-        <ModalBackdrop>         
-            <ModalView onClick={(e) => e.stopPropagation()}>
-                <Text>게시물을 삭제하겠습니까?</Text>
-                <div style={{marginTop:15}}>
-                    <DeleteButton onClick={handleDelete}>삭제</DeleteButton>
-                    <CancleButton onClick={handleCancle}>취소</CancleButton>
-                </div>
-                
-            </ModalView>
-        </ModalBackdrop>
         
-        {showSuccessMessage && <Popup text="게시물이 성공적으로 삭제되었습니다." />}
+        <M.ModalView onClick={(e) => e.stopPropagation()}>
+            <M.TextWrap>
+            <Text>게시물을 삭제하겠습니까?</Text>
+            <div style={{marginTop:35}}>
+                <DeleteButton onClick={handleDelete}>삭제</DeleteButton>
+                <CancleButton onClick={handleCancle}>취소</CancleButton>
+            </div>
+            {showSuccessMessage && <Popup text="게시물이 성공적으로 삭제되었습니다." />}
         
-        {/* 실패 메시지를 보여주는 부분 */}
-        {showErrorMessage && <Popup text="게시물 삭제에 실패했습니다." />}
-        </>
+            {/* 실패 메시지를 보여주는 부분 */}
+            {showErrorMessage && <Popup text="게시물 삭제에 실패했습니다." />}
+            </M.TextWrap>
+        </M.ModalView>
+ 
     );
   };
   export const FontStyle = {
@@ -89,7 +88,7 @@ export const DeleteModal = ({isId,openModalHandler}) => {
     fontSize: 24
     },
     '@media screen and (min-width: 1700px)': {
-    fontSize: 37
+    fontSize: 30
     }
     };
 const Button = styled.button`
@@ -98,6 +97,8 @@ ${FontStyle};
 
 background-color:white;
 &:hover {
+    background-color: transparent;
+
     color: #798be6;
   }
 `;
@@ -126,40 +127,22 @@ bottom : 0;
 
 
 export const ModalView = styled.div.attrs((props) => ({
-role: 'dialog',
-}))`
-border-radius: 20px;
-width: 35vw;
-height: 23vh;
-background-color: #ffffff;
-display: flex;
-align-items: center;
-justify-content: center;
-flex-direction:column;
-@media screen and (max-width: 1024px){
-width: 35vw;
-}
-
-@media screen and (max-width: 850px){
-width: 53vw;
-height: 19vh;
-}
-/* mobile 규격 */
-@media screen and (max-width: 540px){
-width: 77vw;
-height: 23vh;
-}
-
-/* s 데스크 */
-@media screen and (min-width: 1025px){
-
-}
-/* l 데스크 */
-@media screen and (min-width: 1700px){
-width: 38vw;
-height: 25vh;
-}
-`;
+    role: 'dialog',
+    }))`
+    
+    border-radius: 20px;
+    min-width: 25vw;
+    min-height: 16vh;
+    width:auto;
+    height:auto;
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding:25px;
+    
+    
+    `;
 
 
 

@@ -2,22 +2,19 @@ import styled from "styled-components";
 
 export const OutWrap = styled.div`
     width: 100%;
-    height: 100%;
-
     position: relative;
     background: white;
     display: flex;
     flex-direction: column;
     align-items: center; 
+    justify-content: center;
 
-    /* mobile 규격 */
-    @media screen and (max-width: 840px){
-        
-        height: calc(var(--vh, 1vh) * 100);
-    }
-`;
 
-    export const InsideWrap = styled.div`
+    height: 100%;
+
+    `;
+
+    export const InOutWrap  = styled.div`
         width:100%;
         text-align: center;
         display: flex;
@@ -143,9 +140,19 @@ export const OutWrap = styled.div`
     flex-direction: column;
     margin-top:20px;
     margin-bottom:25px;
+    @media screen and (min-width: 1700px) {
+        border: 5px #798BE6 solid;  
+    }
     `;
 
-    export const TextWrap = styled(TextWrapStyle)`
+    export const TextWrap = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top:20px;
+    margin-bottom:25px;
+    padding: 20px;
     
     /* tablet 규격 */
     @media screen and (max-width: 1024px) {
@@ -168,6 +175,7 @@ export const OutWrap = styled.div`
     }
     /* l 데스크 */
     @media screen and (min-width: 1700px) {
+        width: 50vw;
         height: 17vh;
     }
     `;
@@ -190,7 +198,7 @@ export const OutWrap = styled.div`
             fontSize: 24,
         },
         '@media screen and (min-width: 1700px)': {
-            fontSize: 37,
+            fontSize: 30,
         },
         };
         
@@ -209,16 +217,17 @@ export const OutWrap = styled.div`
     },
     /* tablet 규격 */
     '@media screen and (min-width: 1025px)': {
-        fontSize: 40,
+        fontSize: 30,
     },
     '@media screen and (min-width: 1700px)': {
-        fontSize: 53,
+        fontSize: 40,
     },
     };
     
     export const Text1 = styled.span`
     /* font-size: 40px; */
-    color: #798BE6;
+
+    //color: #798BE6;
     font-weight: 600;
     margin-bottom: 13px;
     
@@ -226,9 +235,9 @@ export const OutWrap = styled.div`
     `;
     
     export const Text2= styled.span`
-    ${FontStyle};
-    color:  #798BE6;
-    margin-bottom: 13px;
+    ${Text1FontStyle};
+
+    //margin-bottom: 13px;
     
     `;
 
@@ -256,13 +265,14 @@ export const OutWrap = styled.div`
     }
     /* l 데스크 */
     @media screen and (min-width: 1700px){
+        width:20vw;
         height: 14vh;
     }
     
     
     `;
     export const ShareText = styled(Text2)`
-    font-weight:600;
+    //font-weight:600;
     margin-bottom:20;
     `;
 
@@ -271,6 +281,7 @@ export const OutWrap = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    
 `;
 
     export const ButtonTwo = styled(Radius)`
@@ -284,6 +295,10 @@ export const OutWrap = styled.div`
             margin-right:10px;
         }
         @media screen and (max-width: 850px){
+            width:39vw;
+            height: 7vh;
+            
+            margin-right:10px;
         }
         /* mobile 규격 */
         @media screen and (max-width: 540px){
@@ -307,7 +322,7 @@ export const OutWrap = styled.div`
 
     
 export const BtnLink = styled.img`
-
+cursor:pointer;
 /* mobile 규격 */
 @media screen and (max-width: 540px){
     width:50px;

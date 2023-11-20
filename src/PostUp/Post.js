@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useRef } from "react";
 import * as tf from "@tensorflow/tfjs"; //npm i @tensorflow/tfjs
 import "@tensorflow/tfjs-backend-webgl"; //npm i @tensorflow/tfjs-backend-webgl
 import { useNavigate } from "react-router-dom";
 import upload from "../Images/upload.png";
-import Header from "../Component/Header";
+import Header from "../Header/Header";
 import * as S from "./PostStyle";
-
+import "./CateDropMenu.css";
 import { Popup } from "../Modal/Popup";
+
+import * as C from "../Style/CommonStyle";
 const SERVER_URL = "http://localhost:4000/api/post";
 
 function Post() {
@@ -14,7 +16,6 @@ function Post() {
   const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [category, setCategory] = useState('');
-    const [profile, setProfile] = useState(''); 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [imageFile, setImageFile] = useState(null);
     const [previewImage, setPreviewImage] = useState(null); // 미리보기 이미지 URL 상태
@@ -48,11 +49,7 @@ function Post() {
 
     const navigate = useNavigate();
   
-    //홈페이지
-    const handleGohomeClick = () => {
-        navigate('/home');
-    };
-    
+
     useEffect(() => {
         // 모델 로드
         const modelUrl = './model_tfjs/model.json';
@@ -207,9 +204,7 @@ function Post() {
           const formData = new FormData();
           formData.append('data', JSON.stringify(data));
           formData.append('image', imageFile);
-          //formData.append('category', category);
-          
-          
+
       // fetch()를 이용하여 서버로 데이터를 전송
           fetch(SERVER_URL, {
           method: 'POST',
@@ -261,10 +256,29 @@ function Post() {
     setDataFromChild(data);
   };
 
+  const dropMenuRef = useRef(null);
+    
+  
+  useEffect(() => {
+    const handleDocumentClick = (e) => {
+      
+      if (dropMenuRef.current && !dropMenuRef.current.contains(e.target)) {
+        setIsMenuOpen(!isMenuOpen);
+      }
+    };
+
+    if(isMenuOpen){
+      window.addEventListener('click', handleDocumentClick);
+    }
+
+    return()=>{
+      window.removeEventListener('click', handleDocumentClick);  
+    }  
+  }, [isMenuOpen]);
 
   return (
-    <S.OutWrap>
-      <S.InOutWrap>
+    <C.OutWrap>
+      <C.InsideWrap >
         {/* 로고 */}
         <Header onData={handleChildData} />
         {/* 내용 */}
@@ -304,8 +318,7 @@ function Post() {
                 <S.FindImg>
                   <S.Menu
                     onClick={() => document.getElementById("fileInput").click()}
-                  >
-                    내 파일 찾기
+                  >내 파일 찾기
                   </S.Menu>
                 </S.FindImg>
                 <S.FileBox
@@ -325,7 +338,7 @@ function Post() {
             <S.Buttons>
               <S.Left>
                 
-                <S.ButtonOne onClick={handleMenuToggle} show={showMessage}  >{/* 0916 추가 */}
+                <S.ButtonOne onClick={handleMenuToggle} show={showMessage} ref={dropMenuRef} >{/* 0916 추가 */}
                   
                   {/* 0916 추가 */}
                   {showMessage ? (
@@ -336,7 +349,7 @@ function Post() {
                     </S.Menu>
                   )}
 
-                  <S.DropContainer>
+                  <S.DropContainer className={`element ${isMenuOpen ? 'open' : 'hidden'}`}  >
                     {isMenuOpen && (
                       <S.DropMenu>
                         {classLabels.map((label, index) => (
@@ -371,8 +384,8 @@ function Post() {
             </S.Buttons>
           </S.InLayoutTwo>
         </S.Center>
-      </S.InOutWrap>
-    </S.OutWrap>
+      </C.InsideWrap >
+    </C.OutWrap>
   );
 }
 

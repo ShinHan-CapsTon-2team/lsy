@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import * as tf from '@tensorflow/tfjs'; //npm i @tensorflow/tfjs
 import '@tensorflow/tfjs-backend-webgl'; //npm i @tensorflow/tfjs-backend-webgl
-import Header from '../Component/Header';
+import Header from "../Header/Header";
 import { useNavigate } from 'react-router-dom';
 import Loading from '../Component/Loading';
 import upload from '../Images/upload.png'; 
 import { Popup } from "../Modal/Popup";
-  
+import { AiFillQuestionCircle } from 'react-icons/ai';
+import { InfoModal } from '../Modal/InfoModa';
+import * as C from "../Style/CommonStyle";
 //모델파일 사용안함
 //히스토그램 기반 메트릭스 
 // 두 이미지 간의 히스토그램 오버랩을 계산하는 
@@ -21,7 +23,8 @@ function Reco() {
       // 로딩 상태를 관리하는 상태 변수
     const [isLoading, setIsLoading] = useState(false);
     const [sizeFile,setSizeFile]= useState(false); // 10MB, 정적 이미지 파일이 아닐 경우 
-    const [categoryNo,setcategoryNo]= useState(false);
+    const [categoryNo,setcategoryNo]= useState(false); // 해당없음 분류
+    const [noImg,setnoImg]= useState(false);// 
     const classLabels = [
       'body',
       'dog',
@@ -39,19 +42,19 @@ function Reco() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        // 모델 로드
-        const modelUrl = './model_tfjs/model.json';
-        async function loadModel() {
-          const model = await tf.loadLayersModel(modelUrl);
-          setModel(model);
-        }
-        loadModel();
-      }, []);
+      // 모델 로드
+      const modelUrl = './model_tfjs/model.json';
+      async function loadModel() {
+        const model = await tf.loadLayersModel(modelUrl);
+        setModel(model);
+      }
+      loadModel();
+    }, []);
 
-      
+    
 
-     // 이미지 분류 함수 (소프트맥스 함수 사용)
-const classifyImageData  = async (img, threshold) => {
+   // 이미지 분류 함수 (소프트맥스 함수 사용)
+  const classifyImageData  = async (img, threshold) => {
   try {
       if (!model) {
           console.error('Model not loaded yet.');
@@ -92,9 +95,9 @@ const classifyImageData  = async (img, threshold) => {
       console.error('Error classifying the image:', error);
       return null;
   }
-};
+  };
 
-const getImageDataFromPath = async (imagePath) => {
+  const getImageDataFromPath = async (imagePath) => {
   return new Promise((resolve, reject) => {
     const img = new Image();
     img.crossOrigin = 'anonymous'; // 권한 설정
@@ -113,16 +116,16 @@ const getImageDataFromPath = async (imagePath) => {
     };
     img.src = imagePath;
   });
-};
+  };
 
-const handleImageFileChange = async (event) => {
+  const handleImageFileChange = async (event) => {
   const imageFile = event.target.files[0];
   if (
     imageFile &&
     (imageFile.type === 'image/jpeg' ||
       imageFile.type === 'image/png' ||
       imageFile.type === 'image/jpg') &&
-    imageFile.size <= 10 * 1024 * 1024
+    imageFile.size <= 30 * 1024 * 1024
   ) {
     const reader = new FileReader();
     reader.onload = async (event) => {
@@ -153,41 +156,44 @@ const handleImageFileChange = async (event) => {
       }, 2000);
     console.log("실패");
   }
-};
-      
-    const getImageData = (file) => {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = (event) => {
-            const img = new Image();
-            img.crossOrigin = 'anonymous'; // 권한 설정
-            img.onload = () => {
-              const canvas = document.createElement('canvas');
-              canvas.width = img.width;
-              canvas.height = img.height;
-              const ctx = canvas.getContext('2d');
-              ctx.drawImage(img, 0, 0);
-              const imageData = ctx.getImageData(0, 0, img.width, img.height);
-              resolve(imageData);
-            };
-            img.src = event.target.result;
-          };
-          reader.onerror = (error) => reject(error);
-          reader.readAsDataURL(file);
-        });
+  };
+    
+  const getImageData = (file) => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (event) => {
+        const img = new Image();
+        img.crossOrigin = 'anonymous'; // 권한 설정
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          canvas.width = img.width;
+          canvas.height = img.height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0);
+          const imageData = ctx.getImageData(0, 0, img.width, img.height);
+          resolve(imageData);
+        };
+        img.src = event.target.result;
       };
+      reader.onerror = (error) => reject(error);
+      reader.readAsDataURL(file);
+    });
+  };
 
-
-//업로드 버튼 
-const handleCosineCalculation = async () => {
+  //업로드 버튼 
+  const handleCosineCalculation = async () => {
   try {
     if (!model || !imageFile) {
       console.error('모델 또는 이미지를 사용할 수 없습니다.');
       setIsLoading(false);
+      setnoImg(true);
+      setTimeout(() => {
+        setnoImg(false);
+      }, 2000);
       return;
     }
 
-    const classIndex = await classifyImageData(imageFile, 0.8);
+    const classIndex = await classifyImageData(imageFile, 0.1);
 
     if (classIndex !== -1) {
       const categoryName = classLabels[classIndex];
@@ -208,116 +214,161 @@ const handleCosineCalculation = async () => {
       }
     } else {
       console.log('이미지가 분류되지 않았습니다.');
-
-      setcategoryNo(true);
-      
-      setTimeout(() => 
-      {
-        setcategoryNo(false);
-        navigate('/reco');
-        }, 2000);
-      
-      
-    
     }
   } catch (error) {
     console.error('Error calculating cosine similarity:', error);
   }
-};
+  };
 
+  // 이미지가 컬러 이미지인지 여부를 확인하는 함수
+  const isColorImage = (imageData) => {
+  for (let i = 0; i < imageData.data.length; i += 4) {
+    const r = imageData.data[i];
+    const g = imageData.data[i + 1];
+    const b = imageData.data[i + 2];
+    if (r !== g || r !== b || g !== b) {
+      return true; // 색상 채널이 서로 다른 경우, 컬러 이미지로 간주
+    }
+  }
+  return false; // 모든 색상 채널이 동일한 경우, 흑백 이미지로 간주
+  };
 
-// 히스토그램 계산 함수
-const calculateHistogram = (imageData) => {
-         const histogram = Array(256).fill(0); // 히스토그램 배열 초기화
-      
-        for (let i = 0; i < imageData.data.length; i += 4) {
-          const pixelValue = Math.floor(imageData.data[i] * 0.299 + imageData.data[i + 1] * 0.587 + imageData.data[i + 2] * 0.114);
-          histogram[pixelValue] += 1; // 픽셀 값의 빈도수 증가
-        }
-      
-        return histogram;
-      };
-      
-// 히스토그램 기반 메트릭스 계산 함수
-const calculateHistogramBasedSimilarity = (histogramA, histogramB) => {
-let sum = 0;
+  // 히스토그램 계산 함수 (흑백 이미지 또는 컬러 이미지의 각 채널에 대한 히스토그램을 계산)
+  const calculateHistogram = (imageData, channelCount) => {
+  const histogram = Array(256).fill(0); // 히스토그램 배열 초기화
 
-for (let i = 0; i < histogramA.length; i++) {
-        sum += Math.min(histogramA[i], histogramB[i]);
-}
+  for (let i = 0; i < imageData.data.length; i += 4) {
+    for (let c = 0; c < channelCount; c++) {
+      const pixelValue = imageData.data[i + c]; // 특정 채널의 픽셀 값
+      histogram[pixelValue] += 1; // 픽셀 값의 빈도수 증가
+    }
+  }
 
-// 히스토그램 유사성 계산
-const similarity = sum / Math.max(histogramA.reduce((a, b) => a + b, 0), histogramB.reduce((a, b) => a + b, 0));
+  return histogram;
+  };
 
-return similarity;
-};
-      
-// 이미지 간의 유사성 메트릭스 계산 함수 (히스토그램 기반)
-const calculateImageSimilarityMatrix = async (imagePaths) => {
-try {
-        if (!model || !imageFile || imagePaths.length === 0) {
-        console.error('모델 또는 이미지를 사용할 수 없습니다.');
-        return;
-        }
+  // calculateImageSimilarityMatrix 함수 내에서 컬러 이미지와 흑백 이미지 모두 처리되도록 수정
+  const calculateImageSimilarityMatrix = async (imagePaths) => {
+  try {
+    if (!model || !imageFile || imagePaths.length === 0) {
+      console.error('모델 또는 이미지를 사용할 수 없습니다.');
+      return;
+    }
 
-        // 로딩 상태를 true로 설정하여 로딩 표시를 활성화
-        setIsLoading(true);
+    // 로딩 상태를 true로 설정하여 로딩 표시를 활성화
+    setIsLoading(true);
 
-        // 입력 이미지의 특성 추출
-        const inputImageData = await getImageData(imageFile);
-        const inputHistogram = calculateHistogram(inputImageData);
+    // 입력 이미지의 특성 추출
+    const inputImageData = await getImageData(imageFile);
 
-        console.log('Input Image Histogram:', inputHistogram); // 입력 이미지 히스토그램 출력
+    // 이미지가 흑백 또는 컬러인지 확인
+    const isColorInput = isColorImage(inputImageData);
 
-        // 각 이미지의 유사성 메트릭스 계산
-        const similarityMatrix = [];
-        for (const imagePath of imagePaths) {
-        try {
+    // 히스토그램 계산 및 출력
+    const inputHistogram = calculateHistogram(inputImageData, isColorInput ? 3 : 1);
+
+    if (isColorInput) {
+      console.log('Input Image is Color');
+      console.log('Input Image Histogram (Color):', inputHistogram);
+    } else {
+      console.log('Input Image is Grayscale');
+      console.log('Input Image Histogram (Grayscale):', inputHistogram);
+    }
+
+    // 각 이미지의 유사성 메트릭스 계산
+    const similarityMatrix = [];
+    for (const imagePath of imagePaths) {
+      try {
         const folderImageData = await getImageDataFromPath(imagePath);
-        const folderHistogram = calculateHistogram(folderImageData);
 
-         console.log('Folder Image Histogram for', imagePath, ':', folderHistogram); // 폴더 이미지 히스토그램 출력
+        // 이미지가 흑백 또는 컬러인지 확인
+        const isColorFolder = isColorImage(folderImageData);
 
-         // 이미지 간의 유사성 메트릭스 계산 (히스토그램 기반)
-        const similarity = calculateHistogramBasedSimilarity(inputHistogram, folderHistogram);
+        // 히스토그램 계산 및 출력
+        const folderHistogram = calculateHistogram(folderImageData, isColorFolder ? 3 : 1);
 
-        console.log('Histogram-Based Similarity for', imagePath, ':', similarity); // 유사성 메트릭스 출력
+        if (isColorInput && isColorFolder) {
+          console.log('Input and Folder Images are Color for', imagePath);
+          console.log('Input Image Histogram (Color):', inputHistogram);
+          console.log('Folder Image Histogram (Color) for', imagePath, ':', folderHistogram);
+        } else if (!isColorInput && !isColorFolder) {
+          console.log('Input and Folder Images are Grayscale for', imagePath);
+          console.log('Input Image Histogram (Grayscale):', inputHistogram);
+          console.log('Folder Image Histogram (Grayscale) for', imagePath, ':', folderHistogram);
+        } else {
+          console.log('Image type mismatch. Skipping comparison for', imagePath);
+          continue; // 이미지 유형이 다른 경우, 비교 생략
+        }
 
-        similarityMatrix.push({ imagePath, similarity });
-        } catch (imageError) {
+        // 피어슨 상관 계수 계산
+        const pearsonCorrelation = calculatePearsonCorrelation(inputHistogram, folderHistogram);
+
+        console.log('Pearson Correlation for', imagePath, ':', pearsonCorrelation);
+
+        if (pearsonCorrelation !== 1) { // 1이 아닌 경우에만 결과 배열에 추가
+          similarityMatrix.push({ imagePath, similarity: pearsonCorrelation });
+        }
+      } catch (imageError) {
         console.error('이미지 처리 중 오류:', imageError);
-        }
-        }
+      }
+    }
 
-        // 유사성 메트릭스를 기준으로 이미지 정렬
-        similarityMatrix.sort((a, b) => b.similarity - a.similarity);
+    // 유사성 메트릭스를 기준으로 이미지 정렬
+    similarityMatrix.sort((a, b) => b.similarity - a.similarity);
 
-        // 상위 3개 유사한 이미지 선택
-        const topSimilarImages = similarityMatrix.slice(0, 3);
+    // 상위 3개 유사한 이미지 선택
+    const topSimilarImages = similarityMatrix.slice(0, 3);
 
-        console.log("상위 유사한 이미지:", topSimilarImages);
-        setIsLoading(false);
+    console.log('상위 유사한 이미지:', topSimilarImages);
+    setIsLoading(false);
 
-         return topSimilarImages; // 상위 유사한 이미지를 반환
+    return topSimilarImages; // 상위 유사한 이미지를 반환
+  } catch (error) {
+    console.error('이미지 유사성 메트릭스 계산 중 오류:', error);
+  }
+  };
 
-} catch (error) {
-        console.error('이미지 유사성 메트릭스 계산 중 오류:', error);
-}
-};
+
+  // 피어슨 상관 계수 계산 함수
+  const calculatePearsonCorrelation = (vectorA, vectorB) => {
+  const meanA = vectorA.reduce((acc, value) => acc + value, 0) / vectorA.length;
+  const meanB = vectorB.reduce((acc, value) => acc + value, 0) / vectorB.length;
+
+  let numerator = 0;
+  let denominatorA = 0;
+  let denominatorB = 0;
+
+  for (let i = 0; i < vectorA.length; i++) {
+        const deviationA = vectorA[i] - meanA;
+        const deviationB = vectorB[i] - meanB;
+        numerator += deviationA * deviationB;
+        denominatorA += deviationA ** 2;
+        denominatorB += deviationB ** 2;
+  }
+
+  const correlation = numerator / Math.sqrt(denominatorA * denominatorB);
+
+  return isNaN(correlation) ? 0 : correlation; // NaN 처리
+  };
 
 
+    const [isOpenInfoReco, setIsOpenInfoReco] = useState(false); // 색감 매칭 툴팁 모달창 
+    const showInfoReco = () => {
+        setIsOpenInfoReco(!isOpenInfoReco) 
+    };
 
     return (
       <>
         {isLoading ?(
           <Loading what="유사한 이미지를 찾고 있습니다" />
-        ):(<OutWrap>
+        ):(
+        <C.OutWrap style={{height: '100%',position: 'absolute'}}>
           
-          <InOutWrap>
+          <C.InsideWrap style={{height: '100%'}}>
             {/* 로고 */}        
-            <Header onData={handleChildData}/>
+            <Header onData={handleChildData} style={{flex:0}}/>
             {/* 컨텐츠 */}
-            <Center>
+            <Center style={{flex:1}}>
     
               <InLayoutOne>
                 <Content>
@@ -349,11 +400,24 @@ try {
               <InLayoutTwo> 
                   <ResultGoButton style={{ backgroundColor: (!previewImage) &&'#5d6bb4'}}onClick={handleCosineCalculation}>
                     결과보기 
+                    <InfoButton >
+                      <TooImg  onClick={(e) => {
+                        e.stopPropagation(); // 이벤트 전파 중단
+                        showInfoReco();}}/>
+                    </InfoButton>
                   </ResultGoButton>  
               </InLayoutTwo>
+              {isOpenInfoReco ?
+                <ModalBackdrop onClick={showInfoReco}>
+                    <InfoModal 
+                    text="reco"
+                    showInfo= {showInfoReco}/>
+                </ModalBackdrop>
+                : null}
 
+              
               {/* 파일 사이즈 클 경우 나오는  메시지를 보여주는 부분 */}
-              {sizeFile && (
+              {(sizeFile)||(noImg) && (
                 <Popup text="최대 10MB 정적인 이미지 파일을 올려주세요." />
               )}
 
@@ -361,14 +425,95 @@ try {
                 <Popup text="해당 사진이 카테고리 분류를 실패했습니다." />
               )}
             </Center>
-          </InOutWrap>
-      </OutWrap>)}
+          </C.InsideWrap>
+
+
+
+      </C.OutWrap>)}
         
       </>
     );
   }
      
 export default Reco;
+
+const PostWrap = styled.div`
+  text-align: center;
+  display: flex;
+  align-items: flex-end; /* 수평 정렬을 오른쪽으로 변경 */
+  justify-content: flex-end; /* 수직 정렬을 아래쪽으로 변경 */
+  position: fixed; /* 위치를 고정 */
+  top: 161px; /* 아래쪽 여백을 20px로 설정 */
+  left: 201px; /* 오른쪽 여백을 20px로 설정 */
+
+  /* tablet 규격 */
+  @media screen and (max-width: 1023px) {
+  }
+
+  /* mobile 규격 */
+  @media screen and (max-width: 540px) {
+    bottom: 120px; /* 아래쪽 여백을 20px로 설정 */
+    right: 25px; /* 오른쪽 여백을 20px로 설정 */
+  }
+  /* s 데스크 */
+  @media screen and (min-width: 1024px) {
+  }
+  /* l 데스크 */
+  @media screen and (min-width: 1700px) {
+    bottom: 130px; /* 아래쪽 여백을 20px로 설정 */
+    right: 80px;
+  }
+`;
+
+const InfoButton = styled.div`
+display: flex;
+    align-items: center;
+position: absolute;
+  right: 15px;
+  background-color: transparent;
+
+  @media screen and (min-width: 891px)
+    {
+    display:none;
+
+    }
+  @media screen and (max-width: 840px){
+    right: 10px;
+    
+    }
+`;
+const TooImg = styled(AiFillQuestionCircle)`
+
+  width: 50px;
+  height: 50px;
+  cursor:pointer;
+  opacity:1;
+  
+@media screen and (max-width: 1024px){
+           
+}
+
+@media screen and (max-width: 850px){
+  width:40px;
+  height: 40px;
+}
+/* mobile 규격 */
+@media screen and (max-width: 600px){
+    width:35px;
+    height: 35px;
+}
+
+/* s 데스크 */
+@media screen and (min-width: 1025px){ 
+
+  
+}
+/* l 데스크 */
+@media screen and (min-width: 1700px){
+    width: 45px;
+    height: 45px;  
+}
+  `;
   
 const FontStyle = {
   "@media screen and (max-width: 1024px)": {
@@ -388,48 +533,51 @@ const FontStyle = {
     fontSize: 24,
   },
   "@media screen and (min-width: 1700px)": {
-    fontSize: 37,
+    fontSize: 30,
   },
 };
 
 const OutWrap = styled.div`
       width: 100%;
-      height: 100%;
       background: white;
       align-items: center;
       display: flex;
       flex-direction: column;
-    position: absolute;
+      justify-content: center;
+
+
+      height: 100%;
+      position: absolute;
     `;
     const InOutWrap = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 65%;
-    height:100%;
-    
-    /* tablet 규격 */
-      @media screen and (max-width: 1023px){
-        width: 75%;
-      }
-    /* mobile 규격 */
-      @media screen and (max-width: 540px){
-        width: 90%;
-      }
-      /* s 데스크 */
-      @media screen and (min-width: 1024px){
-          
-      }
-      /* l 데스크 */
-      @media screen and (min-width: 1700px){
-          
-      }
+    width: 80%;
+  height:100%;
+
+  /* tablet 규격 */
+  @media screen and (max-width: 1024px) {
+    width: 87%;
+  }
+
+  /* mobile 규격 */
+  @media screen and (max-width: 540px) {
+    width: 95%;
+  }
+  /* s 데스크 */
+  @media screen and (min-width: 1025px) {
+  }
+  /* l 데스크 */
+  @media screen and (min-width: 1700px) {
+    width: 75%;
+  }
     `;
     
     
     const Center = styled.div`
-    width: 100%;
+    width: 90%;
     height:80%;
     display: flex;
     flex-direction: column;
@@ -551,7 +699,7 @@ const OutWrap = styled.div`
         
       }
       /* mobile 규격 */
-      @media screen and (max-width: 540px){
+      @media screen and (max-width: 560px){
         width:55%;
       }
     
@@ -578,7 +726,7 @@ const OutWrap = styled.div`
         
       }
       /* mobile 규격 */
-      @media screen and (max-width: 540px){
+      @media screen and (max-width: 560px){
         width:55%;
         height: 13%; 
         bottom: 20px;
@@ -598,3 +746,21 @@ const OutWrap = styled.div`
       margin-right:10px;
    
     `;
+    
+export const ModalBackdrop = styled.div`
+// Modal이 떴을 때의 배경을 깔아주는 CSS를 구현
+width:100vw;
+height:100%;
+
+z-index: 1; //위치지정 요소
+position: fixed;
+display : flex;
+justify-content : center;
+align-items : center;
+background-color: rgba(0,0,0,0.1);
+top : 0;
+left : 0;
+right : 0;
+bottom : 0;
+
+`;

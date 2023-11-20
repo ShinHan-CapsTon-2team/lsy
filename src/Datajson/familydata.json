@@ -12,12 +12,12 @@
                         [
                             {
                                 "type":"a",
-                                "name":"실내",
+                                "name":"#실내",
                                 "img":"aa.jpg"
                             },
                             {
                                 "type":"b",
-                                "name":"야외",
+                                "name":"#야외",
                                 "img":"ab.jpg"
                             }
                         ]  
@@ -28,16 +28,16 @@
                 "beforeselec":"b", 
                 "quiz":[
                     {
-                    "selectCriteria":"원하는 사진을 선택해 주세요",
+                    "selectCriteria":"원하는 색감을 선택해 주세요",
                     "select": [
                         {
                             "type":"a",
-                            "name":"컬러",
+                            "name":"#컬러",
                             "img":"ba.PNG"
                         },
                         {
                             "type":"b",
-                            "name":"흑백",
+                            "name":"#흑백",
                             "img":"bb.jpg"
                         }
                     ] 
@@ -56,16 +56,16 @@
                 "beforeselec":"aa",
                 "quiz":[
                     {
-                        "selectCriteria":"원하는 사진을 선택해 주세요",
+                        "selectCriteria":"원하는 색감을 선택해 주세요",
                         "select": [
                             {
                                 "type":"a",
-                                "name":"칼라",
+                                "name":"#칼라",
                                 "img":"aaa.jpg"
                             },
                             {
                                 "type":"b",
-                                "name":"흑백",
+                                "name":"#흑백",
                                 "img":"aab.jpg"
                             }
                         ]  
@@ -80,12 +80,12 @@
                         "select": [
                             {
                                 "type":"a",
-                                "name":"밝은",
+                                "name":"#밝은",
                                 "img":"aba.jpg"
                             },
                             {
                                 "type":"b",
-                                "name":"차분한",
+                                "name":"#차분한",
                                 "img":"abb.PNG"
                             }
                         ] 
@@ -100,12 +100,12 @@
                         "select": [
                             {
                                 "type":"a",
-                                "name":"실내",
+                                "name":"#실내",
                                 "img":"baa.PNG"
                             },
                             {
                                 "type":"b",
-                                "name":"야외",
+                                "name":"#야외",
                                 "img":"bab.jpg"
                             }
                         ]  
@@ -126,12 +126,12 @@
                         "select": [
                             {
                                 "type":"a",
-                                "name":"밝은",
+                                "name":"#밝은",
                                 "img":"aaaa.PNG"
                             },
                             {
                                 "type":"b",
-                                "name":"차분한",
+                                "name":"#차분한",
                                 "img":"aaab.jpg"
                             }
                         ]
@@ -146,12 +146,12 @@
                         "select": [
                             {
                                 "type":"a",
-                                "name":"차분",
+                                "name":"#차분",
                                 "img":"baaa.PNG"
                             },
                             {
                                 "type":"b",
-                                "name":"화사",
+                                "name":"#화사",
                                 "img":"baab.PNG"
                             }
                         ]  
@@ -166,12 +166,12 @@
                         "select": [
                             {
                                 "type":"a",
-                                "name":"밝은",
+                                "name":"#밝은",
                                 "img":"baba.jpg"
                             },
                             {
                                 "type":"b",
-                                "name":"차분",
+                                "name":"#차분",
                                 "img":"babb.jpg"
                             }
                         ]  

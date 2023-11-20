@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import React, { useCallback, useEffect, useState } from "react";
-import Header from "../Component/Header";
+import Header from "../Header/Header"
 import { LoginModal } from "../Modal/LoginModal";
 import * as S from "./homeStyle";
 import * as C from "../Style/CommonStyle";
@@ -35,8 +35,6 @@ const Homepage = () => {
   const [pageNumber, setPageNumber] = useState(1);
   const limit = 20; // 한 페이지당 이미지 수 설정
   const [offset, setOffset] = useState(0); //offset 초기값
-
-  const [userinfo, setUserinfo] = useState([]);
   const [dataFromChild, setDataFromChild] = useState({}); //!!!
 
   
@@ -44,61 +42,58 @@ const Homepage = () => {
     // 자식 컴포넌트로부터 받은 데이터를 처리
     setDataFromChild(data);
   };
-
-  console.log("헤더에서 온 액세스 토큰 값 : ",dataFromChild.accesstoken);
-  const access = dataFromChild.accesstoken;
-  console.log("access:",access);
-  console.log("헤더에서 온 이메일 아이디 값 : ",dataFromChild.emailid);
+  const access = dataFromChild.accesstoken; 
+  
   const openModalHandler = () => { // 모달창 관련임 자세히 알 필요 X 
     setIsOpen(!isOpen) 
   };
 
-  //버튼 
-const selectCate = (categoryName) => {
-  setSelectCategory(categoryName);
-};
+    //버튼 
+  const selectCate = (categoryName) => {
+    setSelectCategory(categoryName);
+  };
 
 
-  
+    
 
-const handleCategorySelect = useCallback((category, limit, offset) => {
-  // 영어 카테고리를 한글로 변환
-  const koreanCategory = categoryLabels[category] || category;
-  
-  const queryString = new URLSearchParams({
-    category: koreanCategory,
-    limit,
-    offset,
-  }).toString();
+  const handleCategorySelect = useCallback((category, limit, offset) => {
+    // 영어 카테고리를 한글로 변환
+    const koreanCategory = categoryLabels[category] || category;
+    
+    const queryString = new URLSearchParams({
+      category: koreanCategory,
+      limit,
+      offset,
+    }).toString();
 
-  console.log('Category value:', koreanCategory); // 한글 카테고리
+    console.log('Category value:', koreanCategory); // 한글 카테고리
 
-  fetch(`http://localhost:4000/api/home/${koreanCategory}?${queryString}`)
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.json();
-    })
-    .then((data) => {
-      setUsers(data);
-      
-      navigate(`/home?${queryString}`);
-      setSelectedCategory(koreanCategory);
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-}, [navigate]);
-console.log('name',  users.nickname);
+    fetch(`http://localhost:4000/api/home/${koreanCategory}?${queryString}`)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setUsers(data);
+        
+        navigate(`/?${queryString}`);
+        setSelectedCategory(koreanCategory);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [navigate]);
+  console.log('name',  users.nickname);
 
-function scrollToTop() {
-  const currentY = window.scrollY;
-  if (currentY > 0) {
-    window.requestAnimationFrame(scrollToTop);
-    window.scrollTo(0, currentY - 60); // 20은 스크롤 속도를 조절하는 값입니다.
+  function scrollToTop() {
+    const currentY = window.scrollY;
+    if (currentY > 0) {
+      window.requestAnimationFrame(scrollToTop);
+      window.scrollTo(0, currentY - 60); // 20은 스크롤 속도를 조절하는 값입니다.
+    }
   }
-}
 
   useEffect(() => {
    //컴포넌트가 마운트될 때 '가족사진' 데이터를 불러옵니다
@@ -153,16 +148,12 @@ function scrollToTop() {
       navigate("/post"); // accessToken이 false인 경우 /post로 이동
     
   };
-    //console.log("page",pageNumber );
 
 
   return (
-    <S.OutWrap>
-      <S.InsideWrap>
-        {/* 로고 */}
-        
+    <C.OutWrap style={{height:'100%'}}>
+      <C.InsideWrap>
         <Header onData={handleChildData}/>
-        
         
         <S.CategoryWrap >
           
@@ -179,10 +170,7 @@ function scrollToTop() {
                   marginRight: index === categoriesData.length - 1 ? "0px" : "",
                 }}
               >
-                
                 {category.name}
-                
-                
               </S.CategoryMenu>
             ))}
             
@@ -201,9 +189,7 @@ function scrollToTop() {
                       imageUrl={imageUrl}
                       onClick={() => handleClick(user.id)}
                       alt="사진"
-                      nickname={user.nickname}
-                    />
-                  
+                      nickname={user.nickname}/>
                 </S.GridDiv>
               );
             })}
@@ -224,36 +210,33 @@ function scrollToTop() {
                 onClick={() => {
                   movePage(pageNumber + 1);
                 }}
-                disabled={!users || users.length < limit}
-                
-              >
+                disabled={!users || users.length < limit} >
                 다음
               </S.ButtonShort>
             </>
           )}
         </S.PaginationWrap>
 
-      </S.InsideWrap>
+      </C.InsideWrap>
 
-      <S.PostWrap>
-      <C.StyledBsPlusCircleFill onClick={access ? goToWorkUpload : openModalHandler} />
+      <S.PostWrap>{/* 컴포넌트 */}
+        <C.StyledBsPlusCircleFill onClick={access ? goToWorkUpload : openModalHandler} />
 
-      {/* isOpen이 true인 경우에만 ModalBackdrop과 LoginModal을 렌더링합니다. */}
-      {isOpen && (
-        access ? ( // 액세스 토큰이 있는 경우
-          <>
-            {/* 추가적인 내용을 여기에 추가할 수 있습니다. */}
-          </>
-        ) : (
-          // 액세스 토큰이 없는 경우
-          <S.ModalBackdrop onClick={openModalHandler}>
-            <LoginModal />
-          </S.ModalBackdrop>
-        )
-      )}
+        {isOpen && (
+          access ? ( // 액세스 토큰이 있는 경우
+            <>
+
+            </>
+          ) : (
+            // 액세스 토큰이 없는 경우
+            <S.ModalBackdrop onClick={openModalHandler}>
+              <LoginModal />
+            </S.ModalBackdrop>
+          )
+        )}
 
       </S.PostWrap>
-    </S.OutWrap>
+    </C.OutWrap>
   );
 };
 

@@ -18,13 +18,14 @@ export const ModalBackdrop = styled.div`
 `;
 export const OutWrap = styled.div`
   width: 100%;
-  height: 100%;
   position: relative;
   background: white;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+ // height: 100%;
 `;
 export const GridImg = styled.img`
   width: 100%;
@@ -61,7 +62,7 @@ export const FontStyle = {
     fontSize: 24,
   },
   "@media screen and (min-width: 1700px)": {
-    fontSize: 37,
+    fontSize: 30,
   },
 };
 export const InsideWrap = styled.div`
@@ -94,7 +95,7 @@ export const CategoryWrap = styled.div`
   flex-wrap: wrap; /* 줄바꿈을 허용하여 가로 공간에 맞게 정렬될 수 있도록 설정 */
   justify-content: center; /* 공간을 균등하게 분배하여 가로로 정렬 */
   align-items: center; /* 수직 가운데 정렬 (선택 사항) */
-  margin-top: 20px;
+  margin-top: 15px;
 
   width: 100%;
 `;
@@ -125,6 +126,7 @@ export const GridWrap = styled.div`
   }
   /* l 데스크 */
   @media screen and (min-width: 1700px) {
+    
   }
 `;
 
@@ -149,6 +151,7 @@ export const GridDiv = styled.div`
   }
   /* l 데스크 */
   @media screen and (min-width: 1700px) {
+    
   }
 `;
 
@@ -221,7 +224,7 @@ export const CategoryMenu = styled(Radius)`
   }
   
   /* tablet 규격 */
-  @media screen and (max-width: 1024px){
+  @media screen and (max-width: 1160px){
     width:19%;
     height: 8vh; 
     margin-right:5px;
@@ -237,7 +240,7 @@ export const CategoryMenu = styled(Radius)`
   }
 
   /* mobile 규격 */
-  @media screen and (max-width: 540px){
+  @media screen and (max-width: 780px){
     width:32%;
     height: 7vh; 
 
@@ -253,7 +256,7 @@ export const CategoryMenu = styled(Radius)`
   }
 
   /* ss 데스크 */
-  @media screen and (min-width: 1025px){
+  @media screen and (min-width: 1161px){
     height: 8vh; 
   }
   /* s 데스크 */

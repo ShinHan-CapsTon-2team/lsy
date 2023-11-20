@@ -2,7 +2,6 @@ import React ,{useEffect}from 'react';
 import {BrowserRouter, Routes, Route} from 'react-router-dom'; 
 import GlobalStyles from "./Style/GlobalStyles"; // GlobalStyles 불러오기
 
-import Landing from './pages/Landing';
 import QuizSelIndex from './Quiz/Quizstart';
 import QuizSelPhoto from './Quiz/Quiztest';
 import QuizReult from './Quiz/Quizresult';
@@ -14,7 +13,6 @@ import Lookup from './Lookup/Image_Lookup'
 import ProfileLook from './Mypage/ProfileLook';
 import PostEdit from './PostUp/PostEdit';
 import QuizFrist from'./Quiz/Quizfirst';
-
 
 
 function App() {
@@ -32,23 +30,15 @@ function App() {
 
     <BrowserRouter>
         <GlobalStyles /> 
-        <div className="App" >
-            
+        <div className="App" >            
             <Routes>
-                
-                <Route path='/' element={<Landing />}/>
-                <Route path ='/home' element={<Home/>}/>
-
+                <Route path ='/' element={<Home/>}/>
                 <Route path ='/post' element={<Post />}/>
-                
                 <Route path ='/quizindex' element={<QuizSelIndex />}/>
-
                 <Route path ='/quiztest' element={<QuizSelPhoto />}/>
                 <Route path ='/quizresult' element={<QuizReult />}/>
                 <Route path='/quizfrist' element={<QuizFrist/>}/>
                 <Route path ='/reco' element={<Reco/>}/>
-                {/* <Route path ='/reco12' element={<Reco12/>}/>
-                <Route path ='/reco11' element={<Reco11/>}/> */}
                 <Route path='/recoresult' element={<RecoResult/>}/>
                 
                 <Route path ='/lookup/:id' element={<Lookup/>}/>

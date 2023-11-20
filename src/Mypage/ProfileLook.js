@@ -1,14 +1,15 @@
-import { BsPlusCircleFill } from 'react-icons/bs'
+
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
-import ProfileInfo from '../Component/ProfileInfo';
-import ProfileInfo_Edit from '../Component/ProfileInfo_Edit';
-import Header from '../Component/Header';
+import ProfileInfo from './ProfileInfo';
+import ProfileInfo_Edit from './ProfileInfo_Edit';
+import Header from '../Header/Header';
+import {StyledBsPlusCircleFill} from '../Style/CommonStyle'
 import styled from "styled-components";
 import './Paging.css';
-
-import {ProfileWrap,ButtonShort} from '../Component/ProfileInfoStyle'
+import * as C from "../Style/CommonStyle";
+import {ProfileWrap,ButtonShort} from './ProfileInfoStyle'
  
 import { UserDelModal } from '../Modal/UserDelModal'
 
@@ -134,37 +135,13 @@ const fetchProfileData = () => {
     });
 };  
 
-// 계정삭제
-const handleDelete = async () => {
-try {
-  const response = await fetch('http://localhost:4001/api/userDel', {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify( {email} ), // PostIds 값을 JSON 형식으로 본문에 추가
-  });
-  if (response.status === 200) {
-    console.log("탈퇴 성공");
-    // 리다이렉트 또는 다른 처리를 수행할 수 있음
-  } else {
-    console.error("탈퇴 실패");
-    // 탈퇴 처리 실패
-  }
-} catch (error) {
-  console.error('에러 발생:', error);
-}
-};
-
-
-  
     return (
-        <OutWrap>
-            <InOutWrap>
-                <Header onData={handleChildData}/>
+        <C.OutWrap style={{height:'100vh'}}>
+            <C.InsideWrap style={{height:'100%'}}>
+                <Header onData={handleChildData} style={{flex:0}}/>
 
-                <Center>
-                <ProfileWrap>
+                <Center style={{flex:1}}>
+                  <ProfileWrap>
               
                 <>
                 {isEditing ? (
@@ -180,14 +157,12 @@ try {
                     nickname={nickname}
                     insta={insta}
                 />
-                    
-
-                             
-                {(isMe === emailId) && ( //수정됨. 수정버튼 보이는 유무와 현재 사용자에 따른 ..
+  
+                {(isMe === emailId) && ( 
                     <ButtonShort onClick={gotoProfileEdit}>프로필 수정</ButtonShort> 
                   )}
 
-               {(isMe === 'zxcva98657') && (
+                {(isMe === 'zxcva98657') && (
                   <>
                     <ButtonShort onClick={openModalHandler}>사용자 삭제</ButtonShort>
                     {isOpen ? (<UserDelModal email={email} openModalHandler={openModalHandler}/>) : null}
@@ -214,7 +189,6 @@ try {
                       ))}
                     
                         </GridWrap>
-                   
 
                       <ReactPaginate
                         previousLabel={<Button style={{marginRight:20}}>이전</Button>}
@@ -231,7 +205,7 @@ try {
                 </ArticleWrap>
                 
                 </Center>
-            </InOutWrap>
+            </C.InsideWrap>
 
              <PostWrap>
               
@@ -243,7 +217,7 @@ try {
               
 
           
-        </OutWrap>
+        </C.OutWrap>
 
     );
 }
@@ -352,18 +326,14 @@ const GridImg = styled.img`
 
 const OutWrap = styled.div`
 width: 100%;
-height: 100vh;
-
 position: relative;
-
 background: white;
-
 display: flex;
 flex-direction: column;
-// justify-content: center;
 align-items: center;
 
-
+height: 100vh;
+//justify-content: center; 없
 `;
 
 const InOutWrap = styled.div`
@@ -373,30 +343,24 @@ flex-direction: column;
 align-items: center;
 justify-content: center;
 
-width:80%;
+width: 80%;
 
-      /* tablet 규격 */
-    @media screen and (max-width: 1024px){
-      width:87%;
-    }
+  /* tablet 규격 */
+  @media screen and (max-width: 1024px) {
+    width: 87%;
+  }
 
-    @media screen and (max-width: 850px){
-      //width:90%;
-    }
-    
-    /* mobile 규격 */
-    @media screen and (max-width: 540px){
-      width:95%;
-      
-    }
-    /* s 데스크 */
-    @media screen and (min-width: 1025px){
-        
-    }
-    /* l 데스크 */
-    @media screen and (min-width: 1700px){
-      width:75%;
-    }
+  /* mobile 규격 */
+  @media screen and (max-width: 540px) {
+    width: 95%;
+  }
+  /* s 데스크 */
+  @media screen and (min-width: 1025px) {
+  }
+  /* l 데스크 */
+  @media screen and (min-width: 1700px) {
+    width: 75%;
+  }
 `;
 
 
@@ -416,6 +380,10 @@ margin-top:20px;
 @media screen and (max-width: 540px){
   flex-direction: column;
   align-items:center;
+}
+
+@media screen and (min-width: 1700px){
+  width:100%;
 }
 `;
 
@@ -499,36 +467,7 @@ text-align: center;
     }
 `;
 
-const StyledBsPlusCircleFill = styled(BsPlusCircleFill)`
-    width: 70px;
-    height: 70px;
-    color:#798BE6;
-    cursor:pointer;
-    &:hover {
-      color:#5D6BB4;
-    }
 
-    /* tablet 규격 */
-    @media screen and (max-width: 1023px){
-        width: 75px;
-      height:75px;
-    }
-
-    /* mobile 규격 */
-    @media screen and (max-width: 540px){
-      width: 63px;
-      height:63px;
-    }
-    /* s 데스크 */
-    @media screen and (min-width: 1024px){
-        
-    }
-    /* l 데스크 */
-    @media screen and (min-width: 1700px){
-      width: 90px;
-      height:90px;
-    }
-    `;
     export const FontStyle = {
       "@media screen and (max-width: 1024px)": {
         fontSize: 22,
@@ -547,7 +486,7 @@ const StyledBsPlusCircleFill = styled(BsPlusCircleFill)`
         fontSize: 24,
       },
       "@media screen and (min-width: 1700px)": {
-        fontSize: 37,
+        fontSize: 30,
       },
     };
     export const Radius = styled.button`

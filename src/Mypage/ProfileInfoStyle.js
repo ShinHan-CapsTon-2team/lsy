@@ -114,7 +114,7 @@ export const FontStyle = {
     fontSize: 24,
   },
   "@media screen and (min-width: 1700px)": {
-    fontSize: 35,
+    fontSize: 30,
   },
 };
 
@@ -264,7 +264,7 @@ export const AddressFontStyle = {
     fontSize: 18,
   },
   "@media screen and (min-width: 1700px)": {
-    fontSize: 29,
+    fontSize: 28,
   },
 };
 export const Address = styled.div`
@@ -317,7 +317,7 @@ export const NickNameFontStyle = {
     fontSize: 29,
   },
   "@media screen and (min-width: 1700px)": {
-    fontSize: 40,
+    fontSize: 35,
   },
 };
 

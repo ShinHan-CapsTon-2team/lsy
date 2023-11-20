@@ -1,6 +1,6 @@
 
 
-import React, {useParams ,useNavigate} from 'react-router-dom';
+import React, {useNavigate} from 'react-router-dom';
 import { useState } from 'react'
 import styled from 'styled-components';
 import {Popup} from './Popup';
@@ -13,43 +13,43 @@ export const UserDelModal = ({openModalHandler,email}) => {
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
     const [showErrorMessage, setShowErrorMessage] = useState(false);
    
-    console.log("emailllllll:",email);
+    console.log("관리자 email:",email);
 
 
 
 
-        const handleDelete = async () => {
-            try {
-              const response = await fetch('http://localhost:4001/api/userDel', {
-                method: 'DELETE',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify( {email} ), // PostIds 값을 JSON 형식으로 본문에 추가
-              });
-              if (response.status === 200) {
-                 // 성공 메시지를 보여줍니다.
-                 setShowSuccessMessage(true);
+    const handleDelete = async () => {
+        try {
+            const response = await fetch('http://localhost:4001/api/userDel', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify( {email} ), // PostIds 값을 JSON 형식으로 본문에 추가
+            });
+            if (response.status === 200) {
+                // 성공 메시지를 보여줍니다.
+                setShowSuccessMessage(true);
+    
+                // 1초 후에 성공 메시지를 숨깁니다.
+                setTimeout(() => {
+                    setShowSuccessMessage(false);
+                    navigate('/home');
+                }, 1000);
+                } else {
+                // 실패 메시지를 보여줍니다.
+                setShowErrorMessage(true);
         
-                 // 1초 후에 성공 메시지를 숨깁니다.
-                 setTimeout(() => {
-                     setShowSuccessMessage(false);
-                     navigate('/home');
-                 }, 1000);
-                 } else {
-                 // 실패 메시지를 보여줍니다.
-                 setShowErrorMessage(true);
-         
-                 // 1초 후에 실패 메시지를 숨깁니다.
-                 setTimeout(() => {
-                     setShowErrorMessage(false);
-                 }, 1000);
-                 }
-              
-            } catch (error) {
-              console.error('에러 발생:', error);
-            }
-            };
+                // 1초 후에 실패 메시지를 숨깁니다.
+                setTimeout(() => {
+                    setShowErrorMessage(false);
+                }, 1000);
+                }
+            
+        } catch (error) {
+            console.error('에러 발생:', error);
+        }
+        };
 
 
 
@@ -97,15 +97,17 @@ export const UserDelModal = ({openModalHandler,email}) => {
     fontSize: 24
     },
     '@media screen and (min-width: 1700px)': {
-    fontSize: 37
+    fontSize: 30
     }
     };
 const Button = styled.button`
 border:none;
 ${FontStyle};
-font-weight:600;
+
 background-color:white;
 &:hover {
+    background-color: transparent;
+
     color: #798be6;
   }
 `;
