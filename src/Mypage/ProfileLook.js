@@ -131,12 +131,6 @@ const fetchProfileData = () => {
       console.error('Error fetching profile data for other user:', error);
     });
 };  
-<<<<<<< Updated upstream
-
-=======
- 
-  
->>>>>>> Stashed changes
     return (
         <C.OutWrap style={{height:'100vh'}}>
             <C.InsideWrap style={{height:'100%'}}>
